@@ -12,4 +12,9 @@ class HomeController extends Controller
         return $this->render('home.html.twig');
     }
 
+    public function login(): Response
+    {
+        return $this->render('auth/login.html.twig');
+    }
+
 }

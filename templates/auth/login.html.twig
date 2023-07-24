@@ -1,0 +1,23 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	<div class="card mt-4">
+		<div class="card-header">
+			Login Options
+		</div>
+		<div class="card-body">
+			<div class="row row-cols-2">
+				<div class="col d-flex">
+					<a href="#" class="flex-fill btn btn-outline-primary active mb-4">
+						<span class="text-white display-6">
+						</span><br>TG Forums</a>
+				</div>
+                <div class="col d-flex">
+					<a href="#" class="flex-fill btn btn-outline-primary mb-4 disabled" disabled>
+						<span class="text-white display-6"><i class="fa-brands fa-discord"></i>
+						</span><br>Discord</a>
+				</div>
+			</div>
+		</div>
+	</div>
+    {% endblock %}
+
