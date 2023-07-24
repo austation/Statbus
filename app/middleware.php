@@ -7,4 +7,5 @@ return function (App $app) {
     $app->addBodyParsingMiddleware();
     $app->addRoutingMiddleware();
     $app->add(TwigMiddleware::class);
+    $app->addErrorMiddleware(true, true, true);
 };
