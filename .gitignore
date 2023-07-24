@@ -1,5 +1,5 @@
 .db/
-node_modules
+app/conf/
 tmp/
 vendor/
-app/conf/
+node_modules
