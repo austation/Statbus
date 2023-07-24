@@ -1,0 +1,139 @@
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+
+$blue: #1C71B1;
+$primary: #3E6189;
+$body-bg: #252525;
+$body-color: $white;
+$border-color: #40628a;
+$breadcrumb-bg: #202020;
+$card-bg: rgba(0,0,0,.33);
+$card-border-color: #40628a;
+$dropdown-bg: #383838;
+$dropdown-color: $white;
+$dropdown-divider-bg: #40628a;
+$dropdown-link-color: $white;
+$dropdown-link-hover-bg: $gray-900;
+$dropdown-link-hover-color: $white;
+$enable-cssgrid: true;
+$enable-rounded: true;
+$font-family-sans-serif: Verdana, sans-serif;
+$green: #0F0;
+$hr-border-color: #40628a;
+$input-bg: #383838;
+$input-border-color: #40628a;
+$input-color: $gray-200;
+$input-focus-border-color: #40628a;
+$input-focus-color: $white;
+$input-group-addon-bg: $gray-900;
+$input-placeholder-color: $gray-500;
+$jumbotron-bg: $gray-900;
+$light: $gray-900;
+$list-group-bg: #202020;
+$list-group-border-color: #40628a;
+$list-group-color: $white;
+$list-group-hover-bg: $gray-900;
+$modal-content-bg: #202020;
+$orange: #E9C183;
+$primary: #2196F3;
+$progress-bg: $gray-700;
+$red: #F00;
+$table-bg: #202020;
+$table-border-color: #40628a;
+$table-cell-padding: 0.4rem;
+$table-color: $white;
+$table-head-bg: #383838;
+$table-head-color: #383838;
+$yellow: #E9C183;
+$theme-colors: (
+  "primary":    #3E6189,
+  "secondary":  $secondary,
+  "success":    #4D9121,
+  "info":       #009A93,
+  "warning":    #CD7A0D,
+  "danger":     #BD2020,
+  "light":      #646464,
+  "dark":       $dark
+);
+$border-radius: .16em;
+$border-radius-sm:            .16em;
+$border-radius-lg:            .16em;
+$border-radius-xl:            .16em;
+$border-radius-xxl:.16em;
+@import "~bootstrap/scss/mixins";
+
+@import "~bootstrap/scss/bootstrap";
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+@import "~@fortawesome/fontawesome-free/css/v4-shims.css";
+@import "~@fortawesome/fontawesome-free/css/v5-font-face.css";
+// @import "../../templates/assets/statbus-star.svg";
+html, 
+body {
+    min-height: 100%;
+}
+
+::placeholder {
+  font-style: italic;
+}
+
+.navbar.tgui {
+  background-color: #363636;
+  border-bottom: 1px solid #161616;
+}
+
+body {
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(to bottom, #2a2a2a 0%, #202020 100%);
+}
+
+.card {
+  border: none;
+}
+
+.card .card-header {
+  border-bottom: 2px solid #4972A1;
+}
+
+.pixel-img {
+  image-rendering: pixelated;
+}
+
+.gallery-entry:hover .gallery-artwork-cover {
+  transform: scale(1.1);
+}
+
+.gallery-artwork-cover {
+  background-size: cover;
+  image-rendering: pixelated;
+  background-position: center;
+  transition: transform .25s ease-in-out;
+}
+
+.painting-patron {
+  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
+                radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
+  color: black;
+  position: relative;
+}
+
+.painting-patron:before {
+  position: absolute;
+  font-family: "FontAwesome";
+  top: -30px;
+  left: 10px;
+  content: "\f521";
+  transform: rotate(35deg);
+  color: #a69800;
+  font-size: 120px;
+  background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold {
+  color: #f8cc4b !important;
+}
+
+#site-logo {
+  fill: white;
+}

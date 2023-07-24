@@ -1,6 +1,7 @@
 <?php
 
 use App\Controller;
+use App\Extension\Twig\WebpackAssetLoader;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Factory\AppFactory;
@@ -69,6 +70,8 @@ return [
         ? $options["cache_path"]
         : false;
 
+        // var_dump($settings, $options);
+
         $twig = Twig::create($settings["paths"], $options);
 
         $loader = $twig->getLoader();
@@ -79,10 +82,15 @@ return [
         $twig->getEnvironment()->addGlobal("debug", $config["debug"]);
         $twig->getEnvironment()->addGlobal("app", $config["app"]);
         $twig->getEnvironment()->addGlobal("flash", $session->getFlashBag()->all());
+        $twig->addExtension(new WebpackAssetLoader($options));
         // $twig->getEnvironment()->addGlobal("user", $session->get("user"));
-
         return $twig;
     },
+
+    // WebpackAssetLoader::class => function(ContainerInterface $container){
+    //     $settings = $container->get('settings')[]
+    //     return new WebpackAssetLoader();
+    // }
 
     //Session
     Session::class => function (ContainerInterface $container) {
