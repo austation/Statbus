@@ -14,7 +14,6 @@ class WebpackAssetLoader extends AbstractExtension
     public function __construct(private array $settings)
     {
         $this->entrypointLookup = new EntrypointLookup(__DIR__."/../../../public/build/entrypoints.json");
-        var_dump($this->settings);
     }
 
     public function getFunctions(): array
