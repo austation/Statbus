@@ -10,11 +10,14 @@
 		{{ webpack_entry_script_tags() }}
 	</head>
 	<body data-bs-theme="dark">
-		<nav class="navbar navbar-expand-lg tgui" data-bs-theme="dark">
+		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' }}" style="--bs-bg-opacity: .5;" data-bs-theme="dark">
 			<div class="{{narrow is defined ? 'container' : 'container-fluid'}}">
 				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
 					{{include('assets/statbus-star.svg')}}
 				</a>
+				{% if debug %}
+				<span class="badge text-bg-danger ms-2">DEV</span>
+				{% endif %}
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
