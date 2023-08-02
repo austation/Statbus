@@ -1,0 +1,64 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('home')}}">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{url_for('user.bans')}}">My Bans</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-gavel"></i>
+				{{ban.id}}</li>
+		</ol>
+	</nav>
+	{% if ban.roleBans %}
+		<p class="alert alert-info">
+			<strong>Heads Up!</strong>
+			This ban applies to multiple roles. The following bans are grouped into this ban:
+			{{ban.banIds}}</p>
+	{% endif %}
+	<div class="card">
+		<h3 class="card-header fw-bold">
+			<i class="fas fa-gavel"></i>
+			{{BanBadge(ban.getStatus)}}
+			ban from
+			<span class='badge text-bg-secondary'>{{ban.role|join("</span>, <span class='badge text-bg-secondary'>")|raw}}</span>
+		</h3>
+		<div class="card-body">
+			Ban placed by
+			{{PlayerBadge(ban.getAdminBadge)}}
+			<time>{{ban.bantime|date('Y-m-d H:i:s')}}</time>
+			on
+			{{ServerBadge(ban.getServer)}}
+			during
+			{{RoundBadge(ban.round)}}
+			with reason:
+			<blockquote>{{ban.reason}}</blockquote>
+			{% if 'Lifted' == ban.getStatus.value %}
+				<p>
+					<i class="fa-solid fa-user-check text-success"></i>
+					Unbanned by
+					{{PlayerBadge(ban.unbannerBadge)}}
+					<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
+				</p>
+			{% else %}
+				{% include 'bans/components/appeal.html.twig' %}
+			{% endif %}
+			<p>
+				<strong>
+					<i class="fas fa-hand-point-right"></i>
+					Please be advised that:</strong>
+
+				<ul class="pl-2">
+					<li>All dates and times are in UTC</li>
+					<li>Statbus does not show bans by any criteria other than which ckey they are attached to. Statbus can not pull up bans that are attached solely to an IP address. Please consult an in-game administrator if a ban affecting you is not shown here.</li>
+					<li>Not all bans are placed during the round in which the bannable offense occurred. The correct round ID is usually noted in the banning reason.</li>
+					<li>Your account information is not retained by Statbus, except ephemerally as needed by the webserver in order to facilitate app functionality. This data is linked to your browser via a cookie.</li>
+				</ul>
+			</p>
+		</div>
+	</div>
+{% endblock %}

@@ -1,1 +1,20 @@
 {% extends 'base/index.html.twig' %}
+{% block body %}
+	<div class="card">
+		<div class="card-header">
+			Applications
+		</div>
+		<div class="card-body">
+			<div class="row row-cols-4">
+				{% for a in apps %}
+					<div class="col d-flex">
+						<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
+							<span class="text-white display-6">
+								<i class="{{a.icon}}"></i>
+							</span><br>{{a.name}}</a>
+					</div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

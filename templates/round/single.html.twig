@@ -1,0 +1,15 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	{% from 'macros/badge.html.twig' import RoundBadge %}
+	<div class="card">
+		<h1 class="card-header">
+			{{RoundBadge(round)}}
+		</h1>
+		<div class="card-body">
+            <p class="lead">Hello there!</p>
+            <p>You've reached the future home for round {{round}}. Unfortunately, there's not much here, yet. Statbus is still a work in progress.
+            </p>
+            <p>Until things get moving here, you might be able to find more information on this round at <a href="https://scrubby.melonmesa.com/round/{{round}}" target="_blank">Scrubby</a>.</p>
+		</div>
+	</div>
+{% endblock %}

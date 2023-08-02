@@ -53,13 +53,17 @@ $theme-colors: (
   "warning":    #CD7A0D,
   "danger":     #BD2020,
   "light":      #646464,
-  "dark":       $dark
+  "dark":       $dark,
+  "perma":      $pink,
+  "server":     #67a9ff,
+  "round":      $black
 );
-$border-radius: .16em;
+$border-radius:               .16em;
 $border-radius-sm:            .16em;
 $border-radius-lg:            .16em;
 $border-radius-xl:            .16em;
-$border-radius-xxl:.16em;
+$border-radius-xxl:           .16em;
+
 @import "~bootstrap/scss/mixins";
 
 @import "~bootstrap/scss/bootstrap";
@@ -67,6 +71,7 @@ $border-radius-xxl:.16em;
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
 @import "~@fortawesome/fontawesome-free/css/v5-font-face.css";
+
 // @import "../../templates/assets/statbus-star.svg";
 html, 
 body {
@@ -137,3 +142,52 @@ body {
 #site-logo {
   fill: white;
 }
+
+main > *:first-child {
+  margin-top: 2rem;
+}
+
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  // left: 0;
+  // top: 0;
+  // bottom: 0;
+  text-align: center;
+  display: block;
+  border-radius: 0;
+  transform: rotate(180deg);
+  margin: calc(var(--bs-list-group-item-padding-y)*-1) calc(var(--bs-list-group-item-padding-x)*-1);
+  text-transform: uppercase;
+}
+
+a.list-group-item:hover {
+  background-color: $blue;
+}
+
+blockquote {
+  border-left: 4px solid $blue;
+  padding-left: 1rem;
+  margin: 1rem 0 1rem 1rem;
+}
+
+.list-group {
+  --bs-list-group-bg: transparent !important;
+}
+.list-group-item {
+  --bs-list-group-bg: transparent !important;
+}
+
+.list-group-flush {
+  border-radius: 0;
+  margin: -1rem;
+}
+
+.breadcrumb {
+  --bs-breadcrumb-bg: transparent;
+}
+
+a.badge {
+  text-decoration: none;
+}
+

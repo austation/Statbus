@@ -17,12 +17,4 @@ require_once __dir__  . "/version.php";
 
 $settings['app']['version'] = VERSION_MAJOR . '.' . VERSION_MINOR . '.' . VERSION_PATCH . VERSION_TAG;
 
-if (file_exists(__DIR__ . '/conf/servers.json')) {
-    $settings['servers'] = json_decode(file_get_contents(__DIR__ . '/conf/servers.json'));
-}
-if (file_exists(__DIR__ . '/conf/ranks.json')) {
-    $settings['ranks'] = json_decode(file_get_contents(__DIR__ . '/conf/ranks.json'));
-}
-
-
 return $settings;

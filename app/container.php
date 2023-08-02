@@ -1,16 +1,22 @@
 <?php
 
 use App\Controller;
+use App\Domain\User\Repository\UserRepository;
 use App\Extension\Twig\WebpackAssetLoader;
+use App\Middleware\ExceptionMiddleware;
+use Nyholm\Psr7\Factory\Psr17Factory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Slim\Factory\AppFactory;
+use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Twig\Loader\FilesystemLoader;
+use Psr\Http\Message\ServerRequestFactoryInterface;
+use Cake\Database\Connection;
 
 return [
 
@@ -21,14 +27,23 @@ return [
 
     //Application
     App::class => function (ContainerInterface $container) {
-        AppFactory::setContainer($container);
-        $app = AppFactory::create();
+        $app = AppFactory::createFromContainer($container);
+
+        // Register routes
+        (require __DIR__ . '/routes.php')($app);
+
+        // Register middleware
+        (require __DIR__ . '/middleware.php')($app);
+
         return $app;
     },
 
-    //Response
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
-        return $container->get(App::class)->getResponseFactory();
+        return $container->get(Psr17Factory::class);
+    },
+
+    ServerRequestFactoryInterface::class => function (ContainerInterface $container) {
+        return $container->get(Psr17Factory::class);
     },
 
     //Route parsing
@@ -39,17 +54,9 @@ return [
         ->getRouteParser();
     },
 
-    //Request
-    Request::class => function (ContainerInterface $container) {
-        return $container->get("Request");
-    },
-
     //Controller
     Controller::class => function (ContainerInterface $container) {
-        return new Controller(
-            $container->get(ResponseFactoryInterface::class),
-            $container->get(Twig::class)
-        );
+        return new Controller($container);
     },
 
     //TwigMiddleware
@@ -79,18 +86,17 @@ return [
         if ($loader instanceof FilesystemLoader) {
             $loader->addPath($publicPath, "public");
         }
+
         $twig->getEnvironment()->addGlobal("debug", $config["debug"]);
         $twig->getEnvironment()->addGlobal("app", $config["app"]);
         $twig->getEnvironment()->addGlobal("flash", $session->getFlashBag()->all());
+        $twig->getEnvironment()->addGlobal("user", $container->get(User::class));
+
+        $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addExtension(new WebpackAssetLoader($options));
         // $twig->getEnvironment()->addGlobal("user", $session->get("user"));
         return $twig;
     },
-
-    // WebpackAssetLoader::class => function(ContainerInterface $container){
-    //     $settings = $container->get('settings')[]
-    //     return new WebpackAssetLoader();
-    // }
 
     //Session
     Session::class => function (ContainerInterface $container) {
@@ -101,5 +107,32 @@ return [
             return new Session(new NativeSessionStorage($settings));
         }
     },
+
+    Connection::class => function (ContainerInterface $container) {
+        return new Connection($container->get('settings')['db']);
+    },
+
+    PDO::class => function (ContainerInterface $container) {
+        $db = $container->get(Connection::class);
+        $driver = $db->getDriver();
+        $driver->connect();
+
+        return $driver->getConnection();
+    },
+
+    User::class => function (ContainerInterface $containerInterface) {
+        $userRepository = new UserRepository($containerInterface->get(Connection::class));
+        $session = $containerInterface->get(Session::class);
+        $ckey = $session->get('ckey');
+        if(!$ckey) {
+            return null;
+        }
+        $user = $userRepository->getUserByCkey($ckey);
+        $user->setSource($session->get('authSource'));
+        return $user;
+    },
+    ExceptionMiddleware::class => function (ContainerInterface $containerInterface) {
+        return new ExceptionMiddleware($containerInterface);
+    }
 
 ];

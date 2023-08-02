@@ -19,7 +19,7 @@ $settings['basepath'] = false;
 $settings['app'] = [
   'name' => 'Statbus',
   'timezone' => 'UTC',
-  'github' => 'nfreader/banbus',
+  'github' => 'statbus/statbus',
 ];
 
 $settings['twig'] = [
@@ -48,8 +48,9 @@ $settings['session'] = [
 ];
 
 $settings['db'] = [
+    'driver' => \Cake\Database\Driver\Mysql::class,
     'method' => 'mysql',
-    'host' => 'localhost',
+    'host' => '127.0.0.1',
     'port' => 3306,
     'encoding' => 'utf8mb4',
     'collation' => 'utf8mb4_unicode_ci',
@@ -90,13 +91,6 @@ $settings['alt_db'] = [
 ];
 
 $settings['results_per_page'] = 60;
-
-$settings['servers'] = null;
-$settings['ranks'] = null;
-
-$settings['site_perms'] = [
-  'tgdb' => 'ADMIN'
-];
 
 $settings['auth'] = [
   'discord' => [

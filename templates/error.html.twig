@@ -1,0 +1,11 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	<div class="card">
+		<h1 class="card-header text-bg-danger">
+			ERROR {{error.getCode}}
+		</h1>
+		<div class="card-body">
+			{% include ['errors/' ~ error.getCode ~ '.html.twig', 'errors/generic.html.twig'] %}
+		</div>
+	</div>
+{% endblock %}

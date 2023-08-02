@@ -19,4 +19,12 @@ enum PermissionsFlags: int
     case SPAWN       = (1 << 12);
     case AUTOADMIN   = (1 << 13);
     case DBRANKS     = (1 << 14);
+
+    public static function getArray(): array
+    {
+        foreach(self::cases() as $c) {
+            $arr[$c->name] = $c->value;
+        }
+        return $arr;
+    }
 }
