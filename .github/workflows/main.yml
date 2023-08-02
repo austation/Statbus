@@ -1,0 +1,68 @@
+permissions: write-all
+name: CI
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      
+      - name: Cache Composer dependencies
+        uses: actions/cache@v2
+        with:
+          path: /tmp/composer-cache
+          key: ${{ runner.os }}-${{ hashFiles('**/composer.lock') }}
+
+      - name: Run composer & install dependencies
+        uses: php-actions/composer@v6
+        with:
+          php_version: latest
+          args: --ignore-platform-reqs
+
+      - name: Set Node.js 16.x
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16.x
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install 
+
+      - name: Build production bundle
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
+      - name: Pushing artifact to deployment server
+        uses: appleboy/scp-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          source: "./"
+          target: "~/staging"
+          rm: true
+
+      - name: Deploying on remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEPLOY_HOST }}
+          username: ${{ secrets.DEPLOY_USER }}
+          key: ${{ secrets.DEPLOY_KEY }}
+          script: |
+            mkdir -p /tmp/statbus
+            echo "Stashing configuration files..."
+            mv ~/serv/www/${{ secrets.DOMAIN }}/app/conf /tmp/statbus/conf/
+            echo "Copying files from staging..."
+            sudo rsync -aqz --delete ~/staging/ ~/serv/www/${{ secrets.DOMAIN }}/
+            echo "Restoring configuration files"
+            mv /tmp/statbus/conf ~/serv/www/${{ secrets.DOMAIN }}/app/
+            echo "Clearing twig cache"
+            rm -rf ~/serv/www/${{ secrets.DOMAIN }}/tmp/twig
+            echo "Done!"
+            rm -rf /tmp/statbus
