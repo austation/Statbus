@@ -110,7 +110,7 @@ abstract class Controller
             $this->getRequest()->getUri()->withPort(null),
             $route
         );
-        if ((isset($_SERVER['HTTPS']) && 'On' === $_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === ['https'])) {
+        if ((isset($_SERVER['HTTPS']) && 'On' === $_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
             $uri = str_replace('http://', 'https://', $uri);
         }
         return $uri;
