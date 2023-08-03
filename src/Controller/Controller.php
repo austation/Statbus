@@ -99,8 +99,18 @@ abstract class Controller
 
     protected function render(string $template, array $data = []): ResponseInterface
     {
+        if(isset($_GET['json'])) {
+            return $this->json($data);
+        }
         $twig = $this->container->get(Twig::class);
         return $twig->render($this->getResponse(), $template, $data);
+    }
+
+    protected function json(array $data): ResponseInterface
+    {
+        $response = $this->response->withHeader("Content-Type", "application/json");
+        $response->getBody()->write(json_encode($data));
+        return $response;
     }
 
     protected function getUriForRoute($route): string
