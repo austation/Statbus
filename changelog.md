@@ -6,6 +6,9 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ---
 
+### Upcoming/Future
+Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
+
 #### [1.0.1] - 2023-08-02
 
 ##### Added
