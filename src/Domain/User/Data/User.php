@@ -25,6 +25,8 @@ class User
 
     private ?DateTime $lastseen;
 
+    private ?array $playtime = null;
+
     public function __construct()
     {
 
@@ -163,6 +165,17 @@ class User
     public function has(string $key): bool
     {
         return in_array($key, $this->getRoles());
+    }
+
+    public function setPlaytime(array $data): self
+    {
+        $this->playtime = $data;
+        return $this;
+    }
+
+    public function getPlaytime(): ?array
+    {
+        return $this->playtime;
     }
 
 }

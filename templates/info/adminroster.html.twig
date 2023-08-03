@@ -6,6 +6,7 @@
 			Admin Roster
 		</h3>
 		<div class="card-body">
+			<p>Admin activity is shown for the last 30 days</p>
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -22,11 +23,16 @@
 				</thead>
 				{% for a in admins %}
 					<tr>
-						<td>
-							{{PlayerBadge(a.getBadge)}}
-						</td>
-						<th>
-							{{a.getRank}}
+						<th
+							rowspan="2" class="align-middle text-center" style="{{a.getBadge.getStyle}}">
+							<i class="fa fa-{{a.getBadge.getIcon}}"></i>
+							{{a.getCkey}}
+						</th>
+						<th class="align-middle">
+							<span>
+								<i class="fa fa-{{a.getBadge.getIcon}}"></i>
+								{{a.getRank}}</span>
+
 						</th>
 						<td>
 							{% if a.lastseen %}
@@ -42,15 +48,30 @@
 						</td>
 						{% for name, bits in perms %}
 							{% if a.getFlags b-and bits %}
-								<td class="text-success text-center text-lg leading-none" data-bs-toggle="tooltip" data-bs-title="{{a.ckey}} has {{name}}">
+								<td class="text-success text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{a.ckey}} has {{name}}" rowspan="2">
 									<i class="far fa-check-circle"></i>
 								</td>
 							{% else %}
-								<td class="text-danger text-center text-lg leading-none" data-bs-toggle="tooltip" data-bs-title="{{a.ckey}} does not have {{name}}">
+								<td class="text-danger text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{a.ckey}} does not have {{name}}" rowspan="2">
 									<i class="far fa-times-circle"></i>
 								</td>
 							{% endif %}
 						{% endfor %}
+					</tr>
+					<tr>
+						<td colspan="3">
+							{% if a.getPlaytime %}
+								{% set total = a.getPlaytime|reduce((carry, v, k)=> carry + v) %}
+								<div class="progress" role="progressbar">
+									{% for role, minutes in a.getPlaytime %}
+										{% set width = (minutes / total) * 100 %}
+										<div class="progress-bar role-{{role|lower}}" style="width:{{width}}%" data-bs-toggle="tooltip" data-bs-title="{{role}} - {{minutes}} minutes">{{role}}</div>
+									{% endfor %}
+								</div>
+							{% else %}
+								<p class="text-center mb-0">« No recent play time »</p>
+							{% endif %}
+						</td>
 					</tr>
 				{% endfor %}
 			</table>

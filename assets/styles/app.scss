@@ -190,3 +190,19 @@ blockquote {
 a.badge {
   text-decoration: none;
 }
+
+
+.role-ghost {
+  background-color: #ccc;
+  color: black;
+}
+
+.role-living {
+  background-color: white;
+  color: black;
+}
+
+.role-admin {
+  background-color: green;
+  color: white;
+}

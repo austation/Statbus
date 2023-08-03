@@ -9,12 +9,23 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Upcoming/Future
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
+---
+
+#### [1.0.2] - 2023-08-03
+
+##### Added
+- Admin roster + activity information
+
+---
+
 #### [1.0.1] - 2023-08-02
+
 
 ##### Added
 - This changelog!
 - A privacy policy
 
+---
 
 #### [1.0.0] - 2023-08-02
 

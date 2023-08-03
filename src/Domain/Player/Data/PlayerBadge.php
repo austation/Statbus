@@ -122,4 +122,9 @@ class PlayerBadge
     {
         return $this->title;
     }
+
+    public function getStyle(): string
+    {
+        return sprintf("background:%s; color: %s;", $this->getBackColor(), $this->getForeColor());
+    }
 }

@@ -34,7 +34,7 @@ return function (App $app) {
 
     //Info pages
     $app->group("/info", function (RouteCollectorProxy $app) {
-        $app->get("/admins", AdminRosterController::class)->setName("admins");
+        $app->get("/admins", \App\Controller\Info\AdminRosterController::class)->setName("admins");
     });
 
 };
