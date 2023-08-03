@@ -37,7 +37,7 @@ class AdminRepository extends Repository
             if(is_int($admins[$role['ckey']])) {
                 $admins[$role['ckey']] = null;
             }
-            $admins[$role['ckey']][$role['job']] = (int) $role['minutes'] + rand(-10, 10);
+            $admins[$role['ckey']][$role['job']] = (int) $role['minutes'] + rand(1, 10);
         }
         return $admins;
     }
