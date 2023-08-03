@@ -7,6 +7,9 @@ return function (App $app) {
     $app->get("/", \App\Controller\Home\HomeController::class)->setName("home");
     $app->get("/logout", \App\Controller\Auth\LogoutController::class)->setName("logout");
 
+    $app->get("/changelog", \App\Controller\Home\MarkdownController::class)->setName("changelog")->setArgument('file', 'changelog.md')->setArgument('title', 'Changelog');
+    $app->get("/privacy", \App\Controller\Home\MarkdownController::class)->setName("privacy")->setArgument('file', 'privacy-policy.md')->setArgument('title', 'Privacy Policy');
+
     //Authentication via Discord
     $app->group("/auth", function (RouteCollectorProxy $app) {
         $app->get("/discord", \App\Controller\Auth\StartDiscordAuthenticationController::class)->setName("auth.discord");

@@ -18,7 +18,10 @@
         "cakephp/database": "^3.7",
         "symfony/yaml": "^6.3",
         "symfony/options-resolver": "^6.3",
-        "guzzlehttp/guzzle": "^7.0"
+        "guzzlehttp/guzzle": "^7.0",
+        "twig/markdown-extra": "^3.7",
+        "twig/extra-bundle": "^3.7",
+        "league/commonmark": "^2.4"
     },
     "autoload": {
         "psr-4": {
