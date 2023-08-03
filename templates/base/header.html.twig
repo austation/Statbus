@@ -1,4 +1,3 @@
-{% from 'macros/badge.html.twig' import PlayerBadge %}
 <!doctype html>
 <html lang="en">
 	<head>
@@ -16,7 +15,7 @@
 					{{include('assets/statbus-star.svg')}}
 				</a>
 				{% if debug %}
-				<span class="badge text-bg-danger ms-2">DEV</span>
+					<span class="badge text-bg-danger ms-2">DEV</span>
 				{% endif %}
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
@@ -32,3 +31,6 @@
 			</div>
 		</nav>
 		<main class="{{narrow is defined ? 'container' : 'container-fluid'}}">
+		<div class="alert alert-info p-1" style="font-size: .75rem">
+		<strong>Hey! Listen!</strong> Statbus is still under heavy development. There will be errors and bugs, and some components may not even exist yet. I appreciate your patience while I work on things. If you do encounter a bug or have a question, please open <a href="https://github.com/Statbus/Statbus/issues" target="_blank">an issue</a> or <a href="https://github.com/orgs/Statbus/discussions">a discussion</a> on Github.
+		</div>
