@@ -1,5 +1,5 @@
 {
-    "Coder": {
+    "Maintainer": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
       "icon": "code"
@@ -63,5 +63,5 @@
       "backColor": "#000",
       "foreColor": "#FFF",
       "icon": "infinity"
-    }
+    },
   }

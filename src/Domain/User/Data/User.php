@@ -4,6 +4,7 @@ namespace App\Domain\User\Data;
 
 use App\Domain\Player\Data\PlayerBadge;
 use App\Enum\PermissionsFlags;
+use DateTime;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class User
@@ -21,6 +22,8 @@ class User
     private ?PlayerBadge $badge;
 
     private ?string $source;
+
+    private ?DateTime $lastseen;
 
     public function __construct()
     {
@@ -100,6 +103,21 @@ class User
         return $this->source;
     }
 
+    public function setLastseen(?string $lastSeen): self
+    {
+        if($lastSeen) {
+            $this->lastseen = new DateTime($lastSeen);
+        } else {
+            $this->lastseen = null;
+        }
+        return $this;
+    }
+
+    public function getLastseen(): ?DateTime
+    {
+        return $this->lastseen;
+    }
+
     public static function fromArray(array $data): self
     {
         $resolver = new OptionsResolver();
@@ -124,7 +142,13 @@ class User
             ->required()
             ->default(null)
             ->allowedTypes('string', 'null')
-            ->info('The player feedback thread link');
+            ->info('The player feedback thread link')
+
+            ->define('lastseen')
+            ->required()
+            ->default(null)
+            ->allowedTypes('string', 'null')
+            ->info('When this player was last seen connected to the game');
 
         $data = $resolver->resolve($data);
         $user = new self();
@@ -132,6 +156,7 @@ class User
         $user->setRank($data['rank'] ?: 'Player');
         $user->setFlags($data['flags'] ?: 0);
         $user->setFeedback($data['feedback']);
+        $user->setLastseen($data['lastseen']);
         return $user;
     }
 
