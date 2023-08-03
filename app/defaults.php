@@ -20,6 +20,7 @@ $settings['app'] = [
   'name' => 'Statbus',
   'timezone' => 'UTC',
   'github' => 'statbus/statbus',
+  'discord' => 'https://discord.gg/37R9MkqG86'
 ];
 
 $settings['twig'] = [
