@@ -10,6 +10,7 @@ use Slim\Views\Twig;
 use App\Domain\User\Data\User;
 use App\Domain\User\Service\AuthenticateUser;
 use DI\Attribute\Inject;
+use Slim\Routing\RouteContext;
 
 abstract class Controller
 {
@@ -17,6 +18,7 @@ abstract class Controller
     private $request;
     private ?array $query = null;
     private ?array $args = null;
+    private ?RouteContext $route = null;
 
     private ?User $user;
 
@@ -88,12 +90,24 @@ abstract class Controller
         }
     }
 
+    private function setRoute(): self
+    {
+        $this->route = RouteContext::fromRequest($this->getRequest());
+        return $this;
+    }
+
+    public function getRoute(): RouteContext
+    {
+        return $this->route;
+    }
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $this->setResponse($response);
         $this->setRequest($request);
         $this->setQuery();
         $this->setArgs($args);
+        $this->setRoute();
         return $this->action();
     }
 
