@@ -122,6 +122,9 @@ return [
             }
         });
         $twig->addExtension(new \Twig\Extra\Markdown\MarkdownExtension());
+        $twig->getEnvironment()->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('Y-m-d H:i:s', '%a minutes');
+        $twig->getEnvironment()->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('UTC');
+
         // $twig->getEnvironment()->addGlobal("user", $session->get("user"));
         return $twig;
     },

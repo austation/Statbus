@@ -15,7 +15,7 @@
 
 {% macro ServerBadge(server) %}
 <span class="serverBadge badge text-bg-server" data-bs-toggle="tooltip" data-bs-title="{{server.getAddress}}:{{server.getPort}}">
-		<img src="/img/server_icons/{{server.getIdentifier|lower}}.png" style="max-width: 18px;"/> {{server.getIdentifier}}
+		<img src="/img/server_icons/{{server.getIdentifier|lower}}.png" /> {{server.getIdentifier}}
 </span>
 {% endmacro %}
 

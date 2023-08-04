@@ -7,6 +7,10 @@ use GuzzleHttp\Client;
 
 class ServerInformationService
 {
+    public const BASE_URL = 'https://tgstation13.org';
+    public const PUBLIC_LOGS = self::BASE_URL."/parsed-logs";
+    public const ADMIN_LOGS = self::BASE_URL."/raw-logs";
+
     public static function getServerInfo(): array
     {
         $client = new Client([
@@ -32,6 +36,22 @@ class ServerInformationService
             }
         }
         return null;
+    }
+
+    public static function getCurrentRounds(?array $data = null): array
+    {
+        if(!$data) {
+            $data = self::getServerInfo();
+        }
+        $rounds = [];
+        foreach ($data as $s) {
+            if(isset($s['version']) && $s['version'] === "/tg/Station 13") {
+                if(isset($s['round_id'])) {
+                    $rounds[] = (int) $s['round_id'];
+                }
+            }
+        }
+        return $rounds;
     }
 
 }

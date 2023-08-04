@@ -17,7 +17,11 @@ class Repository
     public array $timestampedColumns = [
         'expiration',
         'bantime',
-        'unbanned_datetime'
+        'unbanned_datetime',
+        'initialize_datetime',
+        'start_datetime',
+        'shutdown_datetime',
+        'end_datetime'
     ];
 
     /**
@@ -98,8 +102,12 @@ class Repository
     {
 
         foreach($data as $k => &$v) {
-            if(isset($v) && in_array($k, $this->timestampedColumns)) {
-                $v = new DateTime($v);
+            if(in_array($k, $this->timestampedColumns)) {
+                if(is_null($v)) {
+                    $v = null;
+                } else {
+                    $v = new DateTime($v);
+                }
             }
         }
         return $data;

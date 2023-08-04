@@ -11,7 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
-#### [1.0.2] - 2023-08-03
+#### [1.2.0] - 2023-08-04
+
+##### Added
+- Round information pages
+
+---
+
+#### [1.1.0] - 2023-08-03
 
 ##### Added
 - Admin roster + activity information

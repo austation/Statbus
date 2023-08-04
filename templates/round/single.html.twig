@@ -1,15 +1,94 @@
 {% extends 'base/index.html.twig' %}
 {% block body %}
-	{% from 'macros/badge.html.twig' import RoundBadge %}
+	{% from 'macros/badge.html.twig' import RoundBadge, ServerBadge %}
 	<div class="card">
 		<h1 class="card-header">
-			{{RoundBadge(round)}}
+			{{RoundBadge(round.getId)}}
+			on
+			{{ServerBadge(round.getServer)}}
 		</h1>
 		<div class="card-body">
-            <p class="lead">Hello there!</p>
-            <p>You've reached the future home for round {{round}}. Unfortunately, there's not much here, yet. Statbus is still a work in progress.
-            </p>
-            <p>Until things get moving here, you might be able to find more information on this round at <a href="https://scrubby.melonmesa.com/round/{{round}}" target="_blank">Scrubby</a>.</p>
+			<div class="round-state-banner text-bg-{{round.getState.cssClass}} fw-bold p-1">
+				<i class="{{round.getState.icon|raw}}"></i>
+				{{round.getState.value}}
+				{% if 'In progress' != round.getState.value %}
+					-
+					{{round.getMode|capitalize}}
+					ended with
+					{{round.getResult|capitalize}}
+					{% if round.getDuration %}
+						in
+						{{round.getDuration}}
+					{% endif %}
+				{% endif %}
+			</div>
+			{% if 'In progress' != round.getState.value %}
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Round Initialized</th>
+							{% if round.getStartDuration %}
+								<td>Duration</td>
+							{% endif %}
+							<th>Round Started</th>
+							{% if round.getDuration %}
+								<td>Duration</td>
+							{% endif %}
+							<th>Round Ended</th>
+							{% if round.getEndDuration %}
+								<td>Duration</td>
+							{% endif %}
+							<th>Round Shutdown</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>{{round.getInitDatetime ? round.getInitDatetime|date() : 'Not available'}}</td>
+							{% if round.getStartDuration %}
+								<td>{{round.getStartDuration}}</td>
+							{% endif %}
+							<td>{{round.getStartDatetime ? round.getStartDatetime|date() : 'Not available'}}</td>
+							{% if round.getDuration %}
+								<td>{{round.getDuration}}</td>
+							{% endif %}
+							<td>{{round.getEndDatetime ? round.getEndDatetime|date() : 'Not available'}}</td>
+							{% if round.getEndDuration %}
+								<td>{{round.getEndDuration}}</td>
+							{% endif %}
+							<td>{{round.getShutdownDatetime ? round.getShutdownDatetime|date() : 'Not available'}}</td>
+						</tr>
+					</tbody>
+					<tfoot class="table-group-divider">
+						<tr>
+							<th>Public Logs</th>
+							<td>
+								<a class="icon-link" href="{{round.getPublicLogs}}" target="_blank"><i class="fas fa-external-link"></i> Round
+									{{round.getId}}</a>
+							</td>
+							{% if user.has('ADMIN') %}
+							<th>Admin Logs</th>
+							<td>
+								<a class="icon-link" href="{{round.getAdminLogs}}" target="_blank"><i class="fas fa-external-link"></i> Round
+									{{round.getId}}</a>
+							</td>
+							{% endif %}
+							<th>🐝 Scrubby</th>
+							<td colspan="{{user.has('ADMIN') ? 3 : 5}}">
+								<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank"><i class="fas fa-external-link"></i> Round
+									{{round.getId}}</a>
+							</td>
+						</tr>
+						<tr>
+							<th>Github Commit</th>
+							<td colspan="6"><a class="icon-link" target="_blank" href="https://github.com/tgstation/tgstation/commit/{{round.getCommit}}"><i class="fas fa-external-link"></i> {{round.getCommit}}</a>
+							</td>
+							</tr>
+					</tfoot>
+				</table>
+			{% else %}
+				<p class="text-center mb-0">« This Round is Currently In Progress »</p>
+			{% endif %}
+			{# {{dump(round)}} #}
 		</div>
 	</div>
 {% endblock %}
