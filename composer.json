@@ -21,7 +21,9 @@
         "guzzlehttp/guzzle": "^7.0",
         "twig/markdown-extra": "^3.7",
         "twig/extra-bundle": "^3.7",
-        "league/commonmark": "^2.4"
+        "league/commonmark": "^2.4",
+        "paragonie/easydb": "^3",
+        "ezyang/htmlpurifier": "^4.16"
     },
     "autoload": {
         "psr-4": {

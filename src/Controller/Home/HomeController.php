@@ -18,6 +18,12 @@ class HomeController extends Controller
                 'disabled' => ($this->getUser() ? false : true)
             ],
             [
+                'name' => 'Tickets',
+                'icon' => 'fas fa-gavel',
+                'url' => $this->getUriForRoute('user.tickets'),
+                'disabled' => ($this->getUser() ? false : true)
+            ],
+            [
                 'name' => 'Citations',
                 'icon' => 'fas fa-receipt',
                 'url' => "#",

@@ -49,6 +49,7 @@ $settings['session'] = [
 ];
 
 $settings['db'] = [
+    'database' => 'tgdb',
     'driver' => \Cake\Database\Driver\Mysql::class,
     'method' => 'mysql',
     'host' => '127.0.0.1',

@@ -64,10 +64,13 @@ class PlayerBadge
         return $badge;
     }
 
-    public static function fromRank(string $ckey, string $rank = 'Player'): self
+    public static function fromRank(string $ckey, ?string $rank): self
     {
         $data = AdminRanks::getRankInfo($rank);
         $data['title'] = $rank;
+        if(!$data['title']) {
+            $data['title'] = 'Player';
+        }
         $resolver = new OptionsResolver();
         $resolver->setDefaults([
             'backColor' => '#ccc',
@@ -112,7 +115,7 @@ class PlayerBadge
         return $this->icon;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(string $title = 'Player'): self
     {
         $this->title = $title;
         return $this;

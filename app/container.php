@@ -4,7 +4,9 @@ use App\Controller;
 use App\Domain\User\Repository\UserRepository;
 use App\Extension\Twig\WebpackAssetLoader;
 use App\Middleware\ExceptionMiddleware;
+use App\Repository\Repository;
 use Cake\Database\Connection;
+use DI\Container;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
@@ -12,6 +14,8 @@ use League\CommonMark\Extension\GithubFlavoredMarkdownExtension;
 use League\CommonMark\Extension\Table\Table;
 use League\CommonMark\MarkdownConverter;
 use Nyholm\Psr7\Factory\Psr17Factory;
+use ParagonIE\EasyDB\EasyDB;
+use ParagonIE\EasyDB\Factory;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -140,19 +144,26 @@ return [
     },
 
     Connection::class => function (ContainerInterface $container) {
-        return new Connection($container->get('settings')['db']);
+        return new Connection($container->get('settings')['db'], $container->get(EasyDB::class));
     },
 
-    PDO::class => function (ContainerInterface $container) {
-        $db = $container->get(Connection::class);
-        $driver = $db->getDriver();
-        $driver->connect();
+    Repository::class => function (ContainerInterface $container) {
+        return new Repository($container->get(Connection::class), $container->get(EasyDB::class));
+    },
 
-        return $driver->getConnection();
+    EasyDB::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings')['db'];
+        $dsn = sprintf(
+            "mysql:host=%s:%s;dbname=%s",
+            $settings['host'],
+            $settings['port'],
+            $settings['database']
+        );
+        return Factory::create($dsn, $settings['username'], $settings['password'], $settings['flags']);
     },
 
     User::class => function (ContainerInterface $containerInterface) {
-        $userRepository = new UserRepository($containerInterface->get(Connection::class));
+        $userRepository = new UserRepository($containerInterface->get(Connection::class), $containerInterface->get(EasyDB::class));
         $session = $containerInterface->get(Session::class);
         $ckey = $session->get('ckey');
         if(!$ckey) {

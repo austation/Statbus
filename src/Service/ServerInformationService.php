@@ -30,7 +30,11 @@ class ServerInformationService
         foreach($data as $server) {
             if(isset($server['serverdata'])) {
                 if($port === $server['serverdata']['port']) {
-                    $server['serverdata']['identifier'] = $server['identifier'];
+                    if(isset($server['identifier'])) {
+                        $server['serverdata']['identifier'] = $server['identifier'];
+                    } else {
+                        $server['serverdata']['identifier'] = explode(' ', $server['serverdata']['servername'])[0];
+                    }
                     return Server::fromArray($server['serverdata']);
                 }
             }

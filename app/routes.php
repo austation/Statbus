@@ -37,4 +37,11 @@ return function (App $app) {
         $app->get("/admins", \App\Controller\Info\AdminRosterController::class)->setName("admins");
     });
 
+
+    //Ticket pages
+    $app->group("/tickets", function (RouteCollectorProxy $app) {
+        $app->get("[/page/{page:[0-9]+}]", \App\Controller\Tickets\TicketListingController::class)->setName("user.tickets");
+        $app->get("/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\Tickets\TicketViewerController::class)->setName("user.ticket");
+    });
+
 };

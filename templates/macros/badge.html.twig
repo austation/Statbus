@@ -19,8 +19,14 @@
 </span>
 {% endmacro %}
 
-{% macro RoundBadge(round) %}
+{% macro RoundBadge(round, url = true) %}
+{% if url %}
 <a class="roundBadge badge text-bg-round" href="{{url_for('round.single',{id: round})}}">
 		<i class="fa-solid fa-circle"></i> {{round}}
 </a>
+{% else %}
+<span class="roundBadge badge text-bg-round">
+		<i class="fa-solid fa-circle"></i> {{round}}
+</span>
+{% endif %}
 {% endmacro %}

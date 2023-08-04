@@ -88,6 +88,7 @@ abstract class Controller
         if(isset($this->args[$key])) {
             return $this->args[$key];
         }
+        return null;
     }
 
     private function setRoute(): self

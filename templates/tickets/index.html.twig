@@ -1,0 +1,43 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+    {% from 'macros/pagination.html.twig' import pagination %}
+	<div class="card">
+		<h3 class="card-header">
+			My Tickets
+		</h3>
+		<div class="card-body">
+            {{pagination(pagination.pages, pagination.currentPage, url_for('user.tickets'))}}
+            <p>Showing tickets sent to, or started by you</p>
+			<div class="list-group">
+				{% for t in tickets %}
+					<a class="list-group-item" href="{{url_for('user.ticket',{round: t.getRound, ticket: t.getTicket})}}">
+						<div class="d-flex w-100">
+                        {% if t.getBwoink %}
+                        <span class="badge vertical-label text-bg-danger">*BWOINK*</span>
+                        {% else %}
+                        <span class="badge vertical-label text-bg-success">*ADMINHELP*</span>
+                        {% endif %}
+							<div class="flex-grow-1 ms-4">
+								<div class="d-flex justify-content-between border-bottom mb-1 align-items-center">
+									<h5 class="fw-bold lh-base"> {{PlayerBadge(t.getSenderBadge)}}
+                                    {% if t.getRCkey %}
+                                    to {{PlayerBadge(t.getRecipientBadge)}}
+                                    {% else %}
+                                    to admins
+                                    {% endif %}
+                                    during {{RoundBadge(t.getRound, false)}}
+                                    on {{ServerBadge(t.getServer)}}
+                                    </h5>
+									<time class="flex-shrink-0">{{t.timestamp|date()}}</time>
+								</div>
+								<p class="mb-1">{{t.message}}</p>
+							</div>
+						</div>
+						</a>
+					{% endfor %}
+				</div>
+			</div>
+            {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
+	{% endblock %}

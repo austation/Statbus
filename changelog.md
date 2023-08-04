@@ -11,6 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.3.0] - 2023-08-04
+
+##### Added
+- A ticket viewer, so you can see tickets you were involved in! 
+    - And a way to embed them with BBcode!
+
+---
+
 #### [1.2.0] - 2023-08-04
 
 ##### Added
