@@ -47,6 +47,8 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (Exception $exception) {
+            //This is catching failed attempts to load CSS etc. Need to figure
+            //out a better solution
             $session->set('authRedirect', (string) $request->getUri()->withPort(null));
             $response = new Response(500);
             if ($this->settings['log_errors']) {
