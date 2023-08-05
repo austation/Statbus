@@ -6,6 +6,22 @@
 		</h3>
 		<div class="card-body">
 			<div class="row row-cols-4">
+							{% if not user %}
+					<div class="col d-flex">
+						<a href="{{url_for('auth.discord')}}" class="flex-fill btn active mb-4" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
+							<span class="text-white display-6">
+								<i class="fa-brands fa-discord"></i>
+							</span><br>Log in with Discord</a>
+					</div>
+				{% endif %}
+				{% if user.has('ADMIN') %}
+					<div class="col d-flex">
+						<a href="{{url_for('tgdb')}}" class="flex-fill btn btn-outline-danger active mb-4">
+							<span class="text-white display-6">
+								<i class="fa-solid fa-shield-halved"></i>
+							</span><br>TGDB</a>
+					</div>
+				{% endif %}
 				{% for a in apps %}
 					<div class="col d-flex">
 						<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
