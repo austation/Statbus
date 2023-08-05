@@ -30,7 +30,19 @@ The following data is stored in PHP's session mechanism, and is used to re-authe
 
 This information can be deleted by [logging out](/logout). Session data is also purged automatically after 30 days of inactivity.
 
+### Logs
+Webserver logs are not retained in any meaningful way. 
+
+The application has a facility to support error logging. This is disabled by default, and only used when necessary to debug an issue. In those cases, logging is temporarily enabled, and once it is no longer needed, it is disable, and any generated logs are removed.
+
+The following pieces of PII are collected in error logs:
+
+| Key | Use |
+| --- | --- |
+| `url` | The URL the user was visiting that triggered the error |
+| `ip` | The IP address of the user who triggered the error |
+| `ckey` | The ckey, if the user is logged in |
 ### Source Code
 The application source code is publicly available on [GitHub](https://github.com/statbus/statbus). Please feel free to contact me with any inconsistencies or questions. The greatest effort has been made to make this document as accurate as possible, but there may be omissions or incorrect information.
 
-**1.0 Rev. 2023-08-02**
+**1.1 Rev. 2023-08-05**
