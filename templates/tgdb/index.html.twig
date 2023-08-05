@@ -1,6 +1,6 @@
 {% extends 'base/index.html.twig' %}
 {% block body %}
-<div class="text-bg-secondary px-3 py-1"><strong>Reminder:</strong> Data in TGDB is considered <span class="badge badge-tlp text-bg-warning"><i class="fa-solid fa-traffic-light"></i> TLP:AMBER</span> unless otherwise noted</div>
+	{% include 'tgdb/components/tlpHeader.html.twig' %}
 	<div class="card">
 		<h3 class="card-header">
 			TGDB
