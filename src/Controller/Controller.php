@@ -19,11 +19,7 @@ abstract class Controller
     private ?array $query = null;
     private ?array $args = null;
     private ?RouteContext $route = null;
-
     private ?User $user;
-
-    #[Inject]
-    private ?AuthenticateUser $auth = null;
 
     public function __construct(
         protected ContainerInterface $container
