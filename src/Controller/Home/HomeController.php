@@ -12,14 +12,14 @@ class HomeController extends Controller
     {
         $apps = [
             [
-                'name' => 'Bans',
+                'name' => 'My Bans',
                 'icon' => 'fas fa-gavel',
                 'url' => $this->getUriForRoute('user.bans'),
                 'disabled' => ($this->getUser() ? false : true)
             ],
             [
-                'name' => 'Tickets',
-                'icon' => 'fas fa-gavel',
+                'name' => 'My Tickets',
+                'icon' => 'fas fa-ticket',
                 'url' => $this->getUriForRoute('user.tickets'),
                 'disabled' => ($this->getUser() ? false : true)
             ],
