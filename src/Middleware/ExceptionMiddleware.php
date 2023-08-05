@@ -48,7 +48,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
             return $handler->handle($request);
         } catch (Exception $exception) {
             $session->set('authRedirect', (string) $request->getUri()->withPort(null));
-            $response = new Response($exception->getCode());
+            $response = new Response(500);
             if ($this->settings['log_errors']) {
                 $error = $this->getErrorDetails($exception, $this->settings['log_error_details']);
                 $error['method'] = $request->getMethod();

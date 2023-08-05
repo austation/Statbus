@@ -48,6 +48,16 @@ return function (App $app) {
 
     $app->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Controller\TGDB\TGDBController::class)->setName("tgdb");
+        $app->get("/tlp", \App\Controller\Home\MarkdownController::class)->setName("tgdb.tlp")->setArgument('file', 'tlp_guide.md')->setArgument('title', 'Guide to TLP');
+
+        //TGDB Tickets
+        $app->get("/tickets[/page/{page:[0-9]+}]", \App\Controller\TGDB\Tickets\TGDBTicketListingController::class)->setName("tgdb.tickets");
+
+        $app->get("/tickets/{round:[0-9]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Tickets\TGDBTicketRoundListingController::class)->setName("tgdb.tickets.round");
+
+        $app->get("/tickets/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\TGDB\Tickets\TGDBTicketViewerController::class)->setName("tgdb.ticket");
+
+
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         $request = $request->withAttribute('require', 'ADMIN');
         $response = $handler->handle($request);

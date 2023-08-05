@@ -63,6 +63,106 @@ class TicketRepository extends Repository
         return $this;
     }
 
+    public function getTickets(int $page = 1, int $per_page = 60): self
+    {
+        $this->setPages((int) ceil($this->db->cell(
+            "SELECT
+          count(t.id) 
+          FROM ticket t
+          WHERE t.action = 'Ticket Opened' 
+          "
+        ) / $per_page));
+        $this->setResults(
+            $this->db->run(
+                "SELECT 
+                t.id,
+                t.server_ip as serverIp, 
+                t.server_port as port,
+                t.round_id as `round`,
+                t.ticket,
+                t.action,
+                t.message,
+                t.timestamp,
+                t.recipient as r_ckey,
+                t.sender as s_ckey,
+                r.rank as r_rank,
+                s.rank as s_rank,
+                (SELECT `action` 
+                  FROM ticket 
+                  WHERE t.ticket = ticket AND t.round_id = round_id 
+                  ORDER BY id DESC LIMIT 1)
+                as `status`,
+                (SELECT COUNT(id) 
+                  FROM ticket 
+                  WHERE t.ticket = ticket 
+                  AND t.round_id = round_id) 
+                as `replies`
+                FROM ticket t
+                LEFT JOIN `admin` AS r ON r.ckey = t.recipient	
+                LEFT JOIN `admin` AS s ON s.ckey = t.sender
+                WHERE t.action = 'Ticket Opened'
+                AND t.round_id != 0
+                GROUP BY t.id
+                ORDER BY `timestamp` DESC
+                LIMIT ?, ?",
+                ($page * $per_page) - $per_page,
+                $per_page
+            ),
+        );
+        return $this;
+    }
+
+    public function getTicketsForRound(int $round, int $page = 1, int $per_page = 60): self
+    {
+        $this->setPages((int) ceil($this->db->cell(
+            "SELECT
+          count(t.id) 
+          FROM ticket t
+          WHERE t.action = 'Ticket Opened'
+          AND t.round_id = ?",
+            $round
+        ) / $per_page));
+        $this->setResults(
+            $this->db->run(
+                "SELECT 
+                t.id,
+                t.server_ip as serverIp, 
+                t.server_port as port,
+                t.round_id as `round`,
+                t.ticket,
+                t.action,
+                t.message,
+                t.timestamp,
+                t.recipient as r_ckey,
+                t.sender as s_ckey,
+                r.rank as r_rank,
+                s.rank as s_rank,
+                (SELECT `action` 
+                  FROM ticket 
+                  WHERE t.ticket = ticket AND t.round_id = round_id 
+                  ORDER BY id DESC LIMIT 1)
+                as `status`,
+                (SELECT COUNT(id) 
+                  FROM ticket 
+                  WHERE t.ticket = ticket 
+                  AND t.round_id = round_id) 
+                as `replies`
+                FROM ticket t
+                LEFT JOIN `admin` AS r ON r.ckey = t.recipient	
+                LEFT JOIN `admin` AS s ON s.ckey = t.sender
+                WHERE t.action = 'Ticket Opened'
+                AND t.round_id = ?
+                GROUP BY t.id
+                ORDER BY `timestamp` DESC
+                LIMIT ?, ?",
+                $round,
+                ($page * $per_page) - $per_page,
+                $per_page
+            ),
+        );
+        return $this;
+    }
+
     public function getSingleTicket(int $round, int $ticket): self
     {
         $this->setResults(

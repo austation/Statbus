@@ -1,0 +1,70 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+
+	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb')}}">TGDB</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
+			</li>
+				<li class="breadcrumb-item">
+					<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
+						<i class="fas fa-ticket"></i>
+						{{ticket[0].getRound}}</a>
+				</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-ticket"></i>
+				{{ticket[0].getTicket}}</li>
+		</ol>
+	</nav>
+	<div class="card">
+		<h3 class="card-header">
+			Ticket #{{ticket[0].getTicket}}
+			on round
+			{{RoundBadge(ticket[0].getRound)}}
+		</h3>
+		<div class="card-body">
+			<div class="row">
+				<div class="col-md-8">
+					{% for t in ticket %}
+						{% if t.getAction.isAction %}
+							{% include 'tickets/components/ticketAction.html.twig' %}
+						{% else %}
+							{% include 'tickets/components/ticketBody.html.twig' %}
+						{% endif %}
+						{% if not loop.last %}
+							<div class="ticket-timeline border-start border-2 py-3 text-end">
+							{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
+							<code>{{diff|date('%H:%I:%S')}}</code>
+							</div>
+						{% endif %}
+					{% endfor %}
+				</div>
+				<div class="col-md-4">
+					<div class="card">
+						<div class="card-header fw-bold">
+							<small>Ticket Status</small>
+							{% if ticket|last.getAction.isResolved %}
+								<span class="text-success">
+									<i class="fa-solid fa-circle-check"></i>
+									Resolved</span>
+							{% else %}
+								<span class="text-danger">
+									<i class="fa-solid fa-circle-xmark"></i>
+									Left Open</span>
+							{% endif %}
+						</div>
+						<div class="card-body">
+							{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
+							Time Elapsed: {{difference|date('%H:%I:%S')}}
+						</div>
+					</div>
+				</div>
+			</div>
+			{% include 'tickets/components/ticketForumEmbed.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

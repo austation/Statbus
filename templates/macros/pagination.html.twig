@@ -1,18 +1,17 @@
 {% macro pagination(nbPages = 5, currentPage = 1, url = 'home') %}
-		{% set classes = '' %}
-		{% set param = '' %}
-		{% if not query %}
-			{% set query = '' %}
-		{% endif %}
-		{% if nbPages > 1 %}
-			{# Number of page around current page+1 #}
-			{% set nearbyPagesLimit = 5 %}
-			<nav>
-                <ul class="pagination justify-content-center">
-				{# {% if currentPage != 1 %}
-					 
-				{% endif %} #}
-                <li class="page-item"><a class="page-link {{currentPage != 1 ?: 'disabled'}}" href="{{url}}{{query}}">First</a></li>
+	{% set classes = '' %}
+	{% set param = '' %}
+	{% if not query %}
+		{% set query = '' %}
+	{% endif %}
+	{% if nbPages > 1 %}
+		{# Number of page around current page+1 #}
+		{% set nearbyPagesLimit = 5 %}
+		<nav>
+			<ul class="pagination justify-content-center">
+				<li class="page-item">
+					<a class="page-link {{currentPage != 1 ?: 'disabled'}}" href="{{url}}{{query}}">First</a>
+				</li>
 				{% for i in 1..nbPages %}
 					{% if 0 == (currentPage - nearbyPagesLimit) - loop.index %}
 						{# dot before #}
@@ -23,11 +22,15 @@
 					{% elseif 0 > (currentPage + nearbyPagesLimit) - loop.index %}
 						{# hide all after #}
 					{% else %}
-						<li class="page-item"><a class="page-link" href="{{url}}{{param}}/page/{{loop.index}}{{query}}">{{ loop.index }}</a></li>
+						<li class="page-item {{currentPage == loop.index ? 'active'}}">
+							<a class="page-link" href="{{url}}{{param}}/page/{{loop.index}}{{query}}">{{ loop.index }}</a>
+						</li>
 					{% endif %}
 				{% endfor %}
-					<li class="page-item {{currentPage != nbPages ?: 'disabled'}}"><a class="page-link" href="{{url}}{{param}}/page/{{nbPages}}{{query}}">Last</a></li>
-                </ul>
-			</nav>
-		{% endif %}
+				<li class="page-item {{currentPage != nbPages ?: 'disabled'}}">
+					<a class="page-link" href="{{url}}{{param}}/page/{{nbPages}}{{query}}">Last</a>
+				</li>
+			</ul>
+		</nav>
+	{% endif %}
 {% endmacro %}

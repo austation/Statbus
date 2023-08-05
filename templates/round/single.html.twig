@@ -62,35 +62,54 @@
 						<tr>
 							<th>Public Logs</th>
 							<td>
-								<a class="icon-link" href="{{round.getPublicLogs}}" target="_blank"><i class="fas fa-external-link"></i> Round
+								<a class="icon-link" href="{{round.getPublicLogs}}" target="_blank">
+									<i class="fas fa-external-link"></i>
+									Round
 									{{round.getId}}</a>
 							</td>
 							{% if user.has('ADMIN') %}
-							<th>Admin Logs</th>
-							<td>
-								<a class="icon-link" href="{{round.getAdminLogs}}" target="_blank"><i class="fas fa-external-link"></i> Round
-									{{round.getId}}</a>
-							</td>
+								<th>Admin Logs</th>
+								<td>
+									<a class="icon-link" href="{{round.getAdminLogs}}" target="_blank">
+										<i class="fas fa-external-link"></i>
+										Round
+										{{round.getId}}</a>
+								</td>
 							{% endif %}
 							<th>🐝 Scrubby</th>
 							<td colspan="{{user.has('ADMIN') ? 3 : 5}}">
-								<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank"><i class="fas fa-external-link"></i> Round
+								<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank">
+									<i class="fas fa-external-link"></i>
+									Round
 									{{round.getId}}</a>
 							</td>
 						</tr>
 						<tr>
 							<th>Github Commit</th>
-							<td colspan="6"><a class="icon-link" target="_blank" href="https://github.com/tgstation/tgstation/commit/{{round.getCommit}}"><i class="fas fa-external-link"></i> {{round.getCommit}}</a>
+							<td colspan="6">
+								<a class="icon-link" target="_blank" href="https://github.com/tgstation/tgstation/commit/{{round.getCommit}}">
+									<i class="fas fa-external-link"></i>
+									{{round.getCommit}}</a>
 							</td>
 						</tr>
 						<tr>
-							<td colspan="7" style="background: #54487A;"><a class="icon-link color-white" href="https://www.gentoo.org/get-started/" target="_blank"><img src="/img/gentoo-3d-small.png" style="height: 1em; width: auto;" /> How to Install Gentoo</td>
+							<td colspan="7" style="background: #54487A;">
+								<a class="icon-link color-white" href="https://www.gentoo.org/get-started/" target="_blank"><img src="/img/gentoo-3d-small.png" style="height: 1em; width: auto;"/>
+									How to Install Gentoo</td>
+							</td>
+						</tr>
 					</tfoot>
 				</table>
 			{% else %}
 				<p class="text-center mb-0">« This Round is Currently In Progress »</p>
 			{% endif %}
-			{# {{dump(round)}} #}
+			{% if user.has('ADMIN') %}
+			<h5>Admin Links</h5>
+			<hr>
+			<div class="btn-group">
+				<a href="{{url_for('tgdb.tickets.round',{round:round.getId})}}" class="btn btn-primary"><i class="fas fa-ticket"></i> Tickets</a>
+			</div>
+			{% endif %}
 		</div>
 	</div>
 {% endblock %}

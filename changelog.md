@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.4.0] - 2023-08-05
+
+##### Added
+- A continuation of 1.3.0, now admins can see tickets, and tickets by round, from TGDB!
+
+---
+
 #### [1.3.0] - 2023-08-04
 
 ##### Added
