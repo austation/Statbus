@@ -2,6 +2,8 @@
 
 use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 
 return function (App $app) {
     $app->get("/", \App\Controller\Home\HomeController::class)->setName("home");
@@ -42,6 +44,14 @@ return function (App $app) {
     $app->group("/tickets", function (RouteCollectorProxy $app) {
         $app->get("[/page/{page:[0-9]+}]", \App\Controller\Tickets\TicketListingController::class)->setName("user.tickets");
         $app->get("/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\Tickets\TicketViewerController::class)->setName("user.ticket");
+    });
+
+    $app->group("/tgdb", function (RouteCollectorProxy $app) {
+        $app->get("", \App\Controller\TGDB\TGDBController::class)->setName("tgdb");
+    })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+        $request = $request->withAttribute('require', 'ADMIN');
+        $response = $handler->handle($request);
+        return $response;
     });
 
 };

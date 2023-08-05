@@ -8,8 +8,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Views\Twig;
 use App\Domain\User\Data\User;
-use App\Domain\User\Service\AuthenticateUser;
-use DI\Attribute\Inject;
+use App\Exception\StatbusUnauthorizedException;
 use Slim\Routing\RouteContext;
 
 abstract class Controller
@@ -105,6 +104,7 @@ abstract class Controller
         $this->setQuery();
         $this->setArgs($args);
         $this->setRoute();
+        $this->permissionCheck();
         return $this->action();
     }
 
@@ -150,6 +150,19 @@ abstract class Controller
     public function getUser(): ?User
     {
         return $this->user;
+    }
+
+    private function permissionCheck()
+    {
+        $require = $this->getRequest()->getAttribute('require');
+        if($require) {
+            $user = $this->getUser();
+            if($require && !$user) {
+                throw new StatbusUnauthorizedException("You must be logged in to access this", 403);
+            } elseif ($require && !$user->has($require)) {
+                throw new StatbusUnauthorizedException("You do not have permission to access this", 403);
+            }
+        }
     }
 
     abstract public function action(): ResponseInterface;
