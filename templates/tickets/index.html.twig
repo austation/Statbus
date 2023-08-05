@@ -2,6 +2,16 @@
 {% block body %}
 	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
     {% from 'macros/pagination.html.twig' import pagination %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('home')}}">Home</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-ticket"></i> My Tickets</li>
+
+		</ol>
+	</nav>
 	<div class="card">
 		<h3 class="card-header">
 			My Tickets

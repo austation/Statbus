@@ -1,6 +1,22 @@
 {% extends 'base/index.html.twig' %}
 {% block body %}
 	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+		<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('home')}}">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{url_for('user.tickets')}}">My Tickets</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-circle"></i>
+				{{ticket[0].getRound}}</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-ticket"></i>
+				{{ticket[0].getTicket}}</li>
+		</ol>
+	</nav>
 	<div class="card">
 		<h3 class="card-header">
 			Ticket #{{ticket[0].getTicket}}
