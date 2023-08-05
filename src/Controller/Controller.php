@@ -85,8 +85,8 @@ abstract class Controller
 
     protected function getArg(string $key): mixed
     {
-        if(isset($this->args[$key])) {
-            return $this->args[$key];
+        if(isset($this->getArgs()[$key])) {
+            return $this->getArgs()[$key];
         }
         return null;
     }
