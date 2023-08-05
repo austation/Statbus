@@ -4,3 +4,4 @@ tmp/
 vendor/
 node_modules
 public/build/
+logs/

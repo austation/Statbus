@@ -3,10 +3,10 @@
 use App\Controller;
 use App\Domain\User\Repository\UserRepository;
 use App\Extension\Twig\WebpackAssetLoader;
-use App\Middleware\ExceptionMiddleware;
+use App\Factory\LoggerFactory;
+use App\Handler\DefaultErrorHandler;
 use App\Repository\Repository;
 use Cake\Database\Connection;
-use DI\Container;
 use League\CommonMark\Environment\Environment;
 use League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension;
 use League\CommonMark\Extension\DefaultAttributes\DefaultAttributesExtension;
@@ -21,6 +21,7 @@ use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
+use Slim\Middleware\ErrorMiddleware;
 use Slim\Views\Twig;
 use Slim\Views\TwigMiddleware;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -40,12 +41,29 @@ return [
     //Application
     App::class => function (ContainerInterface $container) {
         $app = AppFactory::createFromContainer($container);
+        $settings = $container->get('settings')['error'];
 
         // Register routes
         (require __DIR__ . '/routes.php')($app);
 
         // Register middleware
         (require __DIR__ . '/middleware.php')($app);
+
+        $logger = $container->get(LoggerFactory::class)
+            ->addFileHandler('error.log')
+            ->createLogger();
+
+        $errorMiddleware = new ErrorMiddleware(
+            $app->getCallableResolver(),
+            $app->getResponseFactory(),
+            (bool)$settings['display_error_details'],
+            (bool)$settings['log_errors'],
+            (bool)$settings['log_error_details'],
+            $logger
+        );
+
+        // $errorMiddleware->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
+
 
         return $app;
     },
@@ -173,8 +191,31 @@ return [
         $user->setSource($session->get('authSource'));
         return $user;
     },
-    ExceptionMiddleware::class => function (ContainerInterface $containerInterface) {
-        return new ExceptionMiddleware($containerInterface);
-    }
+
+    LoggerFactory::class => function (ContainerInterface $container) {
+        return new LoggerFactory($container->get('settings')['logger']);
+    },
+
+    ErrorMiddleware::class => function (ContainerInterface $container) {
+        $settings = $container->get('settings')['error'];
+        $app = $container->get(App::class);
+
+        $logger = $container->get(LoggerFactory::class)
+            ->addFileHandler('error.log')
+            ->createLogger();
+
+        $errorMiddleware = new ErrorMiddleware(
+            $app->getCallableResolver(),
+            $app->getResponseFactory(),
+            (bool)$settings['display_error_details'],
+            (bool)$settings['log_errors'],
+            (bool)$settings['log_error_details'],
+            $logger
+        );
+
+        $errorMiddleware->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
+
+        return $errorMiddleware;
+    },
 
 ];

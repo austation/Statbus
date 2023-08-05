@@ -18,7 +18,7 @@ class TicketViewerController extends Controller
     {
 
         $ticket = $this->ticketRepository->getSingleTicket($this->getArg('round'), $this->getArg('ticket'))->getResults();
-        if(false == GetTicketCkeys::isCkeyInTicket($ticket, $this->getUser()->getCkey())) {
+        if(!$this->getUser() || false == GetTicketCkeys::isCkeyInTicket($ticket, $this->getUser()->getCkey())) {
             throw new StatbusUnauthorizedException("You do not have permission to view this ticket", 403);
         }
         return $this->render('tickets/single.html.twig', [

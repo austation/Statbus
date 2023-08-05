@@ -12,6 +12,24 @@ $settings['root'] = dirname(__DIR__);
 $settings['temp'] = $settings['root'] . '/tmp';
 $settings['public'] = $settings['root'] . '/public';
 
+$settings['error'] = [
+  // Should be set to false for the production environment
+  'display_error_details' => false,
+  // Should be set to false for the test environment
+  'log_errors' => true,
+  // Display error details in error log
+  'log_error_details' => true,
+];
+
+// Logger settings
+$settings['logger'] = [
+  'name' => 'statbus',
+  'path' => $settings['root'] . '/logs',
+  'filename' => 'app.log',
+  'level' => \Monolog\Logger::INFO,
+  'file_permission' => 0775,
+];
+
 //If your application is not in the root directory of your webserver, set the
 //relative path from the webserver root here
 $settings['basepath'] = false;
