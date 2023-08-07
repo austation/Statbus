@@ -1,3 +1,81 @@
-{% include 'base/header.html.twig' %}
-{% block body %} {% endblock %}
-{% include 'base/footer.html.twig' %}
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>
+			{% block title %}Statbus
+			{% endblock %}
+		</title>
+		{# <link href="/build/app.css?{{" now"|date('u')}}" rel="stylesheet"> #}
+
+		{% block stylesheets %}
+			{{ webpack_entry_link_tags('app') }}
+		{% endblock %}
+
+		{% block scripts %}
+			{{ webpack_entry_script_tags('app') }}
+		{% endblock %}
+	</head>
+	<body data-bs-theme="dark">
+		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' }}" style="--bs-bg-opacity: .5;" data-bs-theme="dark">
+			<div class="{{narrow is defined ? 'container' : 'container-fluid'}}">
+				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
+					{{include('assets/statbus-star.svg')}}
+				</a>
+				{% if debug %}
+					<span class="badge text-bg-danger ms-2">DEV</span>
+				{% endif %}
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
+				</button>
+				<div class="collapse navbar-collapse" id="navbarSupportedContent">
+					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								Info
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{url_for('admins')}}">Admin Roster</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+					{% include 'base/components/authMenu.html.twig' %}
+				</div>
+			</div>
+		</nav>
+		<main class="{{narrow is defined ? 'container' : 'container-fluid'}}">
+			<div class="alert alert-info p-1" style="font-size: .75rem">
+				<strong>Hey! Listen!</strong>
+				Statbus is still under heavy development. There will be errors and bugs, and some components may not even exist yet. I appreciate your patience while I work on things. If you do encounter a bug or have a question, please open
+				<a href="https://github.com/Statbus/Statbus/issues" target="_blank">an issue</a>
+				or
+				<a href="https://github.com/orgs/Statbus/discussions">a discussion</a>
+				on Github.
+			</div>
+
+			{% block body %}{% endblock %}
+			<footer class="{{narrow is defined ? 'container' : 'container-fluid'}} py-2 px-0 text-muted d-flex justify-content-between border-top border-2 mt-2">
+				<span>{{app.name}}
+					{{app.version}}
+					|
+					<a href="{{url_for('changelog')}}">Changelog</a>
+					|
+					<a href="{{url_for('privacy')}}">Privacy Policy</a>
+				</span>
+				<span>
+					<a class="icon-link" href="https://github.com/{{app.github}}" target="_blank">
+						<i class="fab fa-github" aria-hidden="true"></i>
+						Github</a>
+					<img src="https://github.com/{{app.github}}/actions/workflows/main.yml/badge.svg?event=push"/>
+					|
+					<a class="icon-link" href="{{app.discord}}" target="_blank">
+						<i class="fab fa-discord" aria-hidden="true"></i>
+						Discord</a>
+				</span>
+			</footer>
+		</main>
+	</body>
+</html>

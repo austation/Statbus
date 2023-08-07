@@ -24,12 +24,11 @@ class WebpackAssetLoader extends AbstractExtension
         ];
     }
 
-    public function renderWebpackLinkTags()
+    public function renderWebpackLinkTags(string $module = 'app')
     {
         $tags = '';
         $randomizer = new Randomizer();
-
-        foreach ($this->entrypointLookup->getCssFiles('app') as $entry) {
+        foreach ($this->entrypointLookup->getCssFiles($module) as $entry) {
             $rand = '';
             if($this->settings['debug']) {
                 $rand = "?".bin2hex($randomizer->getBytes(8));
@@ -39,17 +38,16 @@ class WebpackAssetLoader extends AbstractExtension
         return $tags;
     }
 
-    public function renderWebpackScriptTags()
+    public function renderWebpackScriptTags(string $module = 'app')
     {
         $tags = '';
         $randomizer = new Randomizer();
-
-        foreach ($this->entrypointLookup->getJavaScriptFiles('app') as $entry) {
+        foreach ($this->entrypointLookup->getJavaScriptFiles($module) as $entry) {
             $rand = '';
             if($this->settings['debug']) {
                 $rand = "?".bin2hex($randomizer->getBytes(8));
             }
-            $tags .= sprintf("<script src='%s%s' defer></script>", $entry, $rand);
+            $tags .= sprintf("<script src='%s%s' defer></script>\r", $entry, $rand);
         }
         return $tags;
     }
