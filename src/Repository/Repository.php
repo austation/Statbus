@@ -10,6 +10,7 @@ use DateTime;
 use ParagonIE\EasyDB\EasyDB;
 use RuntimeException;
 use DI\Attribute\Inject;
+use PDO;
 
 /**
  * Factory.
@@ -32,7 +33,11 @@ class Repository
         'start_datetime',
         'shutdown_datetime',
         'end_datetime',
-        'timestamp'
+        'timestamp',
+        'firstseen',
+        'lastseen',
+        'accountJoined',
+        'accountjoindate'
     ];
 
     public array $serverPortColumns = [
@@ -45,6 +50,7 @@ class Repository
     ];
 
     public $results = null;
+    public $result = null;
     public ?int $pages = null;
 
     private ?array $servers = null;
@@ -168,16 +174,37 @@ class Repository
         return $data;
     }
 
-    protected function setResults($results): self
+    protected function setResult(array|object $result): self
     {
-        if(is_array($results)) {
-            foreach($results as &$r) {
-                //These should be attributes
-                $r = $this->parseTimestamps($r);
-                $r = $this->mapServer($r);
-                $r = $this->stripHTML($r);
+        $result = $this->parseTimestamps($result);
+        $result = $this->mapServer($result);
+        $result = $this->stripHTML($result);
+        if($this->entityClass && class_exists($this->entityClass)) {
+            $result = new $this->entityClass(...array_values((array) $result));
+        }
+        $this->result = $result;
+        return $this;
+    }
+
+    protected function setResults(array|object $results, bool $skipParse = false): self
+    {
+        if(!$skipParse) {
+            if(is_array($results)) {
+                foreach($results as &$r) {
+                    //These should be attributes
+                    $r = $this->parseTimestamps($r);
+                    $r = $this->mapServer($r);
+                    $r = $this->stripHTML($r);
+                    if($this->entityClass && class_exists($this->entityClass)) {
+                        $r = new $this->entityClass(...array_values((array) $r));
+                    }
+                }
+            } else {
+                $results = $this->parseTimestamps($results);
+                $results = $this->mapServer($results);
+                $results = $this->stripHTML($results);
                 if($this->entityClass && class_exists($this->entityClass)) {
-                    $r = new $this->entityClass(...array_values((array) $r));
+                    $results = new $this->entityClass(...array_values((array) $results));
                 }
             }
         }
@@ -190,6 +217,11 @@ class Repository
     {
         return $this->results;
     }
+
+    public function getResult(): array|object|null
+    {
+        return $this->result;
+    }
     public function setPages(int $pages): self
     {
         $this->pages = $pages;
@@ -198,5 +230,14 @@ class Repository
     public function getPages(): int
     {
         return $this->pages;
+    }
+
+    public function actualRow(string $statement, array $parameters)
+    {
+        $data = $this->db->safeQuery($statement, $parameters, PDO::FETCH_ASSOC);
+        if (is_array($data)) {
+            $first = array_shift($data);
+            return $first;
+        }
     }
 }

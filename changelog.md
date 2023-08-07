@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.5.0] - 2023-08-07
+
+##### Added
+- Player pages at `statbus.space/player/<ckey>`
+
+---
+
 #### [1.4.1] - 2023-08-07
 
 ##### Fixed

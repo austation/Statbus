@@ -20,6 +20,12 @@ class TGDBController extends Controller
                 'icon' => 'fa-solid fa-ticket',
                 'url' => $this->getUriForRoute('tgdb.tickets'),
             ],
+            [
+                'name' => 'Your Feedback Link',
+                'icon' => 'fa-solid fa-bullhorn',
+                'url' => '#',
+                'disabled' => true
+            ],
         ];
         return $this->render('tgdb/index.html.twig', [
             'narrow' => true,

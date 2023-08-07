@@ -1,0 +1,26 @@
+<table class="table table-bordered align-middle">
+	<thead>
+		<tr>
+			{% for p in perms|keys %}
+				<th class="sticky top-0 text-right align-center vertical-table-label text-center">
+					<span style="writing-mode: vertical-lr">{{p}}</span>
+				</th>
+			{% endfor %}
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			{% for name, bits in perms %}
+				{% if player.getFlags b-and bits %}
+					<td class="text-success text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{player.getCkey}} has {{name}}" rowspan="2">
+						<i class="far fa-check-circle"></i>
+					</td>
+				{% else %}
+					<td class="text-danger text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{player.getCkey}} does not have {{name}}" rowspan="2">
+						<i class="far fa-times-circle"></i>
+					</td>
+				{% endif %}
+			{% endfor %}
+		</tr>
+	</tbody>
+</table>

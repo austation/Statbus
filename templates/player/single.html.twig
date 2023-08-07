@@ -1,0 +1,66 @@
+{% extends 'base/index.html.twig' %}
+{% block scripts %}
+	{{ parent() }}
+	{% if  playtime %}
+		{# TODO: Move this into webpack  #}
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.3/chart.umd.min.js" integrity="sha512-mCXCsj30LV3PLPTIuWjZQX84qiQ56EgBZOsPUA+ya5mWmAb8Djdxa976zWzxquOwkh0TxI12KA4eniKpY3yKhA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	{% endif %}
+{% endblock %}
+{% block title %}
+	{{parent()}}
+	-
+	{{player.getCkey}}
+{% endblock %}
+{% block body %}
+	{% from 'macros/badge.html.twig' import PlayerBadge %}
+	<div class="card">
+		<h3 class="card-header">
+			{{PlayerBadge(player.getPlayerBadge)}}
+		</h3>
+		<div class="card-body">
+			<dic class="row">
+				<div class="col-md-9">
+					<table class="table table-bordered">
+						<thead>
+							<tr>
+								<th>Byond Account Registered</th>
+								<th>First Seen</th>
+								<th>Last Seen</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>{{player.getAccountJoined|date('Y-m-d')}}</td>
+								<td>{{player.getFirstseen|date}}</td>
+								<td>{{player.getLastseen|date}}</td>
+							</tr>
+						</tbody>
+					</table>
+					{% if player.getFlags %}
+						{% include 'player/components/permissionsTable.html.twig' %}
+					{% endif %}
+					{{dump(player)}}
+				</div>
+				<div class="col-md-3">
+					<div class="card">
+						<div class="card-header fw-bold">
+							Roles played, last 30 days
+						</div>
+						<div class="card-body">
+							{% if  playtime %}
+								<canvas id="playtime"></canvas>
+								<div id="legend-container"></div>
+							{% else %}
+								<p class="text-center mb-0">« Not Seen Recently »</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	{% if  playtime %}
+		<script>
+			{% include 'player/components/playtimeGraph.js' %}</script>
+	{% endif %}
+{% endblock %}
