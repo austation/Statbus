@@ -11,6 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.4.1] - 2023-08-07
+
+##### Fixed
+- Stacked admin ranks now render as the first rank specified, while still showing the full rank.
+- Added missing ranks to the rendering list
+
+---
+
 #### [1.4.0] - 2023-08-05
 
 ##### Added

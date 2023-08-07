@@ -64,4 +64,19 @@
       "foreColor": "#FFF",
       "icon": "infinity"
     },
+    "Maptainer": {
+      "backColor": "#31b626",
+      "foreColor": "#FFF",
+      "icon": "map-location-dot"
+    },
+    "Spritetainer": {
+      "backColor": "#31b626",
+      "foreColor": "#FFF",
+      "icon": "paintbrush"
+    },
+    "AdminCandidate": {
+      "backColor": "#3498db",
+      "foreColor": "#FFF",
+      "icon": "baby"
+    }
   }
