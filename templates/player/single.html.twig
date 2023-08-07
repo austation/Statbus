@@ -39,7 +39,7 @@
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
 					{% endif %}
-					{{dump(player)}}
+					{% include 'player/components/achievementsListing.html.twig' %}
 				</div>
 				<div class="col-md-3">
 					<div class="card">

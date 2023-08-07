@@ -15,6 +15,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ##### Added
 - Player pages at `statbus.space/player/<ckey>`
+    - Also view their achievements!
 
 ---
 

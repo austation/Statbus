@@ -1,0 +1,18 @@
+<h5>Achievements</h5>
+<hr>
+<div class="list-group">
+{% for a in achievements %}
+    <div class="list-group-item d-flex justify-content-start align-items-center">
+        {% if 'score' == a.getType %}
+            <div class="border h1 fw-bold p-2 mb-0 achievement">{{a.getValue}}</div>
+        {% else %}
+            <div class="border h1 fw-bold p-2 mb-0 achievement"><i class="fa-solid fa-award"></i></div>
+        {% endif %}
+        <p class="ms-2 mb-0"><strong>{{a.getName}}</strong><br>{{a.getDesc}}</p>
+    </div>
+{% else %}
+    <div class="list-group-item">
+        <p class="text-center mb-0">« No Achievements Yet! »</p>
+    </div>
+{% endfor %}
+</div>

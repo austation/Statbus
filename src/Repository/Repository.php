@@ -37,7 +37,8 @@ class Repository
         'firstseen',
         'lastseen',
         'accountJoined',
-        'accountjoindate'
+        'accountjoindate',
+        'last_updated'
     ];
 
     public array $serverPortColumns = [
