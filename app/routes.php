@@ -10,7 +10,11 @@ return function (App $app) {
     $app->get("/logout", \App\Controller\Auth\LogoutController::class)->setName("logout");
 
     $app->get("/changelog", \App\Controller\Home\MarkdownController::class)->setName("changelog")->setArgument('file', 'changelog.md')->setArgument('title', 'Changelog');
+
     $app->get("/privacy", \App\Controller\Home\MarkdownController::class)->setName("privacy")->setArgument('file', 'privacy-policy.md')->setArgument('title', 'Privacy Policy');
+
+    $settings = $app->getContainer()->get('settings')['app'];
+    $app->redirect('/discord', $settings['discord'], 301)->setName('discord');
 
     //Authentication Controllers
     $app->group("/auth", function (RouteCollectorProxy $app) {
