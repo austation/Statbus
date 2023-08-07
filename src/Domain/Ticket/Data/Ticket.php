@@ -28,6 +28,7 @@ class Ticket
         private ?string $s_rank,
         private $status,
         private ?int $replies,
+        private ?bool $urgent = false,
         private Server $server
     ) {
         $this->setBadges();
@@ -261,5 +262,10 @@ class Ticket
     public function getBwoink(): bool
     {
         return $this->bwoink;
+    }
+
+    public function isUrgent(): bool
+    {
+        return $this->urgent;
     }
 }

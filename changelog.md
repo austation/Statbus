@@ -16,6 +16,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 ##### Fixed
 - Stacked admin ranks now render as the first rank specified, while still showing the full rank.
 - Added missing ranks to the rendering list
+- Urgent ahelp tickets are now indicated as such
 
 ---
 

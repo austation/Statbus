@@ -22,6 +22,7 @@
 			Ticket #{{ticket[0].getTicket}}
 			on round
 			{{RoundBadge(ticket[0].getRound)}}
+			{{ticket[0].isUrgent ? '<span class="badge text-bg-danger">URGENT!</span>'}}
 		</h3>
 		<div class="card-body">
 			<div class="row">
@@ -40,26 +41,7 @@
 						{% endif %}
 					{% endfor %}
 				</div>
-				<div class="col-md-4">
-					<div class="card">
-						<div class="card-header fw-bold">
-							<small>Ticket Status</small>
-							{% if ticket|last.getAction.isResolved %}
-								<span class="text-success">
-									<i class="fa-solid fa-circle-check"></i>
-									Resolved</span>
-							{% else %}
-								<span class="text-danger">
-									<i class="fa-solid fa-circle-xmark"></i>
-									Left Open</span>
-							{% endif %}
-						</div>
-						<div class="card-body">
-							{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
-							Time Elapsed: {{difference|date('%H:%I:%S')}}
-						</div>
-					</div>
-				</div>
+				{% include 'tickets/components/ticketSidebar.html.twig' %}
 			</div>
 			{% include 'tickets/components/ticketForumEmbed.html.twig' %}
 		</div>
