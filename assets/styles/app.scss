@@ -222,6 +222,9 @@ a.badge {
 .ticket-action {
   margin-top: -2px;
 }
+.vertical-table-label span{
+  transform: rotate(193deg);
+}
 
 .ticket-list-entry.urgent {
   animation: panic 2s ease-in-out infinite;
