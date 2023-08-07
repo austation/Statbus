@@ -91,7 +91,7 @@ class Ban extends DTO
     private function splitEdits()
     {
         if ($this->edits) {
-            $this->edits = explode("<hr>", $this->edits);
+            $this->edits = explode("<br>to<br>", $this->edits);
         }
     }
 
@@ -143,12 +143,12 @@ class Ban extends DTO
 
     public function setStatus(): self
     {
-        if(!$this->expiration) {
-            $this->status = BanStatus::PERMANENT;
-            return $this;
-        }
         if($this->unbanned_ckey) {
             $this->status = BanStatus::LIFTED;
+            return $this;
+        }
+        if(!$this->expiration) {
+            $this->status = BanStatus::PERMANENT;
             return $this;
         }
         if($this->expiration > new DateTime()) {
@@ -174,5 +174,6 @@ class Ban extends DTO
     {
         return $this->ckey;
     }
+
 
 }
