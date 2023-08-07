@@ -85,7 +85,7 @@ class BanRepository extends Repository
                 WHEN ban.unbanned_ckey IS NOT NULL THEN 0
                 ELSE 1 
             END as `active`,
-            round.initialize_datetime AS round_time
+            ban.edits
             FROM ban
             LEFT JOIN `round` ON round_id = round.id
             LEFT JOIN `admin` AS c ON c.ckey = ban.ckey	
@@ -97,6 +97,24 @@ class BanRepository extends Repository
         $ban = $this->parseTimestamps($ban);
         $ban['server'] = ServerInformationService::getServerFromPort($ban['server_port']);
         return Ban::fromArray($ban);
+    }
+
+    public function getPlayerStanding(string $ckey)
+    {
+        $this->setResults(
+            $this->db->run(
+                "SELECT B.role, 
+                B.id,
+                B.expiration_time
+                FROM ban B
+                WHERE ckey = ?
+                AND ((B.expiration_time > NOW() AND B.unbanned_ckey IS NULL)
+                OR (B.expiration_time IS NULL AND B.unbanned_ckey IS NULL))",
+                $ckey
+            ),
+            false
+        );
+        return $this;
     }
 
 }

@@ -1,0 +1,12 @@
+<section id="edits" class="edits">
+	<hr>
+	<h5>Edits</h5>
+	{% for edit in ban.edits %}
+		<blockquote>{{edit|raw}}</blockquote>
+		{% if not loop.last %}
+			was changed to:
+		{% endif %}
+	{% else %}
+		<p class="text-center text-gray-400">« This ban has not been edited »</p>
+	{% endfor %}
+</section>

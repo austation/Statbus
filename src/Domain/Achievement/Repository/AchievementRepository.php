@@ -28,10 +28,3 @@ class AchievementRepository extends Repository
     }
 
 }
-
-// SELECT sum(s.value) as count,
-// a.achievement_name
-// FROM achievements s
-// LEFT JOIN achievement_metadata a ON s.achievement_key = a.achievement_key
-// WHERE a.achievement_type = 'score'
-// GROUP BY a.achievement_key;

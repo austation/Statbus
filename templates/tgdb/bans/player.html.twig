@@ -1,0 +1,27 @@
+{% extends 'base/index.html.twig' %}
+
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb')}}">TGDB</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<a href="{{url_for('tgdb.player',{ckey:player})}}">{{player}}</a>
+			</li>
+            <li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-gavel"></i>
+			Bans</li>
+		</ol>
+	</nav>
+	<div class="card">
+		<h5 class="card-header fw-bold"><i class="fas fa-gavel"></i> Bans for {{player}}</h5>
+		<div class="card-body">
+			<div class="list-group list-group-flush">
+				{% for b in bans %}
+					{% include 'bans/components/banListEntry.html.twig' %}
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+{% endblock %}

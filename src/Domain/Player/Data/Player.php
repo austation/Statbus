@@ -20,6 +20,8 @@ class Player
         private DateTime $accountJoined,
         private ?string $rank = null,
         private ?int $flags = null,
+        private ?int $ip = null,
+        private ?int $cid = null,
     ) {
         $this->setPlayerBadge();
     }

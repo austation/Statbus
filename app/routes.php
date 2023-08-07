@@ -66,6 +66,14 @@ return function (App $app) {
 
         $app->get("/tickets/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\TGDB\Tickets\TGDBTicketViewerController::class)->setName("tgdb.ticket");
 
+        //TGDB Players
+        $app->get("/player/{ckey:[a-z0-9@]+}", \App\Controller\TGDB\Player\TGDBPlayerViewController::class)->setName("tgdb.player");
+
+        //TGDB Bans
+        $app->get("/bans/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Ban\TGDBBansByCkeyController::class)->setName("tgdb.bans.player");
+
+        $app->get("/ban/{id:[0-9]+}", \App\Controller\TGDB\Ban\TGDBBanViewController::class)->setName("tgdb.ban.view");
+
 
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         $request = $request->withAttribute('require', 'ADMIN');

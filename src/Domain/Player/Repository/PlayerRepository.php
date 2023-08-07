@@ -11,8 +11,12 @@ class PlayerRepository extends Repository
 {
     public ?string $entityClass = Player::class;
 
-    public function getPlayerByCkey(string $ckey): Player
+    public function getPlayerByCkey(string $ckey, bool $fullMonty = false): Player
     {
+        $extraData = null;
+        if($fullMonty) {
+            $extraData = ", p.ip, p.computerid";
+        }
         $data = $this->actualRow(
             "SELECT
             p.ckey,
@@ -23,6 +27,7 @@ class PlayerRepository extends Repository
             p.accountjoindate as accountJoined,
             a.rank,
             r.flags
+            $extraData
             FROM player p
             LEFT JOIN `admin` a ON a.ckey = p.ckey
             LEFT JOIN admin_ranks r ON SUBSTRING_INDEX(a.rank,'+',1) = r.rank

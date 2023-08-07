@@ -1,0 +1,56 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb')}}">TGDB</a>
+			</li>
+			<li class="breadcrumb-item active">
+				<a href="{{url_for('tgdb.player',{ckey:ban.getCkey})}}">{{ban.getCkey}}</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<a href="{{url_for('tgdb.bans.player',{ckey:ban.getCkey})}}" class="icon-link">
+					<i class="fas fa-gavel"></i>
+					Bans</a>
+			</li>
+			<li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-gavel"></i>
+				{{ban.id}}</li>
+		</ol>
+	</nav>
+	{% if ban.roleBans %}
+		<p class="alert alert-info">
+			<strong>Heads Up!</strong>
+			This ban applies to multiple roles. The following bans are grouped into this ban:
+			{{ban.banIds}}</p>
+	{% endif %}
+	<div class="card">
+		<h3 class="card-header fw-bold">
+			<i class="fas fa-gavel"></i>
+			{{BanBadge(ban.getStatus)}}
+			ban from
+			<span class='badge text-bg-secondary'>{{ban.role|join("</span>, <span class='badge text-bg-secondary'>")|raw}}</span>
+		</h3>
+		<div class="card-body">
+			Ban placed by
+			{{PlayerBadge(ban.getAdminBadge)}}
+			<time>{{ban.bantime|date('Y-m-d H:i:s')}}</time>
+			on
+			{{ServerBadge(ban.getServer)}}
+			during
+			{{RoundBadge(ban.round)}}
+			with reason:
+			<blockquote>{{ban.reason}}</blockquote>
+			{% if ban.getUnbannerbadge %}
+				<p>
+					<i class="fa-solid fa-user-check text-success"></i>
+					Unbanned by
+					{{PlayerBadge(ban.unbannerBadge)}}
+					<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
+				</p>
+			{% endif %}
+			{% include 'bans/components/banEdits.html.twig' %}
+		</div>
+	</div>
+{% endblock %}
