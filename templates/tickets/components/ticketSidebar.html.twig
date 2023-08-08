@@ -1,24 +1,22 @@
-<div class="col-md-4">
-	<div class="card">
-		<div class="card-header fw-bold">
-			<small>Ticket Status</small>
-			{% if ticket|last.getAction.isResolved %}
-				<span class="text-success">
-					<i class="fa-solid fa-circle-check"></i>
-					Resolved</span>
-			{% else %}
-				<span class="text-danger">
-					<i class="fa-solid fa-circle-xmark"></i>
-					Left Open</span>
-			{% endif %}
-		</div>
-		<div class="card-body">
-			<p>{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
-				Time Elapsed:
-				{{difference|date('%H:%I:%S')}}</p>
-			{% if ticket[0].isUrgent %}
-				<p class="mb-0">This ticket was marked as urgent by the player</p>
-			{% endif %}
-		</div>
+<div class="card">
+	<div class="card-header fw-bold">
+		<small>Ticket Status</small>
+		{% if ticket|last.getAction.isResolved %}
+			<span class="text-success">
+				<i class="fa-solid fa-circle-check"></i>
+				Resolved</span>
+		{% else %}
+			<span class="text-danger">
+				<i class="fa-solid fa-circle-xmark"></i>
+				Left Open</span>
+		{% endif %}
+	</div>
+	<div class="card-body">
+		<p>{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
+			Time Elapsed:
+			{{difference|date('%H:%I:%S')}}</p>
+		{% if ticket[0].isUrgent %}
+			<p class="mb-0">This ticket was marked as urgent by the player</p>
+		{% endif %}
 	</div>
 </div>

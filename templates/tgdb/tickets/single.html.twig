@@ -2,7 +2,7 @@
 {% block body %}
 
 	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
-		<nav aria-label="breadcrumb">
+	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
 				<a href="{{url_for('tgdb')}}">TGDB</a>
@@ -10,11 +10,11 @@
 			<li class="breadcrumb-item">
 				<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
 			</li>
-				<li class="breadcrumb-item">
-					<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
-						<i class="fas fa-ticket"></i>
-						{{ticket[0].getRound}}</a>
-				</li>
+			<li class="breadcrumb-item">
+				<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
+					<i class="fas fa-ticket"></i>
+					{{ticket[0].getRound}}</a>
+			</li>
 			<li class="breadcrumb-item active" aria-current="page">
 				<i class="fas fa-ticket"></i>
 				{{ticket[0].getTicket}}</li>
@@ -39,15 +39,20 @@
 						{% endif %}
 						{% if not loop.last %}
 							<div class="ticket-timeline border-start border-2 py-3 text-end">
-							{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
-							<code>{{diff|date('%H:%I:%S')}}</code>
+								{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
+								<code>{{diff|date('%H:%I:%S')}}</code>
 							</div>
 						{% endif %}
 					{% endfor %}
 				</div>
-				{% include 'tickets/components/ticketSidebar.html.twig' %}
+				<div class="col-md-4">
+					{% include 'tickets/components/ticketSidebar.html.twig' %}
+					{% include 'tickets/components/ticketDiscordEmbed.html.twig' %}
+				</div>
 			</div>
+
 			{% include 'tickets/components/ticketForumEmbed.html.twig' %}
+
 		</div>
 	</div>
 {% endblock %}

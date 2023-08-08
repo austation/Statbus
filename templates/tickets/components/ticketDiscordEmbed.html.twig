@@ -1,0 +1,31 @@
+<div class="card mt-2">
+    <div class="card-header fw-bold">Share on Discord</div>
+    <div class="card-body d-grid gap-2">
+<textarea class="text-content visually-hidden">
+Here's ticket #{{ticket[0].getTicket}} from round {{ticket[0].getRound}}:
+---
+{% for t in ticket %}
+`[{{t.getTimestamp|date()}}]` - {{t.bwoink ? t.getRecipientBadge.getCkey ~ ' _BWOINKED' : '_' ~ t.getAction.value}}_ {{t.getAction.isConnectAction ? '' : t.getAction.getVerb ~ ' **' ~ t.getSenderBadge.getCkey ~ '**'}}
+{% if not t.getAction.isAction %}
+```md
+{{t.getMessage}}
+```
+{% endif %}
+---
+{% endfor %}
+This ticket can be viewed: 
+By the affected player: {{full_url_for('user.ticket',{round: ticket[0].getRound,ticket:ticket[0].getTicket})}}
+By admins: {{full_url_for('tgdb.ticket',{round: ticket[0].getRound,ticket:ticket[0].getTicket})}}
+</textarea>
+<a class="btn btn-secondary copy-btn" href="#" @click.prevent="window.navigator.clipboard.writeText(text)" data-bs-toggle="tooltip" data-bs-title="Click to copy"><i class="fas fa-copy"></i> Copy Discord Embed Code</a>
+</div>
+</div>
+<script>
+    var copyButton = document.querySelector('.copy-btn')
+    var textArea = document.querySelector('.text-content')
+    var textContent = textArea.value
+    copyButton.addEventListener('click',function(e){
+        e.preventDefault()
+        window.navigator.clipboard.writeText(textContent)
+    })
+</script>

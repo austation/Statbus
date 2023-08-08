@@ -65,4 +65,12 @@ enum TicketActions: string
             default => false
         };
     }
+
+    public function isConnectAction(): bool
+    {
+        return match($this) {
+            TicketActions::DISCONNECTED, TicketActions::RECONNECTED => true,
+            default => false
+        };
+    }
 }
