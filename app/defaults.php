@@ -38,7 +38,8 @@ $settings['app'] = [
   'name' => 'Statbus',
   'timezone' => 'UTC',
   'github' => 'statbus/statbus',
-  'discord' => 'https://discord.gg/37R9MkqG86'
+  'discord' => 'https://discord.gg/37R9MkqG86',
+  'patreon' => 'https://www.patreon.com/statbus'
 ];
 
 $settings['twig'] = [
