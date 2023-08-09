@@ -180,7 +180,7 @@ abstract class Controller
     public function addSuccessMessage(string $message): self
     {
         $this->session->getFlashbag()->add('success', $message);
-        var_dump($this->session->getFlashBag());
+
         return $this;
     }
 
