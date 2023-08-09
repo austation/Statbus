@@ -18,6 +18,16 @@
 		{% endblock %}
 	</head>
 	<body data-bs-theme="dark">
+		{% for label, messages in flash %}
+			{% for message in messages %}
+				<div class="alert text-bg-{{label}} flash flash-{{ label }} alert-dismissible fade show" data-bs-dismiss="alert">
+					<div class="{{narrow is defined ? 'container' : 'container-fluid'}} d-flex justify-content-between align-items-center">
+						<span>{{ message }}</span>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+				</div>
+			{% endfor %}
+		{% endfor %}
 		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' }}" style="--bs-bg-opacity: .5;" data-bs-theme="dark">
 			<div class="{{narrow is defined ? 'container' : 'container-fluid'}}">
 				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
@@ -82,7 +92,7 @@
 			</footer>
 		</main>
 		{% if debug %}
-		{{dump()}}
+			{{dump()}}
 		{% endif %}
 	</body>
 </html>
