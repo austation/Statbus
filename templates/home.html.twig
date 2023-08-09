@@ -6,8 +6,14 @@
 		</h3>
 		<div class="card-body">
 			<div class="row row-cols-4">
-							{% if not user %}
+				{% if not user %}
 					<div class="col d-flex">
+						<a href="{{url_for('auth.forum')}}" class="flex-fill btn active mb-4" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
+							<span class="text-white display-6">
+								{{include('assets/tg-star.svg')}}
+							</span><br>Log in with TG Station Forums</a>
+							</div>
+						<div class="col d-flex">
 						<a href="{{url_for('auth.discord')}}" class="flex-fill btn active mb-4" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
 							<span class="text-white display-6">
 								<i class="fa-brands fa-discord"></i>
