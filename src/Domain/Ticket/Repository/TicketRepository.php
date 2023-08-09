@@ -148,7 +148,7 @@ class TicketRepository extends Repository
                   FROM ticket 
                   WHERE t.ticket = ticket 
                   AND t.round_id = round_id) 
-                as `replies`
+                as `replies`,
                 t.urgent
                 FROM ticket t
                 LEFT JOIN `admin` AS r ON r.ckey = t.recipient	
