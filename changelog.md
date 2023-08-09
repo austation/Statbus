@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.7.0] - 2023-08-08
+
+##### Added
+- Admins can now set the link to their feedback threads!
+
+---
+
 #### [1.6.0] - 2023-08-07
 
 ##### Added

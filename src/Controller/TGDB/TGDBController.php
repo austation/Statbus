@@ -23,8 +23,7 @@ class TGDBController extends Controller
             [
                 'name' => 'Your Feedback Link',
                 'icon' => 'fa-solid fa-bullhorn',
-                'url' => '#',
-                'disabled' => true
+                'url' => $this->getUriForRoute('tgdb.feedback'),
             ],
         ];
         return $this->render('tgdb/index.html.twig', [

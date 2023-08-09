@@ -39,7 +39,8 @@ $settings['app'] = [
   'timezone' => 'UTC',
   'github' => 'statbus/statbus',
   'discord' => 'https://discord.gg/37R9MkqG86',
-  'patreon' => 'https://www.patreon.com/statbus'
+  'patreon' => 'https://www.patreon.com/statbus',
+  'feedback_regex' => '(https:\/\/tgstation13.org\/phpBB\/viewtopic.php\?f=37&t=)([0-9]{4,6})'
 ];
 
 $settings['twig'] = [

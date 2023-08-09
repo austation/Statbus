@@ -10,6 +10,7 @@ use Slim\Views\Twig;
 use App\Domain\User\Data\User;
 use App\Exception\StatbusUnauthorizedException;
 use Slim\Routing\RouteContext;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 abstract class Controller
 {
@@ -20,10 +21,15 @@ abstract class Controller
     private ?RouteContext $route = null;
     private ?User $user;
 
+    protected $method = 'GET';
+
+    private $session;
+
     public function __construct(
         protected ContainerInterface $container
     ) {
         $this->user = $this->container->get('User');
+        $this->session = $this->container->get(Session::class);
     }
 
     private function setResponse(ResponseInterface $response): self
@@ -97,6 +103,11 @@ abstract class Controller
         return $this->route;
     }
 
+    public function isPOST(): bool
+    {
+        return ('POST' === $this->method ? true : false);
+    }
+
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $this->setResponse($response);
@@ -105,6 +116,7 @@ abstract class Controller
         $this->setArgs($args);
         $this->setRoute();
         $this->permissionCheck();
+        $this->method = $this->request->getMethod();
         return $this->action();
     }
 
@@ -163,6 +175,19 @@ abstract class Controller
                 throw new StatbusUnauthorizedException("You do not have permission to access this", 403);
             }
         }
+    }
+
+    public function addSuccessMessage(string $message): self
+    {
+        $this->session->getFlashbag()->add('success', $message);
+        var_dump($this->session->getFlashBag());
+        return $this;
+    }
+
+    public function addErrorMessage(string $message): self
+    {
+        $this->session->getFlashbag()->add('danger', $message);
+        return $this;
     }
 
     abstract public function action(): ResponseInterface;

@@ -42,4 +42,23 @@ class AdminRepository extends Repository
         return $admins;
     }
 
+    public function updateFeedbackURL(string $url, string $ckey): bool
+    {
+        $this->updateExternalActivity($ckey, $url);
+        return $this->db->update('admin', ['feedback' => $url], ['ckey' => $ckey]);
+    }
+
+    private function updateExternalActivity(string $ckey, string $link)
+    {
+        $this->db->insert(
+            'external_activity',
+            [
+                'ckey' => $ckey,
+                'ip' => ip2long($_SERVER['REMOTE_ADDR']),
+                'action' => 'FBL',
+                'text' => "Updated feedback link to '$link'"
+            ]
+        );
+    }
+
 }

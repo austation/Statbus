@@ -250,3 +250,28 @@ a.badge {
 .tgdb-bg {
   background-image: linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
 }
+
+.flash {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 999;
+  animation: flash 0.25s 1 forwards;
+}
+
+.alert-dismissible .btn-close {
+  position: relative !important;
+  padding: 0 !important;
+}
+
+@keyframes flash {
+  0% {transform: translateY(-100%);}
+  70% { transform:translateY(0%); }
+  80% { transform:translateY(-15%); }
+  85% { transform:translateY(0%); }
+  90% { transform:translateY(-7%); }
+  95% { transform:translateY(0%); }
+  99% { transform:translateY(-3%); }
+  100% { transform:translateY(0); }
+}

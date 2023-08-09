@@ -57,6 +57,9 @@ return function (App $app) {
 
     $app->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Controller\TGDB\TGDBController::class)->setName("tgdb");
+
+        $app->map(['GET','POST'], "/feedback", \App\Controller\TGDB\FeedbackController::class)->setName("tgdb.feedback");
+
         $app->get("/tlp", \App\Controller\Home\MarkdownController::class)->setName("tgdb.tlp")->setArgument('file', 'tlp_guide.md')->setArgument('title', 'Guide to TLP');
 
         //TGDB Tickets
