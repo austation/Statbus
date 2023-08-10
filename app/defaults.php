@@ -119,6 +119,7 @@ $settings['auth'] = [
     'clientId' => '',
     'clientSecret' => '',
     'scope' => ['identify', 'email'],
+    'botToken' => ''
   ],
   'forum' => [
     'clientId' => '',

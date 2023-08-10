@@ -1,9 +1,11 @@
 {% extends 'base/index.html.twig' %}
 {% block scripts %}
 	{{ parent() }}
+	{{webpack_entry_script_tags('discordUser')}}
 	{% if  playtime %}
 		{# TODO: Move this into webpack  #}
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.3/chart.umd.min.js" integrity="sha512-mCXCsj30LV3PLPTIuWjZQX84qiQ56EgBZOsPUA+ya5mWmAb8Djdxa976zWzxquOwkh0TxI12KA4eniKpY3yKhA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
 	{% endif %}
 {% endblock %}
 {% block title %}
@@ -42,6 +44,7 @@
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
 					{% endif %}
+					<div id="discord" data-url="{{url_for('tgdb.player.discord',{ckey:player.getCkey})}}"></div>
 				</div>
 				<div class="col-md-3">
 					<div class="card mb-2">

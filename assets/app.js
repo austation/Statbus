@@ -25,5 +25,4 @@ const timeElementsList = [...timeElements].map(function(e){
     new bootstrap.Tooltip(e)
 })
 Alpine.start()
- 
 

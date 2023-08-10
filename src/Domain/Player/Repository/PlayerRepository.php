@@ -3,13 +3,17 @@
 namespace App\Domain\Player\Repository;
 
 use App\Domain\Player\Data\Player;
+use App\Domain\Player\Service\GetPlayerDiscordUsername;
 use App\Enum\Jobs;
 use App\Repository\Repository;
-use PDO;
+use DI\Attribute\Inject;
 
 class PlayerRepository extends Repository
 {
     public ?string $entityClass = Player::class;
+
+    #[Inject]
+    private GetPlayerDiscordUsername $discordUser;
 
     public function getPlayerByCkey(string $ckey, bool $fullMonty = false): Player
     {
@@ -57,6 +61,18 @@ class PlayerRepository extends Repository
         return $this->getResults();
     }
 
+    public function getDiscordVerificationsForCkey(string $ckey): array
+    {
+        $data = $this->db->run("SELECT d.ckey, d.discord_id, d.timestamp, d.valid FROM discord_links d WHERE d.ckey = ?", $ckey);
+        foreach($data as &$d) {
+            $d = $this->parseTimestamps($d);
+            if($d->valid) {
+                $d->user = $this->discordUser->getDiscordUser($d->discord_id)->toArray();
+            }
+        }
+        $this->setResults($data, true);
+        return $this->getResults();
+    }
 }
 // SELECT a.ckey,
 //         t.job, sum(t.delta) as `minutes`
