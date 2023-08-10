@@ -1,4 +1,5 @@
-{% extends 'base/index.html.twig' %}
+{% extends 'tgdb/page.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge %}
 {% block scripts %}
 	{{ parent() }}
 	{{webpack_entry_script_tags('discordUser')}}
@@ -8,21 +9,26 @@
 
 	{% endif %}
 {% endblock %}
+{% block breadcrumbs %}
+	{{parent()}}
+		<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-user"></i>
+		{{player.getCkey}}</li>
+{% endblock %}
 {% block title %}
 	{{parent()}}
 	-
 	{{player.getCkey}}
 {% endblock %}
-{% block body %}
-	{% from 'macros/badge.html.twig' import PlayerBadge %}
-	<div class="card">
-		<h3 class="card-header">
+{% block cardHeader %}
 			{{PlayerBadge(player.getPlayerBadge)}}
-		</h3>
+{% endblock %}
+{% block cardSubHeader %}
 		{% if standing %}
 			{% include 'player/components/playerStanding.html.twig' %}
 		{% endif %}
-		<div class="card-body">
+		{% endblock %}
+		{% block cardBody %}
 			<dic class="row">
 				<div class="col-md-9">
 					<table class="table table-bordered">
@@ -100,4 +106,5 @@
 		<script>
 			{% include 'player/components/playtimeGraph.js' %}</script>
 	{% endif %}
+
 {% endblock %}

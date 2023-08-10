@@ -6,9 +6,11 @@
 		<li class="breadcrumb-item">
 		<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
 	</li>
-	<li class="breadcrumb-item active" aria-current="page">
-		<i class="fas fa-ticket"></i>
-		{{tickets[0].getRound}}</li>
+	{% if round %}
+		<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-circle"></i>
+		{{round}}</li>
+	{% endif %}
 {% endblock %}
 {% block cardHeader %}
 	<span>

@@ -1,50 +1,18 @@
+
 @import "~bootstrap/scss/functions";
 @import "~bootstrap/scss/variables";
 
-$blue: #1C71B1;
-$primary: #3E6189;
-$body-bg: #252525;
-$body-color: $white;
-$border-color: #40628a;
-$breadcrumb-bg: #202020;
-$card-bg: rgba(0,0,0,.33);
-$card-border-color: #40628a;
-$dropdown-bg: #383838;
-$dropdown-color: $white;
-$dropdown-divider-bg: #40628a;
-$dropdown-link-color: $white;
-$dropdown-link-hover-bg: $gray-900;
-$dropdown-link-hover-color: $white;
 $enable-cssgrid: true;
 $enable-rounded: true;
+
 $font-family-sans-serif: Verdana, sans-serif;
-$green: #0F0;
-$hr-border-color: #40628a;
-$input-bg: #383838;
-$input-border-color: #40628a;
-$input-color: $gray-200;
-$input-focus-border-color: #40628a;
-$input-focus-color: $white;
-$input-group-addon-bg: $gray-900;
-$input-placeholder-color: $gray-500;
-$jumbotron-bg: $gray-900;
-$light: $gray-900;
-$list-group-bg: #202020;
-$list-group-border-color: #40628a;
-$list-group-color: $white;
-$list-group-hover-bg: $gray-900;
-$modal-content-bg: #202020;
-$orange: #E9C183;
-$primary: #2196F3;
-$progress-bg: $gray-700;
-$red: #F00;
-$table-bg: #202020;
-$table-border-color: #40628a;
-$table-cell-padding: 0.4rem;
-$table-color: $white;
-$table-head-bg: #383838;
-$table-head-color: #383838;
-$yellow: #E9C183;
+
+$primary: #3E6189;
+$blue: #1C71B1;
+
+$body-color: $white;
+// $card-bg: rgba(0,0,0,.33);
+
 $theme-colors: (
   "primary":    #3E6189,
   "secondary":  $secondary,
@@ -65,110 +33,38 @@ $border-radius-xl:            .16em;
 $border-radius-xxl:           .16em;
 
 @import "~bootstrap/scss/mixins";
-
 @import "~bootstrap/scss/bootstrap";
 
 @import "~@fortawesome/fontawesome-free/css/all.css";
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
 @import "~@fortawesome/fontawesome-free/css/v5-font-face.css";
 
-// @import "../../templates/assets/statbus-star.svg";
+.tgdb-bg {
+  background: linear-gradient(#6d94bf 0%, #446e9b 50%, #3e648d 100%);
+}
+
 html, 
 body {
     min-height: 100%;
 }
 
-::placeholder {
-  font-style: italic;
-}
-
-.navbar.tgui {
-  background-color: #363636;
-  border-bottom: 1px solid #161616;
-}
-
 body {
-  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(to bottom, #2a2a2a 0%, #202020 100%);
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(to bottom, #252525 0%, #202020 100%);
 }
 
-.card {
-  border: none;
-}
-
-.card .card-header {
-  border-bottom: 2px solid #4972A1;
-}
-
-.pixel-img {
-  image-rendering: pixelated;
-}
-
-.gallery-entry:hover .gallery-artwork-cover {
-  transform: scale(1.1);
-}
-
-.gallery-artwork-cover {
-  background-size: cover;
-  image-rendering: pixelated;
-  background-position: center;
-  transition: transform .25s ease-in-out;
-}
-
-.painting-patron {
-  background: radial-gradient(ellipse farthest-corner at right bottom, #FEDB37 0%, #FDB931 8%, #9f7928 30%, #8A6E2F 40%, transparent 80%),
-                radial-gradient(ellipse farthest-corner at left top, #FFFFFF 0%, #FFFFAC 8%, #D1B464 25%, #5d4a1f 62.5%, #5d4a1f 100%);
-  color: black;
-  position: relative;
-}
-
-.painting-patron:before {
-  position: absolute;
-  font-family: "FontAwesome";
-  top: -30px;
-  left: 10px;
-  content: "\f521";
-  transform: rotate(35deg);
-  color: #a69800;
-  font-size: 120px;
-  background: linear-gradient(to bottom, #cfc09f 22%,#634f2c 24%, #cfc09f 26%, #cfc09f 27%,#ffecb3 40%,#3a2c0f 78%); 
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.text-gold {
-  color: #f8cc4b !important;
-}
-
-#site-logo {
-  fill: white;
-}
-
-main > *:first-child {
-  margin-top: 2rem;
+body.tgdb{
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(#293848 0%, #192b3d 50%, #121f2e 100%);
 }
 
 .vertical-label {
   writing-mode: vertical-rl;
   text-orientation: mixed;
-  // left: 0;
-  // top: 0;
-  // bottom: 0;
   text-align: center;
   display: block;
   border-radius: 0;
   transform: rotate(180deg);
   margin: calc(var(--bs-list-group-item-padding-y)*-1) calc(var(--bs-list-group-item-padding-x)*-1);
   text-transform: uppercase;
-}
-
-a.list-group-item:hover {
-  background-color: $blue;
-}
-
-blockquote {
-  border-left: 4px solid $blue;
-  padding-left: 1rem;
-  margin: 1rem 0 1rem 1rem;
 }
 
 .list-group {
@@ -180,17 +76,44 @@ blockquote {
 
 .list-group-flush {
   border-radius: 0;
-  margin: -1rem;
+  margin: calc(var(--bs-list-group-item-padding-y)*-2) calc(var(--bs-list-group-item-padding-x)*-1);
 }
 
-.breadcrumb {
-  --bs-breadcrumb-bg: transparent;
+.navbar {
+  margin-bottom: 1rem;
+}
+
+#site-logo {
+  fill: white;
+}
+
+.serverBadge img {
+  height: 1em;
+  width: auto;
+}
+
+a.list-group-item:hover {
+  background-color: darken($blue, 25%);
 }
 
 a.badge {
   text-decoration: none;
 }
 
+blockquote {
+  border-left: 4px solid $blue;
+  padding-left: 1rem;
+  margin: 1rem 0 1rem 1rem;
+}
+
+
+.card {
+  background: rgba(0,0,0,.33);
+}
+
+.card .card .card-body {
+  background: var(--bs-body-bg);
+}
 
 .role-ghost {
   background-color: #ccc;
@@ -207,75 +130,10 @@ a.badge {
   color: white;
 }
 
-.serverBadge img {
-  height: 1em;
-  width: auto;
-}
-.round-state-banner {
-  margin: -1em -1em 1em -1em;
-}
-
 .ticket-timeline {
   margin-left: 39px !important;
 }
 
-.ticket-action {
-  margin-top: -2px;
-}
-.vertical-table-label span{
-  transform: rotate(193deg);
-}
-
-.ticket-list-entry.urgent {
-  animation: panic 2s ease-in-out infinite;
-}
-@keyframes panic {
-  60%,
-  80% {
-    box-shadow: 0px 0px 5px 2px #f00, inset 0px 0px 5px 2px #f00;
-    border-color: #f00;
-  }
-  0%,
-  50%,
-  70%,
-  100% {
-    box-shadow: none;
-  }
-}
-
-.achievement {
-  color: $yellow;
-}
-
-.tgdb-bg {
-  background-image: linear-gradient(#6d94bf, #446e9b 50%, #3e648d);
-}
-
-.flash {
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  z-index: 999;
-  animation: flash 0.25s 1 forwards;
-}
-
-.alert-dismissible .btn-close {
-  position: relative !important;
-  padding: 0 !important;
-}
-
-@keyframes flash {
-  0% {transform: translateY(-100%);}
-  70% { transform:translateY(0%); }
-  80% { transform:translateY(-15%); }
-  85% { transform:translateY(0%); }
-  90% { transform:translateY(-7%); }
-  95% { transform:translateY(0%); }
-  99% { transform:translateY(-3%); }
-  100% { transform:translateY(0); }
-}
-
-.tglogo {
-  fill: white;
+a {
+  color: lighten($blue,25%);
 }

@@ -1,0 +1,30 @@
+<span>{{app.name}}
+	{{app.version}}
+	|
+	<a href="{{url_for('changelog')}}">Changelog</a>
+	|
+	<a href="{{url_for('privacy')}}">Privacy Policy</a>
+</span>
+{% if debug %}
+	<a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#context" role="button">
+		Show Context
+	</a>
+{% endif %}
+<span>
+	<a class="icon-link" href="https://github.com/{{app.github}}" target="_blank">
+		<i class="fab fa-github" aria-hidden="true"></i>
+		Github</a>
+	<img src="https://github.com/{{app.github}}/actions/workflows/main.yml/badge.svg?event=push"/>
+	|
+	<a class="icon-link" href="{{url_for('discord')}}" target="_blank">
+		<i class="fab fa-discord" aria-hidden="true"></i>
+		Discord</a>
+	|
+	<a class="icon-link" href="{{app.patreon}}" target="_blank">
+		<i class="fab fa-patreon" aria-hidden="true"></i>
+		Patreon</a>
+	|
+	<a class="icon-link" href="{{app.status}}" target="_blank">
+		<i class="fa-solid fa-signal" aria-hidden="true"></i>
+		Status</a>
+</span>

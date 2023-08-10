@@ -21,6 +21,10 @@
 				</div>
 			</div>
 		</a>
+	{% else %}
+		<div class="list-group-item">
+			<p class="text-center mb-0">« No Notes or Messages »</p>
+		</div>
 	{% endfor %}
 </div>
 {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}

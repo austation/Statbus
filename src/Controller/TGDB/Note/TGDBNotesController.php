@@ -24,7 +24,8 @@ class TGDBNotesController extends Controller
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),
                 'currentPage' => $page,
-            ]
+            ],
+            'ckey' => $ckey
         ]);
     }
 
