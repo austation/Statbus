@@ -16,9 +16,9 @@
 		Tickets</span>
 {% endblock %}
 {% block cardBody %}
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
 	<div class="list-group list-group-flush my-4">
 		{% include 'tickets/components/ticketList.html.twig' %}
 	</div>
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
 {% endblock %}
