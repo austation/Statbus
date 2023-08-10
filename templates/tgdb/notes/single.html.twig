@@ -2,15 +2,15 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
 {% block breadcrumbs %}
 	{{parent()}}
-					<li class="breadcrumb-item">
-				<a href="{{url_for('tgdb.player',{ckey:note.getCkey})}}">{{note.getCkey}}</a>
-			</li>
+	<li class="breadcrumb-item">
+		<a href="{{url_for('tgdb.player',{ckey:note.getCkey})}}">{{note.getCkey}}</a>
+	</li>
 	<li class="breadcrumb-item">
 		<a href="{{url_for('tgdb.notes.player',{ckey:note.getCkey})}}" class="icon-link">
 			<i class="fas fa-envelope"></i>
-			Notes & Messages for {{note.getCkey}}</a>
-			</li>
-
+			Notes & Messages for
+			{{note.getCkey}}</a>
+	</li>
 	<li class="breadcrumb-item active" aria-current="page">
 		<i class="fas fa-envelope"></i>
 		#{{note.getId}}
@@ -53,5 +53,6 @@
 					<p class="mb-0">{{e|raw}}</p>
 				</div>
 			{% endfor %}
-		{% endif %}
-	{% endblock %}
+		</div>
+	{% endif %}
+{% endblock %}
