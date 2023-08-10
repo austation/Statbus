@@ -106,12 +106,10 @@
 		{% endif %}
 		<script src="https://unpkg.com/@popperjs/core@2"></script>
 		<script src="https://unpkg.com/tippy.js@6"></script>
-		{% if user.has('BAN') %}
 		<script>
       tippy(".playerBadge.has-popover", {
         content: "Loading...",
         onCreate(instance) {
-          // Setup our own custom state properties
           instance._isFetching = false;
           instance._src = null;
           instance._error = null;
@@ -122,16 +120,15 @@
           }
           const ckey = instance.reference.getAttribute("data-target-ckey");
           instance._isFetching = true;
+		  {% if user.has('BAN') %}
           fetch(`/tgdb/player/${ckey}?format=popover`)
+		  {% else %}
+		  fetch(`/player/${ckey}?format=popover`)
+		  {% endif %}
             .then((response) => response.text())
             .then((html) => {
               parser = new DOMParser();
               html = parser.parseFromString(html, 'text/html')
-            //   const timestamps = html.querySelectorAll("time");
-            //   timestamps.forEach(function (ts) {
-            //     ts.setAttribute("title", ts.textContent);
-            //     ts.textContent = dayjs(ts.textContent).utc().fromNow();
-            //   });
               instance.setContent(html.body.outerHTML)
             })
             .catch((error) => {
@@ -144,7 +141,6 @@
         },
         onHidden(instance) {
           instance.setContent("Loading...");
-          // Unset these properties so new network requests can be initiated
           instance._src = null;
           instance._error = null;
         },
@@ -156,16 +152,5 @@
         {% endif %}
       });
 	  </script>
-	  {% else %}
-	  <script>
-		tippy("[data-bs-toggle=tooltip]", {
-        content(reference) {
-          const title = reference.getAttribute("data-bs-title");
-          reference.removeAttribute("data-bs-title");
-          return title;
-        },
-      });
-	  </script>
-	  {% endif %}
 	</body>
 </html>

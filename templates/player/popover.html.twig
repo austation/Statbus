@@ -1,0 +1,42 @@
+<div class="border fw-normal" style="width: 220px">
+	<div class="text-center mb-1 fw-bold">{{player.getCkey}}</div>
+	<div class="px-2 py-1 text-center fw-bold" style="background:{{player.getPlayerBadge.getBackColor}}; color: {{player.getPlayerBadge.getForecolor}};">
+		<i class="fas fa-{{player.getPlayerBadge.getIcon}}"></i>
+		{{player.getPlayerBadge.getTitle}}
+	</div>
+	<hr class="my-2">
+	<dl class="px-2">
+		<dt>Rank</dt>
+		<dd class="text-right">{{player.getRank ?? 'Player'}}</dd>
+
+		<dt>Account Created</dt>
+		<dd class="text-right">
+			<time>{{player.getAccountJoined|date()}}</time>
+		</dd>
+
+		<dt>First Seen</dt>
+		<dd class="text-right">
+			<time>{{player.getFirstseen|date()}}</time>
+		</dd>
+
+		<dt>Last Seen</dt>
+		<dd class="text-right">
+			<time>{{player.getLastseen|date()}}</time>
+		</dd>
+	</dl>
+
+	<div class="d-grid gap-2 px-2 pb-2">
+		<div class="btn-group">
+			<a class="btn btn-primary" href="{{url_for('player',{ckey:player.getCkey})}}">
+				<i class="fas fa-user"></i>
+			</a>
+		</div>
+		<hr class="my-0">
+		<a class="btn btn-secondary btn-sm" href="https://scrubby.melonmesa.com/ckey/{{player.getCkey}}" target="_blank">
+			🐝 View on Scrubby</a>
+		<a class="btn btn-secondary btn-sm" href="https://www.byond.com/members/{{player.getCkey}}" target="_blank">
+			View on Byond</a>
+		<a class="btn btn-secondary btn-sm" href="https://centcom.melonmesa.com/viewer/view/{{player.getCkey}}" target="_blank">
+			View on CentCom</a>
+	</div>
+</div>

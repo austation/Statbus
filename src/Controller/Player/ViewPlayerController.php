@@ -23,6 +23,11 @@ class ViewPlayerController extends Controller
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
         $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
+        if(isset($_GET['format']) && 'popover' === $_GET['format']) {
+            return $this->render('player/popover.html.twig', [
+                'player' => $player,
+            ]);
+        }
         return $this->render('player/single.html.twig', [
             'player' => $player,
             'playtime' => $playTime,
