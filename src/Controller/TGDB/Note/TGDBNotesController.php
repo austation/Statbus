@@ -20,6 +20,7 @@ class TGDBNotesController extends Controller
         return $this->render('tgdb/notes/index.html.twig', [
             'notes' => $notes,
             'narrow' => true,
+            'link' => 'tgdb.note',
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),
                 'currentPage' => $page,
