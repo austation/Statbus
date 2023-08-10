@@ -1,4 +1,4 @@
-{% macro pagination(nbPages = 5, currentPage = 1, url = 'home') %}
+{% macro pagination(nbPages = 5, currentPage = 1, url) %}
 	{% set classes = '' %}
 	{% set param = '' %}
 	{% if not query %}
@@ -32,5 +32,7 @@
 				</li>
 			</ul>
 		</nav>
+		{% else %}
+		<p class="text-center text-muted mb-0">Page 1 of 1</p>
 	{% endif %}
 {% endmacro %}

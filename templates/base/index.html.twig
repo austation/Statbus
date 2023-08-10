@@ -41,13 +41,31 @@
 				</button>
 				<div class="collapse navbar-collapse" id="navbarSupportedContent">
 					<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+					{% if user %}
 						<li class="nav-item dropdown">
 							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-								Info
+								<i class="fa-solid fa-person"></i> My Data
 							</a>
 							<ul class="dropdown-menu">
 								<li>
-									<a class="dropdown-item" href="{{url_for('admins')}}">Admin Roster</a>
+									<a class="dropdown-item" href="{{url_for('user.bans')}}"><i class="fa-solid fa-gavel"></i> My Bans</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{url_for('user.tickets')}}"><i class="fa-solid fa-ticket"></i> My Tickets</a>
+								</li>
+								<li>
+									<a class="dropdown-item" href="{{url_for('user.notes')}}"><i class="fa-solid fa-envelope"></i> My Notes & Messages</a>
+								</li>
+							</ul>
+						</li>
+						{% endif %}
+						<li class="nav-item dropdown">
+							<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+								<i class="fa-solid fa-circle-info"></i> Info
+							</a>
+							<ul class="dropdown-menu">
+								<li>
+									<a class="dropdown-item" href="{{url_for('admins')}}"><i class="fa-solid fa-users"></i> Admin Roster</a>
 								</li>
 							</ul>
 						</li>

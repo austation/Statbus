@@ -1,7 +1,7 @@
 {% macro PlayerBadge(badge) %}
 <span class="playerBadge badge" 
 	style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-bs-title="{{badge.getTitle}}" 
-	data-bs-toggle="tooltip">
+	data-bs-toggle="tooltip" data-target-ckey="{{badge.getCkey}}">
 		<i class="fas fa-{{badge.geticon}}"></i>
 		{{badge.getckey}}
 </span>

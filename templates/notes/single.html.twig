@@ -1,0 +1,53 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<a href="{{url_for('user.notes')}}" class="icon-link">
+			<i class="fas fa-envelope"></i>
+			My Notes & Messages</a>
+	</li>
+	<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-envelope"></i>
+		#{{note.getId}}
+	</li>
+{% endblock %}
+
+{% block cardHeader %}
+	<span>
+		<i class="{{note.getType.getIcon}}" data-bs-title="{{note.getType.value|title}}" data-bs-toggle="tooltip"></i>
+		{{note.getType.value|title}}
+		for
+		{{PlayerBadge(note.getTargetBadge)}}
+		created by
+		{{PlayerBadge(note.getAdminBadge)}}
+	</span>
+	<span>{{note.getTimestamp|date}}</span>
+{% endblock %}
+
+{% block cardSubHeader %}
+	<div class="text-bg-{{note.getSeverity.getCssClass}} px-3 py-1 fw-bold">
+		<i class="{{note.getSeverity.getIcon}}"></i>
+		{{note.getSeverity.getText}}
+		{{note.getType.value|title}}
+	</div>
+{% endblock %}
+
+{% block cardBody %}
+	<p>Created
+		{{note.timestamp|date()}}
+		on
+		{{ServerBadge(note.getServer)}}
+		during
+		{{RoundBadge(note.getround)}}</p>
+	<p class="border border-primary p-3 text-white">{{note.text}}</p>
+	{% if note.getEdits %}
+		<h5>Note Edits</h5>
+		<div class="list-group">
+			{% for e in note.getEdits %}
+				<div class="list-group-item">
+					<p class="mb-0">{{e|raw}}</p>
+				</div>
+			{% endfor %}
+		{% endif %}
+	{% endblock %}

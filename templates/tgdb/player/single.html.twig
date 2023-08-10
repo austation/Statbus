@@ -55,9 +55,12 @@
 							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.bans.player',{ckey:player.getCkey})}}">
 								<i class="fas fa-gavel"></i>
 								Bans</a>
-							<a class="btn btn-primary btn-lg disabled">
+							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.notes.player',{ckey: player.getCkey})}}">
 								<i class="fas fa-envelope"></i>
 								Notes & Messages</a>
+							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
+								<i class="fas fa-ticket"></i>
+								Tickets</a>
 							<hr>
 							<span class="text-center">External Services</span>
 							<a class="btn btn-primary tgdb-bg color-white" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">

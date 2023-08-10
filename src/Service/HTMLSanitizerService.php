@@ -13,7 +13,7 @@ class HTMLSanitizerService
         require_once __DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
         if (!$config) {
             $config = \HTMLPurifier_Config::createDefault();
-            $config->set('HTML.Allowed', 'br');
+            $config->set('HTML.Allowed', 'br, hr');
         }
         $this->purifier = new HTMLPurifier($config);
     }

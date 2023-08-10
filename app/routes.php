@@ -33,6 +33,12 @@ return function (App $app) {
         $app->get("/{id:[0-9]+}", \App\Controller\Ban\ViewBanController::class)->setName("ban.view");
     });
 
+    //Notes
+    $app->group("/notes", function (RouteCollectorProxy $app) {
+        $app->get("[/page/{page:[0-9]+}]", \App\Controller\Note\UserNotesController::class)->setName("user.notes");
+        $app->get("/{id:[0-9]+}", \App\Controller\Note\UserViewNoteController::class)->setName("user.note");
+    });
+
     //Players
     $app->group("/player", function (RouteCollectorProxy $app) {
         $app->get("/{ckey:[a-z0-9@]+}", \App\Controller\Player\ViewPlayerController::class)->setName("player");
@@ -55,11 +61,14 @@ return function (App $app) {
         $app->get("/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\Tickets\TicketViewerController::class)->setName("user.ticket");
     });
 
+    //TGDB
     $app->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Controller\TGDB\TGDBController::class)->setName("tgdb");
 
+        //Feedback link
         $app->map(['GET','POST'], "/feedback", \App\Controller\TGDB\FeedbackController::class)->setName("tgdb.feedback");
 
+        //TLP Guide
         $app->get("/tlp", \App\Controller\Home\MarkdownController::class)->setName("tgdb.tlp")->setArgument('file', 'tlp_guide.md')->setArgument('title', 'Guide to TLP');
 
         //TGDB Tickets
@@ -69,6 +78,8 @@ return function (App $app) {
 
         $app->get("/tickets/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\TGDB\Tickets\TGDBTicketViewerController::class)->setName("tgdb.ticket");
 
+        $app->get("/tickets/player/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Tickets\TGDBTicketsForPlayerListingController::class)->setName("tgdb.ticket.player");
+
         //TGDB Players
         $app->get("/player/{ckey:[a-z0-9@]+}", \App\Controller\TGDB\Player\TGDBPlayerViewController::class)->setName("tgdb.player");
 
@@ -76,6 +87,11 @@ return function (App $app) {
         $app->get("/bans/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Ban\TGDBBansByCkeyController::class)->setName("tgdb.bans.player");
 
         $app->get("/ban/{id:[0-9]+}", \App\Controller\TGDB\Ban\TGDBBanViewController::class)->setName("tgdb.ban.view");
+
+        //Notes
+        $app->get("/notes/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesController::class)->setName("tgdb.notes.player");
+
+        $app->get("/note/{id:[0-9]+}", \App\Controller\TGDB\Note\TGDBViewNoteController::class)->setName("tgdb.note");
 
 
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {

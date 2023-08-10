@@ -1,0 +1,26 @@
+{% from 'macros/badge.html.twig' import PlayerBadge %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+<div class="list-group list-group-flush">
+	{% for n in notes %}
+		<a href="{{url_for('tgdb.note',{id: n.getId})}}" class="list-group-item">
+			<div class="d-flex w-100">
+				<span class="badge vertical-label text-bg-{{n.getSeverity.getCssClass}}">{{n.getSeverity.getShortText}}</span>
+				<div class="flex-grow-1 ms-4">
+					<div class="d-flex justify-content-between border-bottom mb-1 align-items-center pb-1">
+						<span class="fw-bold">
+							<i class="{{n.getType.getIcon}}" data-bs-title="{{n.getType.value|title}}" data-bs-toggle="tooltip"></i>
+							{{n.getType.value|title}}
+							for
+							{{PlayerBadge(n.getTargetBadge)}}
+							created by
+							{{PlayerBadge(n.getAdminBadge)}}</span>
+						<span>{{n.getTimestamp|date}}</span>
+					</div>
+					<p>{{n.text}}</p>
+				</div>
+			</div>
+		</a>
+	{% endfor %}
+</div>
+{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}

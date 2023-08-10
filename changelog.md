@@ -11,6 +11,18 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.8.0] - 2023-08-09
+
+##### Added
+- Players can now view their Notes & Messages! 
+- Admins can see this in TGDB as well! 
+
+#### Fixed
+- Overhauled the queries used to list tickets
+- Refactored a lot of the frontend templates
+
+---
+
 #### [1.7.0] - 2023-08-08
 
 ##### Added

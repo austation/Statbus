@@ -1,0 +1,22 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb')}}">TGDB</a>
+			</li>
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb.player',{ckey:notes[0].getCkey})}}">{{notes[0].getCkey}}</a>
+			</li>
+			<li class="breadcrumb-item">
+				<i class="fas fa-envelope"></i> Notes & Messages for {{notes[0].getCkey}}
+			</li>
+		</ol>
+	</nav>
+	<div class="card">
+		<h5 class="card-header fw-bold"><i class="fas fa-envelope"></i>  Notes & Messages for {{notes[0].getCkey}}</h5>
+		<div class="card-body">
+			{% include 'notes/components/noteListing.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

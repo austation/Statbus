@@ -1,0 +1,27 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			{% block breadcrumbs %}
+				<li class="breadcrumb-item">
+					<a href="{{url_for('tgdb')}}">TGDB</a>
+				</li>
+			{% endblock %}
+		</ol>
+	</nav>
+	{% block header %}
+	{% endblock %}
+	{% include 'tgdb/components/tlpHeader.html.twig' %}
+	<div class="card">
+		<h5 class="card-header fw-bold d-flex justify-content-between">
+			{% block cardHeader %}
+				<span><i class="fas fa-question-mark"></i>
+				A Header</span>
+			{% endblock %}
+		</h5>
+		{% block cardSubHeader %}{% endblock %}
+		<div class="card-body">
+			{% block cardBody %}{% endblock %}
+		</div>
+	</div>
+{% endblock %}

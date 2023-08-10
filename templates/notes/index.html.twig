@@ -1,0 +1,19 @@
+{% extends 'base/index.html.twig' %}
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('home')}}">Home</a>
+			</li>
+			<li class="breadcrumb-item">
+				<i class="fas fa-envelope"></i> My Notes & Messages
+			</li>
+		</ol>
+	</nav>
+	<div class="card">
+		<h5 class="card-header fw-bold"><i class="fas fa-envelope"></i> My Notes & Messages</h5>
+		<div class="card-body">
+			{% include 'notes/components/noteListing.html.twig' %}
+		</div>
+	</div>
+{% endblock %}

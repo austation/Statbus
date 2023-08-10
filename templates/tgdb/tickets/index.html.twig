@@ -1,39 +1,24 @@
-{% extends 'base/index.html.twig' %}
-{% block body %}
-	{% from 'macros/pagination.html.twig' import pagination %}
-	{% from 'macros/badge.html.twig' import RoundBadge %}
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="{{url_for('tgdb')}}">TGDB</a>
-			</li>
-			{% if round %}
-				<li class="breadcrumb-item">
-					<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: round})}}">
-						<i class="fas fa-ticket"></i>
-						{{round}}</a>
-				</li>
-			{% else %}
-				<li class="breadcrumb-item active" aria-current="page">
-					<i class="fas fa-ticket"></i>
-					Tickets</li>
-			{% endif %}
-		</ol>
-	</nav>
-	{% include 'tgdb/components/tlpHeader.html.twig' %}
-	<div class="card">
-		<h3 class="card-header">
-			Tickets
-			{% if round %}For
-				{{RoundBadge(round)}}
-			{% endif %}
-		</h3>
-		<div class="card-body">
-			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
-			<div class="list-group">
-				{% include 'tickets/components/ticketList.html.twig' %}
-			</div>
-		</div>
-		{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+{% extends 'tgdb/page.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge, ServerBadge, RoundBadge %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{% block breadcrumbs %}
+	{{parent()}}
+		<li class="breadcrumb-item">
+		<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
+	</li>
+	<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-ticket"></i>
+		{{tickets[0].getRound}}</li>
+{% endblock %}
+{% block cardHeader %}
+	<span>
+		<i class="fas fa-ticket"></i>
+		Tickets</span>
+{% endblock %}
+{% block cardBody %}
+	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	<div class="list-group list-group-flush my-4">
+		{% include 'tickets/components/ticketList.html.twig' %}
 	</div>
+	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 {% endblock %}

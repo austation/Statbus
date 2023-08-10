@@ -1,23 +1,24 @@
-{% extends 'base/index.html.twig' %}
-{% block body %}
-	{% include 'tgdb/components/tlpHeader.html.twig' %}
-	<div class="card">
-		<h3 class="card-header">
-			Your Feedback Link
-		</h3>
-		<div class="card-body">
-			<p class>Use the form below to set the link to your admin feedback thread. This will link your name in the in-game adminwho listing, as well as the Statbus Admin Roster.</p>
-			<form class="form border border-primary p-4" method="POST">
-				<div class="mb-3">
-					<label for="feedback" class="form-label">Feedback URL</label>
-					<input type="text" class="form-control" id="feedback" placeholder="https://tgstation13.org/phpBB/viewtopic.php?f=37&t=..." {% if feedback %}value="{{feedback}}" {% endif %} name="feedback">
-				</div>
-                <div class="mb-3 d-flex justify-content-between align-items-center">
-                    <p class="mb-0">Yes, it has to be the URL of your forum thread.</p>
-                    <button class="btn btn-primary btn-lg" type="submit">Submit</button>
-				</div>
-			</form>
-
+{% extends 'tgdb/page.html.twig' %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<i class="fa-solid fa-bullhorn"></i>
+		Your Feedback Link</li>
+{% endblock %}
+{% block cardHeader %}
+	<span><i class="fa-solid fa-bullhorn"></i>
+	Your Feedback Link</span>
+{% endblock %}
+{% block cardBody %}
+	<p class>Use the form below to set the link to your admin feedback thread. This will link your name in the in-game adminwho listing, as well as the Statbus Admin Roster.</p>
+	<form class="form border border-primary p-4" method="POST">
+		<div class="mb-3">
+			<label for="feedback" class="form-label">Feedback URL</label>
+			<input type="text" class="form-control" id="feedback" placeholder="https://tgstation13.org/phpBB/viewtopic.php?f=37&t=..." {% if feedback %} value="{{feedback}}" {% endif %} name="feedback">
 		</div>
-	</div>
+		<div class="mb-3 d-flex justify-content-between align-items-center">
+			<p class="mb-0">Yes, it has to be the URL of your forum thread.</p>
+			<button class="btn btn-primary btn-lg" type="submit">Submit</button>
+		</div>
+	</form>
 {% endblock %}

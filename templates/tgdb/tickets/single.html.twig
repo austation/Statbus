@@ -1,58 +1,59 @@
-{% extends 'base/index.html.twig' %}
-{% block body %}
-
-	{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
-	<nav aria-label="breadcrumb">
-		<ol class="breadcrumb">
-			<li class="breadcrumb-item">
-				<a href="{{url_for('tgdb')}}">TGDB</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
-			</li>
-			<li class="breadcrumb-item">
-				<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
-					<i class="fas fa-ticket"></i>
-					{{ticket[0].getRound}}</a>
-			</li>
-			<li class="breadcrumb-item active" aria-current="page">
-				<i class="fas fa-ticket"></i>
-				{{ticket[0].getTicket}}</li>
-		</ol>
-	</nav>
-	{% include 'tgdb/components/tlpHeader.html.twig' %}
-	<div class="card">
-		<h3 class="card-header">
-			Ticket #{{ticket[0].getTicket}}
-			on round
-			{{RoundBadge(ticket[0].getRound)}}
-			{{ticket[0].isUrgent ? '<span class="badge text-bg-danger">URGENT!</span>'}}
-		</h3>
-		<div class="card-body">
-			<div class="row">
-				<div class="col-md-8">
-					{% for t in ticket %}
-						{% if t.getAction.isAction %}
-							{% include 'tickets/components/ticketAction.html.twig' %}
-						{% else %}
-							{% include 'tickets/components/ticketBody.html.twig' %}
-						{% endif %}
-						{% if not loop.last %}
-							<div class="ticket-timeline border-start border-2 py-3 text-end">
-								{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
-								<code>{{diff|date('%H:%I:%S')}}</code>
-							</div>
-						{% endif %}
-					{% endfor %}
-				</div>
-				<div class="col-md-4">
-					{% include 'tickets/components/ticketSidebar.html.twig' %}
-					{% include 'tickets/components/ticketDiscordEmbed.html.twig' %}
-				</div>
-			</div>
-
-			{% include 'tickets/components/ticketForumEmbed.html.twig' %}
-
+{% extends 'tgdb/page.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
+	</li>
+	<li class="breadcrumb-item">
+		<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
+			<i class="fas fa-ticket"></i>
+			{{ticket[0].getRound}}</a>
+	</li>
+	<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-ticket"></i>
+		{{ticket[0].getTicket}}</li>
+{% endblock %}
+{% block cardHeader %}
+	<span>
+		<i class="fas fa-ticket"></i>
+		Ticket #{{ticket[0].getTicket}}
+		during
+		{{RoundBadge(ticket[0].getRound)}}
+		on
+		{{ServerBadge(ticket[0].getServer)}}
+	</span>
+	<span>{{ticket[0].getTimestamp|date}}</span>
+{% endblock %}
+{% block cardSubHeader %}
+{% if ticket[0].isUrgent %}
+<div class="text-bg-danger px-3 py-1">
+		This ticket was marked as URGENT!
+	</div>
+{% endif %}
+{% endblock %}
+{% block cardBody %}
+	<div class="row">
+		<div class="col-md-8">
+			{% for t in ticket %}
+				{% if t.getAction.isAction %}
+					{% include 'tickets/components/ticketAction.html.twig' %}
+				{% else %}
+					{% include 'tickets/components/ticketBody.html.twig' %}
+				{% endif %}
+				{% if not loop.last %}
+					<div class="ticket-timeline border-start border-2 py-3 text-end">
+						{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
+						<code>{{diff|date('%H:%I:%S')}}</code>
+					</div>
+				{% endif %}
+			{% endfor %}
+		</div>
+		<div class="col-md-4">
+			{% include 'tickets/components/ticketSidebar.html.twig' %}
+			{% include 'tickets/components/ticketDiscordEmbed.html.twig' %}
 		</div>
 	</div>
+
+	{% include 'tickets/components/ticketForumEmbed.html.twig' %}
 {% endblock %}

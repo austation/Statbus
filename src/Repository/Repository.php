@@ -38,16 +38,18 @@ class Repository
         'lastseen',
         'accountJoined',
         'accountjoindate',
-        'last_updated'
+        'last_updated',
+        'expire_timestamp'
     ];
 
     public array $serverPortColumns = [
         'port',
-        'server_port'
+        'server_port',
     ];
 
     public array $stripHTMLColumns = [
-        'message'
+        'message',
+        'edits'
     ];
 
     public $results = null;
@@ -154,7 +156,11 @@ class Repository
                 if(is_null($v)) {
                     $v = null;
                 } else {
-                    $data->server = ServerInformationService::getServerFromPort($v, $this->servers);
+                    if(is_array($data)) {
+                        $data['server'] = ServerInformationService::getServerFromPort($v, $this->servers);
+                    } else {
+                        $data->server = ServerInformationService::getServerFromPort($v, $this->servers);
+                    }
                 }
             }
         }

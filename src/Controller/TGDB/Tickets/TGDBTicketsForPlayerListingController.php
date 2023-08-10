@@ -7,26 +7,24 @@ use App\Domain\Ticket\Repository\TicketRepository;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
 
-class TGDBTicketRoundListingController extends Controller
+class TGDBTicketsForPlayerListingController extends Controller
 {
     #[Inject]
     private TicketRepository $ticketRepository;
 
     public function action(): ResponseInterface
     {
-        $round = $this->getArg('round');
+        $ckey = $this->getArg('ckey');
         $page = ($this->getArg('page')) ?: 1;
-        $tickets =$this->ticketRepository->getTicketsForRound($round, page: $page)->getResults();
-        return $this->render('tgdb/tickets/index.html.twig', [
+        $tickets =$this->ticketRepository->getTicketsByCkey(ckey: $ckey, page: $page)->getResults();
+        return $this->render('tgdb/tickets/playerTickets.html.twig', [
             'tickets' => $tickets,
             'link' => 'tgdb.ticket',
-            'round' => $round,
+            'ckey' => $ckey,
             'narrow' => true,
             'pagination' => [
                 'pages' => $this->ticketRepository->getPages(),
                 'currentPage' => $page,
-                //TODO: Figure out a solution for this.
-                // 'url' => $this->getUriForRoute($this->getRoute()->getRoute()->getName())
             ]
         ]);
     }
