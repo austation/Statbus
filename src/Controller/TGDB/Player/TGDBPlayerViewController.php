@@ -24,6 +24,13 @@ class TGDBPlayerViewController extends Controller
         $player = $this->playerRepository->getPlayerByCkey($ckey, true);
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
         $standing = $this->bannedService->isPlayerBanned($ckey);
+        if(isset($_GET['format']) && 'popover' === $_GET['format']) {
+            return $this->render('tgdb/player/popover.html.twig', [
+                'player' => $player,
+                'playtime' => $playTime,
+                'standing' => $standing,
+            ]);
+        }
         return $this->render('tgdb/player/single.html.twig', [
             'player' => $player,
             'playtime' => $playTime,

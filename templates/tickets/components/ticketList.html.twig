@@ -10,10 +10,10 @@
 			<div class="flex-grow-1 ms-4">
 				<div class="d-flex justify-content-between border-bottom mb-1 align-items-center">
 					<h5 class="fw-bold lh-base">
-						{{PlayerBadge(t.getSenderBadge)}}
+						{{PlayerBadge(t.getSenderBadge,false)}}
 						{% if t.getRCkey %}
 							to
-							{{PlayerBadge(t.getRecipientBadge)}}
+							{{PlayerBadge(t.getRecipientBadge,false)}}
 						{% else %}
 							to admins
 						{% endif %}
@@ -23,7 +23,7 @@
 						{{ServerBadge(t.getServer)}}
 						{{t.isUrgent ? '<span class="badge text-bg-danger">URGENT!</span>'}}
 					</h5>
-					<time class="flex-shrink-0">{{t.timestamp|date()}}</time>
+					<span class="flex-shrink-0">{{t.timestamp|date()}}</span>
 				</div>
 				<p class="mb-1">{{t.message}}</p>
 			</div>

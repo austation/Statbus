@@ -4,7 +4,7 @@
 		<a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
 			{% if user %}
 				Logged in as
-				{{PlayerBadge(user.getBadge)}}
+				{{PlayerBadge(user.getBadge, false)}}
 			{% else %}
 				Authenticate
 			{% endif %}

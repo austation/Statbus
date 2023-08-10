@@ -7,7 +7,7 @@
 				<h5 class="fw-bold lh-base">Banned from
 					<span class='badge text-bg-secondary'>{{b.role|join("</span>, <span class='badge text-bg-secondary'>")|raw}}</span>
 					by
-					{{PlayerBadge(b.getAdminBadge)}}</h5>
+					{{PlayerBadge(b.getAdminBadge,false)}}</h5>
 				<small class="flex-shrink-0">{{b.bantime|date('Y-m-d')}}</small>
 			</div>
 			<p class="mb-1">{{b.reason}}</p>

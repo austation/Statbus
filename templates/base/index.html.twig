@@ -75,14 +75,6 @@
 			</div>
 		</nav>
 		<main class="{{narrow is defined ? 'container' : 'container-fluid'}}">
-			<div class="alert alert-info p-1" style="font-size: .75rem">
-				<strong>Hey! Listen!</strong>
-				Statbus is still under heavy development. There will be errors and bugs, and some components may not even exist yet. I appreciate your patience while I work on things. If you do encounter a bug or have a question, please open
-				<a href="https://github.com/Statbus/Statbus/issues" target="_blank">an issue</a>
-				or
-				<a href="https://github.com/orgs/Statbus/discussions">a discussion</a>
-				on Github.
-			</div>
 
 			{% block body %}{% endblock %}
 			<footer class="{{narrow is defined ? 'container' : 'container-fluid'}} py-2 px-0 text-muted d-flex justify-content-between border-top border-2 mt-2">
@@ -112,5 +104,68 @@
 		{% if debug %}
 			{{dump()}}
 		{% endif %}
+		<script src="https://unpkg.com/@popperjs/core@2"></script>
+		<script src="https://unpkg.com/tippy.js@6"></script>
+		{% if user.has('BAN') %}
+		<script>
+      tippy(".playerBadge.has-popover", {
+        content: "Loading...",
+        onCreate(instance) {
+          // Setup our own custom state properties
+          instance._isFetching = false;
+          instance._src = null;
+          instance._error = null;
+        },
+        onShow(instance) {
+          if (instance._isFetching || instance._src || instance._error) {
+            return;
+          }
+          const ckey = instance.reference.getAttribute("data-target-ckey");
+          instance._isFetching = true;
+          fetch(`/tgdb/player/${ckey}?format=popover`)
+            .then((response) => response.text())
+            .then((html) => {
+              parser = new DOMParser();
+              html = parser.parseFromString(html, 'text/html')
+            //   const timestamps = html.querySelectorAll("time");
+            //   timestamps.forEach(function (ts) {
+            //     ts.setAttribute("title", ts.textContent);
+            //     ts.textContent = dayjs(ts.textContent).utc().fromNow();
+            //   });
+              instance.setContent(html.body.outerHTML)
+            })
+            .catch((error) => {
+              instance._error = error;
+              instance.setContent(`Request failed. ${error}`);
+            })
+            .finally(() => {
+              instance._isFetching = false;
+            });
+        },
+        onHidden(instance) {
+          instance.setContent("Loading...");
+          // Unset these properties so new network requests can be initiated
+          instance._src = null;
+          instance._error = null;
+        },
+        allowHTML: true,
+        interactive: true,
+        {% if debug %}
+        hideOnClick: 'toggle',
+        trigger: 'click',
+        {% endif %}
+      });
+	  </script>
+	  {% else %}
+	  <script>
+		tippy("[data-bs-toggle=tooltip]", {
+        content(reference) {
+          const title = reference.getAttribute("data-bs-title");
+          reference.removeAttribute("data-bs-title");
+          return title;
+        },
+      });
+	  </script>
+	  {% endif %}
 	</body>
 </html>
