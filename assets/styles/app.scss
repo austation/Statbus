@@ -53,7 +53,7 @@ body {
 }
 
 body.tgdb{
-  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(#293848 0%, #192b3d 50%, #121f2e 100%);
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(darken(#6d94bf, 25%), darken(#446e9b, 25%) 50%, darken(#3e648d, 25%));
 }
 
 .vertical-label {
@@ -107,7 +107,6 @@ blockquote {
   margin: 1rem 0 1rem 1rem;
 }
 
-
 .card {
   background: rgba(0,0,0,.33);
 }
@@ -137,4 +136,8 @@ blockquote {
 
 a {
   color: lighten($blue,25%);
+}
+
+body.debug > #site-logo {
+  transform: rotate(180deg);
 }
