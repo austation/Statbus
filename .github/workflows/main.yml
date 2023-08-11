@@ -23,6 +23,13 @@ jobs:
           php_version: latest
           args: --ignore-platform-reqs
 
+      - name: Dump autoload
+        uses: php-actions/composer@v6
+        with:
+          php_version: latest
+          args: --ignore-platform-reqs
+          command: dump-autoload -oa
+
       - name: Set Node.js 16.x
         uses: actions/setup-node@v3
         with:
@@ -36,7 +43,7 @@ jobs:
       - name: Build production bundle
         uses: borales/actions-yarn@v4
         with:
-          cmd: build
+          cmd: build 
 
       - name: Pushing artifact to deployment server
         uses: appleboy/scp-action@master
