@@ -84,6 +84,16 @@ abstract class Controller
         return $this->args;
     }
 
+    /**
+     * getArg
+     *
+     * Get a route argument as defined in routes.php
+     *
+     * Returns `null` if the argument was not found
+     *
+     * @param string $key
+     * @return mixed
+     */
     protected function getArg(string $key): mixed
     {
         if(isset($this->getArgs()[$key])) {
@@ -103,11 +113,29 @@ abstract class Controller
         return $this->route;
     }
 
+    /**
+     * isPOST
+     *
+     * Returns whether ot not the current request is POST or not
+     *
+     * @return boolean
+     */
     public function isPOST(): bool
     {
         return ('POST' === $this->method ? true : false);
     }
 
+    /**
+     * __invoke
+     *
+     * The method called by Slim when invoked by the router. Instantiates a
+     * bunch of Controller properties that are heavily used elsewhere.
+     *
+     * @param ServerRequestInterface $request
+     * @param ResponseInterface $response
+     * @param array $args
+     * @return ResponseInterface
+     */
     public function __invoke(ServerRequestInterface $request, ResponseInterface $response, array $args = []): ResponseInterface
     {
         $this->setResponse($response);
@@ -120,6 +148,16 @@ abstract class Controller
         return $this->action();
     }
 
+    /**
+     * render
+     *
+     * Renders the given `$template` file with the given `$data`.
+     * Returns a JSON string if the `json` attribute is set on the URL
+     *
+     * @param string $template
+     * @param array $data
+     * @return ResponseInterface
+     */
     protected function render(string $template, array $data = []): ResponseInterface
     {
         if(isset($_GET['json'])) {
@@ -129,6 +167,14 @@ abstract class Controller
         return $twig->render($this->getResponse(), $template, $data);
     }
 
+    /**
+     * json
+     *
+     * Returns the given `$data` as a JSON string
+     *
+     * @param array $data
+     * @return ResponseInterface
+     */
     protected function json(array $data): ResponseInterface
     {
         $response = $this->response->withHeader("Content-Type", "application/json");
@@ -136,7 +182,18 @@ abstract class Controller
         return $response;
     }
 
-    protected function getUriForRoute($route): string
+    /**
+     * getUriForRoute
+     *
+     * Gets the full, complete URI (including protocol) for the given `$route`
+     * name.
+     *
+     * Attempts to remove the port from the URI.
+     *
+     * @param string $route
+     * @return string
+     */
+    protected function getUriForRoute(string $route): string
     {
         $router = $this->container->get(RouteParserInterface::class);
         $uri = $router->fullUrlFor(
@@ -149,22 +206,53 @@ abstract class Controller
         return $uri;
     }
 
-    protected function routeRedirect($route): ResponseInterface
+    /**
+     * routeRedirect
+     *
+     * For the given `$route`, generate a full uri for the route to redirect to.
+     * Passes the result on to @method string redirect()
+     *
+     * @param string $route
+     * @return ResponseInterface
+     */
+    protected function routeRedirect(string $route): ResponseInterface
     {
         return $this->redirect($this->getUriForRoute($route));
     }
 
-    protected function redirect($uri): ResponseInterface
+    /**
+     * Returns a `ResponseInterface` instance with an HTTP 301 redirect to the
+     * given `$uri`
+     *
+     * @param string $uri
+     * @return ResponseInterface
+     */
+    protected function redirect(string $uri): ResponseInterface
     {
         return $this->response->withStatus(301)->withHeader('Location', $uri);
     }
 
+    /**
+     * getUser
+     *
+     * Returns an instance of the current logged in user, or null if there is
+     * no logged in user.
+     *
+     * @return User|null
+     */
     public function getUser(): ?User
     {
         return $this->user;
     }
 
-    private function permissionCheck()
+    /**
+     * Verify that the current logged in user has the permission required
+     * by the request attribute. Throws an exception if this check fails, or
+     * if the user is not logged in.
+     *
+     * @return void
+     */
+    private function permissionCheck(): void
     {
         $require = $this->getRequest()->getAttribute('require');
         if($require) {
@@ -177,6 +265,16 @@ abstract class Controller
         }
     }
 
+    /**
+     * addSuccessMessage
+     *
+     * Adds a success (green) message to the Session global's flash bag.
+     *
+     * @link https://symfony.com/doc/current/session.html#flash-messages
+     *
+     * @param string $message
+     * @return self
+     */
     public function addSuccessMessage(string $message): self
     {
         $this->session->getFlashbag()->add('success', $message);
@@ -184,11 +282,30 @@ abstract class Controller
         return $this;
     }
 
+    /**
+     * addErrorMessage
+     *
+     * Adds a success (green) message to the Session global's flash bag.
+     *
+     * @link https://symfony.com/doc/current/session.html#flash-messages
+     *
+     * @param string $message
+     * @return self
+     */
     public function addErrorMessage(string $message): self
     {
         $this->session->getFlashbag()->add('danger', $message);
         return $this;
     }
 
+    /**
+     * action
+     *
+     * Abstract function extended by controllers. Generally executes another
+     * method from this class (i.e. `$this->render` or `$this->json`) and
+     * returns a ResponseInterface instance
+     *
+     * @return ResponseInterface
+     */
     abstract public function action(): ResponseInterface;
 }

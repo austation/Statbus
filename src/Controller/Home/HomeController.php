@@ -7,7 +7,15 @@ use Psr\Http\Message\ResponseInterface;
 
 class HomeController extends Controller
 {
-    // /
+    /**
+     * action
+     *
+     * @inheritDoc
+     *
+     * Renders a list of applications for navigation on the Statbus homepage
+     *
+     * @return ResponseInterface
+     */
     public function action(): ResponseInterface
     {
         $apps = [
