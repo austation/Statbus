@@ -10,10 +10,12 @@ use Symfony\WebpackEncoreBundle\Asset\EntrypointLookup;
 class WebpackAssetLoader extends AbstractExtension
 {
     private $entrypointLookup;
-
+    private $hashes = [];
     public function __construct(private array $settings)
     {
         $this->entrypointLookup = new EntrypointLookup(__DIR__."/../../../public/build/entrypoints.json");
+        $this->hashes = $this->entrypointLookup->getIntegrityData();
+
     }
 
     public function getFunctions(): array
@@ -33,7 +35,11 @@ class WebpackAssetLoader extends AbstractExtension
             if($this->settings['debug']) {
                 $rand = "?".bin2hex($randomizer->getBytes(8));
             }
-            $tags .= sprintf("<link href='%s%s' rel='stylesheet' /> ", $entry, $rand);
+            $integrity = '';
+            if(isset($this->hashes[$entry])) {
+                $integrity = "integrity='".$this->hashes[$entry]."'";
+            }
+            $tags .= sprintf("<link href='%s%s' rel='stylesheet' %s /> ", $entry, $rand, $integrity);
         }
         return $tags;
     }
@@ -47,7 +53,11 @@ class WebpackAssetLoader extends AbstractExtension
             if($this->settings['debug']) {
                 $rand = "?".bin2hex($randomizer->getBytes(8));
             }
-            $tags .= sprintf("<script src='%s%s' defer></script>\r", $entry, $rand);
+            $integrity = '';
+            if(isset($this->hashes[$entry])) {
+                $integrity = "integrity='".$this->hashes[$entry]."'";
+            }
+            $tags .= sprintf("<script src='%s%s' %s defer></script>\r", $entry, $rand, $integrity);
         }
         return $tags;
     }
