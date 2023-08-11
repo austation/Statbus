@@ -4,6 +4,7 @@ namespace App\Controller\Player;
 
 use App\Controller\Controller;
 use App\Domain\Achievement\Repository\AchievementRepository;
+use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Player\Repository\PlayerRepository;
 use App\Enum\PermissionsFlags;
 use Psr\Http\Message\ResponseInterface;
@@ -17,12 +18,16 @@ class ViewPlayerController extends Controller
     #[Inject]
     private AchievementRepository $achievementRepository;
 
+    #[Inject]
+    private AdminLogRepository $adminLog;
+
     public function action(): ResponseInterface
     {
         $ckey = $this->getArg('ckey');
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
         $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
+        $logs = $this->adminLog->getAdminLogsForCkey($ckey);
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
             return $this->render('player/popover.html.twig', [
                 'player' => $player,
@@ -33,7 +38,8 @@ class ViewPlayerController extends Controller
             'playtime' => $playTime,
             'narrow' => true,
             'perms' => PermissionsFlags::getArray(),
-            'achievements' => $achievements
+            'achievements' => $achievements,
+            'logs' => $logs
         ]);
     }
 

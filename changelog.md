@@ -11,6 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.9.0] - 2023-08-11
+
+##### Added
+- Admin rank logs so you can see _exactly_ when someone got `+FUN`
+- This information also shows up on public player information pages!
+
+---
+
 #### [1.8.0] - 2023-08-09
 
 ##### Added

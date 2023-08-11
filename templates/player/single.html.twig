@@ -36,13 +36,21 @@
 							</tr>
 						</tbody>
 					</table>
+
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
 					{% endif %}
+
 					{% include 'player/components/achievementsListing.html.twig' %}
+
+					{% if logs %}
+						<h5 class="mt-4">Admin Rank Logs</h5>
+						<hr>
+						{% include 'info/components/adminLogList.html.twig' with logs %}
+					{% endif %}
 				</div>
 				<div class="col-md-3">
-				<div class="card mb-2">
+					<div class="card mb-2">
 						<div class="card-header fw-bold">
 							Links
 						</div>

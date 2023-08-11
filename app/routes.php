@@ -52,6 +52,7 @@ return function (App $app) {
     //Info pages
     $app->group("/info", function (RouteCollectorProxy $app) {
         $app->get("/admins", \App\Controller\Info\AdminRosterController::class)->setName("admins");
+        $app->get("/adminlogs[/page/{page:[0-9]+}]", \App\Controller\Info\AdminLogController::class)->setName("adminlogs");
     });
 
 

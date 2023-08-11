@@ -1,0 +1,15 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item"><i class="fa-solid fa-list-ul"></i> Admin Rank Logs</li>
+{% endblock %}
+{% block cardHeader %}
+	Admin Rank Logs
+{% endblock %}
+{% block cardSubHeader %}{% endblock %}
+{% block cardBody %}
+	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+    {% include 'info/components/adminLogList.html.twig' with logs %}
+    {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+{% endblock %}
