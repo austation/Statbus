@@ -8,6 +8,12 @@
 			<div class="row row-cols-4">
 				{% if not user %}
 					<div class="col d-flex">
+						<a href="{{url_for('warning')}}" class="flex-fill btn btn-outline-warning active mb-4 text-white ">
+							<span class="display-6">
+								<i class="fa-solid fa-triangle-exclamation"></i>
+							</span><br>Content Warning</a>
+					</div>
+					<div class="col d-flex">
 						<a href="{{url_for('auth.forum')}}" class="flex-fill btn active mb-4" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
 							<span class="text-white display-6">
 								{% if 10 == random(1,10) %}

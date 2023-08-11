@@ -13,6 +13,8 @@ return function (App $app) {
 
     $app->get("/privacy", \App\Controller\Home\MarkdownController::class)->setName("privacy")->setArgument('file', 'privacy-policy.md')->setArgument('title', 'Privacy Policy');
 
+    $app->get("/warning", \App\Controller\Home\MarkdownController::class)->setName("warning")->setArgument('file', 'content-warning.md')->setArgument('title', 'Content Warning');
+
     $settings = $app->getContainer()->get('settings')['app'];
     $app->redirect('/discord', $settings['discord'], 301)->setName('discord');
 
