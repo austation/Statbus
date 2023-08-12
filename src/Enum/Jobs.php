@@ -41,6 +41,9 @@ enum Jobs: string
     case ENGINEER = 'Station Engineer';
     case VIROLOGIST = 'Virologist';
     case WARDEN = 'Warden';
+    case LIVING = 'Living';
+    case GHOST = 'Ghost';
+    case ADMIN = 'Admin';
 
     public function getColor(): string
     {
@@ -53,7 +56,18 @@ enum Jobs: string
             Jobs::CHEMIST, Jobs::CORONER, Jobs::PARAMEDIC, Jobs::DOCTOR, Jobs::VIROLOGIST => '#5B97BC',
             Jobs::GENETICIST, Jobs::SCIENTIST, Jobs::ROBOTICIST => '#C96DBF',
             Jobs::SECURITY, Jobs::DETECTIVE, Jobs::WARDEN => '#CB0000',
-            Jobs::CAPTAIN, Jobs::CHIEF_ENGIE, Jobs::CMO, Jobs::RD, Jobs::HOP, Jobs::QM, Jobs::HOS, => '#1B67A5'
+            Jobs::CAPTAIN, Jobs::CHIEF_ENGIE, Jobs::CMO, Jobs::RD, Jobs::HOP, Jobs::QM, Jobs::HOS, => '#1B67A5',
+            Jobs::ADMIN => '#df0afb', //COLOR_CARP_GRAPE
+            Jobs::LIVING => '#AAA', //COLOR_CARP_RUSTY
+            Jobs::GHOST => '#000' //COLOR_CARP_RED
+        };
+    }
+
+    public function includeInGraph(): bool
+    {
+        return match($this) {
+            default => true,
+            Jobs::LIVING, Jobs::ADMIN, Jobs::GHOST => false
         };
     }
 }
