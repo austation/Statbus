@@ -89,6 +89,7 @@ Encore.addPlugin(
         path.join(__dirname, "assets/vue/**/*.vue"),
         path.join(__dirname, "assets/ranks.json")
     ]),
+    safelist: ['text-bg-perma']
     }),
   );
 Encore.addPlugin(

@@ -2,81 +2,81 @@
     "Maintainer": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "code"
+      "icon": "fas fa-code"
     },
     "Codermin": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "code"
+      "icon": "fas fa-code"
     },
     "Debugger": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "spider"
+      "icon": "fas fa-spider"
     },
     "AdminObserver": {
       "backColor": "#3498db",
       "foreColor": "#FFF",
-      "icon": "binoculars"
+      "icon": "fas fa-binoculars"
     },
     "TrialAdmin": {
       "backColor": "#d05995",
       "foreColor": "#FFF",
-      "icon": "gavel"
+      "icon": "fas fa-gavel"
     },
     "GameAdmin": {
       "backColor": "#9b59b6",
       "foreColor": "#FFF",
-      "icon": "asterisk"
+      "icon": "fas fa-asterisk"
     },
     "Barista": {
       "backColor": "#6b4711",
       "foreColor": "#FFF",
-      "icon": "coffee"
+      "icon": "fas fa-coffee"
     },
     "AdminTrainer": {
       "backColor": "#9570c0",
       "foreColor": "#FFF",
-      "icon": "asterisk"
+      "icon": "fas fa-asterisk"
     },
     "GameMaster": {
       "backColor": "#d9b733",
       "foreColor": "#000",
-      "icon": "dungeon"
+      "icon": "fas fa-dungeon"
     },
     "HeadAdmin": {
       "backColor": "#ffa500",
       "foreColor": "#000",
-      "icon": "star"
+      "icon": "fas fa-star"
     },
     "HeadCoder": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "star"
+      "icon": "fas fa-star"
     },
     "Host": {
       "backColor": "#A00",
       "foreColor": "#FFF",
-      "icon": "server"
+      "icon": "fas fa-server"
     },
     "RememberedForever": {
       "backColor": "#000",
       "foreColor": "#FFF",
-      "icon": "infinity"
+      "icon": "fas fa-infinity"
     },
     "Maptainer": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "map-location-dot"
+      "icon": "fas fa-map-location-dot"
     },
     "Spritetainer": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
-      "icon": "paintbrush"
+      "icon": "fas fa-paintbrush"
     },
     "AdminCandidate": {
       "backColor": "#3498db",
       "foreColor": "#FFF",
-      "icon": "baby"
+      "icon": "fas fa-baby"
     }
   }
