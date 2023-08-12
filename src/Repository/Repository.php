@@ -62,9 +62,6 @@ class Repository
     #[Inject]
     private HTMLSanitizerService $html;
 
-    #[Inject]
-    private ?Twig $twig = null;
-
     public function __construct(Connection $connection, EasyDB $db)
     {
         $this->connection = $connection;
