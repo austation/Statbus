@@ -28,8 +28,9 @@ const getOrCreateLegendList = (chart, id) => {
       }
   
       // Reuse the built-in legendItems generator
+      console.log(chart.options)
       const items = chart.options.plugins.legend.labels.generateLabels(chart);
-  
+
       items.forEach(item => {
         const li = document.createElement('li');
           li.setAttribute('class','list-group-item')
@@ -74,26 +75,35 @@ const getOrCreateLegendList = (chart, id) => {
     });
     return newFormat;
   }
+  Chart.defaults.maintainAspectRatio = false
   const ctx = document.getElementById("playtime");
   var options = {
-    type: "pie",
+    type: "bar",
     data: formatData({{playtime|json_encode()|raw}}, "Minutes"),
     options: {
+      scales: {
+        x: {
+          type: 'logarithmic',
+        }
+      },
+      indexAxis: 'y',
       parsing: {
-        xAxisKey: "minutes",
-        yAxisKey: "job",
+        xAxisKey: "job",
+        yAxisKey: "minutes",
         key: "job",
       },
       plugins: {
           legend: {
               display: false
           },
-          htmlLegend: {
-          containerID: 'legend-container',
-        },
       },
     },
-    plugins: [htmlLegendPlugin],
+    // plugins: [htmlLegendPlugin],
   };
-  new Chart(ctx, options)
+  const chart = new Chart(ctx, options)
+  const height = chart.getSortedVisibleDatasetMetas()[0].data.length * 30 + 100
+  const width = chart.canvas.parentNode.offsetWidth
+  chart.canvas.parentNode.style.height = `${height}px`;
+  chart.canvas.parentNode.style.width = `${chart.canvas.parentNode.style.width}px`;
+  chart.render()
   
