@@ -2,6 +2,7 @@
 
 use App\Controller;
 use App\Domain\User\Repository\UserRepository;
+use App\Extension\Twig\EnumExtension;
 use App\Extension\Twig\WebpackAssetLoader;
 use App\Factory\LoggerFactory;
 use App\Handler\DefaultErrorHandler;
@@ -124,6 +125,7 @@ return [
 
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addExtension(new WebpackAssetLoader($options));
+        $twig->addExtension(new EnumExtension($options));
         $twig->addRuntimeLoader(new class () implements RuntimeLoaderInterface {
             public function load($class)
             {
@@ -146,8 +148,6 @@ return [
         $twig->addExtension(new \Twig\Extra\Markdown\MarkdownExtension());
         $twig->getEnvironment()->getExtension(\Twig\Extension\CoreExtension::class)->setDateFormat('Y-m-d H:i:s', '%a minutes');
         $twig->getEnvironment()->getExtension(\Twig\Extension\CoreExtension::class)->setTimezone('UTC');
-
-        // $twig->getEnvironment()->addGlobal("user", $session->get("user"));
         return $twig;
     },
 
