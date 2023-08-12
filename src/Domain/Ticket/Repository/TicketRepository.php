@@ -46,9 +46,9 @@ class TicketRepository extends Repository
         $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s
         ORDER BY t.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
         $pagesQuery = sprintf("SELECT count(t.id) FROM ticket t WHERE %s", $where);
-        $this->setPages((int) ceil($this->db->cell($pagesQuery) / $per_page));
+        $this->setPages((int) ceil($this->cell($pagesQuery) / $per_page));
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 $query,
                 ($page * $per_page) - $per_page,
                 $per_page
@@ -65,9 +65,9 @@ class TicketRepository extends Repository
         $pagesQuery = sprintf("SELECT count(t.id) FROM ticket t WHERE %s", $where);
         $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s
         ORDER BY t.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
-        $this->setPages((int) ceil($this->db->cell($pagesQuery, $ckey, $ckey) / $per_page));
+        $this->setPages((int) ceil($this->cell($pagesQuery, $ckey, $ckey) / $per_page));
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 $query,
                 $ckey,
                 $ckey,
@@ -75,6 +75,7 @@ class TicketRepository extends Repository
                 $per_page
             ),
         );
+
         return $this;
     }
 
@@ -86,9 +87,9 @@ class TicketRepository extends Repository
         $pagesQuery = sprintf("SELECT count(t.id) FROM ticket t WHERE %s", $where);
         $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s
       ORDER BY t.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
-        $this->setPages((int) ceil($this->db->cell($pagesQuery, $round) / $per_page));
+        $this->setPages((int) ceil($this->cell($pagesQuery, $round) / $per_page));
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 $query,
                 $round,
                 ($page * $per_page) - $per_page,
@@ -101,7 +102,7 @@ class TicketRepository extends Repository
     public function getSingleTicket(int $round, int $ticket): self
     {
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 "SELECT 
                     t.id,
                     t.server_ip as serverIp, 

@@ -39,7 +39,7 @@ class BanRepository extends Repository
 
     public function getPublicBans()
     {
-        return $this->db->run("$this->columns ORDER BY bantime DESC;");
+        return $this->run("$this->columns ORDER BY bantime DESC;");
     }
 
     public function getBansForCkey($ckey)
@@ -102,7 +102,7 @@ class BanRepository extends Repository
     public function getPlayerStanding(string $ckey)
     {
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 "SELECT B.role, 
                 B.id,
                 B.expiration_time

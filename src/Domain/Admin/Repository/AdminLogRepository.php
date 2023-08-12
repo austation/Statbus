@@ -12,14 +12,14 @@ class AdminLogRepository extends Repository
 
     public function getAdminLogs(int $page = 1, int $per_page = 60): array
     {
-        $this->setPages((int) ceil($this->db->cell(
+        $this->setPages((int) ceil($this->cell(
             "SELECT
             count(id) 
             FROM admin_log"
         ) / $per_page));
 
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 "SELECT
                   L.id,
                   L.datetime,
@@ -43,14 +43,14 @@ class AdminLogRepository extends Repository
     }
     public function getAdminLogsForCkey(string $ckey, int $page = 1, int $per_page = 60): array
     {
-        $this->setPages((int) ceil($this->db->cell(
+        $this->setPages((int) ceil($this->cell(
             "SELECT
             count(id) 
             FROM admin_log"
         ) / $per_page));
 
         $this->setResults(
-            $this->db->run(
+            $this->run(
                 "SELECT
                   L.id,
                   L.datetime,

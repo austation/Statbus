@@ -43,8 +43,14 @@ class PlayerRepository extends Repository
     }
     public function getPlayerRecentPlaytime(string $ckey): array
     {
-        $jobs = "('".implode("','", array_column(Jobs::cases(), 'value'))."')";
-        $data = $this->db->run(
+        $list = [];
+        foreach(Jobs::cases() as $job) {
+            if($job->includeInGraph()) {
+                $list[] = $job->value;
+            }
+        }
+        $jobs = "('".implode("','", $list)."')";
+        $data = $this->run(
             "SELECT sum(t.delta) as `minutes`, t.job FROM role_time_log t
             WHERE t.ckey = ?
             AND t.job in $jobs
@@ -63,7 +69,7 @@ class PlayerRepository extends Repository
 
     public function getDiscordVerificationsForCkey(string $ckey): array
     {
-        $data = $this->db->run("SELECT d.ckey, d.discord_id, d.timestamp, d.valid FROM discord_links d WHERE d.ckey = ?", $ckey);
+        $data = $this->run("SELECT d.ckey, d.discord_id, d.timestamp, d.valid FROM discord_links d WHERE d.ckey = ?", $ckey);
         foreach($data as &$d) {
             $d = $this->parseTimestamps($d);
             if($d->valid) {

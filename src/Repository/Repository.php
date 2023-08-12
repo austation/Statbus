@@ -23,8 +23,6 @@ class Repository
 
     public ?string $entityClass = null;
 
-    private $purifier;
-
     public array $timestampedColumns = [
         'expiration',
         'bantime',
@@ -53,6 +51,8 @@ class Repository
         'edits'
     ];
 
+    private array $queries = [];
+
     public $results = null;
     public $result = null;
     public ?int $pages = null;
@@ -62,11 +62,13 @@ class Repository
     #[Inject]
     private HTMLSanitizerService $html;
 
+    #[Inject]
+    private ?Twig $twig = null;
+
     public function __construct(Connection $connection, EasyDB $db)
     {
         $this->connection = $connection;
         $this->db = $db;
-
     }
 
     /**
@@ -240,12 +242,39 @@ class Repository
         return $this->pages;
     }
 
-    public function actualRow(string $statement, array $parameters)
+    public function run($query, ...$params)
+    {
+        $this->queries[] = $query;
+        return $this->db->run($query, ...$params);
+    }
+
+    public function cell(
+        string $statement,
+        float|object|bool|int|string|null ...$params
+    ): float|bool|int|string|null {
+        $this->queries[] = $statement;
+        return $this->db->cell($statement, ...$params);
+    }
+
+    /**
+     * actualRow
+     *
+     * Reimplements EasyDB's row function to force the fetch to be done as an
+     * array instead of an object because I can't override that in the row()
+     * function
+     *
+     * @param string $statement
+     * @param array $parameters
+     * @return void
+     */
+    public function actualRow(string $statement, array $parameters): array
     {
         $data = $this->db->safeQuery($statement, $parameters, PDO::FETCH_ASSOC);
         if (is_array($data)) {
             $first = array_shift($data);
             return $first;
         }
+        return [];
     }
+
 }

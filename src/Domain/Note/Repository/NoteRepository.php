@@ -50,14 +50,14 @@ class NoteRepository extends Repository
         }
         $where = implode("\n AND ", [...$this->where, "n.targetckey = ?"]);
         $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
-        $this->setPages((int) ceil($this->db->cell($query, $ckey) / $per_page));
+        $this->setPages((int) ceil($this->cell($query, $ckey) / $per_page));
 
         $cols = implode(",\n", $this->columns);
         $joins = implode("\n", $this->joins);
         $where = implode("\n AND ", [...$this->where, "n.targetckey = ?"]);
         $query = sprintf("SELECT %s FROM messages n %s \nWHERE %s
         ORDER BY n.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
-        $data = $this->db->run(
+        $data = $this->run(
             $query,
             $ckey,
             ($page * $per_page) - $per_page,

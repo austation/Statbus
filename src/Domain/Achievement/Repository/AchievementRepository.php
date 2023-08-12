@@ -11,7 +11,7 @@ class AchievementRepository extends Repository
 
     public function getAchievementsForCkey(string $ckey)
     {
-        $data = $this->db->run("SELECT
+        $data = $this->run("SELECT
             s.achievement_key,
             s.value,
             s.last_updated,
