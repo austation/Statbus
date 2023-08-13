@@ -1,6 +1,23 @@
 <script src="https://unpkg.com/@popperjs/core@2"></script>
 		<script src="https://unpkg.com/tippy.js@6"></script>
 		<script>
+          tippy("[title]", {
+        content(reference) {
+          const title = reference.getAttribute("title");
+          reference.removeAttribute("title");
+          return title;
+        },
+      });
+    // tippy(".roundBadge", {
+    //     content(reference) {
+    //       const id = reference.getAttribute("data-round-id");
+    //       const template = document.getElementById("round-" + id + "-popover");
+    //       template.style.display = "block";
+    //       return template;
+    //     },
+    //     allowHTML: true,
+    //     interactive: true,
+    //   });
       tippy(".playerBadge.has-popover", {
         content: "Loading...",
         onCreate(instance) {

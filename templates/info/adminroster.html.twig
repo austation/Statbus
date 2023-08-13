@@ -67,7 +67,7 @@
 									{% for role, minutes in a.getPlaytime %}
 										{% set width = (minutes / total) * 100 %}
 										{% set enum = enum('\\App\\Enum\\Jobs').tryFrom(role) %}
-										<div class="progress-bar" style="width:{{width}}%; background:{{enum.getColor}};" data-bs-toggle="tooltip" data-bs-title="{{role}} - {{minutes}} minutes">{{role}}</div>
+										<div class="progress-bar" style="width:{{width}}%; background:{{enum.getColor}};" title="{{role}} - {{minutes}} minutes">{{role}}</div>
 									{% endfor %}
 								</div>
 							{% else %}
