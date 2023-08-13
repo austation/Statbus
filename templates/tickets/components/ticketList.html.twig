@@ -25,12 +25,11 @@
 					</h5>
 					<span class="flex-shrink-0">{{t.timestamp|date()}}</span>
 				</div>
-				<p class="mb-1">{{t.message}}</p>
+				<p class="mb-1">{{t.getMessage}}</p>
+				<p class="mb-0" style="font-size: .75rem"><i class="fas fa-circle"></i> {{t.getRound}} #{{t.getTicket}} <i class="fa-regular fa-comments"></i> {{t.getReplies}} messages</p>
 			</div>
 		</div>
 	</a>
-	{% else %}
+{% else %}
 	<p class="text-center mb-0">« No Tickets Located »</p>
 {% endfor %}
-
-
