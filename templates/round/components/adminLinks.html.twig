@@ -1,0 +1,12 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	Admin Links
+{% endblock %}
+
+{% block body %}
+	<div class="btn-group">
+		<a href="{{url_for('tgdb.tickets.round',{round:round.getId})}}" class="btn btn-primary">
+			<i class="fas fa-ticket"></i>
+			Tickets</a>
+	</div>
+{% endblock %}

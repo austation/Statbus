@@ -1,0 +1,18 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+Basic Statistics
+{% endblock %}
+
+{% block body %}
+{% for stat in stats %}
+<h6 class="border-bottom pb-1"><code>{{stat.getKey}}</code></h6>
+    <div class="mb-2">
+    {% include [
+        'stat/key/' ~ stat.getKey ~ '-' ~ stat.getVersion ~ '.html.twig', 
+        'stat/key/' ~ stat.getKey ~ '.html.twig',
+        'stat/type/' ~ stat.getType ~ '.html.twig', 
+        'stat/generic.html.twig'
+        ] with {'stat': stat} only %}
+    </div>
+{% endfor %}
+{% endblock %}

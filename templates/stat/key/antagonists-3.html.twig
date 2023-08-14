@@ -1,0 +1,25 @@
+<div class="row row-cols-2">
+{% for d in stat.getData %}
+    <div class="col">
+    <div class="card mb-2">
+        <div class="card-header">{{d.name}} <small>(<a href="{{url_for('player',{ckey:d.key})}}">{{d.key}}</a>)</small> as <em>The {{d.antagonist_name}}</em> <small class="text-muted">{{d.antagonist_type}}</small>
+        </div>
+        <div class="card-body">
+            <ul class="list-group list-group-flush">
+      {% for o in d.objectives %}
+        {% if 'FAIL' == o.result %}
+          <li class="list-group-item list-group-item-danger">
+            <span class="badge text-bg-danger">FAIL</span>
+        {% else %}
+          <li class="list-group-item list-group-item-success">
+            <span class="badge text-bg-success">SUCCESS</span>
+        {% endif %}
+          <strong>{{o.text|striptags}}</strong><br>
+          <small class="text-muted">{{o.objective_type}}</small>
+      {% endfor %}
+    </ul>
+        </div>
+    </div>
+    </div>
+{% endfor %}
+</div>

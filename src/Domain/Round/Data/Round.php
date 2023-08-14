@@ -9,7 +9,7 @@ use DateTime;
 
 class Round
 {
-    private ?Server $server = null;
+    // private ?Server $server = null;
 
     private ?string $duration = null;
 
@@ -35,7 +35,8 @@ class Round
         private $state = null,
         private ?string $shuttle = null,
         private ?string $map = null,
-        private ?string $name = null
+        private ?string $name = null,
+        private Server $server
     ) {
         $this->setDuration();
         $this->setStartDuration();

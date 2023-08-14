@@ -8,14 +8,15 @@ use App\Service\ServerInformationService;
 
 class RoundRepository extends Repository
 {
+    public ?string $entityClass = Round::class;
+
     public function getRound(int $id): Round
     {
-        $servers = ServerInformationService::getServerInfo();
-        $currentRounds = ServerInformationService::getCurrentRounds($servers);
-        $data = $this->connection->execute("SELECT 
-        r.id, 
-        r.initialize_datetime, 
-        r.start_datetime, 
+
+        $query = "SELECT
+        r.id,
+        r.initialize_datetime,
+        r.start_datetime,
         r.shutdown_datetime,
         r.end_datetime,
         r.server_ip,
@@ -28,20 +29,18 @@ class RoundRepository extends Repository
         r.map_name,
         r.station_name
         FROM round r
-        WHERE id = ?
-        ", [
-            0 => $id
-        ])->fetch('assoc');
+        WHERE id = ?";
 
-        if(in_array($data['id'], $currentRounds)) {
-            $round = new Round($data['id']);
+        $data = $this->actualRow($query, [$id]);
+        $this->setResult($data);
+        $round = $this->getResult();
+        $servers = ServerInformationService::getServerInfo();
+        $currentRounds = ServerInformationService::getCurrentRounds($servers);
+
+        if(in_array($round->getId(), $currentRounds)) {
+            $round = new Round($round->getId());
             $round->setState('underway');
-        } else {
-            $round = $this->parseTimestamps($data);
-            $round = new Round(...array_values($round));
         }
-        $round->setServer(ServerInformationService::getServerFromPort($data['server_port'], $servers));
         return $round;
     }
-
 }

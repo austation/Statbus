@@ -141,3 +141,10 @@ a {
 body.debug > #site-logo {
   transform: rotate(180deg);
 }
+
+.page-section{
+  margin-bottom: 2rem;
+  &:last-child{
+    margin-bottom: 0;
+  }
+}

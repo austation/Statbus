@@ -16,7 +16,7 @@
 	</span>
 {% endblock %}
 {% block cardSubHeader %}
-	<div class="round-state-banner text-bg-{{round.getState.cssClass}} fw-bold p-1">
+	<div class="round-state-banner text-bg-{{round.getState.cssClass}} fw-bold px-3 py-1">
 		<i class="{{round.getState.icon|raw}}"></i>
 		{{round.getState.value}}
 		{% if 'In progress' != round.getState.value %}
@@ -114,12 +114,7 @@
 		<p class="text-center mb-0">« This Round is Currently In Progress »</p>
 	{% endif %}
 	{% if user.has('ADMIN') %}
-		<h5>Admin Links</h5>
-		<hr>
-		<div class="btn-group">
-			<a href="{{url_for('tgdb.tickets.round',{round:round.getId})}}" class="btn btn-primary">
-				<i class="fas fa-ticket"></i>
-				Tickets</a>
-		</div>
+	{% include 'round/components/adminLinks.html.twig' %}
 	{% endif %}
+	{% include 'round/components/basic_stats.html.twig' %}
 {% endblock %}
