@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.10.0] - 2023-08-14
+
+##### Added
+- Basic round statistics (testmerged PRs and antagonists) to round information pages
+
+---
+
 #### [1.9.0] - 2023-08-11
 
 ##### Added
