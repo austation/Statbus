@@ -21,6 +21,11 @@
 						<i class="fa-solid fa-envelope"></i>
 						My Notes & Messages</a>
 				</li>
+				<li>
+					<a class="dropdown-item" href="{{url_for('round.single',{id:user.getLastRound})}}">
+						<i class="fa-solid fa-circle"></i>
+						My Last Round</a>
+				</li>
 			</ul>
 		</li>
 	{% endif %}

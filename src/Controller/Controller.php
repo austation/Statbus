@@ -193,12 +193,13 @@ abstract class Controller
      * @param string $route
      * @return string
      */
-    protected function getUriForRoute(string $route): string
+    protected function getUriForRoute(string $route, $args = []): string
     {
         $router = $this->container->get(RouteParserInterface::class);
         $uri = $router->fullUrlFor(
             $this->getRequest()->getUri()->withPort(null),
-            $route
+            $route,
+            $args
         );
         if ((isset($_SERVER['HTTPS']) && 'On' === $_SERVER['HTTPS']) || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
             $uri = str_replace('http://', 'https://', $uri);

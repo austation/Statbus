@@ -27,6 +27,8 @@ class User
 
     private ?array $playtime = null;
 
+    private ?int $lastRound = null;
+
     public function __construct()
     {
 
@@ -150,7 +152,13 @@ class User
             ->required()
             ->default(null)
             ->allowedTypes('string', 'null')
-            ->info('When this player was last seen connected to the game');
+            ->info('When this player was last seen connected to the game')
+
+            ->define('lastseen_round_id')
+            ->required()
+            ->default(null)
+            ->allowedTypes('int', 'null')
+            ->info('The player\'s most recent round');
 
         $data = $resolver->resolve($data);
         $user = new self();
@@ -159,6 +167,7 @@ class User
         $user->setFlags($data['flags'] ?: 0);
         $user->setFeedback($data['feedback']);
         $user->setLastseen($data['lastseen']);
+        $user->setLastRound($data['lastseen_round_id']);
         return $user;
     }
 
@@ -176,6 +185,17 @@ class User
     public function getPlaytime(): ?array
     {
         return $this->playtime;
+    }
+
+    private function setlastRound(int|null $round): self
+    {
+        $this->lastRound = $round;
+        return $this;
+    }
+
+    public function getLastRound(): int|null
+    {
+        return $this->lastRound;
     }
 
 }

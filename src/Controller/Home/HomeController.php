@@ -18,6 +18,7 @@ class HomeController extends Controller
      */
     public function action(): ResponseInterface
     {
+        $user = $this->getUser();
         $apps = [
             [
                 'name' => 'My Bans',
@@ -56,6 +57,14 @@ class HomeController extends Controller
                 'disabled' => false
             ],
         ];
+        if($user->getLastRound()) {
+            $apps[] = [
+                'name' => 'My Last Round',
+                'icon' => 'fas fa-circle',
+                'url' => $this->getUriForRoute('round.single', ['id' => $user->getLastRound()]),
+                'disabled' => false
+            ];
+        }
         return $this->render('home.html.twig', [
             'narrow' => true,
             'apps' => $apps
