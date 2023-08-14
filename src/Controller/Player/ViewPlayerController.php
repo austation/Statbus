@@ -24,6 +24,7 @@ class ViewPlayerController extends Controller
     public function action(): ResponseInterface
     {
         $ckey = $this->getArg('ckey');
+        $ckey = strtolower(preg_replace('/([^\w\@])/', '', $ckey));
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
         $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);

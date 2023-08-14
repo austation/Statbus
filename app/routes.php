@@ -43,7 +43,7 @@ return function (App $app) {
 
     //Players
     $app->group("/player", function (RouteCollectorProxy $app) {
-        $app->get("/{ckey:[a-z0-9@]+}", \App\Controller\Player\ViewPlayerController::class)->setName("player");
+        $app->get("/{ckey:[\S\s]+}", \App\Controller\Player\ViewPlayerController::class)->setName("player");
     });
 
     //Rounds
