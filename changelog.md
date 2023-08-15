@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.11.0] - 2023-08-15
+
+##### Added
+- Download a certified copy of the results of your antagonist round! 
+
+---
+
 #### [1.10.0] - 2023-08-14
 
 ##### Added

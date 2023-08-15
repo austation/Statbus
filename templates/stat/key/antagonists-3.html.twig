@@ -1,25 +1,75 @@
 <div class="row row-cols-2">
-{% for d in stat.getData %}
-    <div class="col">
-    <div class="card mb-2">
-        <div class="card-header">{{d.name}} <small>(<a href="{{url_for('player',{ckey:d.key})}}">{{d.key}}</a>)</small> as <em>The {{d.antagonist_name}}</em> <small class="text-muted">{{d.antagonist_type}}</small>
-        </div>
-        <div class="card-body">
-            <ul class="list-group list-group-flush">
-      {% for o in d.objectives %}
-        {% if 'FAIL' == o.result %}
-          <li class="list-group-item list-group-item-danger">
-            <span class="badge text-bg-danger">FAIL</span>
-        {% else %}
-          <li class="list-group-item list-group-item-success">
-            <span class="badge text-bg-success">SUCCESS</span>
-        {% endif %}
-          <strong>{{o.text|striptags}}</strong><br>
-          <small class="text-muted">{{o.objective_type}}</small>
-      {% endfor %}
-    </ul>
-        </div>
-    </div>
-    </div>
-{% endfor %}
-</div>
+	{% for d in stat.getData %}
+		<div class="col">
+			<div class="card mb-2">
+				<div class="card-header d-flex justify-content-between align-items-center"><span>{{d.name}}
+					<small>(<a href="{{url_for('player',{ckey:d.key})}}">{{d.key}}</a>)</small>
+					as
+					<em>The
+						{{d.antagonist_name}}</em>
+					<small class="text-muted">{{d.antagonist_type}}</small>
+          </span>
+          <a href="#" class="btn btn-sm btn-secondary screenshot" data-html2canvas-ignore><i class="fa-solid fa-camera"></i></a>
+				</div>
+				<div class="card-body">
+					<ul class="list-group list-group-flush">
+						{% for o in d.objectives %}
+							{% if 'FAIL' == o.result %}
+								<li class="list-group-item list-group-item-danger">
+									<span class="badge text-bg-danger">FAIL</span>
+								{% else %}
+									<li class="list-group-item list-group-item-success">
+										<span class="badge text-bg-success">SUCCESS</span>
+									{% endif %}
+									<strong>{{o.text|striptags}}</strong><br>
+									<small class="text-muted">{{o.objective_type}}</small>
+								{% endfor %}
+							</ul>
+						</div>
+            <div class="card-footer d-flex justify-content-between align-items-center visually-hidden">
+            <span>From Round <i class="fas fa-circle"></i> {{round}} on {{server}}</span>
+            <span style="font-size: .5rem" class="text-end">This Antag Outcome <br>Certified By statbus.space</span>
+            </div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js" integrity="sha512-BNaRQnYJYiPSqHHDb58B0yaPfCu+Wgds8Gp/gU33kqBtgNS4tSPHuGibyoeqMV/TJlSKda6FXzoEyYGjTe+vXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+		<script>
+    
+    const cameras = document.querySelectorAll('.screenshot');
+    cameras.forEach((c) => {
+    c.addEventListener('click',function(e){
+        e.preventDefault();
+        const footer = c.parentElement.parentElement.querySelector('.card-footer')
+        footer.classList.toggle('visually-hidden')
+        html2canvas(c.parentElement.parentElement).then(function(canvas){
+          canvas.classList.toggle('visually-hidden')
+          document.body.appendChild(canvas)
+          saveAs(canvas.toDataURL(),'antag.png')
+        })
+        footer.classList.toggle('visually-hidden')
+      })
+    })
+    function saveAs(uri, filename) {
+        var link = document.createElement('a');
+        if (typeof link.download === 'string') {
+          link.href = uri;
+          link.download = filename;
+
+          //Firefox requires the link to be in the body
+          document.body.appendChild(link);
+
+          //simulate click
+          link.click();
+
+          //remove the link when done
+          document.body.removeChild(link);
+        } else {
+          window.open(uri);
+        }
+      }
+
+    
+    </script>
