@@ -16,20 +16,7 @@
 	</span>
 {% endblock %}
 {% block cardSubHeader %}
-	<div class="round-state-banner text-bg-{{round.getState.cssClass}} fw-bold px-3 py-1">
-		<i class="{{round.getState.icon|raw}}"></i>
-		{{round.getState.value}}
-		{% if 'In progress' != round.getState.value %}
-			-
-			{{round.getMode|capitalize}}
-			ended with
-			{{round.getResult|capitalize}}
-			{% if round.getDuration %}
-				in
-				{{round.getDuration}}
-			{% endif %}
-		{% endif %}
-	</div>
+	{% include 'round/components/roundStateBanner.html.twig' %}
 {% endblock %}
 {% block cardBody %}
 	{% if 'In progress' != round.getState.value %}
