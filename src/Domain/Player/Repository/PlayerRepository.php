@@ -55,7 +55,8 @@ class PlayerRepository extends Repository
             WHERE t.ckey = ?
             AND t.job in $jobs
             AND t.datetime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()
-            GROUP BY t.job",
+            GROUP BY t.job
+            ORDER BY `minutes` DESC",
             $ckey
         );
         foreach($data as &$d) {
