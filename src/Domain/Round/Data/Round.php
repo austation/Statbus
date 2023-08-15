@@ -41,6 +41,7 @@ class Round
         $this->setDuration();
         $this->setStartDuration();
         $this->setEndDuration();
+        $this->setLogLinks();
     }
 
     public function getId(): int
@@ -231,10 +232,8 @@ class Round
         return $this;
     }
 
-    public function setServer(object $server): self
+    public function setServer(): self
     {
-        $this->server = $server;
-        $this->setLogLinks();
         return $this;
     }
 
@@ -285,6 +284,7 @@ class Round
     public function setLogLinks(): self
     {
         if($this->getServer() && $this->getInitDatetime()) {
+
             $server = $this->getServer();
             $name = strtolower($server->getIdentifier());
             if('bagil' === $name) {
