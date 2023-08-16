@@ -1,0 +1,15 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	All Statistics
+{% endblock %}
+{% block body %}
+	<ul class="list-inline">
+		{% for s in statlist %}
+			<li class="list-inline-item">
+				<a href="{{url_for('round.stat',{id: round.getId,stat:s.key_name})}}">
+					<code>{{s.key_name}}</code>
+				</a>
+			</li>
+		{% endfor %}
+	</ul>
+{% endblock %}

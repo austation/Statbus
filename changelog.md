@@ -11,6 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.12.0] - 2023-08-16
+
+##### Added
+- Admin roster now links to the admin's individual player page!
+- You can now view all stats from a given round
+
+---
+
 #### [1.11.0] - 2023-08-15
 
 ##### Added

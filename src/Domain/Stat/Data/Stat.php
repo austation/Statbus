@@ -7,6 +7,11 @@ use DateTime;
 class Stat
 {
     public $data;
+    private array $labels = [];
+    private ?StatTweaks $tweaks = null;
+    private ?int $total = null;
+
+    public array $filter = [];
 
     public function __construct(
         private int $id,
@@ -17,9 +22,34 @@ class Stat
         private int $version,
         private string $json
     ) {
+        $this->setTweaks();
         $this->setData();
     }
 
+    public function setTweaks(): self
+    {
+        $this->tweaks = StatTweaks::tryFrom($this->getKey());
+        if($this->tweaks) {
+            $this->setLabels($this->tweaks->getLabels());
+        }
+        return $this;
+    }
+
+    public function getTweaks(): ?StatTweaks
+    {
+        return $this->tweaks;
+    }
+
+    public function setLabels(array $labels): self
+    {
+        $this->labels = $labels;
+        return $this;
+    }
+
+    public function getLabels(): array
+    {
+        return $this->labels;
+    }
 
     public function getId(): int
     {
@@ -107,13 +137,37 @@ class Stat
 
     public function setData(): self
     {
+        if($tweaks = $this->getTweaks()) {
+            if($this->filter = $tweaks->getFilter()) {
+                $this->setJson(str_replace($this->filter, '', $this->getJson()));
+            }
+        }
         $this->data = json_decode($this->getJson(), true)['data'];
-
+        if('tally' === $this->getType()) {
+            $this->setTotal($this->tallyData());
+            arsort($this->data);
+        }
         return $this;
     }
 
     public function getData(): mixed
     {
         return $this->data;
+    }
+
+    private function tallyData(): int
+    {
+        return array_sum($this->data);
+    }
+
+    private function setTotal(int $total): self
+    {
+        $this->total = $total;
+        return $this;
+    }
+
+    public function getTotal(): ?int
+    {
+        return $this->total;
     }
 }

@@ -43,12 +43,14 @@ return function (App $app) {
 
     //Players
     $app->group("/player", function (RouteCollectorProxy $app) {
+        //TODO: Apply to all other ckey routes
         $app->get("/{ckey:[\S\s]+}", \App\Controller\Player\ViewPlayerController::class)->setName("player");
     });
 
     //Rounds
     $app->group("/rounds", function (RouteCollectorProxy $app) {
         $app->get("/{id:[0-9]+}", \App\Controller\Round\RoundViewController::class)->setName("round.single");
+        $app->get("/{id:[0-9]+}/{stat:[a-z_]+}", \App\Controller\Round\RoundStatController::class)->setName("round.stat");
     });
 
     //Info pages
@@ -97,7 +99,6 @@ return function (App $app) {
         $app->get("/notes/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesController::class)->setName("tgdb.notes.player");
 
         $app->get("/note/{id:[0-9]+}", \App\Controller\TGDB\Note\TGDBViewNoteController::class)->setName("tgdb.note");
-
 
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         $request = $request->withAttribute('require', 'ADMIN');

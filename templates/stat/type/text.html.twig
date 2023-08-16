@@ -1,0 +1,11 @@
+{% if stat.data is not iterable %}
+  <span class="display-4"><code>{{stat.getKey}}</code>:</span> 
+  <span class="display-1"><strong>{{stat.data}}</strong></span>
+{% else %}
+  <ul class="list-inline">
+  <span class="display-4"><code>{{stat.getKey}}</code>:</span> 
+  {% for data in stat.data %}
+    <li class="display-1 list-inline-item">{{data}}</li>
+  {% endfor %}
+  </ul>
+{% endif %}

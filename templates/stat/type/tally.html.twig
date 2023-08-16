@@ -1,0 +1,28 @@
+<table class="table table-sm table-bordered sort">
+  <thead>
+    <th>{{stat.getLabels.key ?: 'What'}}</th>
+    <th>{{stat.getLabels.value ?: 'How Many' }}</th>
+  </thead>
+  <tbody class="table-group-divider">
+    {% for key, value in stat.data %}
+      <tr>
+        <th>
+          {{ key}}
+        </th>
+        <td>
+          {{ value }}
+        </td>
+      </tr>
+    {% endfor %}
+    </tbody>
+    <tfoot class="table-group-divider">
+    <tr>
+      <th>
+        {{ stat.getLabels.total ?: 'Total' }}
+      </th>
+      <td>
+        {{ stat.getTotal }}
+      </td>
+    </tr>
+  </tfoot>
+</table>

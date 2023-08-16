@@ -1,0 +1,41 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/badge.html.twig' import RoundBadge, ServerBadge %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<a class="icon-link" href="{{url_for('round.single',{id:round.getId})}}">
+			<i class="fas fa-circle"></i>
+			{{round.getId}}</a>
+	</li>
+	<li class="breadcrumb-item">
+		<i class="fas fa-bar-chart"></i>
+		{{stat.getKey}}
+	</li>
+{% endblock %}
+{% block cardHeader %}
+	<span>
+		<code>{{stat.getKey}}</code>
+		from
+		{{RoundBadge(round.getId)}}
+		on
+		{{ServerBadge(round.getServer)}}
+	</span>
+{% endblock %}
+{% block cardBody %}
+{% if stat.filter %}
+		<div class="alert alert-info">
+			<p class="mb-0">For readability purposes, the following strings were filtered out:</p>
+			<ul class="mb-0">
+				{% for f in stat.filter %}
+					<li>{{f}}</li>
+				{% endfor %}
+			</ul>
+		</div>
+	{% endif %}
+	{% include [
+        'stat/key/' ~ stat.getKey ~ '-' ~ stat.getVersion ~ '.html.twig', 
+        'stat/key/' ~ stat.getKey ~ '.html.twig',
+        'stat/type/' ~ stat.getType ~ '.html.twig', 
+        'stat/generic.html.twig'
+        ] with {'stat': stat, 'round':round.getId, 'server': round.getServer.getIdentifier} only %}
+{% endblock %}

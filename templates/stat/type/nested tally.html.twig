@@ -1,0 +1,18 @@
+<table class="table table-sm table-bordered sort">
+  <thead>
+    <th>{{stat.getLabels.key}}</th>
+    <th>{{stat.getLabels.subvalue}}</th>
+    <th>{{stat.getLabels.value}}</th>
+  </thead>
+  <tbody class="table-group-divider">
+  {% for k,v in stat.data %}
+    {% for path, value in v %}
+    <tr>
+      <th>{{k}}</th>
+      <td>{{path}}</td>
+      <td>{{value}}</td>
+    </tr>
+    {% endfor %}
+  {% endfor %} 
+  </tbody>
+</table>
