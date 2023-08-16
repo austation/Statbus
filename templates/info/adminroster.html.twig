@@ -25,9 +25,11 @@
 				{% for a in admins %}
 					<tr>
 						<th
-							rowspan="2" class="align-middle text-center" style="{{a.getBadge.getStyle}}">
+							rowspan="2" class="align-middle text-center" style="{{a.getBadge.getStyle}}; position: relative;">
+							<a href="{{url_for('player',{ckey: a.getCkey})}}" style="color: {{a.getBadge.getForeColor}}; text-decoration: none;" class=" stretched-link">
 							<i class="fa fa-{{a.getBadge.getIcon}}"></i>
 							{{a.getCkey}}
+							</a>
 						</th>
 						<th class="align-middle">
 							<span>
