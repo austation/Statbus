@@ -5,6 +5,7 @@ namespace App\Controller\TGDB\Player;
 use App\Controller\Controller;
 use App\Domain\Player\Repository\PlayerRepository;
 use App\Domain\Player\Service\IsPlayerBannedService;
+use App\Domain\Player\Service\KeyToCkeyService;
 use App\Enum\PermissionsFlags;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
@@ -19,6 +20,7 @@ class TGDBPlayerViewController extends Controller
     public function action(): ResponseInterface
     {
         $ckey = $this->getArg('ckey');
+        $ckey = KeyToCkeyService::getCkey($ckey);
         $player = $this->playerRepository->getPlayerByCkey($ckey, true);
         $standing = $this->bannedService->isPlayerBanned($ckey);
 

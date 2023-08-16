@@ -6,6 +6,7 @@ use App\Controller\Controller;
 use App\Domain\Achievement\Repository\AchievementRepository;
 use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Player\Repository\PlayerRepository;
+use App\Domain\Player\Service\KeyToCkeyService;
 use App\Enum\PermissionsFlags;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
@@ -24,7 +25,9 @@ class ViewPlayerController extends Controller
     public function action(): ResponseInterface
     {
         $ckey = $this->getArg('ckey');
-        $ckey = strtolower(preg_replace('/([^\w\@])/', '', $ckey));
+        //TODO: Make this into a service
+        //TODO: Redirect to actual ckey url if non-ckey given
+        $ckey = KeyToCkeyService::getCkey($ckey);
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
         $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
