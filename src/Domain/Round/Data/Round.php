@@ -283,14 +283,14 @@ class Round
 
     public function setLogLinks(): self
     {
-        if($this->getServer() && $this->getInitDatetime()) {
+        if($this->getServer() && $this->getStartDatetime()) {
 
             $server = $this->getServer();
             $name = strtolower($server->getIdentifier());
             if('bagil' === $name) {
                 $name = 'basil'; //damn you to hell mso
             }
-            $date = explode(':', $this->getInitDatetime()->format('Y:m:d'));
+            $date = explode(':', $this->getStartDatetime()->format('Y:m:d'));
             $path = sprintf(
                 "/%s/data/logs/%s/%s/%s/round-%s",
                 $name,
