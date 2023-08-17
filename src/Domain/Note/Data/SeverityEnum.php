@@ -32,7 +32,7 @@ enum SeverityEnum: string
     public function getText(): string
     {
         return match($this) {
-            SeverityEnum::NONE => 'Positive',
+            SeverityEnum::NONE => 'No Severity',
             SeverityEnum::MINOR => 'Minor Severity',
             SeverityEnum::MEDIUM => 'Medium Severity',
             SeverityEnum::HIGH => 'High Severity'
@@ -41,7 +41,7 @@ enum SeverityEnum: string
     public function getShortText(): string
     {
         return match($this) {
-            SeverityEnum::NONE => 'Positive',
+            SeverityEnum::NONE => 'None',
             SeverityEnum::MINOR => 'Minor',
             SeverityEnum::MEDIUM => 'Medium',
             SeverityEnum::HIGH => 'High'
