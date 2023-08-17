@@ -38,6 +38,7 @@ class FinishDiscordAuthenticationController extends Controller
         ]);
         $discordUser = $provider->getResourceOwner($token)->toArray();
         if($this->auth->authenticateUserFromDiscord($discordUser['id'])) {
+            $this->addSuccessMessage("You have successfully authenticated via Discord!");
             if($redirect = $session->get('authRedirect')) {
                 $session->set('authRedirect', false);
                 return $this->redirect($redirect);

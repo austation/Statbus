@@ -37,6 +37,7 @@ class FinishForumAuthenticationController extends Controller
         ]);
         $forumUser = $provider->getResourceOwner($token);
         if($this->auth->authenticateUserFromForum($forumUser->getId())) {
+            $this->addSuccessMessage("You have successfully authenticated via the forums!");
             if($redirect = $session->get('authRedirect')) {
                 $session->set('authRedirect', false);
                 return $this->redirect($redirect);
