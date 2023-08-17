@@ -48,7 +48,8 @@ class Repository
 
     public array $stripHTMLColumns = [
         'message',
-        'edits'
+        'edits',
+        'text'
     ];
 
     private array $queries = [];

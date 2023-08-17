@@ -38,21 +38,5 @@
 {% endblock %}
 
 {% block cardBody %}
-	<p>Created
-		{{note.timestamp|date()}}
-		on
-		{{ServerBadge(note.getServer)}}
-		during
-		{{RoundBadge(note.getround)}}</p>
-	<p class="border border-primary p-3 text-white">{{note.text}}</p>
-	{% if note.getEdits %}
-		<h5>Note Edits</h5>
-		<div class="list-group">
-			{% for e in note.getEdits %}
-				<div class="list-group-item">
-					<p class="mb-0">{{e|raw}}</p>
-				</div>
-			{% endfor %}
-		</div>
-	{% endif %}
+{% include 'notes/components/noteEntry.html.twig' %}
 {% endblock %}

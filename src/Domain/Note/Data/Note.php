@@ -40,6 +40,7 @@ class Note
         $this->setSeverity();
         $this->setType();
         $this->setEdits();
+        $this->setText($this->getText());
     }
 
     private function setBadges(): self
@@ -143,7 +144,7 @@ class Note
 
     public function setText(string $text): self
     {
-        $this->text = $text;
+        $this->text = nl2br($text, false);
 
         return $this;
     }
