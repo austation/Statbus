@@ -4,7 +4,7 @@
 {% block breadcrumbs %}
 	{{parent()}}
 		<li class="breadcrumb-item">
-		<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
+		<a href="{{url_for('tgdb.tickets')}}" class="icon-link"><i class="fas fa-ticket"></i> Tickets</a>
 	</li>
 	{% if round %}
 		<li class="breadcrumb-item active" aria-current="page">

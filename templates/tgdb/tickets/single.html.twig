@@ -3,11 +3,11 @@
 {% block breadcrumbs %}
 	{{parent()}}
 	<li class="breadcrumb-item">
-		<a href="{{url_for('tgdb.tickets')}}">Tickets</a>
+		<a href="{{url_for('tgdb.tickets')}}" class="icon-link"><i class="fas fa-ticket"></i> Tickets</a>
 	</li>
 	<li class="breadcrumb-item">
 		<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round: ticket[0].getRound})}}">
-			<i class="fas fa-ticket"></i>
+			<i class="fas fa-circle"></i>
 			{{ticket[0].getRound}}</a>
 	</li>
 	<li class="breadcrumb-item active" aria-current="page">
