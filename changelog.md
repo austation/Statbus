@@ -11,7 +11,15 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
-#### [1.13.0] - 2023-08-16
+#### [1.14.0] - 2023-08-17
+
+##### Added 
+- An initial round listing on the home page
+- Popovers for round badges with links to the round page etc
+- Better error and exception handling
+---
+
+#### [1.13.0] - 2023-08-17
 
 ##### Added 
 - Feedback messages for successful authentications
@@ -20,7 +28,8 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 - Redirecting after authentication. Now it will take you to an actual page, not a missing favicon or something
 - Missing styles for alerts
 
-
+##### Improved
+- Formatting for notes and tickets.
 
 ---
 
