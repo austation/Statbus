@@ -1,5 +1,5 @@
 {% macro PlayerBadge(badge, popover = true) %}
-	<span class="playerBadge badge {{popover ? 'has-popover'}}" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};"  data-rank="{{badge.getTitle}}" data-bs-toggle="tooltip" data-target-ckey="{{badge.getCkey}}">
+	<span class="playerBadge badge {{popover ? 'has-popover'}}" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-rank="{{badge.getTitle}}" data-bs-toggle="tooltip" data-target-ckey="{{badge.getCkey}}">
 		<i class="{{badge.geticon}}"></i>
 		{{badge.getckey}}
 	</span>
@@ -12,15 +12,36 @@
 {% endmacro %}
 
 {% macro ServerBadge(server) %}
-<span class="serverBadge badge text-bg-server" title="{{server.getAddress}}:{{server.getPort}}">
-		<img src="/img/server_icons/{{server.getIdentifier|lower}}.png" /> {{server.getIdentifier}}
-</span>
+	<span class="serverBadge badge text-bg-server" title="{{server.getAddress}}:{{server.getPort}}">
+		<img src="/img/server_icons/{{server.getIdentifier|lower}}.png"/>
+		{{server.getIdentifier}}
+	</span>
 {% endmacro %}
 
-{% macro RoundBadge(round, popover = true) %}
-{% if popover %}
-<span class="roundBadge badge text-bg-round">
-		<i class="fa-solid fa-circle"></i> {{round}}
-</span>
-{% endif %}
+{% macro RoundBadge(round, link = true) %}
+	{% if link %}
+		<a href="{{url_for('round.single',{id: round})}}" class="roundBadge badge text-bg-round" data-round-id="{{round}}">
+			<i class="fa-solid fa-circle"></i>
+			{{round}}
+		</a>
+		<div id="round-{{round}}-popover" style="display:none">
+			<strong class="d-block">
+				<i class="fa fa-fw fa-circle"></i>
+				{{round}}
+			</strong>
+			<a class="link" href="https://statbus.space/rounds/{{round}}" target="_blank">Statbus</a><br>
+			<a class="link" href="https://scrubby.melonmesa.com/round/{{round}}/" target="_blank">Scrubby</a>
+			{% if user.has('ADMIN') %}
+				<hr class="my-2">
+				<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round:round})}}">
+					<i class="fas fa-ticket"></i>
+					Tickets</a>
+			{% endif %}
+		</div>
+	{% else %}
+		<span class="roundBadge badge text-bg-round">
+			<i class="fa-solid fa-circle"></i>
+			{{round}}
+		</span>
+	{% endif %}
 {% endmacro %}

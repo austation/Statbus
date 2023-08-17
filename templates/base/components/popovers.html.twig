@@ -8,16 +8,16 @@
           return title;
         },
       });
-    // tippy(".roundBadge", {
-    //     content(reference) {
-    //       const id = reference.getAttribute("data-round-id");
-    //       const template = document.getElementById("round-" + id + "-popover");
-    //       template.style.display = "block";
-    //       return template;
-    //     },
-    //     allowHTML: true,
-    //     interactive: true,
-    //   });
+    tippy(".roundBadge", {
+        content(reference) {
+          const id = reference.getAttribute("data-round-id");
+          const template = document.getElementById("round-" + id + "-popover");
+          template.style.display = "block";
+          return template;
+        },
+        allowHTML: true,
+        interactive: true,
+      });
       tippy(".playerBadge.has-popover", {
         content: "Loading...",
         onCreate(instance) {
