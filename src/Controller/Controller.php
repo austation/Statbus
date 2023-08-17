@@ -259,6 +259,7 @@ abstract class Controller
         if($require) {
             $user = $this->getUser();
             if($require && !$user) {
+                $this->session->set('authRedirect', (string) $this->getRequest()->getUri()->withPort(null));
                 throw new StatbusUnauthorizedException("You must be logged in to access this", 403);
             } elseif ($require && !$user->has($require)) {
                 throw new StatbusUnauthorizedException("You do not have permission to access this", 403);
