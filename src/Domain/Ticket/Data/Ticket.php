@@ -35,6 +35,7 @@ class Ticket
         $this->setAction();
         $this->setIsBwoink();
         $this->setStatus();
+        $this->setMessage($this->getMessage());
     }
 
     private function setBadges(): self
@@ -150,7 +151,7 @@ class Ticket
 
     public function setMessage(?string $message): self
     {
-        $this->message = $message;
+        $this->message = nl2br($message);
 
         return $this;
     }

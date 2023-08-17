@@ -16,12 +16,14 @@ class HTMLSanitizerService
             $config->set('AutoFormat.Linkify', true);
             $config->set('HTML.Allowed', 'br, hr, a[href]');
             $config->set('HTML.TargetBlank', true);
+            $config->set('URI.HostBlacklist', '');
         }
         $this->purifier = new HTMLPurifier($config);
     }
 
     public function sanitizeString(string $string): string
     {
+        $string = preg_replace('/(href=\'\?[\S]+\')/', '', $string);
         return $this->purifier->purify($string);
     }
 }
