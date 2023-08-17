@@ -57,7 +57,7 @@ class HomeController extends Controller
                 'disabled' => false
             ],
         ];
-        if($user->getLastRound()) {
+        if($user) {
             $apps[] = [
                 'name' => 'My Last Round',
                 'icon' => 'fas fa-circle',
