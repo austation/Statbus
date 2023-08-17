@@ -11,6 +11,19 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.13.0] - 2023-08-16
+
+##### Added 
+- Feedback messages for successful authentications
+
+##### Fixed
+- Redirecting after authentication. Now it will take you to an actual page, not a missing favicon or something
+- Missing styles for alerts
+
+
+
+---
+
 #### [1.12.0] - 2023-08-16
 
 ##### Added
