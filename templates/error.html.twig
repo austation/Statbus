@@ -6,7 +6,11 @@
 			{{error.getCode}}
 		</h1>
 		<div class="card-body">
-			{% include ['errors/' ~ error.getCode ~ '.html.twig', 'errors/generic.html.twig'] %}
+			{% include [
+				'errors/exceptions/' ~ class ~ '.html.twig',
+				'errors/' ~ error.getCode ~ '.html.twig', 
+				'errors/generic.html.twig'
+			] ignore missing %}
 			{% if display_error_details %}
 				<hr>
 				<ul class="list-group list-group-flush">

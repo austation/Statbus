@@ -10,6 +10,7 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Exception;
+use GuzzleHttp\Exception\ClientException;
 use Psr\Container\ContainerInterface;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
@@ -43,7 +44,6 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
         $twig = $this->containerInterface->get(Twig::class);
-        $session = $this->containerInterface->get(Session::class);
         try {
             return $handler->handle($request);
         } catch (Exception $exception) {
@@ -61,6 +61,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
                 'error.html.twig',
                 [
                     'error' => $exception,
+                    'class' => str_replace("\\", "/", get_class($exception)),
                     'display_error_details' => $this->settings['display_error_details'],
                     'narrow' => true
                 ],
