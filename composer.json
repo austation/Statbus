@@ -25,7 +25,8 @@
         "paragonie/easydb": "^3",
         "ezyang/htmlpurifier": "^4.16",
         "monolog/monolog": "^3.4",
-        "symfony/uid": "^6.3"
+        "symfony/uid": "^6.3",
+        "kevinrob/guzzle-cache-middleware": "^4.1"
     },
     "autoload": {
         "psr-4": {

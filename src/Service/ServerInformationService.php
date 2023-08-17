@@ -4,6 +4,9 @@ namespace App\Service;
 
 use App\Domain\Server\Data\Server;
 use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
+use Kevinrob\GuzzleCache\CacheMiddleware;
 
 class ServerInformationService
 {
@@ -13,9 +16,12 @@ class ServerInformationService
 
     public static function getServerInfo(): array
     {
+        $stack = HandlerStack::create();
+        $stack->push(new CacheMiddleware(), 'cache');
         $client = new Client([
             'base_uri' => 'https://tgstation13.org/',
             'timeout'  => 2.0,
+            'handler' => $stack
         ]);
         $response = $client->get('/serverinfo.json');
         $data = json_decode($response->getBody(), true);
