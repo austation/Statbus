@@ -80,7 +80,7 @@ Encore
   // .autoProvidejQuery()
   .enableVueLoader()
 
-if (Encore.isProduction()) {
+// if (Encore.isProduction()) {
 Encore.addPlugin(
     new PurgeCSSPlugin({
       paths: glob.sync([
@@ -89,7 +89,10 @@ Encore.addPlugin(
         path.join(__dirname, "assets/vue/**/*.vue"),
         path.join(__dirname, "assets/ranks.json")
     ]),
-    safelist: ['text-bg-perma']
+    safelist: {
+      standard: ['text-bg-perma'],
+      deep: [/table-/]
+    }
     }),
   );
 Encore.addPlugin(
@@ -104,5 +107,5 @@ Encore.addPlugin(
         },
       })
 )
-}
+// }
 module.exports = Encore.getWebpackConfig();
