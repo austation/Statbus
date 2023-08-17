@@ -3,10 +3,15 @@
 namespace App\Controller\Home;
 
 use App\Controller\Controller;
+use App\Domain\Round\Repository\RoundRepository;
 use Psr\Http\Message\ResponseInterface;
+use DI\Attribute\Inject;
 
 class HomeController extends Controller
 {
+    #[Inject]
+    private RoundRepository $rounds;
+
     /**
      * action
      *
@@ -67,7 +72,8 @@ class HomeController extends Controller
         }
         return $this->render('home.html.twig', [
             'narrow' => true,
-            'apps' => $apps
+            'apps' => $apps,
+            'rounds' => $this->rounds->getRecentRounds()
         ]);
     }
 

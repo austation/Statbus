@@ -1,0 +1,34 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import ServerBadge, RoundBadge %}
+{% block header %}
+	{% if header %}
+		{{header}}
+    {% else %}
+	{% endif %}
+{% endblock %}
+{% block body %}
+	<table class="table table-dark table-bordered">
+		<thead>
+			<tr>
+				<th>ID</th>
+                <th>Server</th>
+                <th>Game Mode & Result</th>
+                <th>Started</th>
+                <th>Duration</th>
+                <th>Ended</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for r in rounds %}
+				<tr class="table-{{r.getState.cssClass}}">
+					<td>{{RoundBadge(r.getId)}}</td>
+                    <td>{{ServerBadge(r.getServer)}}</td>
+                    <td><i class="{{r.getState.icon}}"></i> {{r.getMode|title ?: 'N/A'}} - <span title="{{r.getState.text}}">{{r.getState.value|title}}</span></td>
+                    <td>{{r.getStartDatetime ? r.getStartDatetime|date() : 'N/A'}}</td>
+                    <td>{{r.getDuration}}</td>
+                    <td>{{r.getEndDatetime ? r.getEndDatetime|date() : 'N/A'}}</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

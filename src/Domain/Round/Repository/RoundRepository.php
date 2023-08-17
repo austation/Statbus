@@ -38,9 +38,36 @@ class RoundRepository extends Repository
         $currentRounds = ServerInformationService::getCurrentRounds($servers);
 
         if(in_array($round->getId(), $currentRounds)) {
-            $round = new Round($round->getId());
             $round->setState('underway');
         }
         return $round;
+    }
+
+    public function getRecentRounds(): array
+    {
+        $servers = ServerInformationService::getServerInfo();
+        $currentRounds = ServerInformationService::getCurrentRounds($servers);
+        $currentRounds = "('".implode("','", $currentRounds)."')";
+        $query = "SELECT
+        r.id,
+        r.initialize_datetime,
+        r.start_datetime,
+        r.shutdown_datetime,
+        r.end_datetime,
+        r.server_ip,
+        r.server_port,
+        r.commit_hash,
+        r.game_mode,
+        r.game_mode_result,
+        r.end_state,
+        r.shuttle_name,
+        r.map_name,
+        r.station_name
+        FROM round r
+        WHERE r.id NOT IN $currentRounds
+        ORDER BY r.id DESC
+        LIMIT 0, 12";
+        $this->setResults($this->run($query));
+        return $this->getResults();
     }
 }
