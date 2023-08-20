@@ -3,10 +3,12 @@
 namespace App\Service;
 
 use App\Domain\Server\Data\Server;
+use Exception;
 use GuzzleHttp\Client;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Response;
 use Kevinrob\GuzzleCache\CacheMiddleware;
+use Symfony\Component\Yaml\Yaml;
 
 class ServerInformationService
 {
@@ -23,8 +25,13 @@ class ServerInformationService
             'timeout'  => 2.0,
             'handler' => $stack
         ]);
-        $response = $client->get('/serverinfo.json');
-        $data = json_decode($response->getBody(), true);
+        try {
+            $response = $client->get('/serverinfo.json');
+            $data = json_decode($response->getBody(), true);
+        } catch (Exception $e) {
+            $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
+        }
+
         return $data;
     }
 
