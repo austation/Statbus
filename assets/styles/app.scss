@@ -34,6 +34,8 @@ $border-radius-lg:            .16em;
 $border-radius-xl:            .16em;
 $border-radius-xxl:           .16em;
 
+$list-group-bg: rgba(0,0,0,.5);
+
 @import "~bootstrap/scss/mixins";
 @import "~bootstrap/scss/bootstrap";
 
@@ -72,13 +74,6 @@ body.tgdb{
   transform: rotate(180deg);
   margin: calc(var(--bs-list-group-item-padding-y)*-1) calc(var(--bs-list-group-item-padding-x)*-1);
   text-transform: uppercase;
-}
-
-.list-group {
-  --bs-list-group-bg: transparent !important;
-}
-.list-group-item {
-  --bs-list-group-bg: transparent !important;
 }
 
 .list-group-flush {
