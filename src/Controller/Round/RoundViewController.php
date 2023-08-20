@@ -21,7 +21,7 @@ class RoundViewController extends Controller
         $round = $this->getArg('id');
         return $this->render('round/single.html.twig', [
             'round' => $this->roundRepository->getRound($round),
-            'stats' => $this->statRepository->getStatsForRound($round, ['antagonists','testmerged_prs']),
+            'stats' => $this->statRepository->getStatsForRound($round, ['antagonists','testmerged_prs','commendation']),
             'statlist' => $this->statRepository->listStatsForRound($round),
             'narrow' => true
         ]);

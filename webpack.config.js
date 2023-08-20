@@ -80,7 +80,7 @@ Encore
   // .autoProvidejQuery()
   .enableVueLoader()
 
-// if (Encore.isProduction()) {
+if (Encore.isProduction()) {
 Encore.addPlugin(
     new PurgeCSSPlugin({
       paths: glob.sync([
@@ -107,5 +107,5 @@ Encore.addPlugin(
         },
       })
 )
-// }
+}
 module.exports = Encore.getWebpackConfig();
