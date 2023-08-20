@@ -139,6 +139,7 @@ class BanRepository extends Repository
         LEFT JOIN `admin` AS u ON u.ckey = ban.unbanned_ckey
         INNER JOIN ban r ON r.bantime = ban.bantime AND r.ckey = ban.ckey
         GROUP BY ban.bantime, ban.ckey, `server_port`
+        ORDER BY ban.bantime DESC
         LIMIT ?,?";
         $this->setResults($this->run($query, ($page * $per_page) - $per_page,
         $per_page), true);
