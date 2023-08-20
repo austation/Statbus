@@ -48,6 +48,26 @@ class ServerInformationService
         return null;
     }
 
+    public static function getServerFromName(string $name, ?array $data = null): ?Server
+    {
+        if(!$data) {
+            $data = self::getServerInfo();
+        }
+        foreach($data as $server) {
+            if(isset($server['identifier'])) {
+                if($name === $server['identifier']) {
+                    if(isset($server['identifier'])) {
+                        $server['serverdata']['identifier'] = $server['identifier'];
+                    } else {
+                        $server['serverdata']['identifier'] = explode(' ', $server['serverdata']['servername'])[0];
+                    }
+                    return Server::fromArray($server['serverdata']);
+                }
+            }
+        }
+        return null;
+    }
+
     public static function getCurrentRounds(?array $data = null): array
     {
         if(!$data) {

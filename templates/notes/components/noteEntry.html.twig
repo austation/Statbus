@@ -4,8 +4,12 @@
 	{{note.timestamp|date()}}
 	on
 	{{ServerBadge(note.getServer)}}
-	during
-	{{RoundBadge(note.getround)}}</p>
+	{% if note.getRound %}during
+	{{RoundBadge(note.getround)}}
+	{% else %}
+	(This note is old enough that a round ID was not provided)
+	{% endif %}
+	</p>
 <p class="border border-primary p-3 text-white">{{note.text|raw}}</p>
 {% if note.getEdits %}
 	<h5>Note Edits</h5>

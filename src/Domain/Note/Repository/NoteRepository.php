@@ -29,7 +29,8 @@ class NoteRepository extends Repository
         'n.deleted_ckey',
         't.rank as t_rank',
         'a.rank as a_rank',
-        'e.rank as e_rank'
+        'e.rank as e_rank',
+        'n.server'
     ];
 
     private array $joins = [

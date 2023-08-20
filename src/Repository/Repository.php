@@ -154,14 +154,16 @@ class Repository
         }
         foreach($data as $k => &$v) {
             if(in_array($k, $this->serverPortColumns)) {
-                if(is_null($v)) {
-                    $v = null;
-                } else {
+                if(0 < $v) {
                     if(is_array($data)) {
                         $data['server'] = ServerInformationService::getServerFromPort($v, $this->servers);
                     } else {
                         $data->server = ServerInformationService::getServerFromPort($v, $this->servers);
                     }
+                } else {
+                    //Failsafe to catch data (notes) that are old enough that
+                    //the server port wasn't saved
+                    $data['server'] = ServerInformationService::getServerFromName($data['server'], $this->servers);
                 }
             }
         }

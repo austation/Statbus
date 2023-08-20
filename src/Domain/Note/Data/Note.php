@@ -34,7 +34,7 @@ class Note
         private ?string $targetRank = null,
         private ?string $adminRank = null,
         private ?string $editorRank = null,
-        private ?Server $server = null
+        private $server = null
     ) {
         $this->setBadges();
         $this->setSeverity();
