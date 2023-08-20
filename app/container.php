@@ -29,6 +29,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockArraySessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Twig\Extra\Markdown\MarkdownRuntime;
+use Twig\Extra\String\StringExtension;
 use Twig\Loader\FilesystemLoader;
 use Twig\RuntimeLoader\RuntimeLoaderInterface;
 
@@ -126,6 +127,7 @@ return [
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addExtension(new WebpackAssetLoader($options));
         $twig->addExtension(new EnumExtension($options));
+        $twig->addExtension(new StringExtension());
         $twig->addRuntimeLoader(new class () implements RuntimeLoaderInterface {
             public function load($class)
             {
