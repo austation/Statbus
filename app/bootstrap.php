@@ -1,5 +1,15 @@
 <?php
 
+function pick($list)
+{
+    if (is_string($list)) {
+        $list = explode(',', $list);
+    } elseif (is_object($list)) {
+        $list = json_decode(json_encode($list), true);
+    }
+    return $list[floor(rand(0, count($list)-1))];
+}
+
 use DI\Bridge\Slim\Bridge;
 use DI\ContainerBuilder;
 
