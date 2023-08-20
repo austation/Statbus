@@ -26,7 +26,8 @@
         "ezyang/htmlpurifier": "^4.16",
         "monolog/monolog": "^3.4",
         "symfony/uid": "^6.3",
-        "kevinrob/guzzle-cache-middleware": "^4.1"
+        "kevinrob/guzzle-cache-middleware": "^4.1",
+        "twig/string-extra": "^3.7"
     },
     "autoload": {
         "psr-4": {
