@@ -8,7 +8,7 @@
 		{# Number of page around current page+1 #}
 		{% set nearbyPagesLimit = 5 %}
 		<nav>
-			<ul class="pagination justify-content-center">
+			<ul class="pagination justify-content-center mb-0">
 				<li class="page-item">
 					<a class="page-link {{currentPage != 1 ?: 'disabled'}}" href="{{url}}{{query}}">First</a>
 				</li>

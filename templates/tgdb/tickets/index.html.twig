@@ -3,13 +3,15 @@
 {% from 'macros/pagination.html.twig' import pagination %}
 {% block breadcrumbs %}
 	{{parent()}}
-		<li class="breadcrumb-item">
-		<a href="{{url_for('tgdb.tickets')}}" class="icon-link"><i class="fas fa-ticket"></i> Tickets</a>
+	<li class="breadcrumb-item">
+		<a href="{{url_for('tgdb.tickets')}}" class="icon-link">
+			<i class="fas fa-ticket"></i>
+			Tickets</a>
 	</li>
 	{% if round %}
 		<li class="breadcrumb-item active" aria-current="page">
-		<i class="fas fa-circle"></i>
-		{{round}}</li>
+			<i class="fas fa-circle"></i>
+			{{round}}</li>
 	{% endif %}
 {% endblock %}
 {% block cardHeader %}
@@ -18,9 +20,13 @@
 		Tickets</span>
 {% endblock %}
 {% block cardBody %}
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
-	<div class="list-group list-group-flush my-4">
+	<div class="list-group list-group-flush">
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
 		{% include 'tickets/components/ticketList.html.twig' %}
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
 	</div>
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 {% endblock %}

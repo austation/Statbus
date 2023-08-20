@@ -13,9 +13,13 @@
 		My Tickets</span>
 {% endblock %}
 {% block cardBody %}
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
-	<div class="list-group list-group-flush my-4">
+	<div class="list-group list-group-flush">
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
 		{% include 'tickets/components/ticketList.html.twig' %}
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
 	</div>
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 {% endblock %}

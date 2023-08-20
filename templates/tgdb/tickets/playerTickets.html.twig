@@ -16,9 +16,13 @@
 		Tickets</span>
 {% endblock %}
 {% block cardBody %}
-	{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
-	<div class="list-group list-group-flush my-4">
+	<div class="list-group list-group-flush">
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
+		</div>
 		{% include 'tickets/components/ticketList.html.twig' %}
+		<div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
+		</div>
 	</div>
-	{{pagination(pagination.pages, pagination.currentPage, url_for('tgdb.ticket.player',{ckey: ckey}))}}
 {% endblock %}

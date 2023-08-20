@@ -2,14 +2,19 @@
 {% block breadcrumbs %}
 	{{parent()}}
 	<li class="breadcrumb-item">
+		<a href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a>
+	</li>
+	<li class="breadcrumb-item">
 		<i class="fas fa-envelope"></i>
-		Notes & Messages
+		Notes & Messages for
+		{{ckey}}
 	</li>
 {% endblock %}
 {% block cardHeader %}
 	<span>
 		<i class="fas fa-envelope"></i>
-		Notes & Messages</span>
+		Notes & Messages for
+		{{ckey}}</span>
 {% endblock %}
 {% block cardBody %}
 	{% include 'notes/components/noteListing.html.twig' %}
