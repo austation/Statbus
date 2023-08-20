@@ -16,19 +16,24 @@ class TGDBController extends Controller
     {
         $apps = [
             [
-                'name' => 'Guide to TLP',
-                'icon' => 'fa-solid fa-traffic-light',
-                'url' => $this->getUriForRoute('tgdb.tlp'),
-            ],
-            [
                 'name' => 'Notes & Messages',
                 'icon' => 'fa-solid fa-envelope',
                 'url' => $this->getUriForRoute('tgdb.notes'),
             ],
             [
+                'name' => 'Bans',
+                'icon' => 'fa-solid fa-gavel',
+                'url' => $this->getUriForRoute('tgdb.bans'),
+            ],
+            [
                 'name' => 'Tickets',
                 'icon' => 'fa-solid fa-ticket',
                 'url' => $this->getUriForRoute('tgdb.tickets'),
+            ],
+            [
+                'name' => 'Guide to TLP',
+                'icon' => 'fa-solid fa-traffic-light',
+                'url' => $this->getUriForRoute('tgdb.tlp'),
             ],
             [
                 'name' => 'Your Feedback Link',
