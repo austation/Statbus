@@ -14,7 +14,6 @@ class TGDBNotesListingController extends Controller
 
     public function action(): ResponseInterface
     {
-        $ckey = $this->getArg('ckey');
         $page = ($this->getArg('page')) ?: 1;
         $notes = $this->noteRepository->getNotes(page: $page, secret:true)->getResults();
         return $this->render('tgdb/notes/index.html.twig', [
