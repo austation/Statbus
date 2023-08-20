@@ -11,12 +11,26 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.15.0] - 2023-08-19
+
+##### Added 
+- View notes by author to TGDB!
+- Admin memos on TGDB
+- Global list of bans on TGDB
+- Global list of notes & messages on TGDB
+
+##### Fixed
+- Numerous small design tweaks and improvements 
+
+---
+
 #### [1.14.0] - 2023-08-17
 
 ##### Added 
 - An initial round listing on the home page
 - Popovers for round badges with links to the round page etc
 - Better error and exception handling
+
 ---
 
 #### [1.13.0] - 2023-08-17
