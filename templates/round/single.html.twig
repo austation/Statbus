@@ -2,10 +2,10 @@
 {% from 'macros/badge.html.twig' import RoundBadge, ServerBadge %}
 {% block breadcrumbs %}
 	{{parent()}}
-<li class="breadcrumb-item">
+	<li class="breadcrumb-item">
 
-			<i class="fas fa-circle"></i>
-			{{round.getId}}
+		<i class="fas fa-circle"></i>
+		{{round.getId}}
 	</li>
 {% endblock %}
 {% block cardHeader %}
@@ -23,6 +23,14 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
+					<td class="fw-bold h5" colspan="7">N.S.S.
+						<em>{{round.getName}}</em>
+						aboard
+						{{round.getMap}}</td>
+				</tr>
+			</thead>
+			<tbody class="table-group-divider">
+				<tr>
 					<th>Round Initialized</th>
 					{% if round.getStartDuration %}
 						<td>Duration</td>
@@ -37,8 +45,6 @@
 					{% endif %}
 					<th>Round Shutdown</th>
 				</tr>
-			</thead>
-			<tbody>
 				<tr>
 					<td>{{round.getInitDatetime ? round.getInitDatetime|date() : 'Not available'}}</td>
 					{% if round.getStartDuration %}
@@ -101,7 +107,7 @@
 		<p class="text-center mb-0">« This Round is Currently In Progress »</p>
 	{% endif %}
 	{% if user.has('ADMIN') %}
-	{% include 'round/components/adminLinks.html.twig' %}
+		{% include 'round/components/adminLinks.html.twig' %}
 	{% endif %}
 	{% include 'round/components/basic_stats.html.twig' %}
 	{% include 'round/components/statlist.html.twig' %}
