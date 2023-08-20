@@ -4,6 +4,9 @@
 	{% if not query %}
 		{% set query = '' %}
 	{% endif %}
+	{% if not url %}
+		{% set url = current_url() %}
+	{% endif %}
 	{% if nbPages > 1 %}
 		{# Number of page around current page+1 #}
 		{% set nearbyPagesLimit = 5 %}
