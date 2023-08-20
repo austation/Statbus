@@ -38,7 +38,7 @@
 	{% if note.isSecret %}
 		<div class="text-bg-danger px-3 py-1 fw-bold">
 		<i class="fa-solid fa-user-secret"></i>							
-		This note is SECRET
+		This {{note.getType.value}} is SECRET
 	</div>
 	{% endif %}
 {% endblock %}
