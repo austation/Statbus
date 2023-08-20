@@ -163,7 +163,11 @@ class Repository
                 } else {
                     //Failsafe to catch data (notes) that are old enough that
                     //the server port wasn't saved
-                    $data['server'] = ServerInformationService::getServerFromName($data['server'], $this->servers);
+                    if(is_array($data)) {
+                        $data['server'] = ServerInformationService::getServerFromName($data['server'], $this->servers);
+                    } else {
+                        $data->server = ServerInformationService::getServerFromName($data->server, $this->servers);
+                    }
                 }
             }
         }

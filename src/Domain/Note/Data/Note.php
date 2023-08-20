@@ -334,7 +334,7 @@ class Note
         return $this;
     }
 
-    public function getServer(): Server
+    public function getServer(): ?Server
     {
         return $this->server;
     }

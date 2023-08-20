@@ -12,10 +12,16 @@
 {% endmacro %}
 
 {% macro ServerBadge(server) %}
+{% if not server %}
+<span class="serverBadge badge text-bg-server" title="Unable to determine the server">	
+		<i class="fa-solid fa-circle-question"></i> Unknown
+	</span>
+{% else %}
 	<span class="serverBadge badge text-bg-server" title="{{server.getAddress}}:{{server.getPort}}">
 		<img src="/img/server_icons/{{server.getIdentifier|lower}}.png"/>
 		{{server.getIdentifier}}
 	</span>
+{% endif %}
 {% endmacro %}
 
 {% macro RoundBadge(round, link = true) %}
