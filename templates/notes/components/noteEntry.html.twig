@@ -34,7 +34,7 @@
 </p>
 {% endif %}
 <div class="card mb-3"><div class="card-body">{{note.text|raw}}</div></div>
-{% if note.getExpiration %}
+{% if note.getExpiration and 'memo' != note.getType.value %}
 <table class="table table-bordered">
 		<tbody>
 			<tr>
@@ -61,4 +61,6 @@
 		</tbody>
 	</table>
 {% endif %}
-{% include 'notes/components/noteEdits.html.twig' %}
+{% if 'memo' != note.getType.value %} 
+	{% include 'notes/components/noteEdits.html.twig' %}
+{% endif %}
