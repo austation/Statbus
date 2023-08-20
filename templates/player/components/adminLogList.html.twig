@@ -1,0 +1,8 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+Admin Rank Logs
+{% endblock %}
+
+{% block body %}
+{% include 'info/components/adminLogList.html.twig' with logs only %}
+{% endblock %}

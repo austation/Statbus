@@ -98,6 +98,8 @@ return function (App $app) {
         //Notes
         $app->get("/notes/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesController::class)->setName("tgdb.notes.player");
 
+        $app->get("/notes/author/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesByAuthorController::class)->setName("tgdb.notes.author");
+
         $app->get("/note/{id:[0-9]+}", \App\Controller\TGDB\Note\TGDBViewNoteController::class)->setName("tgdb.note");
 
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {

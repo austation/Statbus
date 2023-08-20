@@ -20,22 +20,7 @@
 		<div class="card-body">
 			<dic class="row">
 				<div class="col-md-9">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Byond Account Registered</th>
-								<th>First Seen</th>
-								<th>Last Seen</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>{{player.getAccountJoined|date('Y-m-d')}}</td>
-								<td>{{player.getFirstseen|date}}</td>
-								<td>{{player.getLastseen|date}}</td>
-							</tr>
-						</tbody>
-					</table>
+					{% include 'player/components/chronoData.html.twig' %}
 
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
@@ -44,9 +29,7 @@
 					{% include 'player/components/achievementsListing.html.twig' %}
 
 					{% if logs %}
-						<h5 class="mt-4">Admin Rank Logs</h5>
-						<hr>
-						{% include 'info/components/adminLogList.html.twig' with logs %}
+						{% include 'player/components/adminLogList.html.twig' with logs %}
 					{% endif %}
 				</div>
 				<div class="col-md-3">

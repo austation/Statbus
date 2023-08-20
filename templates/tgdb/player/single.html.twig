@@ -11,7 +11,7 @@
 {% endblock %}
 {% block breadcrumbs %}
 	{{parent()}}
-		<li class="breadcrumb-item active" aria-current="page">
+	<li class="breadcrumb-item active" aria-current="page">
 		<i class="fas fa-user"></i>
 		{{player.getCkey}}</li>
 {% endblock %}
@@ -21,90 +21,78 @@
 	{{player.getCkey}}
 {% endblock %}
 {% block cardHeader %}
-			{{PlayerBadge(player.getPlayerBadge)}}
+	{{PlayerBadge(player.getPlayerBadge)}}
 {% endblock %}
 {% block cardSubHeader %}
-		{% if standing %}
-			{% include 'player/components/playerStanding.html.twig' %}
-		{% endif %}
-		{% endblock %}
-		{% block cardBody %}
-			<dic class="row">
-				<div class="col-md-9">
-					<table class="table table-bordered">
-						<thead>
-							<tr>
-								<th>Byond Account Registered</th>
-								<th>First Seen</th>
-								<th>Last Seen</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>{{player.getAccountJoined|date('Y-m-d')}}</td>
-								<td>{{player.getFirstseen|date}}</td>
-								<td>{{player.getLastseen|date}}</td>
-							</tr>
-						</tbody>
-					</table>
-					{% if player.getFlags %}
-						{% include 'player/components/permissionsTable.html.twig' %}
-					{% endif %}
+	{% if standing %}
+		{% include 'player/components/playerStanding.html.twig' %}
+	{% endif %}
+{% endblock %}
+{% block cardBody %}
+	<dic class="row">
+		<div class="col-md-9">
+			{% include 'player/components/chronoData.html.twig' %}
+			{% if player.getFlags %}
+				{% include 'player/components/permissionsTable.html.twig' %}
+			{% endif %}
+			{% include 'player/components/adminActionLinks.html.twig' with {'ckey':player.getCkey} only %}
+			<section class="page-section">
+				<h5 class="border-bottom border-2 border-primary pb-1">
+					Linked Discord Accounts
+				</h5>
+				<article>
 					<div id="discord" data-url="{{url_for('tgdb.player.discord',{ckey:player.getCkey})}}"></div>
+				</article>
+			</section>
+		</div>
+		<div class="col-md-3">
+			<div class="card mb-2">
+				<div class="card-header fw-bold">
+					Links
 				</div>
-				<div class="col-md-3">
-					<div class="card mb-2">
-						<div class="card-header fw-bold">
-							Links
-						</div>
-						<div class="card-body d-grid gap-2">
-							<a class="btn btn-success btn-lg" href="{{url_for('player',{ckey:player.getCkey})}}">
-								<i class="fas fa-users"></i>
-								Public Page</a>
-							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.bans.player',{ckey:player.getCkey})}}">
-								<i class="fas fa-gavel"></i>
-								Bans</a>
-							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.notes.player',{ckey: player.getCkey})}}">
-								<i class="fas fa-envelope"></i>
-								Notes & Messages</a>
-							<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
-								<i class="fas fa-ticket"></i>
-								Tickets</a>
-							<hr>
-							<span class="text-center">External Services</span>
-							<a class="btn btn-primary tgdb-bg color-white" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">
-								View on TGDB</a>
-							<a class="btn btn-secondary" href="https://bus.moth.fans/@{{player.getCkey}}" target="_blank">
-								View on Mothbus</a>
-							<a class="btn btn-secondary" href="https://scrubby.melonmesa.com/ckey/{{player.getCkey}}" target="_blank">
-								🐝 View on Scrubby</a>
-							<a class="btn btn-secondary" href="https://www.byond.com/members/{{player.getCkey}}" target="_blank">
-								View on Byond</a>
-							<a class="btn btn-secondary" href="https://centcom.melonmesa.com/viewer/view/{{player.getCkey}}" target="_blank">
-								View on CentCom</a>
-						</div>
-					</div>
+				<div class="card-body d-grid gap-2">
+					<a class="btn btn-success btn-lg" href="{{url_for('player',{ckey:player.getCkey})}}">
+						<i class="fas fa-users"></i>
+						Public Page</a>
+					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.bans.player',{ckey:player.getCkey})}}">
+						<i class="fas fa-gavel"></i>
+						Bans</a>
+					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.notes.player',{ckey: player.getCkey})}}">
+						<i class="fas fa-envelope"></i>
+						Notes & Messages</a>
+					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
+						<i class="fas fa-ticket"></i>
+						Tickets</a>
+					<hr>
+					<span class="text-center">External Services</span>
+					<a class="btn btn-primary tgdb-bg color-white" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">
+						View on TGDB</a>
+					<a class="btn btn-secondary" href="https://bus.moth.fans/@{{player.getCkey}}" target="_blank">
+						View on Mothbus</a>
+					<a class="btn btn-secondary" href="https://scrubby.melonmesa.com/ckey/{{player.getCkey}}" target="_blank">
+						🐝 View on Scrubby</a>
+					<a class="btn btn-secondary" href="https://www.byond.com/members/{{player.getCkey}}" target="_blank">
+						View on Byond</a>
+					<a class="btn btn-secondary" href="https://centcom.melonmesa.com/viewer/view/{{player.getCkey}}" target="_blank">
+						View on CentCom</a>
+				</div>
+			</div>
 
-					<div class="card">
-						<div class="card-header fw-bold">
-							Roles played, last 30 days
-						</div>
-						<div class="card-body">
-							{% if  playtime %}
-								<canvas id="playtime"></canvas>
-								<div id="legend-container"></div>
-							{% else %}
-								<p class="text-center mb-0">« Not Seen Recently »</p>
-							{% endif %}
-						</div>
-					</div>
+			<div class="card">
+				<div class="card-header fw-bold">
+					Roles played, last 30 days
+				</div>
+				<div class="card-body">
+					{% if  playtime %}
+						<canvas id="playtime"></canvas>
+						<div id="legend-container"></div>
+					{% else %}
+						<p class="text-center mb-0">« Not Seen Recently »</p>
+					{% endif %}
 				</div>
 			</div>
 		</div>
 	</div>
-	{% if  playtime %}
-		<script>
-			{% include 'player/components/playtimeGraph.js' %}</script>
-	{% endif %}
-
-{% endblock %}
+</div></div>{% if  playtime %}
+<script>
+	{% include 'player/components/playtimeGraph.js' %}</script>{% endif %}{% endblock %}

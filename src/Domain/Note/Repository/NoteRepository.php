@@ -82,4 +82,25 @@ class NoteRepository extends Repository
         return $this;
     }
 
+    public function getNotesByAuthor(string $ckey, int $page = 1, int $per_page = 60)
+    {
+        $where = implode("\n AND ", [...$this->where, "n.adminckey = ?"]);
+        $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
+        $this->setPages((int) ceil($this->cell($query, $ckey) / $per_page));
+
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $where = implode("\n AND ", [...$this->where, "n.adminckey = ?"]);
+        $query = sprintf("SELECT %s FROM messages n %s \nWHERE %s
+        ORDER BY n.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
+        $data = $this->run(
+            $query,
+            $ckey,
+            ($page * $per_page) - $per_page,
+            $per_page
+        );
+        $this->setResults($data, false);
+        return $this;
+    }
+
 }

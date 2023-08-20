@@ -1,0 +1,23 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+Basic Information
+{% endblock %}
+
+{% block body %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Byond Account Registered</th>
+			<th>First Seen</th>
+			<th>Last Seen</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<td>{{player.getAccountJoined|date('Y-m-d')}}</td>
+			<td>{{player.getFirstseen|date}}</td>
+			<td>{{player.getLastseen|date}}</td>
+		</tr>
+	</tbody>
+</table>
+{% endblock %}
