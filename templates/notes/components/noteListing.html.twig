@@ -6,6 +6,11 @@
 	</div>
 	{% for n in notes %}
 		<a href="{{url_for(link ?: 'user.note',{id: n.getId})}}" class="list-group-item">
+		{% if n.getExpiration and n.getExpiration < date() %}
+		<div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0px; left: 0px; right: 0px; bottom:0px;background: rgba(0,0,0,.75); z-index: 1000">
+			<span class="btn btn-secondary">Expired Note</span>
+		</div>
+		{% endif %}
 			<div class="d-flex w-100">
 				<span class="badge vertical-label text-bg-{{n.getSeverity.getCssClass}}">{{n.getSeverity.getShortText}}</span>
 				<div class="flex-grow-1 ms-4">

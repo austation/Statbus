@@ -1,5 +1,5 @@
 import './styles/app.scss';
-import bootstrap from 'bootstrap/dist/js/bootstrap.bundle';
+import * as bootstrap from 'bootstrap'
 import Alpine from 'alpinejs'
 import dayjs from 'dayjs';
 
@@ -15,6 +15,9 @@ window.Alpine = Alpine
 // const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]')
 // const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl))
 
+const expiredNote = document.getElementById('expiredNoteModal')
+const expiredNoteModalElement = new bootstrap.Modal(expiredNote)
+expiredNoteModalElement.show()
 
 const timeElements = document.querySelectorAll('time')
 const timeElementsList = [...timeElements].map(function(e){

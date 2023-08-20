@@ -1,5 +1,24 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
 
+{% if note.getExpiration and note.getExpiration < date() and 'memo' != note.getType.value %}
+<div class="modal fade" id="expiredNoteModal" tabindex="-1" aria-labelledby="expiredNoteModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+	  	<h3 class="text-danger border-bottom border-2 border-danger d-flex justify-content-between align-items-center">
+			<span>Expired Note</span>
+			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+		</h3>
+        This note is expired and should not be used in consideration of administrative actions
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Okay</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% if 'memo' == note.getType.value %}
 <p class="mb-2">Memo by {{PlayerBadge(note.getAdminBadge)}} {{note.getTimestamp|date()}}</p>
 {% else %}
@@ -14,14 +33,32 @@
 	{% endif %}
 </p>
 {% endif %}
-<p class="border border-primary p-3 text-white">{{note.text|raw}}</p>
-{% if note.getEdits and 'memo' != note.getType.value %}
-	<h5>Note Edits</h5>
-	<div class="list-group">
-		{% for e in note.getEdits %}
-			<div class="list-group-item">
-				<p class="mb-0">{{e|raw}}</p>
-			</div>
-		{% endfor %}
-	</div>
+<div class="card mb-3"><div class="card-body">{{note.text|raw}}</div></div>
+{% if note.getExpiration %}
+<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<th>Note Expires</th>
+				<td><code>{{note.getExpiration|date()}}</code></td>
+			</tr>
+			<tr>
+				<th>Duration</th>
+				{% set diff = note.getExpiration.diff(note.getTimestamp) %}
+				<td><code>{{diff|date('%y years, %a days, %h hours, %i minutes')}}</code></td>
+				</tr>
+				{% if note.getExpiration > date() %}
+				<tr>
+				<th>Time Remaining</th>
+				{% set diff = note.getExpiration.diff(date()) %}
+				<td><code>{{diff|date('%y years, %a days, %h hours, %i minutes')}}</code></td>
+				</tr>
+				{% else %}
+								<tr>
+				<th>Time Remaining</th>
+				<td class="table-danger fw-bold">** EXPIRED **</td>
+				</tr>
+				{% endif %}
+		</tbody>
+	</table>
 {% endif %}
+{% include 'notes/components/noteEdits.html.twig' %}

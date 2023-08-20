@@ -1,0 +1,17 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	Edits to This Note
+{% endblock %}
+{% block body %}
+	<div class="list-group">
+		{% for e in note.getEdits %}
+			<div class="list-group-item">
+				<p class="mb-0">{{e|raw}}</p>
+			</div>
+            {% else %}
+            <div class="list-group-item">
+				<p class="mb-0 text-center">« No Edits »</p>
+			</div>
+		{% endfor %}
+	</div>
+{% endblock %}
