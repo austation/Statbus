@@ -4,6 +4,7 @@ namespace App\Controller\Home;
 
 use App\Controller\Controller;
 use App\Domain\Round\Repository\RoundRepository;
+use App\Service\PolyTalkService;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
 
@@ -70,10 +71,12 @@ class HomeController extends Controller
                 'disabled' => false
             ];
         }
+        $polytalk = PolyTalkService::getPolyLine();
         return $this->render('home.html.twig', [
             'narrow' => true,
             'apps' => $apps,
-            'rounds' => $this->rounds->getRecentRounds()
+            'rounds' => $this->rounds->getRecentRounds(),
+            'polytalk' => $polytalk
         ]);
     }
 
