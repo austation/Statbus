@@ -12,8 +12,9 @@
 	</nav>
 	{% block header %}
 	{% endblock %}
-	{% include 'tgdb/components/tlpHeader.html.twig' %}
+
 	<div class="card">
+		{% include 'tgdb/components/tlpHeader.html.twig' %}
 		<h5 class="card-header fw-bold d-flex justify-content-between">
 			{% block cardHeader %}
 				<span><i class="fas fa-question-mark"></i>
