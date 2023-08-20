@@ -1,0 +1,10 @@
+{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge %}
+	<div>
+		<i class="fas fa-gavel"></i> {{PlayerBadge(ban.getPlayerBadge)}} has {{ban.getStatus.getArticle}}
+		{{BanBadge(ban.getStatus)}}
+		ban from
+			{% include 'bans/components/roleList.html.twig' with {'roles': ban.role} only %}
+	</div>
+	<div class="flex-shrink-0">
+	{{ban.bantime|date()}}
+	</div>

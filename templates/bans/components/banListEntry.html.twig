@@ -4,8 +4,8 @@
 		<span class="badge vertical-label text-bg-{{b.getStatus.getCssClass}}">{{b.getStatus.value}}</span>
 		<div class="flex-grow-1 ms-4">
 			<div class="d-flex justify-content-between border-bottom mb-1 align-items-center">
-				<h5 class="fw-bold lh-base">Banned from
-					<span class='badge text-bg-secondary'>{{b.role|join("</span>, <span class='badge text-bg-secondary'>")|raw}}</span>
+				<h5 class="fw-bold lh-base">{{PlayerBadge(b.getPlayerBadge,false)}} Banned from
+				{% include 'bans/components/roleList.html.twig' with {'roles': b.role} only %}
 					by
 					{{PlayerBadge(b.getAdminBadge,false)}}</h5>
 				<small class="flex-shrink-0">{{b.bantime|date('Y-m-d')}}</small>

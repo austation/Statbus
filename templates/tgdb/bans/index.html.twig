@@ -1,0 +1,31 @@
+{% extends 'tgdb/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+
+{% block body %}
+	<nav aria-label="breadcrumb">
+		<ol class="breadcrumb">
+			<li class="breadcrumb-item">
+				<a href="{{url_for('tgdb')}}">TGDB</a>
+			</li>
+            <li class="breadcrumb-item active" aria-current="page">
+				<i class="fas fa-gavel"></i>
+			Bans</li>
+		</ol>
+	</nav>
+	<div class="card">
+		<h5 class="card-header fw-bold"><i class="fas fa-gavel"></i> Bans</h5>
+		<div class="card-body">
+			<div class="list-group list-group-flush">
+            <div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
+				{% for b in bans %}
+					{% include 'bans/components/banListEntry.html.twig' %}
+				{% endfor %}
+                <div class="list-group-item">
+			{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		</div>
+			</div>
+		</div>
+	</div>
+{% endblock %}

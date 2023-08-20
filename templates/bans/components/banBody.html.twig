@@ -1,0 +1,14 @@
+{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+    <p> This ban was placed by {{PlayerBadge(ban.getAdminBadge)}} on {{ServerBadge(ban.getServer)}} during {{RoundBadge(ban.round)}} with the following reason: </p>
+	<p class="border border-primary p-3 text-white">{{ban.reason}}</p>
+	{% if 'Lifted' == ban.getStatus.value %}
+		<p>
+			<i class="fa-solid fa-user-check text-success"></i>
+			Unbanned by
+			{{PlayerBadge(ban.unbannerBadge)}}
+			<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
+		</p>
+	{% else %}
+		{% include 'bans/components/appeal.html.twig' %}
+	{% endif %}
+	{% include 'bans/components/advised.html.twig' %}

@@ -8,6 +8,9 @@ use App\Service\ServerInformationService;
 
 class BanRepository extends Repository
 {
+
+    public ?string $entityClass = Ban::class;
+
     private $columns = "SELECT 
         ban.id,
         round_id as `round`,
@@ -99,6 +102,55 @@ class BanRepository extends Repository
         return Ban::fromArray($ban);
     }
 
+    public function getBans(int $page = 1, int $per_page = 60): array {
+        $query = sprintf("SELECT count(ban.id) FROM ban");
+        $this->setPages((int) ceil(array_sum($this->db->column($query))/$per_page));
+        $query = "SELECT 
+        ban.id,
+        ban.round_id as `round`,
+        ban.server_ip,
+        ban.server_port,
+        GROUP_CONCAT(r.role SEPARATOR ', ') as `role`,
+        GROUP_CONCAT(r.id SEPARATOR ', ') as `banIds`,
+        ban.bantime,
+        ban.expiration_time as `expiration`,
+        ban.reason,
+        ban.ckey,
+        c.rank as `c_rank`,
+        ban.a_ckey,
+        a.rank as `a_rank`,
+        ban.unbanned_ckey,
+        ban.unbanned_datetime,
+        u.rank as `u_rank`,
+        CASE
+            WHEN ban.expiration_time IS NOT NULL THEN TIMESTAMPDIFF(MINUTE, ban.bantime, ban.expiration_time)
+            ELSE 0
+        END AS `minutes`,
+        CASE 
+            WHEN ban.expiration_time < NOW() THEN 0
+            WHEN ban.unbanned_ckey IS NOT NULL THEN 0
+            ELSE 1 
+        END as `active`,
+        ban.edits
+        FROM ban
+        LEFT JOIN `round` ON round_id = round.id
+        LEFT JOIN `admin` AS c ON c.ckey = ban.ckey	
+        LEFT JOIN `admin` AS a ON a.ckey = ban.a_ckey
+        LEFT JOIN `admin` AS u ON u.ckey = ban.unbanned_ckey
+        INNER JOIN ban r ON r.bantime = ban.bantime AND r.ckey = ban.ckey
+        GROUP BY ban.bantime, ban.ckey, `server_port`
+        LIMIT ?,?";
+        $this->setResults($this->run($query, ($page * $per_page) - $per_page,
+        $per_page), true);
+        $bans = [];
+        foreach($this->getResults() as $b){
+            $b = $this->parseTimestamps($b);
+            $bans[] = Ban::fromArray((array) $b);
+        }
+
+        return $bans;
+    }
+
     public function getPlayerStanding(string $ckey)
     {
         $this->setResults(
@@ -112,7 +164,7 @@ class BanRepository extends Repository
                 OR (B.expiration_time IS NULL AND B.unbanned_ckey IS NULL))",
                 $ckey
             ),
-            false
+            true
         );
         return $this;
     }
