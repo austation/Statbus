@@ -42,10 +42,12 @@ class TGDBController extends Controller
             ],
         ];
         $memos = $this->memos->getCurrentMemos();
+        $notes = $this->memos->getNotes(1,10)->getResults();
         return $this->render('tgdb/index.html.twig', [
             'narrow' => true,
             'apps' => $apps,
-            'memos' => $memos
+            'memos' => $memos,
+            'notes' => $notes
         ]);
     }
 

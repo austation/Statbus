@@ -1,0 +1,18 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge %}
+{% block header %}
+<span>Recent Activity</span><a href="{{url_for('tgdb.notes')}}">View More...</a>
+{% endblock %}
+{% block body %}
+<div class="list-group">
+{% for n in notes %}
+    <a class="list-group-item" href="{{url_for('tgdb.note',{id: n.getId})}}">
+    <div class="d-flex w-100">
+				<span class="badge vertical-label text-bg-{{n.getSeverity.getCssClass}}">&nbsp;</span>
+                <div class="flex-grow-1 ms-4">{{n.getText|u.truncate(70,' [...]',false)}}
+                <br><small>for {{PlayerBadge(n.getTargetBadge, false)}} by {{PlayerBadge(n.getAdminBadge, false)}}</small></div>
+                </div>
+                </a>
+{% endfor %}
+</div>
+{% endblock %}
