@@ -87,6 +87,7 @@ class Ban extends DTO
             $this->role = [];
             $this->role[] = $role;
         }
+        $this->role = array_unique($this->role);
     }
     private function splitEdits()
     {
