@@ -44,9 +44,33 @@ enum Jobs: string
     case ENGINEER = 'Station Engineer';
     case VIROLOGIST = 'Virologist';
     case WARDEN = 'Warden';
+    
+    //Special roles for timekeeping
     case LIVING = 'Living';
     case GHOST = 'Ghost';
     case ADMIN = 'Admin';
+    
+    //Baddies
+    case ABDUCTOR = 'Abductor';
+    case XENOMORPH = 'Xenomorph';
+    case BLOB = 'Blob';
+    case BLOOD_BROTHER = 'Blood Brother';
+    case CHANGELING = 'Changeling';
+    case CULTIST = 'Cultist';
+    case INTERNAL_AFFAIRS_AGENT = 'Internal Affairs Agent';
+    case MALF = 'Malf AI';
+    case MONKEY = 'Monkey';
+    case SPACE_NINJA = 'Space Ninja';
+    case OPERATIVE = 'Operative';
+    case SYNDICATE_MUTINEER = 'Syndicate Mutineer';
+    case REVOLUTIONARY = 'Revolutionary';
+    case REVENANT = 'Revenant';
+    case HEAD_REVOLUTIONARY = 'Head Revolutionary';
+    case SYNDICATE = 'Syndicate';
+    case TRAITOR = 'Traitor';
+    case WIZARD = 'Wizard';
+    case HIVEMIND_HOST = 'Hivemind Host';
+    case HERETIC = 'Heretic';
 
     public function getColor(): string
     {
@@ -63,7 +87,8 @@ enum Jobs: string
             Jobs::ADMIN => '#df0afb',
             Jobs::LIVING => '#AAA',
             Jobs::GHOST => '#000',
-            Jobs::PRISONER => '#FF9900'
+            Jobs::PRISONER => '#FF9900',
+            Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC => '#830000'
         };
     }
 
