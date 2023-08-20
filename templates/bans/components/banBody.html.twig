@@ -9,6 +9,41 @@
 			<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
 		</p>
 	{% else %}
+	<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<th>Ban Placed</th>
+				<td><code>{{ban.bantime|date()}}</code></td>
+			</tr>
+			<tr>
+				<th>Ban Expires</th>
+				<td><code>{{ban.expiration ? ban.expiration|date() : 'Never'}}</code></td>
+			</tr>
+			{% if ban.expiration %}
+			<tr>
+				<th>Duration</th>
+				{% set diff = ban.bantime.diff(ban.expiration) %}
+				<td><code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code></td>
+				</tr>
+				{% if ban.expiration > date() %}
+				<tr>
+				<th>Time Remaining</th>
+				{% set diff = date().diff(ban.expiration) %}
+				<td><code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code></td>
+				</tr>
+				{% endif %}
+				{% else %}
+				<tr><th>Duration</th>
+				<td><code>No Expiration</code></td>
+
+			</tr>
+			{% endif %}
+			<tr>
+				<th>Status</th>
+				<td class="fw-bold table-{{ban.getStatus.getCssClass}}">{{ban.getStatus.value}}</td>
+			</tr>
+		</tbody>
+	</table>
 		{% include 'bans/components/appeal.html.twig' %}
 	{% endif %}
 	{% include 'bans/components/advised.html.twig' %}
