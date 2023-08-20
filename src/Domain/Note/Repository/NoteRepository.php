@@ -83,8 +83,11 @@ class NoteRepository extends Repository
         return $this;
     }
 
-    public function getNotesByAuthor(string $ckey, int $page = 1, int $per_page = 60)
+    public function getNotesByAuthor(string $ckey, int $page = 1, int $per_page = 60, bool $secret = false)
     {
+        if(!$secret) {
+            $this->where[] = "n.secret = 0";
+        }
         $where = implode("\n AND ", [...$this->where, "n.adminckey = ?"]);
         $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
         $this->setPages((int) ceil($this->cell($query, $ckey) / $per_page));
@@ -102,6 +105,42 @@ class NoteRepository extends Repository
         );
         $this->setResults($data, false);
         return $this;
+    }
+
+    public function getNotes(int $page = 1, int $per_page = 60, bool $secret = false)
+    {
+        if(!$secret) {
+            $this->where[] = "n.secret = 0";
+        }
+        $where = implode("\n AND ", [...$this->where]);
+        $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
+        $this->setPages((int) ceil($this->cell($query) / $per_page));
+
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $query = sprintf("SELECT %s FROM messages n %s \nWHERE %s
+        ORDER BY n.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
+        $data = $this->run(
+            $query,
+            ($page * $per_page) - $per_page,
+            $per_page
+        );
+        $this->setResults($data, false);
+        return $this;
+    }
+
+    public function getCurrentMemos()
+    {
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $where = implode("\n AND ", ['n.deleted = 0', "n.type = 'memo'"]);
+        $query = sprintf("SELECT %s FROM messages n %s \nWHERE %s
+        ORDER BY n.timestamp DESC", $cols, $joins, $where);
+        $data = $this->run(
+            $query
+        );
+        $this->setResults($data);
+        return $this->getResults();
     }
 
 }

@@ -3,10 +3,15 @@
 namespace App\Controller\TGDB;
 
 use App\Controller\Controller;
+use App\Domain\Note\Repository\NoteRepository;
 use Psr\Http\Message\ResponseInterface;
+use DI\Attribute\Inject;
 
 class TGDBController extends Controller
 {
+    #[Inject]
+    private NoteRepository $memos;
+
     public function action(): ResponseInterface
     {
         $apps = [
@@ -14,6 +19,11 @@ class TGDBController extends Controller
                 'name' => 'Guide to TLP',
                 'icon' => 'fa-solid fa-traffic-light',
                 'url' => $this->getUriForRoute('tgdb.tlp'),
+            ],
+            [
+                'name' => 'Notes & Messages',
+                'icon' => 'fa-solid fa-envelope',
+                'url' => $this->getUriForRoute('tgdb.notes'),
             ],
             [
                 'name' => 'Tickets',
@@ -26,9 +36,11 @@ class TGDBController extends Controller
                 'url' => $this->getUriForRoute('tgdb.feedback'),
             ],
         ];
+        $memos = $this->memos->getCurrentMemos();
         return $this->render('tgdb/index.html.twig', [
             'narrow' => true,
-            'apps' => $apps
+            'apps' => $apps,
+            'memos' => $memos
         ]);
     }
 

@@ -6,15 +6,26 @@
 			TGDB
 		</h3>
 		<div class="card-body">
-			<div class="row row-cols-4">
-				{% for a in apps %}
-					<div class="col d-flex">
-						<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
-							<span class="text-white display-6">
-								<i class="{{a.icon}}"></i>
-							</span><br>{{a.name}}</a>
+			<div class="row">
+				<div class="col-7">
+					<div class="row row-cols-3">
+						{% for a in apps %}
+							<div class="col d-flex">
+								<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
+									<span class="text-white display-6">
+										<i class="{{a.icon}}"></i>
+									</span><br>{{a.name}}</a>
+							</div>
+						{% endfor %}
 					</div>
-				{% endfor %}
+				</div>
+				<div class="col-5">
+					<div class="card">
+						<div class="card-body">
+					{% include 'tgdb/components/memos.html.twig' %}
+					</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

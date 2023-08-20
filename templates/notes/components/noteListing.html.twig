@@ -1,7 +1,9 @@
 {% from 'macros/badge.html.twig' import PlayerBadge %}
 {% from 'macros/pagination.html.twig' import pagination %}
-{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 <div class="list-group list-group-flush">
+	<div class="list-group-item">
+	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	</div>
 	{% for n in notes %}
 		<a href="{{url_for(link ?: 'user.note',{id: n.getId})}}" class="list-group-item">
 			<div class="d-flex w-100">
@@ -26,5 +28,7 @@
 			<p class="text-center mb-0">« No Notes or Messages »</p>
 		</div>
 	{% endfor %}
+		<div class="list-group-item">
+	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	</div>
 </div>
-{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}

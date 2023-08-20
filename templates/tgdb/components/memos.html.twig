@@ -1,0 +1,9 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	Admin memos
+{% endblock %}
+{% block body %}
+	{% for m in memos %}
+		{% include 'notes/components/noteEntry.html.twig' with {'note': m} %}
+	{% endfor %}
+{% endblock %}

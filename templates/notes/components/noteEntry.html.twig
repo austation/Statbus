@@ -1,17 +1,21 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
 
+{% if 'memo' == note.getType.value %}
+<p class="mb-2">Memo by {{PlayerBadge(note.getAdminBadge)}} {{note.getTimestamp|date()}}</p>
+{% else %}
 <p>Created
 	{{note.timestamp|date()}}
 	on
 	{{ServerBadge(note.getServer)}}
 	{% if note.getRound %}during
-	{{RoundBadge(note.getround)}}
+		{{RoundBadge(note.getround)}}
 	{% else %}
-	(This note is old enough that a round ID was not provided)
+		(This note is old enough that a round ID was not provided)
 	{% endif %}
-	</p>
+</p>
+{% endif %}
 <p class="border border-primary p-3 text-white">{{note.text|raw}}</p>
-{% if note.getEdits %}
+{% if note.getEdits and 'memo' != note.getType.value %}
 	<h5>Note Edits</h5>
 	<div class="list-group">
 		{% for e in note.getEdits %}
