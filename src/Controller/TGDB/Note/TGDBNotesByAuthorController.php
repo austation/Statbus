@@ -24,6 +24,7 @@ class TGDBNotesByAuthorController extends Controller
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),
                 'currentPage' => $page,
+                'url' => $this->getUriForRoute($this->getRoute()->getRoute()->getName(), ['ckey' => $ckey])
             ],
             'ckey' => $ckey
         ]);
