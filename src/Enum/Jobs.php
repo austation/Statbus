@@ -2,6 +2,8 @@
 
 namespace App\Enum;
 
+use App\Service\LuminosityContrast;
+
 enum Jobs: string
 {
     case AI = 'AI';
@@ -31,6 +33,7 @@ enum Jobs: string
     case DOCTOR = 'Medical Doctor';
     case MIME = 'Mime';
     case PARAMEDIC = 'Paramedic';
+    case PRISONER = 'Prisoner';
     case PSYCHOLOGIST = 'Psychologist';
     case QM = 'Quartermaster';
     case RD = 'Research Director';
@@ -49,7 +52,7 @@ enum Jobs: string
     {
         return match($this) {
             default => '#6E6E6E', //Jobs::ASSISTANT
-            Jobs::AI, Jobs::CYBORG => '#1B4594',
+            Jobs::AI, Jobs::CYBORG => '#000',
             Jobs::ATMOS_TECH, Jobs::ENGINEER => '#FFA62B',
             Jobs::BITRUNNER, Jobs::MINER, Jobs::CARGO_TECH => '#B18644',
             Jobs::BARTENDER, Jobs::BOTANIST, Jobs::CHAPLAIN, Jobs::CLOWN, Jobs::COOK, Jobs::CURATOR, Jobs::JANITOR, Jobs::LAWYER, Jobs::LIBRARIAN,  Jobs::MIME, Jobs::PSYCHOLOGIST => '#58C800',
@@ -57,9 +60,18 @@ enum Jobs: string
             Jobs::GENETICIST, Jobs::SCIENTIST, Jobs::ROBOTICIST => '#C96DBF',
             Jobs::SECURITY, Jobs::DETECTIVE, Jobs::WARDEN => '#CB0000',
             Jobs::CAPTAIN, Jobs::CHIEF_ENGIE, Jobs::CMO, Jobs::RD, Jobs::HOP, Jobs::QM, Jobs::HOS, => '#1B67A5',
-            Jobs::ADMIN => '#df0afb', //COLOR_CARP_GRAPE
-            Jobs::LIVING => '#AAA', //COLOR_CARP_RUSTY
-            Jobs::GHOST => '#000' //COLOR_CARP_RED
+            Jobs::ADMIN => '#df0afb',
+            Jobs::LIVING => '#AAA',
+            Jobs::GHOST => '#000',
+            Jobs::PRISONER => '#FF9900'
+        };
+    }
+
+    public function getForeColor(): string
+    {
+        return match($this) {
+            default => LuminosityContrast::getContrastColor($this->getColor()),
+            Jobs::AI, Jobs::CYBORG => '#00FF00'
         };
     }
 
