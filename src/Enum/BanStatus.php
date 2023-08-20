@@ -19,4 +19,14 @@ enum BanStatus: string
         };
     }
 
+    public function getArticle(): string
+    {
+        return match($this) {
+            BanStatus::EXPIRED => 'an',
+            BanStatus::LIFTED => 'a',
+            BanStatus::ACTIVE => 'an',
+            BanStatus::PERMANENT => 'a'
+        };
+    }
+
 }
