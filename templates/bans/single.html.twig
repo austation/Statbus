@@ -10,15 +10,7 @@
 		{{ban.id}}</li>
 {% endblock %}
 {% block cardHeader %}
-	<div>
-		<i class="fas fa-gavel"></i>
-		{{BanBadge(ban.getStatus)}}
-		ban from
-		<span class='badge text-bg-secondary'>{{ban.role|join("</span>, <span class='badge text-bg-secondary'>")|raw}}</span>
-	</div>
-	<div>
-	{{ban.bantime|date()}}
-	</div>
+	{% include 'bans/components/banHeader.html.twig' %}
 {% endblock %}
 {% block cardSubHeader %}
 	{% if ban.roleBans %}
@@ -30,23 +22,5 @@
 	{% endif %}
 {% endblock %}
 {% block cardBody %}
-	This ban was placed by
-	{{PlayerBadge(ban.getAdminBadge)}}
-	on
-	{{ServerBadge(ban.getServer)}}
-	during
-	{{RoundBadge(ban.round)}}
-	with the following reason:
-	<blockquote>{{ban.reason}}</blockquote>
-	{% if 'Lifted' == ban.getStatus.value %}
-		<p>
-			<i class="fa-solid fa-user-check text-success"></i>
-			Unbanned by
-			{{PlayerBadge(ban.unbannerBadge)}}
-			<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
-		</p>
-	{% else %}
-		{% include 'bans/components/appeal.html.twig' %}
-	{% endif %}
-	{% include 'bans/components/advised.html.twig' %}
+	{% include 'bans/components/banBody.html.twig' %}
 {% endblock %}
