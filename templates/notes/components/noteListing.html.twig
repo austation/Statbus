@@ -11,13 +11,16 @@
 				<div class="flex-grow-1 ms-4">
 					<div class="d-flex justify-content-between border-bottom mb-1 align-items-center pb-1">
 						<span class="fw-bold">
-							<i class="{{n.getType.getIcon}}" data-bs-title="{{n.getType.value|title}}" data-bs-toggle="tooltip"></i>
+							<i class="{{n.getType.getIcon}}" title="{{n.getType.value|title}}"></i>
+							{% if n.isSecret %}
+							<span class="badge text-bg-danger">SECRET</span>
+							{% endif %}
 							{{n.getType.value|title}}
 							for
 							{{PlayerBadge(n.getTargetBadge)}}
 							created by
 							{{PlayerBadge(n.getAdminBadge)}}</span>
-						<span>{{n.getTimestamp|date}}</span>
+						<span>{% if n.edits %}<i class="fa-solid fa-pencil" title="This note has edits. Click to view."></i>{% endif %} {{n.getTimestamp|date}}</span>
 					</div>
 					<p>{{n.text}}</p>
 				</div>
