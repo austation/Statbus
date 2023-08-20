@@ -61,6 +61,9 @@ class PlayerRepository extends Repository
         );
         foreach($data as &$d) {
             $job = Jobs::tryFrom($d->job);
+            if(!$job) {
+                continue;
+            }
             $d->minutes = (int) $d->minutes + (rand(1, 3) * 10);
             $d->background = $job->getColor();
         }
