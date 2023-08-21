@@ -28,6 +28,11 @@
 						aboard
 						{{round.getMap}}</td>
 				</tr>
+				<tr>
+					<td colspan="7" id="integrity">
+					<i class="fa-solid fa-spinner fa-spin"></i> Loading...
+					</td>
+				</tr>
 			</thead>
 			<tbody class="table-group-divider">
 				<tr>
@@ -111,5 +116,17 @@
 	{% endif %}
 	{% include 'round/components/basic_stats.html.twig' %}
 	{% include 'round/components/statlist.html.twig' %}
+
+	<script>
+	async function fetchExternalData() {
+		const response = await fetch(`${window.location.href}/sb_who?json`);
+		var data = await response.json();
+		data = data.stat.data
+		console.log(data)
+		const targetEl = document.getElementById('integrity')
+		targetEl.innerHTML = `Station Integrity: ${data['additional data']['station integrity']}%, ${Object.keys(data.escapees.humans).length} crew escaped, ${Object.keys(data.abandoned.humans).length} left behind. <a href="${window.location.href}/sb_who" class="icon-link"><i class="fa-solid fa-users-viewfinder"></i> Roster</a>`
+	}
+	fetchExternalData()
+	</script>
 
 {% endblock %}

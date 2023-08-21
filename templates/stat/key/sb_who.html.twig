@@ -12,7 +12,7 @@
 	</thead>
 	<tbody>
 		<tr>
-			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-person-through-window"></i> Survivors</th>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-person-through-window"></i> Survivors ({{stat.data.escapees.humans|length}})</th>
 		</tr>
 		{% for e in stat.data.escapees.humans %}
 			<tr>
@@ -50,7 +50,7 @@
 			</tr>
 		{% endfor %}
         <tr>
-			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-house-fire"></i> Those We Left Behind</th>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-house-fire"></i> Those We Left Behind ({{stat.data.abandoned.humans|length}})</th>
 		</tr>
 		{% for e in stat.data.abandoned.humans %}
 			<tr>
@@ -88,7 +88,7 @@
 			</tr>
 		{% endfor %}
                 <tr>
-			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-skull"></i> Remember the Fallen</th>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-skull"></i> Remember the Fallen ({{stat.data.ghosts|length}})</th>
 		</tr>
 		{% for e in stat.data.ghosts %}
 			<tr>
