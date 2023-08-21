@@ -322,6 +322,11 @@ class Round
         return $this->publicLogs;
     }
 
+    public function getPublicLogFile(string $file): string
+    {
+        return sprintf("%s/%s", $this->getPublicLogs(), $file);
+    }
+
     public function getAdminLogs(): ?string
     {
         return $this->adminLogs;

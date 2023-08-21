@@ -142,7 +142,10 @@ class Stat
                 $this->setJson(str_replace($this->filter, '', $this->getJson()));
             }
         }
-        $this->data = json_decode($this->getJson(), true)['data'];
+        $this->data = json_decode($this->getJson(), true);
+        if(isset($this->data['data'])) {
+            $this->data = $this->data['data'];
+        }
         if('tally' === $this->getType()) {
             $this->setTotal($this->tallyData());
             arsort($this->data);

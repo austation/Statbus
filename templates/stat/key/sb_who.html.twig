@@ -1,0 +1,102 @@
+<h2 class="fw-bold mb-4">Station Integrity: {{attribute(attribute(stat.data,'additional data'),'station integrity')}}%</h2>
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Name</th>
+			<th>Key</th>
+			<th>Health</th>
+			<th>Escaped On</th>
+            <th>Job</th>
+			<th>Species</th>
+		</tr>
+	</thead>
+	<tbody>
+		<tr>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-person-through-window"></i> Survivors</th>
+		</tr>
+		{% for e in stat.data.escapees.humans %}
+			<tr>
+				<td>{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+                {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(e.job) %}
+				<td style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: e.job}}</td>
+				<td>{{e.species}}</td>
+			</tr>
+		{% endfor %}
+        {% for e in stat.data.escapees.silicons %}
+			<tr>
+				<td style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;" title="{{e.name}}">{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+				<td colspan="2">{{e.module}} Borg</td>
+			</tr>
+		{% endfor %}
+        {% for e in stat.data.escapees.others %}
+			<tr>
+				<td>{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+				<td colspan="2">{{e.typepath}}</td>
+			</tr>
+		{% endfor %}
+        <tr>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-house-fire"></i> Those We Left Behind</th>
+		</tr>
+		{% for e in stat.data.abandoned.humans %}
+			<tr>
+				<td>{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+                {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(e.job) %}
+				<td style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: e.job}}</td>
+				<td>{{e.species}}</td>
+			</tr>
+		{% endfor %}
+                {% for e in stat.data.abandoned.silicons %}
+			<tr>
+				<td style="white-space: nowrap; text-overflow:ellipsis; overflow: hidden; max-width:1px;" title="{{e.name}}">{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+				<td colspan="2">{{e.module}} Borg</td>
+			</tr>
+		{% endfor %}
+        {% for e in stat.data.abandoned.others %}
+			<tr>
+				<td>{{e.name}}</td>
+				<td class="position-relative">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+				<td>{{e.health}}</td>
+				<td>{{e.location}}</td>
+				<td colspan="2">{{e.typepath}}</td>
+			</tr>
+		{% endfor %}
+                <tr>
+			<th colspan="6" class="h3 fw-bold text-center"><i class="fa-solid fa-skull"></i> Remember the Fallen</th>
+		</tr>
+		{% for e in stat.data.ghosts %}
+			<tr>
+				<td>{{e.name}}</td>
+				<td class="position-relative" colspan="5">
+					<a href="{{url_for('player',{ckey: e.ckey})}}" class="stretched-link">{{e.ckey}}</a>
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>
