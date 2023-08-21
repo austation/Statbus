@@ -22,8 +22,16 @@ class RoundStatController extends Controller
         $roundid = $this->getArg('id');
         $stat = $this->getArg('stat');
         $round = $this->roundRepository->getRound($roundid);
-        if(in_array($stat, ['sb_who'])) {
-            $stat = GetExternalRoundData::getRoundEndData($round);
+        if(in_array($stat, ['sb_who', 'sb_roundend'])) {
+            switch($stat) {
+                case 'sb_who':
+                    $stat = GetExternalRoundData::getRoundEndData($round);
+                    break;
+
+                case 'sb_roundend':
+                    $stat = GetExternalRoundData::getRoundEndReport($round);
+                    break;
+            }
         } else {
             $stat = $this->statRepository->getRoundStat($round->getId(), $stat);
         }

@@ -26,6 +26,21 @@ class GetExternalRoundData
         return $stat;
     }
 
+    public static function getRoundEndReport(Round $round): Stat
+    {
+        $stack = HandlerStack::create();
+        $stack->push(new CacheMiddleware(new GreedyCacheStrategy(null, 3000)), 'cache');
+
+        $client = new Client([
+            'base_uri' => 'https://tgstation13.org/',
+            'timeout'  => 2.0,
+            'handler' => $stack
+        ]);
+        $request = $client->request('GET', $round->getPublicLogFile('round_end_data.html'));
+        $stat = new Stat(-1, $round->getStartDatetime(), $round->getId(), 'sb_roundend', 'associative', 1, (string) $request->getBody(), false);
+        return $stat;
+    }
+
     public static function getPolyLine(): string
     {
 

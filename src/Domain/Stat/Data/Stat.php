@@ -20,7 +20,8 @@ class Stat
         private string $key,
         private string $type,
         private int $version,
-        private string $json
+        private string $json,
+        private bool $decodeJson = true
     ) {
         $this->setTweaks();
         $this->setData();
@@ -137,6 +138,10 @@ class Stat
 
     public function setData(): self
     {
+        if(!$this->decodeJson) {
+            $this->data = $this->json;
+            return $this;
+        }
         if($tweaks = $this->getTweaks()) {
             if($this->filter = $tweaks->getFilter()) {
                 $this->setJson(str_replace($this->filter, '', $this->getJson()));
