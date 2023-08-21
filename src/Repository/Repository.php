@@ -38,7 +38,8 @@ class Repository
         'accountjoindate',
         'last_updated',
         'expire_timestamp',
-        'datetime'
+        'datetime',
+        'tod'
     ];
 
     public array $serverPortColumns = [

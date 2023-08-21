@@ -29,7 +29,7 @@ class RoundRepository extends Repository
         r.map_name,
         r.station_name
         FROM round r
-        WHERE id = ?";
+        WHERE r.id = ?";
 
         $data = $this->actualRow($query, [$id]);
         $this->setResult($data);

@@ -1,0 +1,45 @@
+{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+<table class="table table-bordered">
+	<thead>
+		<tr>
+			<th>Who</th>
+			<th>Where</th>
+			<th>When</th>
+			<th>How</th>
+		</tr>
+	</thead>
+	<tbody>
+		{% for d in deaths %}
+			<tr>
+				<td>{{d.getName}}<br><small>Played by
+						{{PlayerBadge(d.getPlayerBadge)}}</small>
+				</td>
+				<td>{{d.getLocation}}<br>
+					<small>At
+						{{d.getCoords}}
+						on
+						{{d.getMap}}</small>
+				</td>
+				<td>{{d.getTimestamp|date()}}
+					{% set diff = round.getStartDatetime.diff(d.getTimestamp) %}
+					@
+					{{diff.format('%H:%I:%S')}}<br>
+					<small>During
+						{{RoundBadge(d.getRound)}}
+						on
+						{{ServerBadge(d.getServer)}}</small>
+				</td>
+				<td>{{d.GetCause.cause}}
+					-
+					{% include 'deaths/components/vitals.html.twig' with {'damage': d.getDamage} only %}<br>
+					{% if d.getAttacker %}
+						<small>Possibly Murdered By
+							{{d.getAttacker}}
+							/
+							{{PlayerBadge(d.getAttackerBadge)}}</small>
+					{% endif %}
+				</td>
+			</tr>
+		{% endfor %}
+	</tbody>
+</table>

@@ -1,0 +1,4 @@
+{% for v, value in damage %}
+{% set enum = enum("\\App\\Domain\\Death\\Data\\Vitals").tryfrom(v) %}
+<span class="badge" title="{{enum.getTitle}}" style="background: {{enum.getColor}};">{{value}}</span>
+{% endfor %}
