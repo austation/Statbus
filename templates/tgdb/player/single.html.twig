@@ -36,6 +36,7 @@
 				{% include 'player/components/permissionsTable.html.twig' %}
 			{% endif %}
 			{% include 'player/components/adminActionLinks.html.twig' with {'ckey':player.getCkey} only %}
+			{% include 'player/components/knownAlts.html.twig' with {'alts':alts} only %}
 			<section class="page-section">
 				<h5 class="border-bottom border-2 border-primary pb-1">
 					Linked Discord Accounts

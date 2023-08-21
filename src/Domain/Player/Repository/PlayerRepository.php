@@ -3,6 +3,7 @@
 namespace App\Domain\Player\Repository;
 
 use App\Domain\Player\Data\Player;
+use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Player\Service\GetPlayerDiscordUsername;
 use App\Enum\Jobs;
 use App\Repository\Repository;
@@ -83,11 +84,28 @@ class PlayerRepository extends Repository
         $this->setResults($data, true);
         return $this->getResults();
     }
+
+    public function getKnownAltsForCkey(string $ckey): array
+    {
+        $this->setResults($this->run("SELECT k.id,
+        k.ckey1,
+        k.ckey2,
+        k.admin_ckey,
+        r.rank,
+        c1r.rank as ck1_rank,
+        c2r.rank as ck2_rank
+        FROM known_alts k 
+        LEFT JOIN admin r ON k.admin_ckey = r.ckey
+        LEFT JOIN admin c1r ON k.ckey1 = c1r.ckey
+        LEFT JOIN admin c2r ON k.ckey2 = c2r.ckey
+        WHERE ckey1 = ?", $ckey), true);
+        $ckeys = [];
+        foreach ($this->getResults() as $r) {
+            $r->ck1Badge = PlayerBadge::fromRank($r->ckey1, $r->ck1_rank);
+            $r->ck2Badge = PlayerBadge::fromRank($r->ckey2, $r->ck2_rank);
+            $r->adminBadge = PlayerBadge::fromRank($r->admin_ckey, $r->rank);
+            $ckeys[] = $r;
+        }
+        return $ckeys;
+    }
 }
-// SELECT a.ckey,
-//         t.job, sum(t.delta) as `minutes`
-//         FROM admin a
-//         LEFT JOIN role_time_log t on t.ckey = a.ckey
-//         WHERE t.job in ('Ghost','Living','Admin')
-//         AND t.datetime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()
-//         GROUP BY a.ckey, t.job
