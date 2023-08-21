@@ -124,8 +124,10 @@
 		var data = await response.json();
 		data = data.stat.data
 		console.log(data)
+		const survivors = Object.keys(data.escapees.humans).length + Object.keys(data.escapees.silicons).length + Object.keys(data.escapees.others).length
+		const abandoned = Object.keys(data.abandoned.humans).length + Object.keys(data.abandoned.silicons).length + Object.keys(data.abandoned.others).length
 		const targetEl = document.getElementById('integrity')
-		targetEl.innerHTML = `Station Integrity: ${data['additional data']['station integrity']}%, ${Object.keys(data.escapees.humans).length} crew escaped, ${Object.keys(data.abandoned.humans).length} left behind. <a href="${window.location.href}/sb_who" class="icon-link"><i class="fa-solid fa-users-viewfinder"></i> Roster</a>`
+		targetEl.innerHTML = `Station Integrity: ${data['additional data']['station integrity']}%, ${survivors} crew escaped, ${abandoned} left behind. <a href="${window.location.href}/sb_who" class="icon-link"><i class="fa-solid fa-users-viewfinder"></i> Roster</a>`
 	}
 	fetchExternalData()
 	</script>
