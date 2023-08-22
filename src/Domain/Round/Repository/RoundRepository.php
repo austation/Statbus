@@ -70,4 +70,15 @@ class RoundRepository extends Repository
         $this->setResults($this->run($query));
         return $this->getResults();
     }
+
+    public function roundSearch(string $term): array
+    {
+        return $this->run(
+            "SELECT id as round, station_name FROM round WHERE station_name LIKE ? OR id LIKE ?    
+        ORDER BY id DESC
+        LIMIT 0,5",
+            '%' . $this->db->escapeLikeValue($term) . '%',
+            '%' . $this->db->escapeLikeValue($term) . '%'
+        );
+    }
 }

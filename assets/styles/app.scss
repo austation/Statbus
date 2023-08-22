@@ -199,6 +199,8 @@ body.debug > #site-logo {
   background: #000;
   left: 0;
   right: 0;
+  max-height: 300px;
+  overflow: scroll;
 }
 
 .autoComplete_wrapper,

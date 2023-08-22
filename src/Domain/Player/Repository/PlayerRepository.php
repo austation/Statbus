@@ -5,6 +5,7 @@ namespace App\Domain\Player\Repository;
 use App\Domain\Player\Data\Player;
 use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Player\Service\GetPlayerDiscordUsername;
+use App\Domain\Player\Service\KeyToCkeyService;
 use App\Enum\Jobs;
 use App\Repository\Repository;
 use DI\Attribute\Inject;
@@ -111,10 +112,11 @@ class PlayerRepository extends Repository
 
     public function ckeySearch(string $term): array
     {
-        return $this->db->column(
+        $term = KeyToCkeyService::getCkey($term);
+        return $this->run(
             "SELECT ckey FROM player WHERE ckey LIKE ?
-                  ORDER BY lastseen DESC LIMIT 0, 15",
-            ['%' . $this->db->escapeLikeValue($term) . '%']
+                  ORDER BY lastseen DESC LIMIT 0, 5",
+            '%' . $this->db->escapeLikeValue($term) . '%'
         );
     }
 }

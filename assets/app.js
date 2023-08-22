@@ -20,6 +20,15 @@ const expiredNoteModalElement = new bootstrap.Modal(expiredNote)
 expiredNoteModalElement.show()
 }
 
+function toTitleCase(str) {
+    return str.replace(
+      /\w\S*/g,
+      function(txt) {
+        return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+      }
+    );
+  }
+
 const searchForm = document.getElementById('globalSearchForm')
 const globalSearchEl = document.getElementById('globalSearch')
 const ignoreInputFocusEls = ['input','textarea']
@@ -55,13 +64,33 @@ const autoCompleteConfig = {
                 }),
               });
               const data = await source.json();
-              return data.ckeys;
+              return data.results;
         },
-        key: 'ckeys'
+        keys: ['ckey','round', 'station_name']
     },
     resultItem: {
+        element: (item, data) => {
+            switch(data.key){
+                case 'ckey':
+                    var icon = '<i class="fa-solid fa-user"></i>';
+                    break;
+                case 'round':
+                    var icon = '<i class="fa-solid fa-circle"></i>';
+                    break;
+                case 'station_name':
+                    var icon = '<i class="fa-solid fa-satellite"></i>';
+                    break;
+            }
+            item.innerHTML = `
+            <span>
+              ${data.match}
+            </span>
+            <span>
+              ${icon} ${toTitleCase(data.key.replace('_',' '))}
+            </span>`;
+        },
         tag: "li",
-        class: "list-group-item",
+        class: "list-group-item d-flex justify-content-between align-items-center",
         highlight: "autoComplete_highlight",
         selected: "autoComplete_selected active"
     },
@@ -73,7 +102,7 @@ const autoCompleteConfig = {
         tag: "ul",
         id: "globalSearchResults",
         class: "list-group",
-        maxResults: 5,
+        maxResults: undefined,
         noResults: true,
     },
     events: {
@@ -89,7 +118,11 @@ const autoCompleteConfig = {
 
 const autoCompleteJS = new autoComplete(autoCompleteConfig);
 document.getElementById('globalSearch').addEventListener("selection", function (event) {
-    window.location = `${searchDest}/${event.detail.selection.value}`
+    if('ckey' == event.detail.selection.key){
+        window.location = `${searchDest}/${event.detail.selection.value.ckey}`
+    } else {
+        window.location = `/rounds/${event.detail.selection.value.round}`
+    }
 });
 Alpine.start()
 
