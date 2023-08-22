@@ -28,7 +28,6 @@ const getOrCreateLegendList = (chart, id) => {
       }
   
       // Reuse the built-in legendItems generator
-      console.log(chart.options)
       const items = chart.options.plugins.legend.labels.generateLabels(chart);
 
       items.forEach(item => {

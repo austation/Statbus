@@ -123,7 +123,6 @@
 		const response = await fetch(`${window.location.href}/sb_who?json`);
 		var data = await response.json();
 		data = data.stat.data
-		console.log(data)
 		const survivors = Object.keys(data.escapees.humans).length + Object.keys(data.escapees.silicons).length + Object.keys(data.escapees.others).length
 		const abandoned = Object.keys(data.abandoned.humans).length + Object.keys(data.abandoned.silicons).length + Object.keys(data.abandoned.others).length
 		const targetEl = document.getElementById('integrity')
