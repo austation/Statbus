@@ -192,3 +192,18 @@ body.debug > #site-logo {
   width: 64px;
   height: 64px;
 }
+
+#globalSearchResults {
+  position: absolute;
+  z-index: 2000;
+  background: #000;
+  left: 0;
+  right: 0;
+}
+
+.autoComplete_wrapper,
+#globalSearch {
+  width: 100%;
+  position: relative;
+}
+

@@ -108,4 +108,13 @@ class PlayerRepository extends Repository
         }
         return $ckeys;
     }
+
+    public function ckeySearch(string $term): array
+    {
+        return $this->db->column(
+            "SELECT ckey FROM player WHERE ckey LIKE ?
+                  ORDER BY lastseen DESC LIMIT 0, 15",
+            ['%' . $this->db->escapeLikeValue($term) . '%']
+        );
+    }
 }

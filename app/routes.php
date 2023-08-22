@@ -15,6 +15,8 @@ return function (App $app) {
 
     $app->get("/warning", \App\Controller\Home\MarkdownController::class)->setName("warning")->setArgument('file', 'content-warning.md')->setArgument('title', 'Content Warning');
 
+    $app->post("/search", \App\Controller\Home\GlobalSearchController::class)->setName('search');
+
     $settings = $app->getContainer()->get('settings')['app'];
     $app->redirect('/discord', $settings['discord'], 301)->setName('discord');
 
