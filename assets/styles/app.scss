@@ -244,3 +244,15 @@ body.debug > #site-logo {
     box-shadow: none;
   }
 }
+
+@keyframes ping {
+  75%,to {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.ping {
+  animation: ping 1s cubic-bezier(0,0,.2,1) infinite;
+  // box-shadow: 0 0 0 5px red;
+}

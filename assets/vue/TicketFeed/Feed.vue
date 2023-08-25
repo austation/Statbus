@@ -50,7 +50,7 @@
     <hr>
     <p class="text-xs text-gray-300 text-center mb-4">{{ messages.text }}</p>
     <dl class="list-group list-group-flush border-top">
-        <ticketEntry v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide }" class="ticket added" :t="t">
+        <ticketEntry v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide, added: t.isNew }" class="ticket" :t="t">
         </ticketEntry>
     </dl>
 </template>
@@ -132,7 +132,7 @@ export default {
                     })
                 });
         },
-        toggleServer(server, identifier, showMsg = false) {
+        toggleServer(server, identifier, showMsg = true) {
             this.servers[server].toggled = !this.servers[server].toggled;
             this.toggledServers[identifier] = !this.toggledServers[identifier]
             console.log(this.toggledServers)
@@ -184,23 +184,25 @@ export default {
                 .then((res) => res.json())
                 .then((res) => {
                     this.tickets = res.data;
-                    this.lastTicket = DateTime.fromSQL(res.data[0].timestamp.date).toFormat(SQLFormat)
-                    console.log(`The most recent ticket's timestamp is ${this.lastTicket}`)
                     this.tickets.forEach((t, index) => {
-                        t.relativeTime = DateTime.fromSQL(t.timestamp.date,{zone: t.timestamp.timezone}).toRelative()
+                        t.isNew = false
+                        t.timestamp = DateTime.fromSQL(t.timestamp.date,{zone: t.timestamp.timezone})
+                        t.relativeTime = t.timestamp.toRelative()
                     })
+                    this.lastTicket = this.tickets[0].timestamp
+                        console.log(`The most recent ticket timestamp is ${this.lastTicket.toFormat(SQLFormat)}`)
                 });
         },
         pollForTickets() {
             this.changeMessage("Checking for new tickets...");
-            console.log(`Checking for new tickets since ${this.lastTicket}`)
+            console.log(`Checking for new tickets since ${this.lastTicket.toFormat(SQLFormat)}`)
             fetch(pollUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                    since: this.lastTicket,
+                    since: this.lastTicket.toFormat(SQLFormat),
                 }),
             })
                 .then((res) => res.json())
@@ -208,12 +210,11 @@ export default {
                     this.canBwoink = false;
                     if (0 == res.data.length) {
                         this.changeMessage("No new tickets!");
-                    } else {
-                        this.changeMessage("Found some new tickets!");
                     }
                     res.data.forEach((d, index) => {
-                        this.lastTicket = DateTime.fromSQL(d.timestamp.date).toFormat(SQLFormat)
-                        console.log(`The next check will look for tickets sent since ${this.lastTicket}`)
+                        d.timestamp = DateTime.fromSQL(d.timestamp.date,{zone: d.timestamp.timezone})
+                        d.isNew = true
+                        console.log(`The next check will look for tickets sent since ${this.lastTicket.toFormat(SQLFormat)}`)
 
                         if (!this.toggledServers[d.server.identifier]) {
                             console.log(
@@ -221,13 +222,14 @@ export default {
                             );
                             res.data.splice(index, 1)
                             return
-                        }else if (this.newTickets && "Ticket Opened" != d.action) {
+                        } else if (this.newTickets && "Ticket Opened" != d.action) {
                             console.log(
                                 `Only polling for new tickets. This is not a new ticket, so we are discarding it.`
                             );
                             res.data.splice(index, 1)
                             return
                         } else {
+                            this.changeMessage("Found some new tickets!");
                             this.canBwoink = true
                         }
                     })
@@ -235,8 +237,9 @@ export default {
                         this.bwoink();
                     }
                     this.tickets = [...res.data, ...this.tickets];
+                    this.lastTicket = this.tickets[0].timestamp
                     this.tickets.forEach((t, index) => {
-                        t.relativeTime = DateTime.fromSQL(t.timestamp.date,{zone: t.timestamp.timezone}).toRelative()
+                        t.relativeTime = t.timestamp.toRelative()
                     })
                 });
         },

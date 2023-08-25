@@ -96,7 +96,10 @@ Encore.addPlugin(
     ]),
     safelist: {
       standard: ['text-bg-perma'],
-      deep: [/table-/]
+      deep: [
+        /table-/,
+        /autoComplete/
+      ]
     }
     }),
   );

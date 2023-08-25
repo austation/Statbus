@@ -6,8 +6,8 @@ TGDB
 {% endblock %}
 {% block cardBody %}
 			<div class="row">
-				<div class="col-7">
-					<div class="row row-cols-3">
+				<div class="col-12 col-lg-7">
+					<div class="row row-cols-2 row-cols-lg-3">
 						{% for a in apps %}
 							<div class="col d-flex">
 								<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
@@ -19,7 +19,7 @@ TGDB
 					</div>
 					{% include 'tgdb/components/recentActivity.html.twig' %}
 				</div>
-				<div class="col-5">
+				<div class="col-12 col-lg-5">
 					<div class="card">
 						<div class="card-body">
 					{% include 'tgdb/components/memos.html.twig' %}

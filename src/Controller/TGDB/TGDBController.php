@@ -31,6 +31,11 @@ class TGDBController extends Controller
                 'url' => $this->getUriForRoute('tgdb.tickets'),
             ],
             [
+                'name' => 'Live Tickets',
+                'icon' => 'fa-solid fa-circle text-danger ping',
+                'url' => $this->getUriForRoute('tgdb.tickets.live'),
+            ],
+            [
                 'name' => 'Guide to TLP',
                 'icon' => 'fa-solid fa-traffic-light',
                 'url' => $this->getUriForRoute('tgdb.tlp'),
@@ -42,7 +47,7 @@ class TGDBController extends Controller
             ],
         ];
         $memos = $this->memos->getCurrentMemos();
-        $notes = $this->memos->getNotes(1,10)->getResults();
+        $notes = $this->memos->getNotes(1, 10)->getResults();
         return $this->render('tgdb/index.html.twig', [
             'narrow' => true,
             'apps' => $apps,
