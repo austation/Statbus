@@ -212,7 +212,7 @@ body.debug > #site-logo {
   }
 
   to {
-    background: transparent;
+    background: var(--bs-list-group-bg);
   }
 }
 .added {
