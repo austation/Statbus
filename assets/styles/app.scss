@@ -45,24 +45,17 @@ $list-group-bg: rgba(0,0,0,.5);
 @import "~@fortawesome/fontawesome-free/css/v4-shims.css";
 @import "~@fortawesome/fontawesome-free/css/v5-font-face.css";
 
-.tgdb-bg {
-  background: linear-gradient(#6d94bf 0%, #446e9b 50%, #3e648d 100%);
-}
-
 html, 
 body {
-    height: 100%;
-    min-height: 100%;
     image-rendering: pixelated;
-    background-color: #252525;
 }
 
 body {
-  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(to bottom, #252525 0%, #202020 100%);
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(to bottom, #252525 0%, #202020 100%),#252525;
 }
 
 body.tgdb{
-  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(darken(#6d94bf, 25%), darken(#446e9b, 25%) 50%, darken(#3e648d, 25%));
+  background: url('../../templates/assets/statbus-star.svg') center/40%  no-repeat, linear-gradient(darken(#6d94bf, 25%), darken(#446e9b, 25%) 50%, darken(#3e648d, 25%)),#3e648d;
 }
 
 .card-header,
