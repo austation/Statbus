@@ -8,8 +8,9 @@
             <label @click="toggleNoAdmins" class="btn btn-primary" for="admins">Servers with No Admins</label>
 
             <input type="checkbox" class="btn-check" id="mute">
-            <label @click="mute" class="btn btn-success" for="mute"><i class="fa fa-fw" :class="[muted ? 'fa-volume-mute' : 'fa-volume-up']"></i>
-            {{ muted ? "Unmute Sound" : "Mute Sound" }}</label>
+            <label @click="mute" class="btn btn-success" for="mute"><i class="fa fa-fw"
+                    :class="[muted ? 'fa-volume-mute' : 'fa-volume-up']"></i>
+                {{ muted ? "Unmute Sound" : "Mute Sound" }}</label>
         </div>
     </div>
     <div class="grid" style="--bs-gap: 1rem;">
@@ -50,7 +51,8 @@
     <hr>
     <p class="text-xs text-gray-300 text-center mb-4">{{ messages.text }}</p>
     <dl class="list-group list-group-flush border-top">
-        <ticketEntry v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide, added: t.isNew }" class="ticket" :t="t">
+        <ticketEntry v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide, added: t.isNew }" class="ticket"
+            :t="t">
         </ticketEntry>
     </dl>
 </template>
@@ -137,11 +139,11 @@ export default {
             this.toggledServers[identifier] = !this.toggledServers[identifier]
             console.log(this.toggledServers)
             if (false === this.toggledServers[identifier]) {
-                if(showMsg){
+                if (showMsg) {
                     this.changeMessage(`Hiding new actions from ${identifier}`);
                 }
             } else {
-                if(showMsg){
+                if (showMsg) {
                     this.changeMessage(`Showing new actions from ${identifier}`);
                 }
             }
@@ -166,7 +168,7 @@ export default {
                 for (const [key, value] of Object.entries(this.servers)) {
                     if (value.admins > 0 && value.admins) {
                         this.toggleServer(key, value.identifier, false);
-                        this.changeMessage(`Only polling for ${this.newTickets ? 'new tickets':'actions'} from servers with no admins online`);
+                        this.changeMessage(`Only polling for ${this.newTickets ? 'new tickets' : 'actions'} from servers with no admins online`);
                     }
                 }
             } else {
@@ -186,11 +188,11 @@ export default {
                     this.tickets = res.data;
                     this.tickets.forEach((t, index) => {
                         t.isNew = false
-                        t.timestamp = DateTime.fromSQL(t.timestamp.date,{zone: t.timestamp.timezone})
+                        t.timestamp = DateTime.fromSQL(t.timestamp.date, { zone: t.timestamp.timezone })
                         t.relativeTime = t.timestamp.toRelative()
                     })
                     this.lastTicket = this.tickets[0].timestamp
-                        console.log(`The most recent ticket timestamp is ${this.lastTicket.toFormat(SQLFormat)}`)
+                    console.log(`The most recent ticket timestamp is ${this.lastTicket.toFormat(SQLFormat)}`)
                 });
         },
         pollForTickets() {
@@ -210,11 +212,14 @@ export default {
                     this.canBwoink = false;
                     if (0 == res.data.length) {
                         this.changeMessage("No new tickets!");
-                    }
-                    res.data.forEach((d, index) => {
-                        d.timestamp = DateTime.fromSQL(d.timestamp.date,{zone: d.timestamp.timezone})
-                        d.isNew = true
+                    } else {
+                        this.lastTicket = DateTime.fromSQL(res.data[0].timestamp.date, { zone: res.data[0].timestamp.timezone }) 
                         console.log(`The next check will look for tickets sent since ${this.lastTicket.toFormat(SQLFormat)}`)
+                    }
+                    res.data.reverse()
+                    res.data.forEach((d, index) => {
+                        d.timestamp = DateTime.fromSQL(d.timestamp.date, { zone: d.timestamp.timezone })
+                        d.isNew = true
 
                         if (!this.toggledServers[d.server.identifier]) {
                             console.log(
@@ -231,13 +236,13 @@ export default {
                         } else {
                             this.changeMessage("Found some new tickets!");
                             this.canBwoink = true
+                            console.log(typeof(this.tickets))
+                            this.tickets.unshift(d)
                         }
                     })
                     if (!this.muted && this.canBwoink) {
                         this.bwoink();
                     }
-                    this.tickets = [...res.data, ...this.tickets];
-                    this.lastTicket = this.tickets[0].timestamp
                     this.tickets.forEach((t, index) => {
                         t.relativeTime = t.timestamp.toRelative()
                     })
