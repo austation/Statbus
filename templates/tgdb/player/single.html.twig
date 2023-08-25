@@ -30,13 +30,14 @@
 {% endblock %}
 {% block cardBody %}
 	<dic class="row">
-		<div class="col-md-9">
+		<div class="col-12 col-lg-9">
 			{% include 'player/components/chronodata.html.twig' %}
 			{% if player.getFlags %}
 				{% include 'player/components/permissionsTable.html.twig' %}
 			{% endif %}
 			{% include 'player/components/adminActionLinks.html.twig' with {'ckey':player.getCkey} only %}
 			{% include 'player/components/knownAlts.html.twig' with {'alts':alts} only %}
+			<div class="table-responsive">
 			<section class="page-section">
 				<h5 class="border-bottom border-2 border-primary pb-1">
 					Linked Discord Accounts
@@ -45,8 +46,9 @@
 					<div id="discord" data-url="{{url_for('tgdb.player.discord',{ckey:player.getCkey})}}"></div>
 				</article>
 			</section>
+			</div>
 		</div>
-		<div class="col-md-3">
+		<div class="col-12 col-lg-3">
 			<div class="card mb-2">
 				<div class="card-header fw-bold">
 					Links
