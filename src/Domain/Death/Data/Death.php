@@ -8,8 +8,8 @@ use DateTime;
 
 class Death
 {
-    private PlayerBadge $playerBadge;
-    private PlayerBadge $attackerBadge;
+    private ?PlayerBadge $playerBadge = null;
+    private ?PlayerBadge $attackerBadge = null;
 
     public function __construct(
         private int $id,
@@ -65,7 +65,7 @@ class Death
         return $this;
     }
 
-    public function getPlayerBadge(): PlayerBadge
+    public function getPlayerBadge(): ?PlayerBadge
     {
         return $this->playerBadge;
     }
@@ -169,7 +169,7 @@ class Death
         return $this->attacker;
     }
 
-    public function getAttackerBadge(): PlayerBadge
+    public function getAttackerBadge(): ?PlayerBadge
     {
         return $this->attackerBadge;
     }
