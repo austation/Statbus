@@ -1,15 +1,8 @@
 import './styles/app.scss';
 import * as bootstrap from 'bootstrap'
 import Alpine from 'alpinejs'
-import dayjs from 'dayjs';
-
-var relativeTime = require('dayjs/plugin/relativeTime')
-var utc = require('dayjs/plugin/utc')
 
 const autoComplete = require("@tarekraafat/autocomplete.js");
-
-dayjs.extend(utc)
-dayjs.extend(relativeTime)
 
 window.bootstrap = bootstrap;
 window.Alpine = Alpine
@@ -32,6 +25,9 @@ function toTitleCase(str) {
 const searchForm = document.getElementById('globalSearchForm')
 const globalSearchEl = document.getElementById('globalSearch')
 const ignoreInputFocusEls = ['input','textarea']
+
+const hasGlobalSearch = (null !== globalSearchEl)
+
 document.addEventListener("keydown", (e) => {
 	if('Slash' == e.code){
 		if(!ignoreInputFocusEls.includes(document.activeElement.tagName.toLowerCase())){
@@ -42,12 +38,13 @@ document.addEventListener("keydown", (e) => {
 	}
 });
 
-globalSearchEl.addEventListener("blur", (e) => {
-    searchForm.classList.toggle('w-100')
-})
+if(hasGlobalSearch){
+    globalSearchEl.addEventListener("blur", (e) => {
+        searchForm.classList.toggle('w-100')
+    })
 
-const searchUrl = searchForm.getAttribute('action')
-const searchDest = searchForm.dataset.searchdest
+    const searchUrl = searchForm.getAttribute('action')
+    const searchDest = searchForm.dataset.searchdest
 
 const autoCompleteConfig = {
     selector: "#globalSearch", 
@@ -124,5 +121,6 @@ document.getElementById('globalSearch').addEventListener("selection", function (
         window.location = `/rounds/${event.detail.selection.value.round}`
     }
 });
+}
 Alpine.start()
 
