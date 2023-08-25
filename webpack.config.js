@@ -27,10 +27,10 @@ Encore
    */
   .addEntry("app", "./assets/app.js")
   .addEntry("discordUser", "./assets/vue/UserDiscord.js")
-  .addEntry("logViewer", "./assets/js/logViewer.js")
   .addEntry("ticketFeed", "./assets/vue/TicketFeed/Feed.js")
+  // .addEntry("logViewer", "./assets/js/logViewer.js")
   // .addEntry("logViewerTS", "./assets/ts/logViewer.ts")
-  .addEntry("dashboard", "./assets/styles/dashboard.scss")
+  // .addEntry("dashboard", "./assets/styles/dashboard.scss")
   
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()
