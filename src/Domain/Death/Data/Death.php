@@ -2,14 +2,17 @@
 
 namespace App\Domain\Death\Data;
 
+use App\Domain\Job\Data\JobBadge;
 use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Server\Data\Server;
+use App\Enum\Jobs;
 use DateTime;
 
 class Death
 {
     private ?PlayerBadge $playerBadge = null;
     private ?PlayerBadge $attackerBadge = null;
+    private ?JobBadge $jobBadge = null;
 
     public function __construct(
         private int $id,
@@ -48,6 +51,7 @@ class Death
     {
         $this->setPlayerBadge();
         $this->setAttackerBadge();
+        $this->setJobBadge();
         return $this;
     }
 
@@ -65,9 +69,22 @@ class Death
         return $this;
     }
 
+    private function setJobBadge(): self
+    {
+        if($this->job) {
+            $this->jobBadge = new JobBadge(Jobs::tryFrom($this->job), $this->job);
+        }
+        return $this;
+    }
+
     public function getPlayerBadge(): ?PlayerBadge
     {
         return $this->playerBadge;
+    }
+
+    public function getJobBadge(): ?JobBadge
+    {
+        return $this->jobBadge;
     }
 
     public function getName(): string
@@ -112,7 +129,7 @@ class Death
                 break;
 
             case 'brain':
-                $cause['cause']      = "Crippling Brain Damage";
+                $cause['cause']      = "Brain Damage";
                 $cause['last_line']  = "slurred out as they gave up on life";
                 break;
 

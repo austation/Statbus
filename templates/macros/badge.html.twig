@@ -50,4 +50,11 @@
 			{{round}}
 		</span>
 	{% endif %}
+
+{% macro JobBadge(badge) %}
+	<span class="jobBadge badge" style="{{badge.style}}">
+		{{badge.name}}
+	</span>
+{% endmacro %}
+
 {% endmacro %}

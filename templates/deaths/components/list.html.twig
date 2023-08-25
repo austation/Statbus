@@ -1,4 +1,4 @@
-{% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
+{% from 'macros/badge.html.twig' import PlayerBadge, JobBadge, ServerBadge, RoundBadge %}
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -11,12 +11,13 @@
 	<tbody>
 		{% for d in deaths %}
 			<tr>
-				<td>{{d.getName}}<br><small>Played by
-						{{PlayerBadge(d.getPlayerBadge)}}</small>
+				<td>{{d.getName}} As {{JobBadge(d.getJobBadge)}}<br><small>Played by
+						{{PlayerBadge(d.getPlayerBadge)}}
+						</small>
 				</td>
 				<td>{{d.getLocation}}<br>
 					<small>At
-						{{d.getCoords}}
+						({{d.getCoords}})
 						on
 						{{d.getMap}}</small>
 				</td>
