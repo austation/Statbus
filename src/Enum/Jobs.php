@@ -72,6 +72,7 @@ enum Jobs: string
     case HIVEMIND_HOST = 'Hivemind Host';
     case HERETIC = 'Heretic';
     case NIGHTMARE = 'Nightmare';
+    case NUCLEAR_OPERATIVE = 'Nuclear Operative';
 
     public function getColor(): string
     {
@@ -89,7 +90,8 @@ enum Jobs: string
             Jobs::LIVING => '#AAA',
             Jobs::GHOST => '#000',
             Jobs::PRISONER => '#FF9900',
-            Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC, Jobs::NIGHTMARE => '#830000'
+            Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC, Jobs::NIGHTMARE,
+            Jobs::NUCLEAR_OPERATIVE => '#830000'
         };
     }
 
@@ -105,7 +107,8 @@ enum Jobs: string
     {
         return match($this) {
             default => true,
-            Jobs::LIVING, Jobs::ADMIN, Jobs::GHOST,Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC, Jobs::NIGHTMARE => false
+            Jobs::LIVING, Jobs::ADMIN, Jobs::GHOST,Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC, Jobs::NIGHTMARE,
+            Jobs::NUCLEAR_OPERATIVE => false
         };
     }
 }
