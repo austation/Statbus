@@ -52,6 +52,8 @@ return function (App $app) {
     //Rounds
     $app->group("/rounds", function (RouteCollectorProxy $app) {
         $app->get("/{id:[0-9]+}", \App\Controller\Round\RoundViewController::class)->setName("round.single");
+        $app->get("/{id:[0-9]+}/timeline", \App\Controller\Round\RoundTimelineController::class)->setName("round.timeline");
+        $app->get("/{id:[0-9]+}/logs", \App\Controller\Round\RoundLogsController::class)->setName("round.timeline");
         $app->get("/{id:[0-9]+}/{stat:[a-z_]+}", \App\Controller\Round\RoundStatController::class)->setName("round.stat");
     });
 
@@ -79,6 +81,8 @@ return function (App $app) {
         $app->get("/tlp", \App\Controller\Home\MarkdownController::class)->setName("tgdb.tlp")->setArgument('file', 'tlp_guide.md')->setArgument('title', 'Guide to TLP');
 
         //TGDB Tickets
+        $app->map(['POST','GET'], "/tickets/live", \App\Controller\TGDB\Tickets\TGDBTicketFeedController::class)->setName("tgdb.tickets.live");
+
         $app->get("/tickets[/page/{page:[0-9]+}]", \App\Controller\TGDB\Tickets\TGDBTicketListingController::class)->setName("tgdb.tickets");
 
         $app->get("/tickets/{round:[0-9]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Tickets\TGDBTicketRoundListingController::class)->setName("tgdb.tickets.round");

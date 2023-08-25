@@ -57,6 +57,40 @@ class TicketRepository extends Repository
         return $this;
     }
 
+    public function getTicketFeed(int $page = 1, int $per_page = 60): self
+    {
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $where = implode("\n AND ", ['t.round_id != 0']);
+        $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s
+        ORDER BY t.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
+        $pagesQuery = sprintf("SELECT count(t.id) FROM ticket t WHERE %s ORDER BY t.timestamp DESC", $where);
+        $this->setPages((int) ceil($this->cell($pagesQuery) / $per_page));
+        $this->setResults(
+            $this->run(
+                $query,
+                ($page * $per_page) - $per_page,
+                $per_page
+            ),
+        );
+        return $this;
+    }
+
+    public function getTicketsSinceDate(string $date): self
+    {
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $where = implode("\n AND ", ['t.timestamp > ?','t.round_id != 0']);
+        $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s ORDER BY t.timestamp DESC", $cols, $joins, $where);
+        $this->setResults(
+            $this->run(
+                $query,
+                $date
+            ),
+        );
+        return $this;
+    }
+
     public function getTicketsByCkey(string $ckey, int $page = 1, int $per_page = 60): self
     {
         $cols = implode(",\n", $this->columns);
@@ -142,4 +176,6 @@ class TicketRepository extends Repository
 
         return $this;
     }
+
+
 }

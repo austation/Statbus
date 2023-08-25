@@ -8,15 +8,15 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class PlayerBadge
 {
-    private string $ckey;
+    public string $ckey;
 
-    private string $backColor = '#ccc';
+    public string $backColor = '#ccc';
 
-    private string $foreColor = '#000';
+    public string $foreColor = '#000';
 
-    private string $icon = 'user';
+    public string $icon = 'user';
 
-    private string $title = 'Player';
+    public string $title = 'Player';
 
     public function __construct(string $ckey, array $options = [])
     {

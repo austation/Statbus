@@ -9,27 +9,27 @@ use DateTime;
 
 class Ticket
 {
-    private ?PlayerBadge $senderBadge = null;
-    private ?PlayerBadge $recipientBadge = null;
-    private bool $bwoink = false;
+    public ?PlayerBadge $senderBadge = null;
+    public ?PlayerBadge $recipientBadge = null;
+    public bool $bwoink = false;
 
     public function __construct(
-        private int $id,
-        private ?int $serverIp,
-        private ?int $port,
-        private ?int $round,
-        private ?int $ticket,
-        private $action = 'Reply',
-        private ?string $message,
-        private ?DateTime $timestamp,
-        private ?string $r_ckey,
-        private ?string $s_ckey,
-        private ?string $r_rank,
-        private ?string $s_rank,
-        private $status,
-        private ?int $replies,
-        private ?bool $urgent = false,
-        private Server $server
+        public int $id,
+        public ?int $serverIp,
+        public ?int $port,
+        public ?int $round,
+        public ?int $ticket,
+        public $action = 'Reply',
+        public ?string $message,
+        public ?DateTime $timestamp,
+        public ?string $r_ckey,
+        public ?string $s_ckey,
+        public ?string $r_rank,
+        public ?string $s_rank,
+        public $status,
+        public ?int $replies,
+        public ?bool $urgent = false,
+        public Server $server
     ) {
         $this->setBadges();
         $this->setAction();
@@ -269,4 +269,5 @@ class Ticket
     {
         return $this->urgent;
     }
+
 }

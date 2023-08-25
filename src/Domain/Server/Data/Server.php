@@ -4,10 +4,11 @@ namespace App\Domain\Server\Data;
 
 class Server
 {
-    private ?string $name;
-    private ?string $address;
-    private ?int $port;
-    private ?string $identifier;
+    public ?string $name;
+    public ?string $address;
+    public ?int $port;
+    public ?string $identifier;
+    public ?string $gameLink;
 
     public function getName(): ?string
     {
@@ -62,6 +63,12 @@ class Server
         return sprintf("byond://%s:%s", $this->getAddress(), $this->getPort());
     }
 
+    private function setGameServerAddress(): self
+    {
+        $this->gameLink = $this->getGameServerAddress();
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         $server = new self();
@@ -69,6 +76,7 @@ class Server
         $server->setPort($data['port']);
         $server->setIdentifier($data['identifier']);
         $server->setAddress($data['address']);
+        $server->setGameServerAddress();
         return $server;
     }
 }

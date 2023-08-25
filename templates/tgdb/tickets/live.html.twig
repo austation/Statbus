@@ -1,0 +1,21 @@
+{% extends 'tgdb/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{% block scripts %}
+	{{ parent() }}
+	{{webpack_entry_script_tags('ticketFeed')}}
+{% endblock %}
+		{% block stylesheets %}
+            {{ parent() }}
+			{{ webpack_entry_link_tags('ticketFeed') }}
+		{% endblock %}
+{% block breadcrumbs %}
+{% endblock %}
+{% block cardHeader %}
+	<span>
+		<i class="fas fa-ticket"></i>
+		Live Ticket Feed</span>
+{% endblock %}
+{% block cardBody %}
+	<div id="feed">
+	</div>
+{% endblock %}

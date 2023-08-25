@@ -18,7 +18,7 @@ class AdminRanks
             return [
                 'backColor' => '#ccc',
                 'foreColor' => '#000',
-                'icon' => 'user'
+                'icon' => 'fa-user'
             ];
         }
     }
