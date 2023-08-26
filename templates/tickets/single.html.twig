@@ -27,7 +27,7 @@
 {% endblock %}
 {% block cardBody %}
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-lg-8">
 			{% for t in ticket %}
 				{% if t.getAction.isAction %}
 					{% include 'tickets/components/ticketAction.html.twig' %}
@@ -35,14 +35,14 @@
 					{% include 'tickets/components/ticketBody.html.twig' %}
 				{% endif %}
 				{% if not loop.last %}
-					<div class="ticket-timeline border-start border-2 py-3 text-end">
+					<div class="timeline-line border-start border-2 py-3 text-end">
 						{% set diff = ticket[loop.index].getTimestamp.diff(t.getTimestamp) %}
 						<code>{{diff|date('%H:%I:%S')}}</code>
 					</div>
 				{% endif %}
 			{% endfor %}
 		</div>
-		<div class="col-md-4">
+		<div class="col-lg-4">
 			{% include 'tickets/components/ticketSidebar.html.twig' %}
 			{% include 'tickets/components/ticketForumEmbed.html.twig' %}
 			{% include 'tickets/components/ticketDiscordEmbed.html.twig' %}
