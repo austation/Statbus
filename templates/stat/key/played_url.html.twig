@@ -1,0 +1,24 @@
+<table class="table table-sm table-bordered sort">
+	<thead>
+		<tr>
+			<th>Admin</th>
+			<th>Played Track</th>
+		</tr>
+	</thead>
+	<tbody class="table-group-divider">
+		{% for admin, tracks in stat.data %}
+			{% for t in tracks %}
+				<tr>
+					<th class="align-middle text-center">{{admin}}</th>
+					<td>
+						{% if t.embed %}
+							<iframe src="{{t.song}}"></iframe>
+						{% else %}
+							<a href="{{t.song}}" target="_blank">{{t.song}}</a>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+		{% endfor %}
+	</tbody>
+</table>
