@@ -13,6 +13,8 @@ class Stat
 
     public array $filter = [];
 
+    private ?string $tweakClass = null;
+
     public function __construct(
         private int $id,
         private DateTime $dateTime,
@@ -23,6 +25,10 @@ class Stat
         private string $json,
         private bool $decodeJson = true
     ) {
+        $class = '\App\Domain\Stat\Data\Tweaks\\'.$this->getKey();
+        if(class_exists($class)) {
+            $this->tweakClass = $class;
+        }
         $this->setTweaks();
         $this->setData();
     }
@@ -30,9 +36,6 @@ class Stat
     public function setTweaks(): self
     {
         $this->tweaks = StatTweaks::tryFrom($this->getKey());
-        if($this->tweaks) {
-            $this->setLabels($this->tweaks->getLabels());
-        }
         return $this;
     }
 
@@ -138,26 +141,49 @@ class Stat
 
     public function setData(mixed $data = false): self
     {
+        //Check for existing tweak plans
+        $tweaks = $tweaks = $this->getTweaks();
+
+        //Sometimes we just need to set the data and move on
         if($data) {
             $this->data = $data;
             return $this;
         }
+
+        //Or we just want to ship the JSON directly out
         if(!$this->decodeJson) {
             $this->data = $this->json;
             return $this;
         }
-        if($tweaks = $this->getTweaks()) {
+
+        //If we have some tweaks to apply, check for a filter first
+        if($tweaks) {
+            //Stick the filter in a property and apply to the un-decoded json
             if($this->filter = $tweaks->getFilter()) {
                 $this->setJson(str_replace($this->filter, '', $this->getJson()));
             }
         }
+
+        //Now decode ths json string
         $this->data = json_decode($this->getJson(), true);
+
+        //Feedback data is keyed under a `data` item, so we need to get around
+        // that
         if(isset($this->data['data'])) {
             $this->data = $this->data['data'];
         }
+
+        //If this is tally data, we can go ahead and sum it up here
         if('tally' === $this->getType()) {
             $this->setTotal($this->tallyData());
             arsort($this->data);
+        }
+
+        //If a tweak class exists for this data, we'll run it through this first
+        //This is useful for stuff like updating URLs or tweaks we can't do in a
+        //filter or in twig on the frontend
+        if($this->tweakClass) {
+            $this->data = $this->tweakClass::tweakData($this->data, $this->getVersion());
         }
         return $this;
     }

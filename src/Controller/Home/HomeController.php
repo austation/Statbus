@@ -121,15 +121,10 @@ class HomeController extends Controller
                 $stat = $this->stat->getRandomEntryForKey('played_url')->getResult();
                 $data = $stat->getData();
                 $dj = array_rand($data);
-                $songs = $data[$dj];
-                $song = array_rand($songs);
-                if(false !== str_contains($song, 'youtu')) {
-                    $song = getYoutubeEmbedUrl($song);
-                    $embed = true;
-                } else {
-                    $embed = false;
-                }
-                $stat->setData(['dj' => $dj, 'song' => $song, 'embed' => $embed]);
+                $tracks = $data[$dj];
+                $track = $tracks[array_rand($tracks)];
+                $track['dj'] = $dj;
+                $stat->setData($track);
                 $fun = [
                     'template' => 'recentMusic.html.twig',
                     'data' => $stat

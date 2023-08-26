@@ -4,10 +4,13 @@
 	A Recently Played Track
 {% endblock %}
 {% block body %}
-    {% if data.data.embed %}
-	<iframe src="{{data.data.song}}"></iframe>
-    {% else %}
-    <a href="{{data.data.song}}" target="_blank">{{data.data.song}}</a>
-    {% endif %}
-    <small>Played by {{data.data.dj}} during {{RoundBadge(data.getRound)}}</small>
+	{% if data.data.embed %}
+		<iframe src="{{data.data.song}}"></iframe>
+	{% else %}
+		<a href="{{data.data.song}}" target="_blank">{{data.data.song}}</a>
+	{% endif %}
+	<br><small>Played by
+		{{data.data.dj}}
+		during
+		{{RoundBadge(data.getRound)}}</small>
 {% endblock %}

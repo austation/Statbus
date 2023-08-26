@@ -10,22 +10,6 @@ function pick($list)
     return $list[floor(rand(0, count($list) - 1))];
 }
 
-// https://stackoverflow.com/a/41910059
-function getYoutubeEmbedUrl($url)
-{
-    $shortUrlRegex = '/youtu.be\/([a-zA-Z0-9_-]+)\??/i';
-    $longUrlRegex = '/youtube.com\/((?:embed)|(?:watch))((?:\?v\=)|(?:\/))([a-zA-Z0-9_-]+)/i';
-
-    if (preg_match($longUrlRegex, $url, $matches)) {
-        $youtube_id = $matches[count($matches) - 1];
-    }
-
-    if (preg_match($shortUrlRegex, $url, $matches)) {
-        $youtube_id = $matches[count($matches) - 1];
-    }
-    return 'https://www.youtube.com/embed/' . $youtube_id ;
-}
-
 use DI\Bridge\Slim\Bridge;
 use DI\ContainerBuilder;
 
