@@ -42,13 +42,16 @@ class HomeController extends Controller
     public function action(): ResponseInterface
     {
         $user = $this->getUser();
-        $apps = [
-            [
+        $apps = [];
+        if($this->getUser()) {
+            $apps[] = [
                 'name' => 'My Player Page',
                 'icon' => 'fas fa-user',
                 'url' => $this->getUriForRoute('player', ['ckey' => $user->getCkey()]),
                 'disabled' => false
-            ],
+            ];
+        }
+        $apps = [
             [
                 'name' => 'My Bans',
                 'icon' => 'fas fa-gavel',
