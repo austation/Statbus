@@ -1,0 +1,17 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge %}
+{% block header %}
+	Our Newest Admin
+{% endblock %}
+{% block body %}
+	<div class="text-center">
+		<h2>🎉 🎉 🎉</h2>
+		<h1>{{PlayerBadge(data.getTargetBadge)}}</h1>
+		<small>Inducted
+			{{data.datetime|date('Y-m-d')}}
+			by
+			{{PlayerBadge(data.getAdminBadge)}}<br>
+			<a href="{{url_for('adminlogs')}}">See More</a>
+		</small>
+	</div>
+{% endblock %}

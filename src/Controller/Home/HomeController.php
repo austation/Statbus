@@ -3,6 +3,10 @@
 namespace App\Controller\Home;
 
 use App\Controller\Controller;
+use App\Domain\Admin\Repository\AdminLogRepository;
+use App\Domain\Admin\Repository\AdminRepository;
+use App\Domain\Ban\Repository\BanRepository;
+use App\Domain\Death\Repository\DeathRepository;
 use App\Domain\Round\Repository\RoundRepository;
 use App\Service\PolyTalkService;
 use Psr\Http\Message\ResponseInterface;
@@ -12,6 +16,15 @@ class HomeController extends Controller
 {
     #[Inject]
     private RoundRepository $rounds;
+
+    #[Inject]
+    private BanRepository $bans;
+
+    #[Inject]
+    private AdminLogRepository $admin;
+
+    #[Inject]
+    private DeathRepository $death;
 
     /**
      * action
@@ -78,11 +91,39 @@ class HomeController extends Controller
             ];
         }
         $polytalk = PolyTalkService::getPolyLine();
+
+        //Switch for picking a random !FUN! datapoint
+
+        // switch(3) {
+        switch(floor(rand(0, 2))) {
+            case 0:
+                $fun = [
+                    'template' => 'newestAdmin.html.twig',
+                    'data' => $this->admin->getLatestAdmin()
+                ];
+                break;
+
+            case 1:
+                $fun = [
+                    'template' => 'bansByRole.html.twig',
+                    'data' => $this->bans->getMostBannedRoles()
+                ];
+                break;
+
+            case 2:
+                $fun = [
+                    'template' => 'lastDeath.html.twig',
+                    'data' => $this->death->getDeaths(1, 1)
+                ];
+                break;
+        }
+
         return $this->render('home.html.twig', [
             'narrow' => true,
             'apps' => $apps,
             'rounds' => $this->rounds->getRecentRounds(),
-            'polytalk' => $polytalk
+            'polytalk' => $polytalk,
+            'fun' => $fun
         ]);
     }
 

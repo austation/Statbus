@@ -4,6 +4,7 @@ namespace App\Domain\Death\Repository;
 
 use App\Domain\Death\Data\Death;
 use App\Repository\Repository;
+use App\Service\ServerInformationService;
 
 class DeathRepository extends Repository
 {
@@ -58,6 +59,28 @@ class DeathRepository extends Repository
             $this->run(
                 $query,
                 $round
+            ),
+        );
+        return $this->getResults();
+    }
+
+    public function getDeaths(int $page = 1, int $per_page = 60): array
+    {
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+
+        $servers = ServerInformationService::getServerInfo();
+        $currentRounds = ServerInformationService::getCurrentRounds($servers);
+
+        $currentRounds = "('".implode("','", $currentRounds)."')";
+        $where = implode("\n AND ", ["d.round_id NOT IN $currentRounds"]);
+
+
+        $query = sprintf("SELECT %s FROM death d %s \nWHERE %s
+        ORDER BY d.tod DESC", $cols, $joins, $where);
+        $this->setResults(
+            $this->run(
+                $query
             ),
         );
         return $this->getResults();

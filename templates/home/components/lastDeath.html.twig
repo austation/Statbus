@@ -1,0 +1,27 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge, ServerBadge, RoundBadge %}
+{% block header %}
+	Most Recent Death*
+{% endblock %}
+{% block body %}
+	{% set death = data[0] %}
+    <div class="mb-4">
+	<em>{{death.getName}}</em>
+	played by
+	{{PlayerBadge(death.getPlayerBadge)}}<br>
+	at
+	{{death.getLocation}}
+	on
+	{{ServerBadge(death.getServer)}}
+	during
+	{{RoundBadge(death.getRound)}}<br>
+	{% include 'deaths/components/vitals.html.twig' with {'damage': death.getDamage} only %}<br>
+	{% if d.getAttacker %}
+		<small>Possibly Murdered By
+			{{d.getAttacker}}
+			/
+			{{PlayerBadge(d.getAttackerBadge)}}</small>
+	{% endif %}
+    </div>
+    <small>* From completed rounds</small>
+{% endblock %}

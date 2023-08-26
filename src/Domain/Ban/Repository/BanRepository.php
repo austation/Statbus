@@ -8,7 +8,6 @@ use App\Service\ServerInformationService;
 
 class BanRepository extends Repository
 {
-
     public ?string $entityClass = Ban::class;
 
     private $columns = "SELECT 
@@ -102,9 +101,10 @@ class BanRepository extends Repository
         return Ban::fromArray($ban);
     }
 
-    public function getBans(int $page = 1, int $per_page = 60): array {
+    public function getBans(int $page = 1, int $per_page = 60): array
+    {
         $query = sprintf("SELECT count(ban.id) FROM ban");
-        $this->setPages((int) ceil(array_sum($this->db->column($query))/$per_page));
+        $this->setPages((int) ceil(array_sum($this->db->column($query)) / $per_page));
         $query = "SELECT 
         ban.id,
         ban.round_id as `round`,
@@ -141,10 +141,13 @@ class BanRepository extends Repository
         GROUP BY ban.bantime, ban.ckey, `server_port`
         ORDER BY ban.bantime DESC
         LIMIT ?,?";
-        $this->setResults($this->run($query, ($page * $per_page) - $per_page,
-        $per_page), true);
+        $this->setResults($this->run(
+            $query,
+            ($page * $per_page) - $per_page,
+            $per_page
+        ), true);
         $bans = [];
-        foreach($this->getResults() as $b){
+        foreach($this->getResults() as $b) {
             $b = $this->parseTimestamps($b);
             $bans[] = Ban::fromArray((array) $b);
         }
@@ -168,6 +171,18 @@ class BanRepository extends Repository
             true
         );
         return $this;
+    }
+
+    public function getMostBannedRoles(): array
+    {
+        return $this->run("SELECT count(id) + FLOOR(2 + (RAND() * 4)) bans, 
+        `role` 
+        FROM ban 
+        WHERE role != 'Server' 
+        AND (expiration_time > NOW() OR expiration_time IS NULL) 
+        GROUP BY `role` 
+        ORDER BY bans DESC
+         LIMIT 0, 10;");
     }
 
 }

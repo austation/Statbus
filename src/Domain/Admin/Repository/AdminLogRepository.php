@@ -4,6 +4,7 @@ namespace App\Domain\Admin\Repository;
 
 use App\Domain\Admin\Data\Admin;
 use App\Domain\Admin\Data\AdminLog;
+use App\Domain\Player\Data\PlayerBadge;
 use App\Repository\Repository;
 
 class AdminLogRepository extends Repository
@@ -73,5 +74,26 @@ class AdminLogRepository extends Repository
             )
         );
         return $this->getResults();
+    }
+
+    public function getLatestAdmin(): AdminLog
+    {
+        $this->setResult($this->actualRow("SELECT
+        L.id,
+        L.datetime,
+        L.round_id as round,
+        L.adminckey,
+        L.operation,
+        L.target,
+        L.log,
+        A.rank as a_rank,
+        T.rank as t_rank
+        FROM admin_log L
+        LEFT JOIN `admin` as A ON L.adminckey = A.ckey
+        LEFT JOIN `admin` as T ON L.target = T.ckey
+        WHERE L.operation = 'add admin'
+        ORDER BY L.datetime DESC
+        LIMIT 1"));
+        return $this->getResult();
     }
 }

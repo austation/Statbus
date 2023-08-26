@@ -1,0 +1,24 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+Top-10 Roles by Bans*
+{% endblock %}
+{% block body %}
+<table class="table table-bordered" style="font-size: .75rem">
+<thead>
+    <tr>
+        <th class="p-1">Role</th>
+        <th class="p-1">Bans</th>
+    </tr>
+</thead>
+<tbody>
+    {% for d in data %}
+        <tr>
+            {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(d.role) %}
+            <td class="p-1" style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: d.role}}</td>
+            <td class="p-1">{{d.bans}}</td>
+        </tr>
+    {% endfor %}
+</tbody>
+</table>
+<small>* These numbers are offset by between 1 to 5</small>
+{% endblock %}
