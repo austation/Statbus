@@ -36,7 +36,7 @@ class Round
         private ?string $shuttle = null,
         private ?string $map = null,
         private ?string $name = null,
-        private Server $server
+        private ?Server $server = null
     ) {
         $this->setDuration();
         $this->setStartDuration();
