@@ -2,7 +2,9 @@
 
 namespace App\Enum;
 
-enum RoundState: string
+use JsonSerializable;
+
+enum RoundState: string implements JsonSerializable
 {
     case PROPER = 'Proper Completion';
     case NUKE = 'Nuked';
@@ -41,5 +43,15 @@ enum RoundState: string
             default => $this->value,
             RoundState::UNSUCCESSFUL => 'No End State - Probable Server Crash',
         };
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'value' => $this->value,
+            'cssClass' => $this->cssClass(),
+            'icon' => $this->icon(),
+            'text' => $this->text(),
+        ];
     }
 }
