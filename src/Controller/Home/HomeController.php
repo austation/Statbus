@@ -8,6 +8,7 @@ use App\Domain\Admin\Repository\AdminRepository;
 use App\Domain\Ban\Repository\BanRepository;
 use App\Domain\Death\Repository\DeathRepository;
 use App\Domain\Round\Repository\RoundRepository;
+use App\Domain\Stat\Repository\StatRepository;
 use App\Service\PolyTalkService;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
@@ -25,6 +26,9 @@ class HomeController extends Controller
 
     #[Inject]
     private DeathRepository $death;
+
+    #[Inject]
+    private StatRepository $stat;
 
     /**
      * action
@@ -94,7 +98,7 @@ class HomeController extends Controller
 
         //Switch for picking a random !FUN! datapoint
 
-        // switch(3) {
+        // switch(2) {
         switch(floor(rand(0, 2))) {
             case 0:
                 $fun = [
@@ -111,11 +115,32 @@ class HomeController extends Controller
                 break;
 
             case 2:
+                $stat = $this->stat->getRandomEntryForKey('played_url')->getResult();
+                $data = $stat->getData();
+                $dj = array_rand($data);
+                $songs = $data[$dj];
+                $song = array_rand($songs);
+                if(false !== str_contains($song, 'youtu')) {
+                    $song = getYoutubeEmbedUrl($song);
+                    $embed = true;
+                } else {
+                    $embed = false;
+                }
+                $stat->setData(['dj' => $dj, 'song' => $song, 'embed' => $embed]);
                 $fun = [
-                    'template' => 'lastDeath.html.twig',
-                    'data' => $this->death->getDeaths(1, 1)
+                    'template' => 'recentMusic.html.twig',
+                    'data' => $stat
                 ];
                 break;
+
+                //VERY crashy
+                // case 2:
+                //     var_dump('death');
+                //     $fun = [
+                //         'template' => 'lastDeath.html.twig',
+                //         'data' => $this->death->getDeaths(1, 1)
+                //     ];
+                //     break;
         }
 
         return $this->render('home.html.twig', [

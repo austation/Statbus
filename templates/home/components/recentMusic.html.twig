@@ -1,0 +1,13 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge, RoundBadge %}
+{% block header %}
+	A Recently Played Track
+{% endblock %}
+{% block body %}
+    {% if data.data.embed %}
+	<iframe src="{{data.data.song}}"></iframe>
+    {% else %}
+    <a href="{{data.data.song}}" target="_blank">{{data.data.song}}</a>
+    {% endif %}
+    <small>Played by {{data.data.dj}} during {{RoundBadge(data.getRound)}}</small>
+{% endblock %}

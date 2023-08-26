@@ -35,4 +35,11 @@ class StatRepository extends Repository
         return $this->getResult();
     }
 
+    public function getRandomEntryForKey(string $stat): self
+    {
+        $query = "SELECT f.id, f.datetime, f.round_id, f.key_name, f.key_type, f.version, f.json FROM feedback f WHERE f.key_name = ? ORDER BY RAND() LIMIT 1";
+        $this->setResult($this->actualRow($query, [$stat]));
+        return $this;
+    }
+
 }

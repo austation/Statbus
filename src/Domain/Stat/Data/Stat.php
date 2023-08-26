@@ -136,8 +136,12 @@ class Stat
         return $this;
     }
 
-    public function setData(): self
+    public function setData(mixed $data = false): self
     {
+        if($data) {
+            $this->data = $data;
+            return $this;
+        }
         if(!$this->decodeJson) {
             $this->data = $this->json;
             return $this;
