@@ -29,7 +29,7 @@ class Ticket
         public $status,
         public ?int $replies,
         public ?bool $urgent = false,
-        public Server $server
+        public ?Server $server = null
     ) {
         $this->setBadges();
         $this->setAction();
@@ -240,7 +240,7 @@ class Ticket
         return $this;
     }
 
-    public function getServer(): Server
+    public function getServer(): ?Server
     {
         return $this->server;
     }
