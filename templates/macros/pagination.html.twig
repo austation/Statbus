@@ -1,4 +1,4 @@
-{% macro pagination(nbPages = 5, currentPage = 1, url) %}
+{% macro pagination(nbPages = 5, currentPage = 1, url, extraClasses = '') %}
 	{% set classes = '' %}
 	{% set param = '' %}
 	{% if not query %}
@@ -7,7 +7,7 @@
 	{% if nbPages > 1 %}
 		{# Number of page around current page+1 #}
 		{% set nearbyPagesLimit = 5 %}
-		<nav>
+		<nav class="{{extraClasses}}">
 			<ul class="pagination justify-content-center mb-0">
 				<li class="page-item">
 					<a class="page-link {{currentPage != 1 ?: 'disabled'}}" href="{{url}}{{query}}">First</a>
