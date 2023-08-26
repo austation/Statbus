@@ -178,7 +178,7 @@ abstract class Controller
     protected function json(array $data): ResponseInterface
     {
         $response = $this->response->withHeader("Content-Type", "application/json");
-        $response->getBody()->write(json_encode($data));
+        $response->getBody()->write(json_encode($data, JSON_PRETTY_PRINT));
         return $response;
     }
 
