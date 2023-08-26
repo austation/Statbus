@@ -21,9 +21,12 @@ function toTitleCase(str) {
 
 const globalJsonModalEl = document.getElementById('globalJsonModal')
 const targetEl = globalJsonModalEl.querySelector('.modal-body')
+const URLTargetEl = globalJsonModalEl.querySelector('#urlTarget')
 globalJsonModalEl.addEventListener('show.bs.modal',async (e,t) => {
-    let url = e.relatedTarget.getAttribute('href')
-    const data = await fetch(url)
+    targetEl.innerText = "Loading..."
+    let url = window.location.href
+    URLTargetEl.innerText = `${url}?json=true`
+    const data = await fetch(`${url}?json=true`)
     const text = await data.text()
     targetEl.innerText = text
 })
