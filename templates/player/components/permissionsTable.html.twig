@@ -19,11 +19,11 @@ Permissions
 		<tr>
 			{% for name, bits in perms %}
 				{% if player.getFlags b-and bits %}
-					<td class="text-success text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{player.getCkey}} has {{name}}" rowspan="2">
+					<td class="text-success text-center text-lg leading-none align-middle table-success" title="{{player.getCkey}} has {{name}}" rowspan="2">
 						<i class="far fa-check-circle"></i>
 					</td>
 				{% else %}
-					<td class="text-danger text-center text-lg leading-none align-middle" data-bs-toggle="tooltip" data-bs-title="{{player.getCkey}} does not have {{name}}" rowspan="2">
+					<td class="text-danger text-center text-lg leading-none align-middle table-danger" title="{{player.getCkey}} does not have {{name}}" rowspan="2">
 						<i class="far fa-times-circle"></i>
 					</td>
 				{% endif %}
