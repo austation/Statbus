@@ -32,7 +32,7 @@ class RoundViewController extends Controller
                 'round' => $round,
                 'stats' => $this->statRepository->getStatsForRound($round->getId(), ['antagonists','testmerged_prs','commendation']),
                 'statlist' => $this->statRepository->listStatsForRound($round->getId()),
-                'deaths' => $this->deathRepository->getDeathsForRoud($round->getId()),
+                'deaths' => $this->deathRepository->getDeathsForRound($round->getId()),
                 'narrow' => true
             ];
         }

@@ -47,7 +47,7 @@ class DeathRepository extends Repository
     private array $where = [
     ];
 
-    public function getDeathsForRoud(int $round): array
+    public function getDeathsForRound(int $round): array
     {
         $cols = implode(",\n", $this->columns);
         $joins = implode("\n", $this->joins);
