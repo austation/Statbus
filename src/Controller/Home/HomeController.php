@@ -27,6 +27,12 @@ class HomeController extends Controller
         $user = $this->getUser();
         $apps = [
             [
+                'name' => 'My Player Page',
+                'icon' => 'fas fa-user',
+                'url' => $this->getUriForRoute('player', ['ckey' => $user->getCkey()]),
+                'disabled' => false
+            ],
+            [
                 'name' => 'My Bans',
                 'icon' => 'fas fa-gavel',
                 'url' => $this->getUriForRoute('user.bans'),
