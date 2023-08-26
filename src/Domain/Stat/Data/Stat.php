@@ -12,6 +12,7 @@ class Stat
     private ?int $total = null;
 
     public array $filter = [];
+    public ?array $replace = null;
 
     private ?string $tweakClass = null;
 
@@ -156,11 +157,16 @@ class Stat
             return $this;
         }
 
+        //TODO: Refactor this so that we can use one method of filter and
+        // replace
         //If we have some tweaks to apply, check for a filter first
         if($tweaks) {
             //Stick the filter in a property and apply to the un-decoded json
             if($this->filter = $tweaks->getFilter()) {
                 $this->setJson(str_replace($this->filter, '', $this->getJson()));
+            }
+            if($this->replace = $tweaks->getReplacement()) {
+                $this->setJson(str_replace($this->replace['needle'], $this->replace['replace'], $this->getJson()));
             }
         }
 

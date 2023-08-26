@@ -13,6 +13,7 @@ enum StatTweaks: string
     case CHEMICAL_REACTION = 'chemical_reaction';
     case TRAUMAS = 'traumas';
     case RADIO_USAGE = 'radio_usage';
+    case PLAYED_URL = 'played_url';
 
     public function getLabels(): array
     {
@@ -63,6 +64,17 @@ enum StatTweaks: string
             StatTweaks::SURGERIES_COMPLETED => ['/datum/surgery/'],
             StatTweaks::CHEMICAL_REACTION => ['/datum/chemical_reaction/'],
             StatTweaks::TRAUMAS => ['/datum/brain_trauma/']
+        };
+    }
+
+    public function getReplacement(): array|bool
+    {
+        return match($this) {
+            default => false,
+            StatTweaks::PLAYED_URL => [
+                'needle' => ['missing data'],
+                'replace' => 'missing_data'
+            ],
         };
     }
 
