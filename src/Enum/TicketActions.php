@@ -3,8 +3,9 @@
 namespace App\Enum;
 
 use App\Domain\Ticket\Data\Ticket;
+use JsonSerializable;
 
-enum TicketActions: string
+enum TicketActions: string implements JsonSerializable
 {
     case CLOSED = 'Closed';
     case DISCONNECTED = 'Disconnected';
@@ -72,5 +73,18 @@ enum TicketActions: string
             TicketActions::DISCONNECTED, TicketActions::RECONNECTED => true,
             default => false
         };
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'action' => $this->value,
+            'icon' => $this->getIcon(),
+            'verb' => $this->getVerb(),
+            'cssClass' => $this->getCssClass(),
+            'isResolved' => $this->isResolved(),
+            'isAction' => $this->isAction(),
+            'isConnectAction' => $this->isConnectAction()
+        ];
     }
 }
