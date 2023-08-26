@@ -64,9 +64,6 @@ return [
             $logger
         );
 
-        // $errorMiddleware->setDefaultErrorHandler($container->get(DefaultErrorHandler::class));
-
-
         return $app;
     },
 

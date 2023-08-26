@@ -10,7 +10,9 @@ use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Exception;
+use Fig\Http\Message\StatusCodeInterface;
 use GuzzleHttp\Exception\ClientException;
+use Nyholm\Psr7\Stream;
 use Psr\Container\ContainerInterface;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
@@ -47,11 +49,16 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
         try {
             return $handler->handle($request);
         } catch (Exception $exception) {
+            $url = (string)$request->getUri()->withPort(null);
+            $path = explode('/', parse_url($url)['path']);
+            if(404 === $exception->getCode() && str_contains(end($path), '.')) {
+                return new Response(StatusCodeInterface::STATUS_NOT_FOUND);
+            }
             $response = new Response(500);
             if ($this->settings['log_errors']) {
                 $error = $this->getErrorDetails($exception, $this->settings['log_error_details']);
                 $error['method'] = $request->getMethod();
-                $error['url'] = (string)$request->getUri()->withPort(null);
+                $error['url'] = $url;
                 $error['ip'] = $_SERVER['REMOTE_ADDR'];
                 $error['user'] = $this->user ? $this->user->getCkey() : null;
                 $this->logger->error($exception->getMessage(), $error);

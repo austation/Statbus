@@ -55,13 +55,6 @@ $settings['twig'] = [
   ],
 ];
 
-// Error handler
-$settings['error'] = [
-  'display_error_details' => false,
-  'log_errors' => false,
-  'log_error_details' => false,
-];
-
 $settings['session'] = [
   'name' => 'statbus',
   'cache_expire' => 0,
