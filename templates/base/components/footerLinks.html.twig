@@ -5,7 +5,7 @@
 	|
 	<a href="{{url_for('privacy')}}">Privacy Policy</a>
 	|
-	<a class="icon-link" href="{{current_url()}}?json=true" title="View this page as JSON"><i class="fa-solid fa-terminal"></i></a>
+	<a class="icon-link" href="{{current_url()}}?json=true" title="View this page as JSON" data-bs-toggle="modal" data-bs-target="#globalJsonModal"><i class="fa-solid fa-terminal"></i></a>
 </span>
 {% if debug %}
 	<a class="btn btn-primary btn-sm" data-bs-toggle="collapse" href="#context" role="button">

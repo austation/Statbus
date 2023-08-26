@@ -19,6 +19,15 @@ function toTitleCase(str) {
   });
 }
 
+const globalJsonModalEl = document.getElementById('globalJsonModal')
+const targetEl = globalJsonModalEl.querySelector('.modal-body')
+globalJsonModalEl.addEventListener('show.bs.modal',async (e,t) => {
+    let url = e.relatedTarget.getAttribute('href')
+    const data = await fetch(url)
+    const text = await data.text()
+    targetEl.innerText = text
+})
+
 const searchForm = document.getElementById("globalSearchForm");
 const globalSearchEl = document.getElementById("globalSearch");
 const ignoreInputFocusEls = ["input", "textarea"];
