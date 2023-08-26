@@ -74,11 +74,13 @@ body.tgdb{
   text-transform: uppercase;
 }
 
+.card-body .list-group-flush {
+  margin-top: -1rem
+}
 .list-group-flush {
   border-radius: 0;
   margin: 
-    calc(var(--bs-list-group-item-padding-y) * -1) 
-    calc(var(--bs-list-group-item-padding-x) * -1);
+    0 calc(var(--bs-list-group-item-padding-x) * -1);
 }
 
 .navbar {

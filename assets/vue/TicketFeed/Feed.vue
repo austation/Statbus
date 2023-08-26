@@ -50,7 +50,7 @@
             </span>
         </div>
     </div>
-    <dl class="list-group list-group-flush border-top">
+    <dl class="list-group list-group-flush border-top mt-4">
         <div v-if="!this.tickets.length" class="list-group-item text-center">
             « <i class="fas fa-spinner fa-pulse"></i> Loading Tickets... »
         </div>
