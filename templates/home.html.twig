@@ -6,7 +6,7 @@
 {% endblock %}
 {% block cardBody %}
 	<div id="polytalk" class="d-flex">
-		<div style="padding-top: 10px"><strong>[Engineering] Poly</strong> says, "{{polytalk}}"</div><img src="img/poly.png" />
+		<div style="padding-top: 10px"><strong>[Engineering] Poly</strong> says, "<span id="polyLine" data-server="{{server}}">I have opinions!</span>"</div><img src="img/poly.png" />
 	</div>
 	<div class="row">
 		<div class="col-9 row row-cols-4">
@@ -56,4 +56,22 @@
 		</div>
 	</div>
 	{% include 'round/components/tableList.html.twig' with {header:'Some Recent Rounds'} %}
+
+	<script>
+	const polylineEl = document.getElementById('polyLine')
+	const server = polylineEl.dataset.server
+	async function loadPoly() {
+		const response = await fetch(`https://tgstation13.org/parsed-logs/${server}/data/npc_saves/polytalk.json`);
+		const lines = await response.json();
+		let len = lines.data.length;
+		let rand = Math.floor(Math.random() * (len - 1))
+		let line = lines.data[rand]
+		polylineEl.innerText = line
+		setInterval(() => {
+			let rand = Math.floor(Math.random() * (len - 1))
+			polylineEl.innerText = lines.data[rand]
+		}, 2000);
+	}
+	loadPoly()
+	</script>
 {% endblock %}

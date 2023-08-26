@@ -9,7 +9,6 @@ use App\Domain\Ban\Repository\BanRepository;
 use App\Domain\Death\Repository\DeathRepository;
 use App\Domain\Round\Repository\RoundRepository;
 use App\Domain\Stat\Repository\StatRepository;
-use App\Service\PolyTalkService;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
 
@@ -97,11 +96,8 @@ class HomeController extends Controller
                 'disabled' => false
             ];
         }
-        $polytalk = PolyTalkService::getPolyLine();
 
         //Switch for picking a random !FUN! datapoint
-
-        // switch(2) {
         switch(floor(rand(0, 2))) {
             case 0:
                 $fun = [
@@ -145,7 +141,7 @@ class HomeController extends Controller
             'narrow' => true,
             'apps' => $apps,
             'rounds' => $this->rounds->getRecentRounds(),
-            'polytalk' => $polytalk,
+            'server' => pick('basil', 'sybil', 'manuel', 'terry'),
             'fun' => $fun
         ]);
     }
