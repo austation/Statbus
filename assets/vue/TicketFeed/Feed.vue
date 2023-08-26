@@ -12,10 +12,12 @@
                     :class="[muted ? 'fa-volume-mute' : 'fa-volume-up']"></i>
                 {{ muted ? "Unmute Sound" : "Mute Sound" }}</label>
         </div>
+        <p class="ms-4 my-0 text-center">{{ messages.text }}</p>
     </div>
     <div class="grid" style="--bs-gap: 1rem;">
         <div v-for="(s, server) in servers" v-bind:key="s.identifier" @click="toggleServer(server, s.identifier)"
-            class="g-col-4 d-flex justify-content-between align-items-center m-0 alert p-1" :class="{
+            class="g-col-4 d-flex justify-content-between align-items-center m-0 alert p-1 server-banner" :class="{
+                'alert-info': undefined === s.gamestate,
                 'alert-success': 0 === s.gamestate,
                 'alert-success': 1 === s.gamestate,
                 'alert-info': 2 === s.gamestate,
@@ -48,10 +50,11 @@
             </span>
         </div>
     </div>
-    <hr>
-    <p class="text-xs text-gray-300 text-center mb-4">{{ messages.text }}</p>
     <dl class="list-group list-group-flush border-top">
-        <ticketEntry v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide, added: t.isNew }" class="ticket"
+        <div v-if="!this.tickets.length" class="list-group-item text-center">
+            « <i class="fas fa-spinner fa-pulse"></i> Loading Tickets... »
+        </div>
+        <ticketEntry v-else v-for="t in tickets" :key="t.id" :id="t.id" :class="{ hidden: t.hide, added: t.isNew }" class="ticket"
             :t="t">
         </ticketEntry>
     </dl>

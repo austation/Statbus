@@ -76,7 +76,9 @@ body.tgdb{
 
 .list-group-flush {
   border-radius: 0;
-  margin: calc(var(--bs-list-group-item-padding-y) * 2) calc(var(--bs-list-group-item-padding-y) * -2) calc(var(--bs-list-group-item-padding-x) * -1);
+  margin: 
+    calc(var(--bs-list-group-item-padding-y) * -1) 
+    calc(var(--bs-list-group-item-padding-x) * -1);
 }
 
 .navbar {
@@ -248,6 +250,21 @@ body.debug > #site-logo {
 .ping {
   animation: ping 1s cubic-bezier(0,0,.2,1) infinite;
   // box-shadow: 0 0 0 5px red;
+}
+
+.server-banner {
+  overflow: hidden;
+  position: relative;
+}
+.delta-mode:after {
+  content: "DELTA";
+  font-size: 3rem;
+  position: absolute;
+  font-weight: 900;
+  transform:rotate(3deg);
+  right: 10%;
+  opacity: .25;
+  letter-spacing: 1rem;
 }
 
 .entry-metadata {
