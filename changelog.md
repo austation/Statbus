@@ -11,6 +11,30 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.16.0] - 2023-08-19
+
+##### Added 
+- Expiration information to bans
+- Ditto for notes
+- Global search bar
+- TGDB Enhancements
+    - Recent activity listing on homepage
+    - Known alts for player pages
+    - Live feed of tickets from the servers
+    - List of active watchlist entries
+- More round information
+    - Deaths
+    - Now shows player job at time of death
+    - Round end result data (# of people escaped, station integrity, etc)
+- Commendations now have a "save a screenshot" tool.
+
+##### Fixed
+- Visiting a link for a ticket that's not yours will prompt admins to view the ticket in TGDB
+- Poly blocking the authentication menu
+
+
+---
+
 #### [1.15.0] - 2023-08-19
 
 ##### Added 

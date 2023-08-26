@@ -1,7 +1,7 @@
 <?php
 
 define('VERSION_MAJOR', 1);
-define('VERSION_MINOR', 15);
+define('VERSION_MINOR', 16);
 define('VERSION_PATCH', 0);
 
 define('VERSION_TAG', '');
