@@ -28,6 +28,7 @@
 						<span>{% if n.edits %}<i class="fa-solid fa-pencil" title="This note has edits. Click to view."></i>{% endif %} {{n.getTimestamp|date}}</span>
 					</div>
 					<p>{{n.text}}</p>
+					<small class="entry-metadata">ID: {{n.id}} {% if not n.getExpiration %} - <span class="text-danger">No Expiration Date</span>{% endif %}</small>
 				</div>
 			</div>
 		</a>

@@ -145,7 +145,7 @@ class NoteRepository extends Repository
 
     public function getCurrentWatchlists(int $page = 1, int $per_page = 60): self
     {
-        $where = implode("\n AND ", ['n.deleted = 0',"n.type='watchlist entry'",'n.expire_timestamp > NOW()']);
+        $where = implode("\n AND ", ['n.deleted = 0',"n.type='watchlist entry'",'(n.expire_timestamp > NOW() OR n.expire_timestamp IS NULL)']);
         $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
         $this->setPages((int) ceil($this->cell($query) / $per_page));
 
