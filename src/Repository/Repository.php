@@ -272,7 +272,7 @@ class Repository
      * @param array $parameters
      * @return void
      */
-    public function actualRow(string $statement, array $parameters): array
+    public function actualRow(string $statement, array $parameters = []): array
     {
         $data = $this->db->safeQuery($statement, $parameters, PDO::FETCH_ASSOC);
         if (is_array($data)) {
