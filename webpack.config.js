@@ -90,9 +90,7 @@ Encore.addPlugin(
       paths: glob.sync([
         path.join(__dirname, "templates/**/*.html.twig"),
         path.join(__dirname, "src/**/*.php"),
-        path.join(__dirname, "assets/vue/**/*.vue"),
-        path.join(__dirname, "assets/*.js"),
-        path.join(__dirname, "assets/ranks.json")
+        path.join(__dirname, "assets/**/*.*"),
     ]),
     safelist: {
       standard: ['text-bg-perma'],
