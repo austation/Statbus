@@ -6,8 +6,9 @@ use App\Domain\Server\Data\Server;
 use App\Enum\RoundState;
 use App\Service\ServerInformationService;
 use DateTime;
+use JsonSerializable;
 
-class Round
+class Round implements JsonSerializable
 {
     // private ?Server $server = null;
 
@@ -330,5 +331,24 @@ class Round
     public function getAdminLogs(): ?string
     {
         return $this->adminLogs;
+    }
+
+    public function jsonSerialize(): mixed
+    {
+        return [
+            'id' => $this->getId(),
+            'initialize_datetime' => $this->getInitDatetime(),
+            'start_datetime' => $this->getStartDatetime(),
+            'shutdown_datetime' => $this->getShutdownDatetime(),
+            'end_datetime' => $this->getEndDatetime(),
+            'server' => $this->getServer(),
+            'hash' => $this->getCommit(),
+            'game_mode' => $this->getMode(),
+            'game_mode_result' => $this->getResult(),
+            'end_state' => $this->getState(),
+            'shuttle_name' => $this->getShuttle(),
+            'map' => $this->getMap(),
+            'name' => $this->getName()
+        ];
     }
 }
