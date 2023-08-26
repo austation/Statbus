@@ -106,6 +106,8 @@ return function (App $app) {
         //Notes
         $app->get("/notes[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesListingController::class)->setName("tgdb.notes");
 
+        $app->get("/notes/watchlist", \App\Controller\TGDB\Note\TGDBWatchlistListingController::class)->setName("tgdb.watchlist");
+
         $app->get("/notes/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesController::class)->setName("tgdb.notes.player");
 
         $app->get("/notes/author/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Note\TGDBNotesByAuthorController::class)->setName("tgdb.notes.author");

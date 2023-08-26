@@ -143,4 +143,23 @@ class NoteRepository extends Repository
         return $this->getResults();
     }
 
+    public function getCurrentWatchlists(int $page = 1, int $per_page = 60): self
+    {
+        $where = implode("\n AND ", ['n.deleted = 0',"n.type='watchlist entry'",'n.expire_timestamp > NOW()']);
+        $query = sprintf("SELECT count(n.id) FROM messages n WHERE %s", $where);
+        $this->setPages((int) ceil($this->cell($query) / $per_page));
+
+        $cols = implode(",\n", $this->columns);
+        $joins = implode("\n", $this->joins);
+        $query = sprintf("SELECT %s FROM messages n %s \nWHERE %s
+        ORDER BY n.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
+        $data = $this->run(
+            $query,
+            ($page * $per_page) - $per_page,
+            $per_page
+        );
+        $this->setResults($data, false);
+        return $this;
+    }
+
 }

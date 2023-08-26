@@ -41,6 +41,11 @@ class TGDBController extends Controller
                 'url' => $this->getUriForRoute('tgdb.tlp'),
             ],
             [
+                'name' => 'Watchlist Entries',
+                'icon' => 'fa-solid fa-binoculars',
+                'url' => $this->getUriForRoute('tgdb.watchlist'),
+            ],
+            [
                 'name' => 'Your Feedback Link',
                 'icon' => 'fa-solid fa-bullhorn',
                 'url' => $this->getUriForRoute('tgdb.feedback'),
