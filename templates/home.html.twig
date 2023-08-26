@@ -8,47 +8,52 @@
 	<div id="polytalk" class="d-flex">
 		<div style="padding-top: 10px"><strong>[Engineering] Poly</strong> says, "{{polytalk}}"</div><img src="img/poly.png" />
 	</div>
-	<div class="row row-cols-4">
-	{% if not user %}
-		<div class="col d-flex">
-			<a href="{{url_for('warning')}}" class="flex-fill btn btn-outline-warning active mb-4 text-white ">
-				<span class="display-6">
-					<i class="fa-solid fa-triangle-exclamation"></i>
-				</span><br>Content Warning</a>
+	<div class="row">
+		<div class="col-9 row row-cols-4">
+		{% if not user %}
+			<div class="col d-flex">
+				<a href="{{url_for('warning')}}" class="flex-fill btn btn-outline-warning active mb-4 text-white ">
+					<span class="display-6">
+						<i class="fa-solid fa-triangle-exclamation"></i>
+					</span><br>Content Warning</a>
+			</div>
+			<div class="col d-flex">
+				<a href="{{url_for('auth.forum')}}" class="flex-fill btn active mb-4" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
+					<span class="text-white display-6">
+						{% if 10 == random(1,10) %}
+							<img src="/img/disaster.png" style="width: 50px; height: auto;"/>
+						{% else %}
+							{{include('assets/tg-star.svg')}}
+						{% endif %}
+					</span><br>Log in with TG Station Forums</a>
+			</div>
+			<div class="col d-flex">
+				<a href="{{url_for('auth.discord')}}" class="flex-fill btn active mb-4" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
+					<span class="text-white display-6">
+						<i class="fa-brands fa-discord"></i>
+					</span><br>Log in with Discord</a>
+			</div>
+		{% endif %}
+		{% if user.has('ADMIN') %}
+			<div class="col d-flex">
+				<a href="{{url_for('tgdb')}}" class="flex-fill btn btn-outline-danger active mb-4">
+					<span class="text-white display-6">
+						<i class="fa-solid fa-shield-halved"></i>
+					</span><br>TGDB</a>
+			</div>
+		{% endif %}
+		{% for a in apps %}
+			<div class="col d-flex align-content-stretch flex-wrap">
+				<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}} align-self-stretch">
+					<span class="text-white display-6">
+						<i class="{{a.icon}}"></i>
+					</span><br>{{a.name}}</a>
+			</div>
+		{% endfor %}
 		</div>
-		<div class="col d-flex">
-			<a href="{{url_for('auth.forum')}}" class="flex-fill btn active mb-4" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
-				<span class="text-white display-6">
-					{% if 10 == random(1,10) %}
-						<img src="/img/disaster.png" style="width: 50px; height: auto;"/>
-					{% else %}
-						{{include('assets/tg-star.svg')}}
-					{% endif %}
-				</span><br>Log in with TG Station Forums</a>
+		<div class="col-3">
+			{% include 'home/components/' ~ fun.template with {'data' :fun.data} only %}
 		</div>
-		<div class="col d-flex">
-			<a href="{{url_for('auth.discord')}}" class="flex-fill btn active mb-4" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
-				<span class="text-white display-6">
-					<i class="fa-brands fa-discord"></i>
-				</span><br>Log in with Discord</a>
-		</div>
-	{% endif %}
-	{% if user.has('ADMIN') %}
-		<div class="col d-flex">
-			<a href="{{url_for('tgdb')}}" class="flex-fill btn btn-outline-danger active mb-4">
-				<span class="text-white display-6">
-					<i class="fa-solid fa-shield-halved"></i>
-				</span><br>TGDB</a>
-		</div>
-	{% endif %}
-	{% for a in apps %}
-		<div class="col d-flex">
-			<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
-				<span class="text-white display-6">
-					<i class="{{a.icon}}"></i>
-				</span><br>{{a.name}}</a>
-		</div>
-	{% endfor %}
 	</div>
 	{% include 'round/components/tableList.html.twig' with {header:'Some Recent Rounds'} %}
 {% endblock %}
