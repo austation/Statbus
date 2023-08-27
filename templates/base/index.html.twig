@@ -16,6 +16,11 @@
 		{% block scripts %}
 			{{ webpack_entry_script_tags('app') }}
 		{% endblock %}
+		{% if app.analytics %}
+		<script>
+			{{app.analytics|raw}}
+		</script>
+		{% endif %}
 	</head>
 	<body data-bs-theme="dark" class="{{bodyClass}}{{debug ? ' debug'}}">
 		{% for label, messages in flash %}
