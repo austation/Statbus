@@ -1,30 +1,27 @@
 {% extends 'tgdb/page.html.twig' %}
-{% block breadcrumbs %}
-{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 {% block cardHeader %}
-TGDB
+	TGDB
 {% endblock %}
 {% block cardBody %}
-			<div class="row">
-				<div class="col-12 col-lg-7">
-					<div class="row row-cols-2 row-cols-lg-3">
-						{% for a in apps %}
-							<div class="col d-flex">
-								<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}}">
-									<span class="text-white display-6">
-										<i class="{{a.icon}}"></i>
-									</span><br>{{a.name}}</a>
-							</div>
-						{% endfor %}
-					</div>
-					{% include 'tgdb/components/recentActivity.html.twig' %}
-				</div>
-				<div class="col-12 col-lg-5">
-					<div class="card">
-						<div class="card-body">
+	<div class="row">
+		<div class="col-12 col-xl-8 mb-4">
+			<div class="grid mb-4">
+				{% for a in apps %}
+					<a href="{{a.url}}" class="btn btn-outline-primary active d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
+						<span class="h1 m-0">
+							<i class="{{a.icon}}"></i>
+						</span>
+						<span class="h6 m-0 fw-bold text-end">{{a.name}}</span>
+					</a>
+				{% endfor %}
+			</div>
+			{% include 'tgdb/components/recentActivity.html.twig' %}
+		</div>
+		<div class="col-12 col-xl-4">
+			<div class="card">
+				<div class="card-body">
 					{% include 'tgdb/components/memos.html.twig' %}
-					</div>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -1,77 +1,82 @@
 {% extends 'base/page.html.twig' %}
-{% block breadcrumbs %}
-{% endblock %}
+{% block breadcrumbs %}{% endblock %}
 {% block cardHeader %}
 	Statbus
 {% endblock %}
 {% block cardBody %}
 	<div id="polytalk" class="d-flex">
-		<div style="padding-top: 10px"><strong>[Engineering] Poly</strong> says, "<span id="polyLine" data-server="{{server}}">I have opinions!</span>"</div><img src="img/poly.png" />
+		<div style="padding-top: 10px">
+			<strong>[Engineering] Poly</strong>
+			says, "<span id="polyLine" data-server="{{server}}">I have opinions!</span>"</div><img src="img/poly.png"/>
 	</div>
-	<div class="row">
-		<div class="col-9 row row-cols-4">
-		{% if not user %}
-			<div class="col d-flex">
-				<a href="{{url_for('warning')}}" class="flex-fill btn btn-outline-warning active mb-4 text-white ">
-					<span class="display-6">
-						<i class="fa-solid fa-triangle-exclamation"></i>
-					</span><br>Content Warning</a>
+	<div class="row mb-4">
+		<div class="col-lg-9 mb-4">
+			<div class="grid gap-3">
+				{% if not user %}
+					<a href="{{url_for('tgdb')}}" class="btn btn-outline-warning active d-flex justify-content-between align-items-center text-white g-col-12 g-col-md-4 g-col-lg-3">
+						<span class="h1 m-0">
+							<i class="fas fa-triangle-exclamation"></i>
+						</span>
+						<span class="h6 m-0 fw-bold text-end">Content Warning</span>
+					</a>
+					<a href="{{url_for('auth.forum')}}" class="btn active d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
+						<span class="h1 m-0">
+							{% if 10 == random(1,10) %}
+								<img src="/img/disaster.png" style="width: 50px; height: auto;"/>
+							{% else %}
+								{{include('assets/tg-star.svg')}}
+							{% endif %}
+						</span>
+						<span class="h6 m-0 fw-bold text-end">Forum Login</span>
+					</a>
+
+					<a href="{{url_for('auth.discord')}}" class="btn active d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
+						<span class="h1 m-0">
+							<i class="fa-brands fa-discord"></i>
+						</span>
+						<span class="h6 m-0 fw-bold">Discord Login</span>
+					</a>
+				{% endif %}
+				{% if user.has('ADMIN') %}
+					<a href="{{url_for('tgdb')}}" class="btn btn-outline-danger active d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
+						<span class="h1 m-0">
+							<i class="fas fa-shield-halved"></i>
+						</span>
+						<span class="h6 m-0 fw-bold text-end">TGDB</span>
+					</a>
+				{% endif %}
+				{% for a in apps %}
+					<a href="{{a.url}}" class="btn btn-outline-primary active d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
+						<span class="h1 m-0">
+							<i class="{{a.icon}}"></i>
+						</span>
+						<span class="h6 m-0 fw-bold text-end">{{a.name}}</span>
+					</a>
+				{% endfor %}
 			</div>
-			<div class="col d-flex">
-				<a href="{{url_for('auth.forum')}}" class="flex-fill btn active mb-4" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
-					<span class="text-white display-6">
-						{% if 10 == random(1,10) %}
-							<img src="/img/disaster.png" style="width: 50px; height: auto;"/>
-						{% else %}
-							{{include('assets/tg-star.svg')}}
-						{% endif %}
-					</span><br>Log in with TG Station Forums</a>
-			</div>
-			<div class="col d-flex">
-				<a href="{{url_for('auth.discord')}}" class="flex-fill btn active mb-4" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
-					<span class="text-white display-6">
-						<i class="fa-brands fa-discord"></i>
-					</span><br>Log in with Discord</a>
-			</div>
-		{% endif %}
-		{% if user.has('ADMIN') %}
-			<div class="col d-flex">
-				<a href="{{url_for('tgdb')}}" class="flex-fill btn btn-outline-danger active mb-4">
-					<span class="text-white display-6">
-						<i class="fa-solid fa-shield-halved"></i>
-					</span><br>TGDB</a>
-			</div>
-		{% endif %}
-		{% for a in apps %}
-			<div class="col d-flex align-content-stretch flex-wrap">
-				<a href="{{a.url}}" class="flex-fill btn btn-outline-primary active mb-4 {{a.disabled ? 'disabled'}} align-self-stretch">
-					<span class="text-white display-6">
-						<i class="{{a.icon}}"></i>
-					</span><br>{{a.name}}</a>
-			</div>
-		{% endfor %}
 		</div>
-		<div class="col-3">
+		<div class="col-lg-3">
 			{% include 'home/components/' ~ fun.template with {'data' :fun.data} only %}
 		</div>
 	</div>
+
 	{% include 'round/components/tableList.html.twig' with {header:'Some Recent Rounds'} %}
 
 	<script>
-	const polylineEl = document.getElementById('polyLine')
-	const server = polylineEl.dataset.server
-	async function loadPoly() {
-		const response = await fetch(`https://tgstation13.org/parsed-logs/${server}/data/npc_saves/polytalk.json`);
-		const lines = await response.json();
-		let len = lines.data.length;
-		let rand = Math.floor(Math.random() * (len - 1))
-		let line = lines.data[rand]
-		polylineEl.innerText = line
-		setInterval(() => {
-			let rand = Math.floor(Math.random() * (len - 1))
-			polylineEl.innerText = lines.data[rand]
-		}, 2000);
-	}
-	loadPoly()
+		const polylineEl = document.getElementById('polyLine')
+const server = polylineEl.dataset.server
+async function loadPoly() {
+const response = await fetch (`https://tgstation13.org/parsed-logs/${server}/data/npc_saves/polytalk.json`);
+const lines = await response.json();
+let len = lines.data.length;
+let rand = Math.floor(Math.random() * (len - 1))
+let line = lines.data[rand]
+polylineEl.innerText = line
+setInterval(() => {
+let rand = Math.floor(Math.random() * (len - 1))
+polylineEl.innerText = lines.data[rand]
+}, 2000);
+}
+loadPoly()
 	</script>
 {% endblock %}
