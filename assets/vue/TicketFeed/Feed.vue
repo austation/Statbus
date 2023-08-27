@@ -11,6 +11,7 @@
             <label @click="mute" class="btn btn-success" for="mute"><i class="fa fa-fw"
                     :class="[muted ? 'fa-volume-mute' : 'fa-volume-up']"></i>
                 {{ muted ? "Unmute Sound" : "Mute Sound" }}</label>
+            <button type="button" @click="purgeTickets" class="btn btn-danger">Clear Tickets</button>
         </div>
         <p class="ms-4 my-0 text-center">{{ messages.text }}</p>
     </div>
@@ -285,6 +286,10 @@ export default {
         roundDuration(duration) {
             return duration;
         },
+        purgeTickets() {
+            this.tickets = []
+            this.changeMessage("Cleared all tickets")
+        }
     },
     //https://developers.google.com/web/updates/2012/01/Web-Audio-FAQ#q_i%E2%80%99ve_made_an_awesome_web_audio_api_application_but_whenever_the_tab_its_running_in_goes_in_the_background_sounds_go_all_weird
     // mounted() -> setInterval() {runs in the same context as setTimeout, async) -> pollForTickets() [async] -> bwoink() -> new Audio().play()
