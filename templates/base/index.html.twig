@@ -33,7 +33,7 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
-		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' : 'text-bg-primary' }} border-bottom border-dark">
+		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' : 'text-bg-primary' }}">
 			<div class="{{narrow is defined ? 'container' : 'container-fluid'}}">
 				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
 					{{include('assets/statbus-star.svg')}}
@@ -50,6 +50,7 @@
 				</div>
 			</div>
 		</nav>
+		{% include 'base/components/banner.html.twig' %}
 		<main class="{{narrow is defined ? 'container' : 'container-fluid'}}"> {% block body %}{% endblock %}
 			<footer class="{{narrow is defined ? 'container' : 'container-fluid'}} py-2 px-0 text-muted d-flex justify-content-between mt-2">
 			{% include 'base/components/footerLinks.html.twig' %}
