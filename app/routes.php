@@ -53,7 +53,7 @@ return function (App $app) {
     $app->group("/rounds", function (RouteCollectorProxy $app) {
         $app->get("/{id:[0-9]+}", \App\Controller\Round\RoundViewController::class)->setName("round.single");
         $app->get("/{id:[0-9]+}/timeline", \App\Controller\Round\RoundTimelineController::class)->setName("round.timeline");
-        $app->get("/{id:[0-9]+}/logs", \App\Controller\Round\RoundLogsController::class)->setName("round.timeline");
+        $app->get("/{id:[0-9]+}/logs", \App\Controller\Round\RoundLogsRedirect::class)->setName("round.timeline");
         $app->get("/{id:[0-9]+}/{stat:[a-z_]+}", \App\Controller\Round\RoundStatController::class)->setName("round.stat");
     });
 
