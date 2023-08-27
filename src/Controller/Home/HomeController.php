@@ -50,7 +50,7 @@ class HomeController extends Controller
                 'disabled' => false
             ];
         }
-        $apps = [
+        $apps = [...$apps,
             [
                 'name' => 'My Bans',
                 'icon' => 'fas fa-gavel',
@@ -120,6 +120,9 @@ class HomeController extends Controller
                 $tracks = $data[$dj];
                 $track = $tracks[array_rand($tracks)];
                 $track['dj'] = $dj;
+                if(!$dj) {
+                    break;
+                }
                 $stat->setData($track);
                 $fun = [
                     'template' => 'recentMusic.html.twig',
