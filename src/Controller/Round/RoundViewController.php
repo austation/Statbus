@@ -26,14 +26,14 @@ class RoundViewController extends Controller
         $round = $this->getArg('id');
         $round = $this->roundRepository->getRound($round);
         if(RoundState::UNDERWAY === $round->getState()) {
-            $data = ['round' => $round,'narrow' => true];
+            $data = ['round' => $round,];
         } else {
             $data = [
                 'round' => $round,
                 'stats' => $this->statRepository->getStatsForRound($round->getId(), ['antagonists','testmerged_prs','commendation']),
                 'statlist' => $this->statRepository->listStatsForRound($round->getId()),
                 'deaths' => $this->deathRepository->getDeathsForRound($round->getId()),
-                'narrow' => true
+                
             ];
         }
         return $this->render('round/single.html.twig', $data);

@@ -17,7 +17,7 @@ class TGDBTicketViewerController extends Controller
         $ticket = $this->ticketRepository->getSingleTicket($this->getArg('round'), $this->getArg('ticket'))->getResults();
         return $this->render('tgdb/tickets/single.html.twig', [
             'ticket' => $ticket,
-            'narrow' => true,
+            
         ]);
     }
 

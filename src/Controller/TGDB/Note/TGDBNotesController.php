@@ -19,7 +19,7 @@ class TGDBNotesController extends Controller
         $notes = $this->noteRepository->getNotesForCkey($ckey, page: $page, secret:true)->getResults();
         return $this->render('tgdb/notes/player.html.twig', [
             'notes' => $notes,
-            'narrow' => true,
+            
             'link' => 'tgdb.note',
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),

@@ -22,7 +22,7 @@ class ViewBanController extends Controller
         $ban = $this->banRepository->getBanById($this->getArg('id'));
         if($user->getCkey() === $ban->getCkey() || $user->has('BAN')) {
             return $this->render('bans/single.html.twig', [
-                'narrow' => true,
+                
                 'ban' => $ban
             ]);
         } else {

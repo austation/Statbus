@@ -12,7 +12,7 @@ class MarkdownController extends Controller
         $file = $this->getArg('file');
         $title = $this->getArg('title');
         return $this->render('markdown.html.twig', [
-            'narrow' => true,
+            
             'content' => file_get_contents(__DIR__."/../../../$file"),
             'title' => $title
         ]);

@@ -38,7 +38,7 @@ class RoundStatController extends Controller
         return $this->render('round/stat.html.twig', [
             'round' => $round,
             'stat' => $stat,
-            'narrow' => true
+            
         ]);
     }
 

@@ -26,7 +26,7 @@
 		{% for label, messages in flash %}
 			{% for message in messages %}
 				<div class="alert text-bg-{{label}} flash flash-{{ label }} alert-dismissible fade show" data-bs-dismiss="alert">
-					<div class="{{narrow is defined ? 'container' : 'container-fluid'}} d-flex justify-content-between align-items-center">
+					<div class="container d-flex justify-content-between align-items-center">
 						<span>{{ message }}</span>
 						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
@@ -34,7 +34,7 @@
 			{% endfor %}
 		{% endfor %}
 		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' : 'text-bg-primary' }}">
-			<div class="{{narrow is defined ? 'container' : 'container-fluid'}}">
+			<div class="container">
 				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
 					{{include('assets/statbus-star.svg')}}
 				</a>
@@ -51,8 +51,8 @@
 			</div>
 		</nav>
 		{% include 'base/components/banner.html.twig' %}
-		<main class="{{narrow is defined ? 'container' : 'container-fluid'}}"> {% block body %}{% endblock %}
-			<footer class="{{narrow is defined ? 'container' : 'container-fluid'}} py-2 px-0 text-muted d-flex justify-content-between mt-2">
+		<main class="container"> {% block body %}{% endblock %}
+			<footer class="container py-2 px-0 text-muted d-flex justify-content-between mt-2">
 			{% include 'base/components/footerLinks.html.twig' %}
 			</footer>
 			{% if debug %}

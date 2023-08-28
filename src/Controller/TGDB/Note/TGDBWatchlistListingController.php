@@ -18,7 +18,7 @@ class TGDBWatchlistListingController extends Controller
         $notes = $this->noteRepository->getCurrentWatchlists($page)->getResults();
         return $this->render('tgdb/notes/watchlist.html.twig', [
             'notes' => $notes,
-            'narrow' => true,
+            
             'link' => 'tgdb.note',
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),

@@ -19,7 +19,7 @@ class ExceptionHandler extends Controller implements ErrorHandlerInterface
             'error.html.twig',
             [
                 'error' => $exception,
-                'narrow' => true
+                
             ],
         );
     }

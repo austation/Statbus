@@ -29,7 +29,7 @@ class FeedbackController extends Controller
             return $this->routeRedirect('tgdb.feedback');
         }
         return $this->render('tgdb/feedback.html.twig', [
-            'narrow' => true,
+            
             'feedback' => $this->getUser()->getFeedback()
         ]);
     }

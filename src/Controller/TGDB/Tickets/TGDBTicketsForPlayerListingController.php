@@ -21,7 +21,7 @@ class TGDBTicketsForPlayerListingController extends Controller
             'tickets' => $tickets,
             'link' => 'tgdb.ticket',
             'ckey' => $ckey,
-            'narrow' => true,
+            
             'pagination' => [
                 'pages' => $this->ticketRepository->getPages(),
                 'currentPage' => $page,

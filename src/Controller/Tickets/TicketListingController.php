@@ -20,7 +20,7 @@ class TicketListingController extends Controller
             $tickets = $this->ticketRepository->getTicketsByCkey($this->getUser()->getCkey(), page: $page)->getResults();
             return $this->render('tickets/index.html.twig', [
                 'tickets' => $tickets,
-                'narrow' => true,
+                
                 'pagination' => [
                     'pages' => $this->ticketRepository->getPages(),
                     'currentPage' => $page,

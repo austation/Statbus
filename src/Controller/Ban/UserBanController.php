@@ -22,7 +22,7 @@ class UserBanController extends Controller
         }
         $bans = $this->banRepository->getBansForCkey($user->getCkey());
         return $this->render('bans/index.html.twig', [
-            'narrow' => true,
+            
             'bans' => $bans
         ]);
     }

@@ -21,7 +21,7 @@ class TGDBTicketRoundListingController extends Controller
             'tickets' => $tickets,
             'link' => 'tgdb.ticket',
             'round' => $round,
-            'narrow' => true,
+            
             'pagination' => [
                 'pages' => $this->ticketRepository->getPages(),
                 'currentPage' => $page,

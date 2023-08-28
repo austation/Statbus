@@ -19,7 +19,7 @@ class TGDBNotesByAuthorController extends Controller
         $notes = $this->noteRepository->getNotesByAuthor($ckey, page: $page)->getResults();
         return $this->render('tgdb/notes/byAuthor.html.twig', [
             'notes' => $notes,
-            'narrow' => true,
+            
             'link' => 'tgdb.note',
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),

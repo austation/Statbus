@@ -18,7 +18,7 @@ class TGDBBansByCkeyController extends Controller
         $ckey = $this->getArg('ckey');
         $bans = $this->banRepository->getBansForCkey($ckey);
         return $this->render('tgdb/bans/player.html.twig', [
-            'narrow' => true,
+            
             'bans' => $bans,
             'player' => $ckey,
             'link' => 'tgdb.ban.view'

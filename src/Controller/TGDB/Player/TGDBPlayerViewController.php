@@ -36,7 +36,7 @@ class TGDBPlayerViewController extends Controller
             'player' => $player,
             'playtime' => $playTime,
             'standing' => $standing,
-            'narrow' => true,
+            
             'perms' => PermissionsFlags::getArray(),
             'alts' => $this->playerRepository->getKnownAltsForCkey($ckey)
         ]);

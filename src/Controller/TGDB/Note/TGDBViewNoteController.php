@@ -18,7 +18,7 @@ class TGDBViewNoteController extends Controller
         $note = $this->noteRepository->getNoteById($this->getArg('id'), true)->getResult();
         return $this->render('tgdb/notes/single.html.twig', [
             'note' => $note,
-            'narrow' => true
+            
         ]);
     }
 

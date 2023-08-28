@@ -19,7 +19,7 @@ class TGDBTicketListingController extends Controller
         return $this->render('tgdb/tickets/index.html.twig', [
             'tickets' => $tickets,
             'link' => 'tgdb.ticket',
-            'narrow' => true,
+            
             'pagination' => [
                 'pages' => $this->ticketRepository->getPages(),
                 'currentPage' => $page,

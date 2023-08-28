@@ -18,7 +18,7 @@ class TGDBBansListingController extends Controller
         $page = ($this->getArg('page')) ?: 1;
         $bans = $this->banRepository->getBans($page);
         return $this->render('tgdb/bans/index.html.twig', [
-            'narrow' => true,
+            
             'bans' => $bans,
             'link' => 'tgdb.ban.view',
             'pagination' => [

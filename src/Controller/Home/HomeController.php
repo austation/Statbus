@@ -141,7 +141,7 @@ class HomeController extends Controller
         }
 
         return $this->render('home.html.twig', [
-            'narrow' => true,
+            
             'apps' => $apps,
             'rounds' => $this->rounds->getRecentRounds(),
             'server' => pick('basil', 'sybil', 'manuel', 'terry'),

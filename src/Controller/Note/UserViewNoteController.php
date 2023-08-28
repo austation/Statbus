@@ -22,7 +22,7 @@ class UserViewNoteController extends Controller
         }
         return $this->render('notes/single.html.twig', [
             'note' => $note,
-            'narrow' => true
+            
         ]);
     }
 

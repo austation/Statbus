@@ -70,7 +70,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
                     'error' => $exception,
                     'class' => str_replace("\\", "/", get_class($exception)),
                     'display_error_details' => $this->settings['display_error_details'],
-                    'narrow' => true
+                    
                 ],
             );
         }

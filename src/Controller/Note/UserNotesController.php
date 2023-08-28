@@ -19,7 +19,7 @@ class UserNotesController extends Controller
         $notes = $this->noteRepository->getNotesForCkey($user->getCkey(), $page)->getResults();
         return $this->render('notes/index.html.twig', [
             'notes' => $notes,
-            'narrow' => true,
+            
             'pagination' => [
                 'pages' => $this->noteRepository->getPages(),
                 'currentPage' => $page,

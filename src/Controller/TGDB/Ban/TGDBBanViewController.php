@@ -17,7 +17,7 @@ class TGDBBanViewController extends Controller
     {
         $ban = $this->banRepository->getBanById($this->getArg('id'));
         return $this->render('tgdb/bans/single.html.twig', [
-            'narrow' => true,
+            
             'ban' => $ban
         ]);
 

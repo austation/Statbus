@@ -31,13 +31,13 @@ class TicketViewerController extends Controller
                 'error' => new StatbusNotYourTicketException("This ticket does not belong to you", 403),
                 'class' => 'App/Exception/StatbusNotYourTicketException',
                 'code' => 403,
-                'narrow' => true,
+                
                 'link' => $link
             ]);
         }
         return $this->render('tickets/single.html.twig', [
             'ticket' => $ticket,
-            'narrow' => true
+            
         ]);
     }
 
