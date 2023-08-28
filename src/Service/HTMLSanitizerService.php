@@ -21,9 +21,26 @@ class HTMLSanitizerService
         $this->purifier = new HTMLPurifier($config);
     }
 
+    /**
+     * sanitizeString
+     *
+     * Runs the string through HTML purifier
+     *
+     * Also strips out any href attribute that starts with a `?`
+     *
+     * @param string $string
+     * @return string
+     */
     public function sanitizeString(string $string): string
     {
         $string = preg_replace('/(href=\'\?[\S]+\')/', '', $string);
         return $this->purifier->purify($string);
+    }
+
+    public static function sanitizeStringWithConfig(\HTMLPurifier_Config $config, string $string): string
+    {
+        require_once __DIR__ . '/../../vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
+        $purifier = new HTMLPurifier();
+        return $purifier->purify($string, $config);
     }
 }
