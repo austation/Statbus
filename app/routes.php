@@ -70,6 +70,16 @@ return function (App $app) {
         $app->get("/{round:[0-9]+}/{ticket:[0-9]+}", \App\Controller\Tickets\TicketViewerController::class)->setName("user.ticket");
     });
 
+    //Library
+    $app->group("/library", function (RouteCollectorProxy $app) {
+        $app->map(['GET','POST'], "[/page/{page:[0-9]+}]", \App\Controller\Library\LibraryIndexController::class)->setName("library");
+        $app->map(['GET','POST'], "/{book:[0-9]+}", \App\Controller\Library\LibraryBookController::class)->setName("library.book");
+    })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+        $request = $request->withAttribute('user', true);
+        $response = $handler->handle($request);
+        return $response;
+    });
+
     //TGDB
     $app->group("/tgdb", function (RouteCollectorProxy $app) {
         $app->get("", \App\Controller\TGDB\TGDBController::class)->setName("tgdb");

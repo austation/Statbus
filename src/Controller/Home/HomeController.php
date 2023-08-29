@@ -70,6 +70,12 @@ class HomeController extends Controller
                 'disabled' => ($this->getUser() ? false : true)
             ],
             [
+                'name' => 'Library',
+                'icon' => 'fas fa-book',
+                'url' => $this->getUriForRoute('library q'),
+                'disabled' => ($this->getUser() ? false : true)
+            ],
+            [
                 'name' => 'Citations',
                 'icon' => 'fas fa-receipt',
                 'url' => "#",
@@ -141,7 +147,7 @@ class HomeController extends Controller
         }
 
         return $this->render('home.html.twig', [
-            
+            'narrow' => true,
             'apps' => $apps,
             'rounds' => $this->rounds->getRecentRounds(),
             'server' => pick('basil', 'sybil', 'manuel', 'terry'),

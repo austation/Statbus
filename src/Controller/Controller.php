@@ -23,7 +23,7 @@ abstract class Controller
 
     protected $method = 'GET';
 
-    private $session;
+    protected $session;
 
     public function __construct(
         protected ContainerInterface $container
@@ -216,9 +216,9 @@ abstract class Controller
      * @param string $route
      * @return ResponseInterface
      */
-    protected function routeRedirect(string $route): ResponseInterface
+    protected function routeRedirect(string $route, array $args = []): ResponseInterface
     {
-        return $this->redirect($this->getUriForRoute($route));
+        return $this->redirect($this->getUriForRoute($route, $args));
     }
 
     /**
@@ -255,9 +255,15 @@ abstract class Controller
      */
     private function permissionCheck(): void
     {
+        $user = $this->getUser();
+        $activeUser = $this->getRequest()->getAttribute('user');
+        if($activeUser) {
+            if(!$user) {
+                throw new StatbusUnauthorizedException("You must be logged in to access this", 403);
+            }
+        }
         $require = $this->getRequest()->getAttribute('require');
         if($require) {
-            $user = $this->getUser();
             if($require && !$user) {
                 $this->session->set('authRedirect', (string) $this->getRequest()->getUri()->withPort(null));
                 throw new StatbusUnauthorizedException("You must be logged in to access this", 403);
@@ -265,6 +271,7 @@ abstract class Controller
                 throw new StatbusUnauthorizedException("You do not have permission to access this", 403);
             }
         }
+
     }
 
     /**

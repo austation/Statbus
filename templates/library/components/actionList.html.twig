@@ -1,0 +1,20 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import PlayerBadge %}
+{% block header %}
+	Administrative actions
+{% endblock %}
+{% block body %}
+	<div class="list-group list-group-flush mt-2 border-top">
+		{% for a in actions %}
+			<div class="list-group-item">
+				<h5 class="border-bottom border-2 border-{{a.action.getCssClass}} pb-2">{{a.action.value|title}}
+					by
+					{{PlayerBadge(a.badge)}}
+					{{a.datetime|date()}}</h5>
+				<p>{{a.reason}}</p>
+			</div>
+		{% else %}
+			<p class="text-center my-4">« No Actions »</p>
+		{% endfor %}
+	</div>
+{% endblock %}

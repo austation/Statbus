@@ -1,0 +1,54 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{% block breadcrumbs %}
+{{parent()}}
+{% if term %}
+    <li class="breadcrumb-item"><a href="{{url_for('library')}}?clear">Library</a></li>
+	<li class="breadcrumb-item active" aria-current="page">Search</li>
+{% else %}
+	<li class="breadcrumb-item active" aria-current="page">Library</li>
+{% endif %}
+{% endblock %}
+{% block cardHeader %}
+	Library {% if not term %}(~{{results}} books){% endif %}
+{% endblock %}
+{% block cardBody %}
+{% if term %}
+	<p>Results for: "{{term}}" ({{results}} results) <a href="{{url_for('library')}}?clear">Clear Search</a></p>
+{% endif %}
+	<div class="d-flex justify-content-between align-items-center">
+		{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		<form class="row" action="{{url_for('library')}}" method="POST">
+			<div class="col-12">
+				<label class="visually-hidden" for="search">Search</label>
+				<div class="input-group">
+					<div class="input-group-text"><i class="fa-solid fa-magnifying-glass"></i></div>
+					<input type="search" class="form-control" id="search" placeholder="Search Term" name="search" {% if term %} value="{{term}}" {% endif %}/>
+				</div>
+			</div>
+		</div>
+		<div class="grid my-3">
+			{% for b in books %}
+				<div class="g-col-12 g-col-md-6 g-col-lg-4">
+					<div class="card">
+						<div class="card-header d-flex justify-content-between align-items-center">
+							<a class="stretched-link fw-bold" href="{{url_for('library.book',{book: b.id})}}">{{b.title}}</a>
+							<span class="text-muted flex-shrink-0 ms-1">
+								<i class="fas fa-book"></i>
+								{{b.id}}</span>
+						</div>
+						<div class="px-3 py-2 text-bg-secondary" style="font-size: .75rem;">{{b.category}}</div>
+						<div class="card-body">
+							{{b.content|striptags|u.truncate(300, '[...]', false)}}
+						</div>
+						<div class="card-footer d-flex justify-content-between">
+							<span>{{b.content|split(' ')|length }}
+								words</span>
+							<span>{{b.author}}</span>
+						</div>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	{% endblock %}

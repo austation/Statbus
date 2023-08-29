@@ -279,3 +279,28 @@ body.debug > #site-logo {
 tr.table-row-bordered {
   box-shadow: 0px -2px 0 1px gray;
 }
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.book-deleted:after {
+  content: "DELETED";
+  font-size: 10rem;
+  font-weight: 900;
+  position: absolute;
+  color: red;
+  top: 25%;
+  left: 10%;
+  right: 10%;
+  opacity: .25;
+  transform: rotate(-25deg);
+  border: 20px solid red;
+  border-radius: 10px;
+  padding: 0 20px;
+  text-align: center;
+}
