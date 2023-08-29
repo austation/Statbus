@@ -25,7 +25,7 @@ class LibraryRepository extends Repository
     ];
 
     private array $joins = [
-        'LEFT JOIN `admin` AS r ON b.ckey = r.ckey',
+        '`admin` AS r ON b.ckey = r.ckey',
     ];
 
     private array $where = [
@@ -67,6 +67,24 @@ class LibraryRepository extends Repository
                 $per_page
             ));
         }
+        return $this->getResults();
+    }
+
+    public function getLibraryByAuthor(string $ckey, int $page = 1, int $per_page = 24): array
+    {
+
+        $this->where = ['b.ckey = ?', ...$this->where];
+        $pagesQuery = $this->buildQuery($this->table, ['count(b.id)'], [], $this->where, [], false);
+        $this->setPages((int) ceil($this->cell($pagesQuery, $ckey) / $per_page));
+        $query = $this->buildQuery($this->table, $this->columns, $this->joins, $this->where, $this->orderBy, '?,?');
+
+        $this->setResults($this->run(
+            $query,
+            $ckey,
+            ($page * $per_page) - $per_page,
+            $per_page
+        ));
+
         return $this->getResults();
     }
 

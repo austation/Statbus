@@ -20,7 +20,7 @@ class LibraryActionRepository extends Repository
     ];
 
     private array $joins = [
-        'LEFT JOIN `admin` AS a ON r.ckey = a.ckey',
+        '`admin` AS a ON r.ckey = a.ckey',
     ];
 
     private array $where = [

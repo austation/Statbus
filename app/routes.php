@@ -124,6 +124,9 @@ return function (App $app) {
 
         $app->get("/note/{id:[0-9]+}", \App\Controller\TGDB\Note\TGDBViewNoteController::class)->setName("tgdb.note");
 
+        //Library
+        $app->get("/library/author/{ckey:[a-z0-9@]+}[/page/{page:[0-9]+}]", \App\Controller\TGDB\Library\TGDBLibraryByAuthorController::class)->setName("tgdb.library.author");
+
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         $request = $request->withAttribute('require', 'ADMIN');
         $response = $handler->handle($request);

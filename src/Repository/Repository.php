@@ -290,15 +290,24 @@ class Repository
         return [];
     }
 
-    public function buildQuery(string $table, array $columns, array $joins, array $where, bool|array $order = [], string $limit = '0, 100'): string
+    public function buildQuery(string $table, array $columns, bool|array $joins = false, array $where, bool|array $order = [], string $limit = '0, 100'): string
     {
         $columns = implode(",\n", $columns);
-        $joins = implode("\n", $joins);
+        if($joins) {
+            $joinLine = '';
+            foreach ($joins as $j) {
+                $j = str_replace('LEFT JOIN ', '', $j);
+                $joinLine .= "LEFT JOIN $j\n";
+            }
+            $joins = $joinLine;
+        } else {
+            $joins = '';
+        }
         $where = implode("\n AND ", $where);
         if($order) {
             $order = implode("\n AND ", $order);
         }
-        return sprintf(
+        $query = sprintf(
             "SELECT %s FROM %s %s \n WHERE %s
         %s %s %s %s",
             $columns,
@@ -310,6 +319,8 @@ class Repository
             $limit ? 'LIMIT' : null,
             $limit ?: null
         );
+        // var_dump($query);
+        return $query;
     }
 
 }

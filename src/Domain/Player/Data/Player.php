@@ -22,6 +22,7 @@ class Player
         private ?int $flags = null,
         private ?int $ip = null,
         private ?int $cid = null,
+        private ?int $books = null
     ) {
         $this->setPlayerBadge();
     }
@@ -131,6 +132,11 @@ class Player
     {
         $this->playerBadge = PlayerBadge::fromRank($this->getCkey(), $this->getRank());
         return $this;
+    }
+
+    public function getBooks(): ?int
+    {
+        return $this->books;
     }
 
 }
