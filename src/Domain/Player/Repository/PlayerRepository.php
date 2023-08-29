@@ -12,32 +12,44 @@ use DI\Attribute\Inject;
 
 class PlayerRepository extends Repository
 {
-    public ?string $entityClass = Player::class;
-
     #[Inject]
     private GetPlayerDiscordUsername $discordUser;
 
+    public ?string $entityClass = Player::class;
+
+    private string $table = 'player p';
+
+    private array $columns = [
+        'p.ckey',
+        'p.firstseen',
+        'p.lastseen',
+        'p.firstseen_round_id as firstSeenRound',
+        'p.lastseen_round_id as lastSeenRound',
+        'p.accountjoindate as accountJoined',
+        'a.rank',
+        'r.flags',
+    ];
+
+    private array $joins = [
+        '`admin` a ON a.ckey = p.ckey',
+        "admin_ranks r ON SUBSTRING_INDEX(a.rank,' + ',1) = r.rank",
+    ];
+
+    private array $where = [
+        'p.ckey = ?'
+    ];
+
     public function getPlayerByCkey(string $ckey, bool $fullMonty = false): Player
     {
-        $extraData = null;
         if($fullMonty) {
-            $extraData = ", p.ip, p.computerid";
+            $this->columns[] = 'p.ip, p.computerid, COUNT(l.id) as books';
+            $this->joins[] = 'library l ON l.ckey = p.ckey';
         }
+
+        $query = $this->buildQuery($this->table, $this->columns, $this->joins, $this->where, false, false);
+
         $data = $this->actualRow(
-            "SELECT
-            p.ckey,
-            p.firstseen,
-            p.lastseen,
-            p.firstseen_round_id as firstSeenRound,
-            p.lastseen_round_id as lastSeenRound,
-            p.accountjoindate as accountJoined,
-            a.rank,
-            r.flags
-            $extraData
-            FROM player p
-            LEFT JOIN `admin` a ON a.ckey = p.ckey
-            LEFT JOIN admin_ranks r ON SUBSTRING_INDEX(a.rank,'+',1) = r.rank
-            WHERE p.ckey = ?",
+            $query,
             [$ckey]
         );
         $this->setResult($data);
