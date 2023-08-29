@@ -2,14 +2,12 @@
 
 namespace App\Domain\Ban\Data;
 
-use App\Data\DTO;
 use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Server\Data\Server;
 use App\Enum\BanStatus;
-use App\Service\ServerInformationService;
 use DateTime;
 
-class Ban extends DTO
+class Ban
 {
     public bool $roleBans = false;
 

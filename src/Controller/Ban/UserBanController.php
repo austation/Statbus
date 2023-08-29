@@ -4,7 +4,6 @@ namespace App\Controller\Ban;
 
 use App\Controller\Controller;
 use App\Domain\Ban\Repository\BanRepository;
-use App\Domain\User\Data\User;
 use App\Exception\StatbusUnauthorizedException;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
@@ -22,7 +21,7 @@ class UserBanController extends Controller
         }
         $bans = $this->banRepository->getBansForCkey($user->getCkey());
         return $this->render('bans/index.html.twig', [
-            
+
             'bans' => $bans
         ]);
     }
