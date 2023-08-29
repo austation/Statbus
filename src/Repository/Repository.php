@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Factory\LoggerFactory;
 use App\Service\HTMLSanitizerService;
 use App\Service\ServerInformationService;
 use Cake\Database\Connection;
@@ -50,7 +51,7 @@ class Repository
     public array $stripHTMLColumns = [
         'message',
         'edits',
-        'text'
+        'text',
     ];
 
     private array $queries = [];
@@ -63,6 +64,8 @@ class Repository
 
     #[Inject]
     private HTMLSanitizerService $html;
+
+    protected $logger;
 
     public function __construct(Connection $connection, EasyDB $db)
     {
@@ -247,6 +250,11 @@ class Repository
         return $this->pages;
     }
 
+    public function countResults(int $per_page = 60): int
+    {
+        return $this->pages * $per_page;
+    }
+
     public function run($query, ...$params)
     {
         $this->queries[] = $query;
@@ -280,6 +288,28 @@ class Repository
             return $first;
         }
         return [];
+    }
+
+    public function buildQuery(string $table, array $columns, array $joins, array $where, bool|array $order = [], string $limit = '0, 100'): string
+    {
+        $columns = implode(",\n", $columns);
+        $joins = implode("\n", $joins);
+        $where = implode("\n AND ", $where);
+        if($order) {
+            $order = implode("\n AND ", $order);
+        }
+        return sprintf(
+            "SELECT %s FROM %s %s \n WHERE %s
+        %s %s %s %s",
+            $columns,
+            $table,
+            $joins,
+            $where,
+            $order ? 'ORDER BY ' : null,
+            $order ?: null,
+            $limit ? 'LIMIT' : null,
+            $limit ?: null
+        );
     }
 
 }

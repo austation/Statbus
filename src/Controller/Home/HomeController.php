@@ -72,7 +72,7 @@ class HomeController extends Controller
             [
                 'name' => 'Library',
                 'icon' => 'fas fa-book',
-                'url' => $this->getUriForRoute('library q'),
+                'url' => $this->getUriForRoute('library'),
                 'disabled' => ($this->getUser() ? false : true)
             ],
             [
