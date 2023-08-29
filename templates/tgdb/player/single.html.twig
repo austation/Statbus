@@ -38,14 +38,14 @@
 			{% include 'player/components/adminActionLinks.html.twig' with {'ckey':player.getCkey} only %}
 			{% include 'player/components/knownAlts.html.twig' with {'alts':alts} only %}
 			<div class="table-responsive">
-			<section class="page-section">
-				<h5 class="border-bottom border-2 border-primary pb-1">
-					Linked Discord Accounts
-				</h5>
-				<article>
-					<div id="discord" data-url="{{url_for('tgdb.player.discord',{ckey:player.getCkey})}}"></div>
-				</article>
-			</section>
+				<section class="page-section">
+					<h5 class="border-bottom border-2 border-primary pb-1">
+						Linked Discord Accounts
+					</h5>
+					<article>
+						<div id="discord" data-url="{{url_for('tgdb.player.discord',{ckey:player.getCkey})}}"></div>
+					</article>
+				</section>
 			</div>
 		</div>
 		<div class="col-12 col-lg-3">
@@ -66,6 +66,11 @@
 					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
 						<i class="fas fa-ticket"></i>
 						Tickets</a>
+					{% if player.getBooks %}
+						<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.library.author',{ckey: player.getCkey})}}">
+							<i class="fas fa-book"></i>
+							Books Authored ({{player.getBooks}})</a>
+					{% endif %}
 					<hr>
 					<span class="text-center">External Services</span>
 					<a class="btn btn-primary tgdb-bg color-white" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">

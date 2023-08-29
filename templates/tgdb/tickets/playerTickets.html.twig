@@ -3,9 +3,9 @@
 {% from 'macros/pagination.html.twig' import pagination %}
 {% block breadcrumbs %}
 	{{parent()}}
-            <li class="breadcrumb-item active">
-				<a href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a>
-			</li>
+	<li class="breadcrumb-item active">
+		<a href="{{url_for('tgdb.player',{ckey:ckey})}}">{{ckey}}</a>
+	</li>
 	<li class="breadcrumb-item active" aria-current="page">
 		<i class="fas fa-ticket"></i>
 		Tickets</li>
