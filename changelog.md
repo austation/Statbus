@@ -11,7 +11,29 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
-#### [1.16.0] - 2023-08-19
+#### [1.17.0] - 2023-08-26
+
+#### Added 
+- A link to the current user's player page on the homepage
+- Each page now has a tool to view the JSON version of itself
+- Some fun, random piece of data on the homepage, refreshes every time the page loads. So far we have:
+    - The newest admin
+    - Top ten jobs by ban count
+    - A randomly played internet sound
+- Navigating to `<round>/logs` will automatically redirect you to the parsed-logs for that round
+- The library!
+    - Administrators can manage books (delete/undelete) on Statbus
+    - They also get a way to quickly list all books by an author
+- Test and production deployments
+    - New versions of Statbus are now published to `test.atlantaned.space` before they reach `statbus.space`. 
+
+#### Fixed
+- Overhauled how `played_url` is parsed, and now it's much better!
+- Poly is now asynchronous! Is this a good thing or a bad thing? You decide!
+
+---
+
+#### [1.16.0] - 2023-08-26
 
 ##### Added 
 - Expiration information to bans
