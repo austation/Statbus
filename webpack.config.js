@@ -96,7 +96,9 @@ Encore.addPlugin(
       standard: ['text-bg-perma'],
       deep: [
         /table-/,
-        /autoComplete/
+        /autoComplete/,
+        /alert-/,
+        /bg-/
       ]
     }
     }),
