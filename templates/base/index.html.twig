@@ -17,9 +17,8 @@
 			{{ webpack_entry_script_tags('app') }}
 		{% endblock %}
 		{% if app.analytics %}
-		<script>
-			{{app.analytics|raw}}
-		</script>
+			<script>
+				{{ app.analytics|raw }}</script>
 		{% endif %}
 	</head>
 	<body data-bs-theme="dark" class="{{bodyClass}}{{debug ? ' debug'}}">
@@ -33,14 +32,12 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
-		<nav class="navbar navbar-expand-lg tgui {{debug ? 'text-bg-danger' : 'text-bg-primary' }}">
+		<nav class="navbar navbar-expand-lg tgui 
+		{{app.environment.class ? 'bg-' ~ app.environment.class : 'bg-primary'}}">
 			<div class="container">
 				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
 					{{include('assets/statbus-star.svg')}}
 				</a>
-				{% if debug %}
-					<span class="badge text-bg-danger ms-2">DEV</span>
-				{% endif %}
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon"></span>
 				</button>
@@ -51,14 +48,18 @@
 			</div>
 		</nav>
 		{% include 'base/components/banner.html.twig' %}
-		<main class="container"> {% block body %}{% endblock %}
+		<main class="container">
+			{% if app.environment.announcement %}
+				<div class="alert alert-{{app.environment.class}} mb-4">This is the dev server!</div>
+			{% endif %}
+			{% block body %}{% endblock %}
 			<footer class="container py-2 px-0 text-muted d-flex justify-content-between mt-2">
-			{% include 'base/components/footerLinks.html.twig' %}
+				{% include 'base/components/footerLinks.html.twig' %}
 			</footer>
 			{% if debug %}
-			<div class="collapse border p-4" id="context">
-				{{dump()}}
-			</div>
+				<div class="collapse border p-4" id="context">
+					{{dump()}}
+				</div>
 			{% endif %}
 		</main>
 		{% include 'base/components/popovers.html.twig' %}
