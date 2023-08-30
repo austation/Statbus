@@ -1,5 +1,5 @@
 permissions: write-all
-name: CI
+name: Production Deployments
 on:
   release:
     types: [published]
@@ -63,12 +63,12 @@ jobs:
           script: |
             mkdir -p /tmp/statbus
             echo "Stashing configuration files..."
-            mv ~/serv/www/${{ secrets.DOMAIN }}/app/conf /tmp/statbus/conf/
+            mv ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/conf /tmp/statbus/conf/
             echo "Copying files from staging..."
-            sudo rsync -aqz --delete ~/staging/ ~/serv/www/${{ secrets.DOMAIN }}/
+            sudo rsync -aqz --delete ~/staging/ ~/serv/www/${{ secrets.PROD_DOMAIN }}/
             echo "Restoring configuration files"
-            mv /tmp/statbus/conf ~/serv/www/${{ secrets.DOMAIN }}/app/
+            mv /tmp/statbus/conf ~/serv/www/${{ secrets.PROD_DOMAIN }}/app/
             echo "Clearing twig cache"
-            rm -rf ~/serv/www/${{ secrets.DOMAIN }}/tmp/twig
+            rm -rf ~/serv/www/${{ secrets.PROD_DOMAIN }}/tmp/twig
             echo "Done!"
             rm -rf /tmp/statbus
