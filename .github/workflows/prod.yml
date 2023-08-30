@@ -2,7 +2,7 @@ permissions: write-all
 name: CI
 on:
   push:
-    branches: [main]
+    branches: [production]
   # workflow_dispatch:
 jobs:
   build:
