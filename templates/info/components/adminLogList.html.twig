@@ -16,7 +16,9 @@
 				<td>{{l.getDatetime|date()}}</td>
 				<td>{{l.getRound ? RoundBadge(l.getRound)}}</td>
 				<td>{{PlayerBadge(l.getAdminBadge)}}</td>
-				<td class="fw-bold text-bg-{{l.getOperation.getCssClass}}"><i class="{{l.getOperation.getIcon}}"></i> {{l.getOperation.getShort|title}}</td>
+				<td class="fw-bold text-bg-{{l.getOperation.getCssClass}}">
+					<i class="{{l.getOperation.getIcon}}"></i>
+					{{l.getOperation.getShort|title}}</td>
 				<td>{{PlayerBadge(l.getTargetBadge)}}</td>
 				<td>{{l.getLog}}</td>
 			{% endfor %}

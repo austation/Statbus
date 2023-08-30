@@ -29,7 +29,7 @@
 					{% include 'player/components/achievementsListing.html.twig' %}
 
 					{% if logs %}
-						{% include 'player/components/adminLogList.html.twig' with logs %}
+						{% include 'player/components/adminLogList.html.twig' with {'logs':logs} only %}
 					{% endif %}
 				</div>
 				<div class="col-md-3">
