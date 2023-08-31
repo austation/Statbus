@@ -11,6 +11,14 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.17.1] - 2023-08-30
+
+#### Added 
+- Library enhancements
+- Round listing page
+
+---
+
 #### [1.17.0] - 2023-08-26
 
 #### Added 

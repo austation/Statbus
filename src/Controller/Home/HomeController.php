@@ -82,6 +82,12 @@ class HomeController extends Controller
                 'disabled' => true
             ],
             [
+                'name' => 'Rounds',
+                'icon' => 'fas fa-circle',
+                'url' => $this->getUriForRoute('rounds'),
+                'disabled' => false
+            ],
+            [
                 'name' => 'BadgeR',
                 'icon' => 'fas fa-id-card',
                 'url' => "https://badger.statbus.space",

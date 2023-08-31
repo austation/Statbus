@@ -1,0 +1,18 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+
+{% block breadcrumbs %}
+	{{parent()}}
+    	<li class="breadcrumb-item active" aria-current="page">
+		<i class="fas fa-circle"></i>
+		Rounds</li>
+{% endblock %}
+{% block cardHeader %}
+{% endblock %}
+{% block cardBody %}
+    {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+    <div class="my-3">
+	{% include 'round/components/listing.html.twig' %}
+    </div>
+    {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+{% endblock %}
