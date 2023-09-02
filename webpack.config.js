@@ -1,5 +1,5 @@
 const Encore = require("@symfony/webpack-encore");
-const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const { PurgeCSSPlugin } = require('purgecss-webpack-plugin');
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const glob = require("glob-all");
 const path = require("path");
@@ -31,7 +31,7 @@ Encore
   // .addEntry("logViewer", "./assets/js/logViewer.js")
   // .addEntry("logViewerTS", "./assets/ts/logViewer.ts")
   // .addEntry("dashboard", "./assets/styles/dashboard.scss")
-
+  
   // When enabled, Webpack "splits" your files into smaller pieces for greater optimization.
   .splitEntryChunks()
 
@@ -82,34 +82,39 @@ Encore
 
   // uncomment if you're having problems with a jQuery plugin
   // .autoProvidejQuery()
-  .enableVueLoader();
+  .enableVueLoader()
 
 if (Encore.isProduction()) {
-  Encore.addPlugin(
+Encore.addPlugin(
     new PurgeCSSPlugin({
       paths: glob.sync([
         path.join(__dirname, "templates/**/*.html.twig"),
         path.join(__dirname, "templates/**/*.svg"),
         path.join(__dirname, "src/**/*.php"),
         path.join(__dirname, "assets/**/*.*"),
-      ]),
-      safelist: {
-        standard: ["text-bg-perma"],
-        deep: [/table-/, /autoComplete/, /alert-/, /bg-/],
-      },
-    })
+    ]),
+    safelist: {
+      standard: ['text-bg-perma'],
+      deep: [
+        /table-/,
+        /autoComplete/,
+        /alert-/,
+        /bg-/
+      ]
+    }
+    }),
   );
-  Encore.addPlugin(
+Encore.addPlugin(
     new CssMinimizerPlugin({
-      minimizerOptions: {
-        preset: [
-          "default",
-          {
-            discardComments: { removeAll: true },
-          },
-        ],
-      },
-    })
-  );
+        minimizerOptions: {
+          preset: [
+            "default",
+            {
+              discardComments: { removeAll: true },
+            },
+          ],
+        },
+      })
+)
 }
 module.exports = Encore.getWebpackConfig();
