@@ -10,10 +10,14 @@ class UserRepository extends Repository
     public function getUserByCkey(string $ckey): User
     {
         $user = $this->connection
-        ->execute("SELECT p.ckey, SUBSTRING_INDEX(SUBSTRING_INDEX(a.rank, '+', 1), ',', -1) as rank, r.flags, a.feedback, p.lastseen_round_id
+        ->execute("SELECT
+        p.ckey,
+        SUBSTRING_INDEX(SUBSTRING_INDEX(a.rank, '+', 1), ',', -1) as rank, 
+        (SELECT r.flags FROM admin_ranks r WHERE rank = SUBSTRING_INDEX(SUBSTRING_INDEX(a.rank, '+', 1), ',', -1)) as flags,
+        a.feedback,
+        p.lastseen_round_id
         FROM `player` p
         LEFT JOIN `admin` a ON a.ckey = p.ckey
-        LEFT JOIN admin_ranks r ON a.rank = r.rank
         WHERE p.ckey = :ckey", ['ckey' => $ckey])
         ->fetch('assoc');
         return User::fromArray($user);
