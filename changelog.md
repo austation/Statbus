@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.17.2] - 2023-09-02
+
+#### Added 
+- New player listing to TGDB for admins
+
+---
+
 #### [1.17.1] - 2023-08-30
 
 #### Added 
