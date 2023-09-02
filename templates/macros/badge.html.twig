@@ -28,26 +28,34 @@
 	{% if link %}
 		<a href="{{url_for('round.single',{id: round})}}" class="roundBadge badge text-bg-round" data-round-id="{{round}}">
 			<i class="fa-solid fa-circle"></i>
-			{{round}}
+			{{round ?: 'Invalid Round'}}
 		</a>
+		{% if round %}
 		<div id="round-{{round}}-popover" style="display:none">
 			<strong class="d-block">
 				<i class="fa fa-fw fa-circle"></i>
 				{{round}}
 			</strong>
 			<a class="link" href="https://statbus.space/rounds/{{round}}" target="_blank">Statbus</a><br>
-			<a class="link" href="https://scrubby.melonmesa.com/round/{{round}}/" target="_blank">Scrubby</a>
+			<a class="link" href="https://scrubby.melonmesa.com/round/{{round}}/" target="_blank" class="icon-link"><i class="fa-solid fa-up-right-from-square"></i> Scrubby</a><br>
+			<a href="{{url_for("round.logs.redirect",{id:round})}}" class="icon-link"><i class="fa-solid fa-up-right-from-square"></i> Parsed Logs</a>
 			{% if user.has('ADMIN') %}
 				<hr class="my-2">
 				<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round:round})}}">
 					<i class="fas fa-ticket"></i>
-					Tickets</a>
+					Tickets</a><br>
+				<a href="{{url_for("round.logs.redirect",{id:round})}}?admin=true" class="icon-link"><i class="fa-solid fa-up-right-from-square"></i> Raw Logs</a>
 			{% endif %}
 		</div>
+		{% else %}
+		<div id="round-{{round}}-popover" style="display:none">
+			The round ID specified is invalid
+		</div>
+		{% endif %}
 	{% else %}
 		<span class="roundBadge badge text-bg-round">
 			<i class="fa-solid fa-circle"></i>
-			{{round}}
+			{{round ?: 'Invalid Round'}}
 		</span>
 	{% endif %}
 

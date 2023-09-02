@@ -17,9 +17,9 @@ class RoundLogsRedirect extends Controller
         $round = $this->getArg('id');
         $round = $this->roundRepository->getRound($round);
         $link = $round->getPublicLogs();
-        // if($this->getUser()->has('ADMIN')) {
-        //     $link = $round->getAdminLogs();
-        // }
+        if($this->getUser()->has('ADMIN') && isset($_GET['admin'])) {
+            $link = $round->getAdminLogs();
+        }
         return $this->redirect($link);
     }
 
