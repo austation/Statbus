@@ -131,4 +131,28 @@ class PlayerRepository extends Repository
             '%' . $this->db->escapeLikeValue($term) . '%'
         );
     }
+
+    public function getNewPlayers(): array
+    {
+        $data = $this->run("SELECT player.ckey,
+        (SELECT GROUP_CONCAT(DISTINCT ckey) FROM connection_log AS dupe WHERE dupe.datetime BETWEEN player.firstseen - INTERVAL 3 DAY AND player.firstseen AND dupe.computerid IN (SELECT DISTINCT connection_log.computerid FROM connection_log WHERE connection_log.ckey = player.ckey) AND dupe.ckey != player.ckey) AS cid_recent_connection_matches,
+
+        (SELECT GROUP_CONCAT(DISTINCT ckey) FROM connection_log AS dupe WHERE dupe.datetime BETWEEN player.firstseen - INTERVAL 3 DAY AND player.firstseen AND dupe.ip IN (select DISTINCT connection_log.ip FROM connection_log WHERE connection_log.ckey = player.ckey) AND dupe.ckey != player.ckey) AS ip_recent_connection_matches,
+
+        (SELECT GROUP_CONCAT(DISTINCT ckey) FROM player AS dupe WHERE dupe.computerid IN (SELECT DISTINCT connection_log.computerid FROM connection_log WHERE connection_log.ckey = player.ckey) AND dupe.ckey != player.ckey) AS cid_last_connection_matches,
+
+        (SELECT GROUP_CONCAT(DISTINCT ckey) FROM player AS dupe WHERE dupe.ip IN (select DISTINCT connection_log.ip FROM connection_log WHERE connection_log.ckey = player.ckey) AND dupe.ckey != player.ckey) AS ip_last_connection_matches
+
+        FROM player
+        WHERE player.firstseen > NOW() - INTERVAL 3 DAY
+        GROUP BY player.ckey
+        ORDER BY player.firstseen DESC;");
+        foreach ($data as &$d) {
+            $d['cid_recent_connection_matches'] = explode(',', $d['cid_recent_connection_matches']);
+            $d['ip_recent_connection_matches'] = explode(',', $d['ip_recent_connection_matches']);
+            $d['cid_last_connection_matches'] = explode(',', $d['cid_last_connection_matches']);
+            $d['ip_last_connection_matches'] = explode(',', $d['ip_last_connection_matches']);
+        }
+        return $data;
+    }
 }

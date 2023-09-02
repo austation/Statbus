@@ -88,6 +88,9 @@ return function (App $app) {
         //Feedback link
         $app->map(['GET','POST'], "/feedback", \App\Controller\TGDB\FeedbackController::class)->setName("tgdb.feedback");
 
+        //Tools
+        $app->get("/tools/newplayers", \App\Controller\TGDB\Player\TGDBNewPlayerController::class)->setName("tgdb.newplayers");
+
         //TLP Guide
         $app->get("/tlp", \App\Controller\Home\MarkdownController::class)->setName("tgdb.tlp")->setArgument('file', 'tlp_guide.md')->setArgument('title', 'Guide to TLP');
 

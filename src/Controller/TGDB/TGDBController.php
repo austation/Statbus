@@ -50,11 +50,16 @@ class TGDBController extends Controller
                 'icon' => 'fa-solid fa-bullhorn',
                 'url' => $this->getUriForRoute('tgdb.feedback'),
             ],
+            [
+                'name' => 'New Players',
+                'icon' => 'fa-solid fa-users',
+                'url' => $this->getUriForRoute('tgdb.newplayers'),
+            ],
         ];
         $memos = $this->memos->getCurrentMemos();
         $notes = $this->memos->getNotes(1, 10)->getResults();
         return $this->render('tgdb/index.html.twig', [
-            
+
             'apps' => $apps,
             'memos' => $memos,
             'notes' => $notes
