@@ -3,6 +3,7 @@
 namespace App\Controller\TGDB\Player;
 
 use App\Controller\Controller;
+use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Player\Repository\PlayerRepository;
 use App\Domain\Player\Service\IsPlayerBannedService;
 use App\Domain\Player\Service\KeyToCkeyService;
@@ -14,8 +15,12 @@ class TGDBPlayerViewController extends Controller
 {
     #[Inject]
     private PlayerRepository $playerRepository;
+
     #[Inject]
     private IsPlayerBannedService $bannedService;
+
+    #[Inject]
+    private AdminLogRepository $adminLog;
 
     public function action(): ResponseInterface
     {
@@ -23,7 +28,7 @@ class TGDBPlayerViewController extends Controller
         $ckey = KeyToCkeyService::getCkey($ckey);
         $player = $this->playerRepository->getPlayerByCkey($ckey, true);
         $standing = $this->bannedService->isPlayerBanned($ckey);
-
+        $logs = $this->adminLog->getAdminLogsForCkey($ckey);
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
             return $this->render('tgdb/player/popover.html.twig', [
                 'player' => $player,
@@ -36,7 +41,7 @@ class TGDBPlayerViewController extends Controller
             'player' => $player,
             'playtime' => $playTime,
             'standing' => $standing,
-            
+            'logs' => $logs,
             'perms' => PermissionsFlags::getArray(),
             'alts' => $this->playerRepository->getKnownAltsForCkey($ckey)
         ]);

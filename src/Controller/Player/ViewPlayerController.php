@@ -40,7 +40,7 @@ class ViewPlayerController extends Controller
         return $this->render('player/single.html.twig', [
             'player' => $player,
             'playtime' => $playTime,
-            
+
             'perms' => PermissionsFlags::getArray(),
             'achievements' => $achievements,
             'logs' => $logs
