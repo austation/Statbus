@@ -176,7 +176,11 @@ return [
             $settings['port'],
             $settings['database']
         );
-        return Factory::create($dsn, $settings['username'], $settings['password'], $settings['flags']);
+        try {
+            return Factory::create($dsn, $settings['username'], $settings['password'], $settings['flags']);
+        } catch (Exception $e) {
+            die("The /tg/station database is not available. This should be a temporary error.");
+        }
     },
 
     User::class => function (ContainerInterface $containerInterface) {
