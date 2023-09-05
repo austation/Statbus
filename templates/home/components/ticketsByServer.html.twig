@@ -1,0 +1,14 @@
+{% extends 'base/components/section.html.twig' %}
+{% from 'macros/badge.html.twig' import ServerBadge %}
+{% block header %}
+	Tickets Opened By Server, Last Month
+{% endblock %}
+{% block body %}
+    <div class="list-group">
+    {% for d in data %}
+    <div class="list-group-item d-flex justify-content-between">
+    {{ServerBadge(d.server)}} <span>{{d.lastmonth}}</span>
+    </div>
+    {% endfor %}
+    </div>
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Domain\Ticket\Repository;
 
 use App\Domain\Ticket\Data\Ticket;
 use App\Repository\Repository;
+use App\Service\ServerInformationService;
 
 class TicketRepository extends Repository
 {
@@ -177,5 +178,19 @@ class TicketRepository extends Repository
         return $this;
     }
 
+    public function getTicketsByServerLastMonth(): array
+    {
+        $data = $this->run("SELECT count(t.id) AS lastmonth,
+        t.server_port
+        FROM ticket t
+        WHERE `action` = 'Ticket Opened' AND t.recipient IS NULL
+        AND YEAR(`timestamp`) = YEAR(CURRENT_DATE - INTERVAL 1 MONTH) AND MONTH(`timestamp`) = MONTH(CURRENT_DATE - INTERVAL 1 MONTH)
+        GROUP BY t.server_port;");
+        $servers = ServerInformationService::getServerInfo();
+        foreach ($data as $d) {
+            $d->server = ServerInformationService::getServerFromPort($d->server_port, $servers);
+        }
+        return $data;
+    }
 
 }

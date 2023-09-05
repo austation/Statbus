@@ -9,6 +9,7 @@ use App\Domain\Ban\Repository\BanRepository;
 use App\Domain\Death\Repository\DeathRepository;
 use App\Domain\Round\Repository\RoundRepository;
 use App\Domain\Stat\Repository\StatRepository;
+use App\Domain\Ticket\Repository\TicketRepository;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
 
@@ -24,10 +25,10 @@ class HomeController extends Controller
     private AdminLogRepository $admin;
 
     #[Inject]
-    private DeathRepository $death;
+    private StatRepository $stat;
 
     #[Inject]
-    private StatRepository $stat;
+    private TicketRepository $ticket;
 
     /**
      * action
@@ -110,7 +111,8 @@ class HomeController extends Controller
         }
 
         //Switch for picking a random !FUN! datapoint
-        switch(floor(rand(0, 2))) {
+        // switch(3) {
+        switch(floor(rand(0, 3))) {
             case 0:
                 $fun = [
                     'template' => 'newestAdmin.html.twig',
@@ -142,6 +144,13 @@ class HomeController extends Controller
                 ];
                 break;
 
+            case 3:
+                $stat = $this->ticket->getTicketsByServerLastMonth();
+                $fun = [
+                    'template' => 'ticketsByServer.html.twig',
+                    'data' => $stat
+                ];
+                break;
                 //VERY crashy
                 // case 2:
                 //     var_dump('death');
