@@ -16,8 +16,26 @@
     background-color: #252525;
   }
 
+  body.app-dev {
+    background: 
+    url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%27256%27%20height%3D%27256%27%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2062%2062%22%3E%3Ctext%20x%3D%22-4.559%22%20y%3D%2283.58%22%20style%3D%22font-family%3A%26quot%3BArial%26quot%3B%2Csans-serif%3Bfont-weight%3A700%3Bfont-size%3A18.534px%22%20transform%3D%22rotate%28-45%20-30.883%2039.869%29%22%20fill%3D%27green%27%3EDEV%3C%2Ftext%3E%3C%2Fsvg%3E") ,
+      url("../../templates/assets/statbus-star.svg") center/40%
+        no-repeat,
+      linear-gradient(to bottom, #252525 0%, #202020 100%), #252525 !important;
+  };
+
+  body.app-test {
+    background: 
+    url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%27256%27%20height%3D%27256%27%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2062%2062%22%3E%3Ctext%20x%3D%22-4.559%22%20y%3D%2283.58%22%20style%3D%22font-family%3A%26quot%3BArial%26quot%3B%2Csans-serif%3Bfont-weight%3A700%3Bfont-size%3A18.534px%22%20transform%3D%22rotate%28-45%20-30.883%2039.869%29%22%20fill%3D%27orange%27%3ETEST%3C%2Ftext%3E%3C%2Fsvg%3E") ,
+      url("../../templates/assets/statbus-star.svg") center/40%
+        no-repeat,
+      linear-gradient(to bottom, #252525 0%, #202020 100%), #252525 !important;
+  }
+
+
   body {
-    background: url("../../templates/assets/statbus-star.svg") center/40%
+    background: 
+      url("../../templates/assets/statbus-star.svg") center/40%
         no-repeat,
       linear-gradient(to bottom, #252525 0%, #202020 100%), #252525;
     font-family: var(--bs-font-sans-serif);
