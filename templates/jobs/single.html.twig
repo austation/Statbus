@@ -1,0 +1,32 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/badge.html.twig' import JobBadge %}
+{% block breadcrumbs %}
+	{{parent()}}
+		<li class="breadcrumb-item">
+			<a href="{{url_for('jobs')}}" class="icon-link"><i class="fa-solid fa-briefcase"></i> Jobs</a>
+		</li>
+		<li class="breadcrumb-item active" aria-current="page">{{job.value}}</li>
+{% endblock %}
+{% block cardHeader %}
+	<span class="h1 mb-0">{{JobBadge(job.getBadge)}}</span>
+{% endblock %}
+{% block cardBody %}
+	<div class="row">
+		<div class="col text-end border-end border-2 border-primary">
+			<span class="fw-bold">Minutes played, last month</span>
+			<span class="h1 fw-bold d-block">{{minutes|number_format}}</span>
+			<span class="fw-bold">Players died as this job, last month</span>
+			<span class="h1 fw-bold d-block">{{deathsMonth|number_format}}</span>
+			<span class="fw-bold">Players banned from this job, last month</span>
+			<span class="h1 fw-bold d-block">{{bansMonth|number_format}}</span>
+		</div>
+		<div class="col text-start">
+			<span class="fw-bold">Minutes played, all time</span>
+			<span class="h1 fw-bold d-block">{{allTime|number_format}}</span>
+			<span class="fw-bold">Players died as this job, all time</span>
+			<span class="h1 fw-bold d-block">{{deathsAll|number_format}}</span>
+			<span class="fw-bold">Players banned from this job, all time</span>
+			<span class="h1 fw-bold d-block">{{bansAll|number_format}}</span>
+		</div>
+	</div>
+{% endblock %}

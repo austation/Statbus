@@ -2,7 +2,7 @@
 
 namespace App\Domain\Job\Data;
 
-use App\Enum\Jobs;
+use App\Domain\Jobs\Data\Jobs;
 
 class JobBadge
 {
@@ -10,6 +10,7 @@ class JobBadge
     public string $backColor = "#CCC";
     public string $foreColor = "#FFF";
     public ?string $style = null;
+    public ?string $icon = null;
 
     public function __construct(
         private ?Jobs $job,
@@ -19,6 +20,7 @@ class JobBadge
             $this->name = $job->value;
             $this->backColor = $job->getColor();
             $this->foreColor = $job->getForeColor();
+            $this->icon = $job->getIcon();
         } else {
             $this->name = $role;
             $this->backColor = "#CCC";

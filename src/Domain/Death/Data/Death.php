@@ -5,7 +5,7 @@ namespace App\Domain\Death\Data;
 use App\Domain\Job\Data\JobBadge;
 use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Server\Data\Server;
-use App\Enum\Jobs;
+use App\Domain\Jobs\Data\Jobs;
 use DateTime;
 
 class Death
