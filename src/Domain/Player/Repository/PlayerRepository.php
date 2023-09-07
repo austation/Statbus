@@ -28,13 +28,11 @@ class PlayerRepository extends Repository
         'p.accountjoindate as accountJoined',
         'a.rank',
         'r.flags',
-        'count(distinct c.round_id) as rounds'
     ];
 
     private array $joins = [
         '`admin` a ON a.ckey = p.ckey',
         "admin_ranks r ON SUBSTRING_INDEX(a.rank,' + ',1) = r.rank",
-        'connection_log c ON c.ckey = p.ckey'
     ];
 
     private array $where = [
@@ -44,8 +42,9 @@ class PlayerRepository extends Repository
     public function getPlayerByCkey(string $ckey, bool $fullMonty = false): Player
     {
         if($fullMonty) {
-            $this->columns[] = 'p.ip, p.computerid, COUNT(l.id) as books';
+            $this->columns[] = 'count(distinct c.round_id) as rounds, p.ip, p.computerid, COUNT(l.id) as books';
             $this->joins[] = 'library l ON l.ckey = p.ckey';
+            $this->joins[] = 'connection_log c ON c.ckey = p.ckey';
         }
 
         $query = $this->buildQuery($this->table, $this->columns, $this->joins, $this->where, false, false);
