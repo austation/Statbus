@@ -1,6 +1,6 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
     <p> This ban was placed by {{PlayerBadge(ban.getAdminBadge)}} on {{ServerBadge(ban.getServer)}} during {{RoundBadge(ban.round)}} with the following reason: </p>
-	<p class="border border-primary p-3 text-white">{{ban.reason}}</p>
+	<div class="card mb-3"><div class="card-body">{{ban.reason}}</div></div>
 	{% if 'Lifted' == ban.getStatus.value %}
 		<p>
 			<i class="fa-solid fa-user-check text-success"></i>

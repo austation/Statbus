@@ -1,5 +1,5 @@
 {% from 'macros/badge.html.twig' import PlayerBadge %}
-<a class="list-group-item" href="{{url_for(link ?? 'ban.view',{id: b.id})}}">
+<a class="list-group-item list-group-item-action" href="{{url_for(link ?? 'ban.view',{id: b.id})}}">
 	<div class="d-flex w-100">
 		<span class="badge vertical-label text-bg-{{b.getStatus.getCssClass}}">{{b.getStatus.value}}</span>
 		<div class="flex-grow-1 ms-4">
