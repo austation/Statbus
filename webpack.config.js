@@ -90,6 +90,7 @@ Encore.addPlugin(
       paths: glob.sync([
         path.join(__dirname, "templates/**/*.html.twig"),
         path.join(__dirname, "templates/**/*.svg"),
+        path.join(__dirname, "app/**/*.php"),
         path.join(__dirname, "src/**/*.php"),
         path.join(__dirname, "assets/**/*.*"),
     ]),
