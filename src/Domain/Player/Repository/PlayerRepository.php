@@ -6,7 +6,7 @@ use App\Domain\Player\Data\Player;
 use App\Domain\Player\Data\PlayerBadge;
 use App\Domain\Player\Service\GetPlayerDiscordUsername;
 use App\Domain\Player\Service\KeyToCkeyService;
-use App\Enum\Jobs;
+use App\Domain\Jobs\Data\Jobs;
 use App\Repository\Repository;
 use DI\Attribute\Inject;
 
@@ -28,11 +28,13 @@ class PlayerRepository extends Repository
         'p.accountjoindate as accountJoined',
         'a.rank',
         'r.flags',
+        'count(distinct c.round_id) as rounds'
     ];
 
     private array $joins = [
         '`admin` a ON a.ckey = p.ckey',
         "admin_ranks r ON SUBSTRING_INDEX(a.rank,' + ',1) = r.rank",
+        'connection_log c ON c.ckey = p.ckey'
     ];
 
     private array $where = [
@@ -47,7 +49,6 @@ class PlayerRepository extends Repository
         }
 
         $query = $this->buildQuery($this->table, $this->columns, $this->joins, $this->where, false, false);
-
         $data = $this->actualRow(
             $query,
             [$ckey]

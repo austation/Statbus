@@ -52,6 +52,12 @@ return function (App $app) {
     //Rounds
     $app->group("/rounds", function (RouteCollectorProxy $app) {
         $app->get("[/page/{page:[0-9]+}]", \App\Controller\Round\RoundIndexController::class)->setName("rounds");
+        $app->get("/myrounds[/page/{page:[0-9]+}]", \App\Controller\Round\RoundsForPlayerController::class)->setName("rounds.player")->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
+            $request = $request->withAttribute('user', true);
+            $response = $handler->handle($request);
+            return $response;
+        });
+        $app->get("/player/{ckey}[/page/{page:[0-9]+}]", \App\Controller\Round\RoundsForCkeyController::class)->setName("rounds.ckey");
         $app->get("/{id:[0-9]+}", \App\Controller\Round\RoundViewController::class)->setName("round.single");
         $app->get("/{id:[0-9]+}/timeline", \App\Controller\Round\RoundTimelineController::class)->setName("round.timeline");
         $app->get("/{id:[0-9]+}/logs", \App\Controller\Round\RoundLogsRedirect::class)->setName("round.logs.redirect");
@@ -79,6 +85,12 @@ return function (App $app) {
         $request = $request->withAttribute('user', true);
         $response = $handler->handle($request);
         return $response;
+    });
+
+    //Jobs
+    $app->group("/jobs", function (RouteCollectorProxy $app) {
+        $app->get("", \App\Controller\Jobs\JobListController::class)->setName("jobs");
+        $app->get("/{job}", \App\Controller\Jobs\JobViewController::class)->setName("job.single");
     });
 
     //TGDB

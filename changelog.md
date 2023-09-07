@@ -11,10 +11,26 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.17.3] - 2023-09-07
+
+#### Added
+- Links to parsed and raw logs for round popover cards
+- A fun new statistic about ahelps by server on the homepage
+- Links to round listings for players
+
+#### Fixed
+- The link to the content warning wasn't correct
+- If the game server database is down, detect that earlier and give a more informative error message
+
+---
+
 #### [1.17.2] - 2023-09-02
 
 #### Added 
 - New player listing to TGDB for admins
+
+## Fixed 
+- Admins with stacked ranks now have their permissions properly applied
 
 ---
 

@@ -20,6 +20,7 @@ class Player
         private DateTime $accountJoined,
         private ?string $rank = null,
         private ?int $flags = null,
+        private ?int $rounds = null,
         private ?int $ip = null,
         private ?int $cid = null,
         private ?int $books = null
@@ -137,6 +138,11 @@ class Player
     public function getBooks(): ?int
     {
         return $this->books;
+    }
+
+    public function getRounds(): ?int
+    {
+        return $this->rounds;
     }
 
 }

@@ -32,6 +32,8 @@
 	<dic class="row">
 		<div class="col-12 col-lg-9">
 			{% include 'player/components/chronodata.html.twig' %}
+			{% include 'player/components/ahelpStats.html.twig' %}
+
 			{% if player.getFlags %}
 				{% include 'player/components/permissionsTable.html.twig' %}
 			{% endif %}
@@ -52,42 +54,7 @@
 			{% endif %}
 		</div>
 		<div class="col-12 col-lg-3">
-			<div class="card mb-2">
-				<div class="card-header fw-bold">
-					Links
-				</div>
-				<div class="card-body d-grid gap-2">
-					<a class="btn btn-success btn-lg" href="{{url_for('player',{ckey:player.getCkey})}}">
-						<i class="fas fa-users"></i>
-						Public Page</a>
-					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.bans.player',{ckey:player.getCkey})}}">
-						<i class="fas fa-gavel"></i>
-						Bans</a>
-					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.notes.player',{ckey: player.getCkey})}}">
-						<i class="fas fa-envelope"></i>
-						Notes & Messages</a>
-					<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
-						<i class="fas fa-ticket"></i>
-						Tickets</a>
-					{% if player.getBooks %}
-						<a class="btn btn-primary btn-lg" href="{{url_for('tgdb.library.author',{ckey: player.getCkey})}}">
-							<i class="fas fa-book"></i>
-							Books Authored ({{player.getBooks}})</a>
-					{% endif %}
-					<hr>
-					<span class="text-center">External Services</span>
-					<a class="btn btn-primary tgdb-bg color-white" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">
-						View on TGDB</a>
-					<a class="btn btn-secondary" href="https://bus.moth.fans/@{{player.getCkey}}" target="_blank">
-						View on Mothbus</a>
-					<a class="btn btn-secondary" href="https://scrubby.melonmesa.com/ckey/{{player.getCkey}}" target="_blank">
-						🐝 View on Scrubby</a>
-					<a class="btn btn-secondary" href="https://www.byond.com/members/{{player.getCkey}}" target="_blank">
-						View on Byond</a>
-					<a class="btn btn-secondary" href="https://centcom.melonmesa.com/viewer/view/{{player.getCkey}}" target="_blank">
-						View on CentCom</a>
-				</div>
-			</div>
+			{% include 'player/components/sidebarLinks.html.twig' %}
 
 			<div class="card">
 				<div class="card-header fw-bold">

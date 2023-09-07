@@ -193,4 +193,11 @@ class TicketRepository extends Repository
         return $data;
     }
 
+    public function getTicketStatsForCkey(string $ckey): array
+    {
+        return $this->actualRow("SELECT 
+        (SELECT count(id) FROM ticket WHERE `action` = 'Ticket Opened' AND sender = ? AND recipient IS NULL) as ahelps,
+        (SELECT count(id) FROM ticket WHERE `action` = 'Ticket Opened' AND recipient = ? AND sender IS NOT NULL) as bwoinks", [$ckey, $ckey]);
+    }
+
 }

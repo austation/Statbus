@@ -7,6 +7,7 @@ use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Player\Repository\PlayerRepository;
 use App\Domain\Player\Service\IsPlayerBannedService;
 use App\Domain\Player\Service\KeyToCkeyService;
+use App\Domain\Ticket\Repository\TicketRepository;
 use App\Enum\PermissionsFlags;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
@@ -21,6 +22,9 @@ class TGDBPlayerViewController extends Controller
 
     #[Inject]
     private AdminLogRepository $adminLog;
+
+    #[Inject]
+    private TicketRepository $ticketRepository;
 
     public function action(): ResponseInterface
     {
@@ -43,7 +47,8 @@ class TGDBPlayerViewController extends Controller
             'standing' => $standing,
             'logs' => $logs,
             'perms' => PermissionsFlags::getArray(),
-            'alts' => $this->playerRepository->getKnownAltsForCkey($ckey)
+            'alts' => $this->playerRepository->getKnownAltsForCkey($ckey),
+            'ticketStats' => $this->ticketRepository->getTicketStatsForCkey($ckey)
         ]);
     }
 

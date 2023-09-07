@@ -1,0 +1,36 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	Ahelp Statistics
+{% endblock %}
+
+{% block body %}
+	<div class="table-responsive">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+                    <th></th>
+					<th title="Ahelp tickets opened by this player">
+						ahelps
+						<i class="fa-solid fa-circle-info"></i>
+					</th>
+					<th title="Ahelp tickets opened with this player, by an admin">
+						*BWOINKS*
+						<i class="fa-solid fa-circle-info"></i>
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+                <th>All Time</th>
+					<td>{{ticketStats.ahelps}}</td>
+					<td>{{ticketStats.bwoinks}}</td>
+				</tr>
+                <tr>
+                <th title="Average tickets per round">Per Round <i class="fa-solid fa-circle-info"></i></th>
+					<td>{{ticketStats.ahelps and player.rounds ? (ticketStats.ahelps / player.rounds)|round(3) : 0}}</td>
+					<td>{{ticketStats.bwoinks and player.rounds ? (ticketStats.bwoinks / player.rounds)|round(3) : 0}}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+{% endblock %}

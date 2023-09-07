@@ -33,19 +33,7 @@
 					{% endif %}
 				</div>
 				<div class="col-md-3">
-					<div class="card mb-2">
-						<div class="card-header fw-bold">
-							Links
-						</div>
-						<div class="card-body d-grid gap-2">
-							<a class="btn btn-secondary" href="https://scrubby.melonmesa.com/ckey/{{player.getCkey}}" target="_blank">
-								🐝 View on Scrubby</a>
-							<a class="btn btn-secondary" href="https://www.byond.com/members/{{player.getCkey}}" target="_blank">
-								View on Byond</a>
-							<a class="btn btn-secondary" href="https://centcom.melonmesa.com/viewer/view/{{player.getCkey}}" target="_blank">
-								View on CentCom</a>
-						</div>
-					</div>
+					{% include 'player/components/sidebarLinks.html.twig' %}
 					<div class="card">
 						<div class="card-header fw-bold">
 							Roles played, last 30 days
@@ -55,7 +43,7 @@
 								<div class="chart-container" style="position: relative;">
 									<canvas id="playtime"></canvas>
 								</div>
-
+							{% include 'player/components/playtimeGraph.js' %}
 							{% else %}
 								<p class="text-center mb-0">« Not Seen Recently »</p>
 							{% endif %}
@@ -65,8 +53,4 @@
 			</div>
 		</div>
 	</div>
-	{% if  playtime %}
-		<script>
-			{% include 'player/components/playtimeGraph.js' %}</script>
-	{% endif %}
 {% endblock %}
