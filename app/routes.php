@@ -4,9 +4,15 @@ use Slim\App;
 use Slim\Routing\RouteCollectorProxy;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
 
 return function (App $app) {
     $app->get("/", \App\Controller\Home\HomeController::class)->setName("home");
+    $app->get("/ping", function (Request $request, Response $response) {
+        $response->getBody()->write(json_encode("pong"));
+        return $response->withHeader('Content-Type', 'application/json');
+    });
     $app->get("/logout", \App\Controller\Auth\LogoutController::class)->setName("logout");
 
     $app->get("/changelog", \App\Controller\Home\MarkdownController::class)->setName("changelog")->setArgument('file', 'changelog.md')->setArgument('title', 'Changelog');
