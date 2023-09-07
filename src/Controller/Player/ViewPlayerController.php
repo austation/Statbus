@@ -29,14 +29,14 @@ class ViewPlayerController extends Controller
         //TODO: Redirect to actual ckey url if non-ckey given
         $ckey = KeyToCkeyService::getCkey($ckey);
         $player = $this->playerRepository->getPlayerByCkey($ckey);
-        $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
-        $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
-        $logs = $this->adminLog->getAdminLogsForCkey($ckey);
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
             return $this->render('player/popover.html.twig', [
                 'player' => $player,
             ]);
         }
+        $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
+        $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
+        $logs = $this->adminLog->getAdminLogsForCkey($ckey);
         return $this->render('player/single.html.twig', [
             'player' => $player,
             'playtime' => $playTime,
