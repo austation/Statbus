@@ -1,6 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-bs-theme="auto">
 	<head>
+			<script>
+			// Render blocking JS:
+			if (localStorage.theme) 
+				document.documentElement.setAttribute("data-theme", localStorage.theme);
+		</script>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="icon" href="/img/statbus.svg">
@@ -21,7 +26,8 @@
 				{{ app.analytics|raw }}</script>
 		{% endif %}
 	</head>
-	<body data-bs-theme="dark" class="{{bodyClass}}{{debug ? ' debug'}}">
+	<body class="{{bodyClass}}{{debug ? ' debug'}}">
+		{% include 'base/components/svgIcons.svg' %}
 		{% for label, messages in flash %}
 			{% for message in messages %}
 				<div class="alert text-bg-{{label}} flash flash-{{ label }} alert-dismissible fade show" data-bs-dismiss="alert">
@@ -32,10 +38,9 @@
 				</div>
 			{% endfor %}
 		{% endfor %}
-		<nav class="navbar navbar-expand-lg tgui 
-		{{app.environment.class ? 'bg-' ~ app.environment.class : 'bg-primary'}}">
+		<nav class="navbar navbar-expand-lg bg-body-tertiary">
 			<div class="container">
-				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo">
+				<a href="{{url_for('home')}}" style="height: 40px; width: 40px;" id="site-logo" class="link-secondary">
 					{{include('assets/statbus-star.svg')}}
 				</a>
 				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">

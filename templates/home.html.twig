@@ -3,23 +3,27 @@
 {% block cardHeader %}
 	Statbus
 {% endblock %}
-{% block cardBody %}
-	<div id="polytalk" class="d-flex">
+{% block header %}
+<div class="container position-relative mt-5">
+<div id="polytalk" class="d-flex">
 		<div style="padding-top: 10px">
 			<strong>[Engineering] Poly</strong>
 			says, "<span id="polyLine" data-server="{{server}}">I have opinions!</span>"</div><img src="img/poly.png"/>
 	</div>
+</div>
+{% endblock %}
+{% block cardBody %}
 	<div class="row mb-4">
 		<div class="col-lg-9 mb-4">
 			<div class="grid gap-3">
 				{% if not user %}
-					<a href="{{url_for('warning')}}" class="btn btn-outline-warning active d-flex justify-content-between align-items-center text-white g-col-12 g-col-md-4 g-col-lg-3">
+					<a href="{{url_for('warning')}}" class="btn btn-warning  d-flex justify-content-between align-items-center text-white g-col-12 g-col-md-4 g-col-lg-3">
 						<span class="h1 m-0">
 							<i class="fas fa-triangle-exclamation"></i>
 						</span>
 						<span class="h6 m-0 fw-bold text-end">Content Warning</span>
 					</a>
-					<a href="{{url_for('auth.forum')}}" class="btn active d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
+					<a href="{{url_for('auth.forum')}}" class="btn  d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: linear-gradient(to bottom,#315275 0%,#1F4A7A 2px,#425A75 92px,#1C2E43 100%); color: white; border: 1px solid #4f91b6;">
 						<span class="h1 m-0">
 							{% if 10 == random(1,10) %}
 								<img src="/img/disaster.png" style="width: 50px; height: auto;"/>
@@ -30,7 +34,7 @@
 						<span class="h6 m-0 fw-bold text-end">Forum Login</span>
 					</a>
 
-					<a href="{{url_for('auth.discord')}}" class="btn active d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
+					<a href="{{url_for('auth.discord')}}" class="btn  d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3" style="background: rgb(88, 101, 242); color: white; border-color: rgb(88, 101, 242);">
 						<span class="h1 m-0">
 							<i class="fa-brands fa-discord"></i>
 						</span>
@@ -38,7 +42,7 @@
 					</a>
 				{% endif %}
 				{% if user.has('ADMIN') %}
-					<a href="{{url_for('tgdb')}}" class="btn btn-outline-danger active d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
+					<a href="{{url_for('tgdb')}}" class="btn btn-danger  d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
 						<span class="h1 m-0">
 							<i class="fas fa-shield-halved"></i>
 						</span>
@@ -46,7 +50,7 @@
 					</a>
 				{% endif %}
 				{% for a in apps %}
-					<a href="{{a.url}}" class="btn btn-outline-primary active d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
+					<a href="{{a.url}}" class="btn btn-primary  d-flex justify-content-between align-items-center {{a.disabled ? 'disabled'}} g-col-12 g-col-md-4 g-col-lg-3">
 						<span class="h1 m-0">
 							<i class="{{a.icon}}"></i>
 						</span>

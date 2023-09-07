@@ -1,6 +1,7 @@
 import "./styles/app.scss";
 import * as bootstrap from "bootstrap";
 import Alpine from "alpinejs";
+import "./js/themeSwitcher.js";
 
 const autoComplete = require("@tarekraafat/autocomplete.js");
 
@@ -136,6 +137,6 @@ if (hasGlobalSearch) {
       } else {
         window.location = `/rounds/${event.detail.selection.value.round}`;
       }
-    });
+    })
 }
 Alpine.start();

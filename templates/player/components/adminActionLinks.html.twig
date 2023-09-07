@@ -1,8 +1,10 @@
 {% extends 'base/components/section.html.twig' %}
 {% block header %}
-Admin Activity
+	Admin Activity
 {% endblock %}
 
 {% block body %}
-<a href="{{url_for('tgdb.notes.author',{ckey: ckey})}}" class="btn btn-primary"><i class="fas fa-envelope"></i> Notes & Messages</a>
+	<a href="{{url_for('tgdb.notes.author',{ckey: ckey})}}" class="btn btn-primary">
+		<i class="fas fa-envelope"></i>
+		Notes & Messages</a>
 {% endblock %}

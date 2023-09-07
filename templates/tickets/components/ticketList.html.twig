@@ -1,6 +1,6 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
 {% for t in tickets %}
-	<a class="list-group-item ticket-list-entry {{t.isUrgent ? 'urgent'}}" href="{{url_for(link ?:'user.ticket',{round: t.getRound, ticket: t.getTicket})}}">
+	<a class="list-group-item list-group-item-action ticket-list-entry {{t.isUrgent ? 'urgent'}}" href="{{url_for(link ?:'user.ticket',{round: t.getRound, ticket: t.getTicket})}}">
 		<div class="d-flex w-100">
 			{% if t.getBwoink %}
 				<span class="badge vertical-label text-bg-danger">*BWOINK*</span>

@@ -74,15 +74,15 @@
 						<p class="mb-0">Books can be un-deleted. These actions are logged.</p>
 					</div>
 				{% endif %}
-					<form class="modal-footer flex-nowrap p-0 mb-0" action="?delete=true" method="POST">
+					<form class="modal-footer flex-nowrap p-0 mb-0 overflow-hidden" action="?delete=true" method="POST">
 						<input type="hidden" class="visually-hidden" name="delete" value="true"/>
 						<button type="button" class="btn btn-lg btn-link fs-6 text-decoration-none col-6 py-3 m-0 rounded-0" data-bs-dismiss="modal">Cancel</button>
 						{% if book.isDeleted %}
-							<button type="submit" class="btn btn-lg btn-success fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end text-white">
+							<button type="submit" class="btn btn-lg btn-success fs-6 text-decoration-none col-6 py-3 m-0 rounded-0  text-white">
 							<strong>Yes, Undelete</strong>
 						</button>
 						{% else %}
-						<button type="submit" class="btn btn-lg btn-danger fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 border-end">
+						<button type="submit" class="btn btn-lg btn-danger fs-6 text-decoration-none col-6 py-3 m-0 rounded-0 ">
 							<strong>Yes, Delete</strong>
 						</button>
 						{% endif %}

@@ -1,0 +1,101 @@
+//Bootstrap customizations
+$custom-colors: (
+  "perma": #e03997
+);
+$theme-colors: map-merge($theme-colors, $custom-colors);
+
+//All our images are 32x32 pngs so we can pixelate everything
+img{
+    image-rendering: pixelated;
+}
+
+//Logo sizing + color
+#site-logo,
+.tglogo {
+  fill: currentcolor;
+}
+
+.serverBadge img {
+  height: 1em;
+  width: auto;
+}
+
+//Vertical labels for list-items (bans/notes/tickets etc)
+.vertical-label {
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  text-align: center;
+  display: block;
+  border-radius: 0 !important;
+  transform: rotate(180deg);
+  margin: calc(var(--bs-list-group-item-padding-y) * -1)
+    calc(var(--bs-list-group-item-padding-x) * -1);
+  text-transform: uppercase;
+}
+
+//Hides vertical label background
+// .card,
+// .list-group-item {
+//   overflow: hidden;
+// }
+
+//Positions the autocomplete list
+.autoComplete_wrapper,
+#globalSearch {
+  width: 100%;
+  position: relative;
+}
+
+#globalSearchResults {
+  position: absolute;
+  z-index: 2000;
+  background: #000;
+  left: 0;
+  right: 0;
+  max-height: 300px;
+  overflow: scroll;
+}
+
+//Makes flush list groups actually flush
+.list-group-flush {
+  margin: 
+    0 calc(var(--bs-card-spacer-x) * -1);
+}
+
+//Tightens up spacing on flush list groups immediately inside a card-body
+.card-body .list-group-flush {
+  margin-top: -1rem;
+  margin-bottom: -1rem;
+}
+
+//The line on timeline views
+.timeline-line {
+  margin-left: 39px !important;
+}
+
+//Remove link underline on round badges
+.roundBadge {
+  text-decoration: none !important;
+}
+
+//Spacing on the section template
+.page-section{
+  margin-bottom: 2rem;
+  &:last-child{
+    margin-bottom: 0;
+  }
+}
+
+//Poly the parrot
+#polytalk {
+  z-index: 900;
+  position: absolute;
+  right: 0;
+  top: -39px;
+  color: #fb5613;
+}
+
+#polytalk img {
+  width: 64px;
+  height: 64px;
+}

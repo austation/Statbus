@@ -1,6 +1,6 @@
 {% from 'macros/badge.html.twig' import ServerBadge, RoundBadge %}
 <div class="table-responsive">
-	<table class="table table-dark table-bordered">
+	<table class="table table-bordered">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -17,10 +17,9 @@
 				<tr class="table-{{r.getState.cssClass}}">
 					<td>{{RoundBadge(r.getId)}}</td>
 					<td>{{ServerBadge(r.getServer)}}</td>
-					<td>
+					<td title="{{r.getState.text}}">
 						<i class="{{r.getState.icon}}" title="{{r.getMode|title ?: 'N/A'}}"></i>
-						
-						<span title="{{r.getState.text}}">{{r.getState.value|title}}</span>
+						<span>{{r.getState.value|title}}</span>
 					</td>
                     <td>{{r.getMap}}</td>
 					<td>{{r.getStartDatetime ? r.getStartDatetime|date() : 'N/A'}}</td>

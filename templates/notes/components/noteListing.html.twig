@@ -5,7 +5,7 @@
 	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 	</div>
 	{% for n in notes %}
-		<a href="{{url_for(link ?: 'user.note',{id: n.getId})}}" class="list-group-item">
+		<a href="{{url_for(link ?: 'user.note',{id: n.getId})}}" class="list-group-item list-group-item-action">
 		{% if n.getExpiration and n.getExpiration < date() %}
 		<div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0px; left: 0px; right: 0px; bottom:0px;background: rgba(0,0,0,.75); z-index: 1000">
 			<span class="btn btn-secondary">Expired Note</span>
