@@ -22,7 +22,7 @@
 				</td>
 				<td>{{e.health}}</td>
 				<td>{{e.location}}</td>
-                {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(e.job) %}
+                {% set enum = enum('\\App\\Domain\\Jobs\\Data\\Jobs').tryFrom(e.job) %}
 				<td style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: e.job}}</td>
 				<td>{{e.species}}</td>
 			</tr>
@@ -60,7 +60,7 @@
 				</td>
 				<td>{{e.health}}</td>
 				<td>{{e.location}}</td>
-                {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(e.job) %}
+                {% set enum = enum('\\App\\Domain\\Jobs\\Data\\Jobs').tryFrom(e.job) %}
 				<td style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: e.job}}</td>
 				<td>{{e.species}}</td>
 			</tr>
