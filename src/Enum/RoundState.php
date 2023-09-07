@@ -17,7 +17,7 @@ enum RoundState: string implements JsonSerializable
     {
         return match($this) {
             RoundState::PROPER => 'success',
-            RoundState::NUKE => 'nuke',
+            RoundState::NUKE => 'dark',
             RoundState::VOTE => 'info',
             RoundState::RESTART => 'warning',
             RoundState::UNSUCCESSFUL => 'danger',
