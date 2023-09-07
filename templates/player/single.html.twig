@@ -43,7 +43,7 @@
 								<div class="chart-container" style="position: relative;">
 									<canvas id="playtime"></canvas>
 								</div>
-							{% include 'player/components/playtimeGraph.js' %}
+							<script>{% include 'player/components/playtimeGraph.js' %}</script>
 							{% else %}
 								<p class="text-center mb-0">« Not Seen Recently »</p>
 							{% endif %}

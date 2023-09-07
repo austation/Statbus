@@ -64,6 +64,8 @@
 					{% if  playtime %}
 						<canvas id="playtime"></canvas>
 						<div id="legend-container"></div>
+						<script>
+	{% include 'player/components/playtimeGraph.js' %}</script>
 					{% else %}
 						<p class="text-center mb-0">« Not Seen Recently »</p>
 					{% endif %}
@@ -72,5 +74,4 @@
 		</div>
 	</div>
 </div></div>{% if  playtime %}
-<script>
-	{% include 'player/components/playtimeGraph.js' %}</script>{% endif %}{% endblock %}
+	{% endif %}{% endblock %}
