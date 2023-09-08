@@ -158,10 +158,9 @@
   .dropdown-menu {
     --bs-dropdown-link-hover-bg: #{$primary};
     --bs-dropdown-link-hover-color: #{$white};
-    --bs-dropdown-padding-y: 0;
     --bs-dropdown-bg: #{lighten($black,10%)};
-    box-shadow: var(--bs-dropdown-box-shadow);
-    position: relative;
+    --bs-dropdown-link-disabled-color: #{darken($light,30%)};
+    --bs-dropdown-divider-bg: #{darken($light,30%)};
   }
 
   .text-bg-danger a,
