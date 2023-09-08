@@ -33,7 +33,7 @@
 							<i class="fa-fw {{j.enum.geticon}}"></i>
 							{{j.enum.value|title ?: j.job|title}}</a>
 					</td>
-					<td class="text-center align-middle {{j.enum ? 'table-success text-success' : 'table-danger text-danger'}}">{{j.enum ? '<i class="far fa-check-circle"></i>':'<i class="far fa-times-circle"></i>'}}</td>
+					<td class="text-center align-middle {{j.enum ? 'table-success' : 'table-danger'}}">{{j.enum ? '<i class="far fa-check-circle"></i>':'<i class="far fa-times-circle"></i>'}}</td>
 					<td class="align-middle" style="{{j.enum.getDepartment.getStyle}}">
 						<i class="fa-fw {{j.enum.getdepartment.geticon}}"></i>
 						{{j.enum.getDepartment.value}}

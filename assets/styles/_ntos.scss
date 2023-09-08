@@ -183,7 +183,7 @@
   .table-danger {
     --bs-table-bg: #{darken($danger,20%)};
     --bs-table-border-color: #{darken($danger,10%)};
-    --bs-table-color: #{$white};
+    --bs-table-color: #f00;
   }
 
   .text-bg-perma {
@@ -213,7 +213,7 @@
   .table-success {
     --bs-table-bg: #{darken($success,10%)};
     --bs-table-border-color: #{darken($success,5%)};
-    --bs-table-color: #{$white};
+    --bs-table-color: #6f0;
   }
 
   .table-info {
