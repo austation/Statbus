@@ -99,3 +99,30 @@ img{
   width: 64px;
   height: 64px;
 }
+
+.flash {
+  z-index: 1000;
+  left: 0;
+  right: 0;
+  top: 0;
+  animation: flash 0.25s 1 forwards;
+  padding-bottom: calc(var(--bs-alert-padding-y) - 2px) !important;
+}
+
+.alert-dismissible .btn-close {
+  position: relative !important;
+  padding: 0 !important;
+  background: none !important;
+  color: inherit !important;
+}
+
+@keyframes flash {
+  0% {transform: translateY(-100%);}
+  70% { transform:translateY(0%); }
+  80% { transform:translateY(-15%); }
+  85% { transform:translateY(0%); }
+  90% { transform:translateY(-7%); }
+  95% { transform:translateY(0%); }
+  99% { transform:translateY(-3%); }
+  100% { transform:translateY(0); }
+}
