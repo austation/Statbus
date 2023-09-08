@@ -17,6 +17,7 @@ use League\CommonMark\MarkdownConverter;
 use Nyholm\Psr7\Factory\Psr17Factory;
 use ParagonIE\EasyDB\EasyDB;
 use ParagonIE\EasyDB\Factory;
+use ParagonIE\EasyDB\EasyDBCache;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ServerRequestFactoryInterface;
@@ -177,7 +178,7 @@ return [
             $settings['database']
         );
         try {
-            return Factory::create($dsn, $settings['username'], $settings['password'], $settings['flags']);
+            return EasyDBCache::fromEasyDB(Factory::create($dsn, $settings['username'], $settings['password'], $settings['flags']));
         } catch (Exception $e) {
             die("The /tg/station database is not available. This should be a temporary error.");
         }
