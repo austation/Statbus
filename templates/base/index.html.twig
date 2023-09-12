@@ -30,10 +30,10 @@
 		{% include 'base/components/svgIcons.svg' %}
 		{% for label, messages in flash %}
 			{% for message in messages %}
-				<div class="alert text-bg-{{label}} flash flash-{{ label }} alert-dismissible fade show" data-bs-dismiss="alert">
+				<div class="alert text-bg-{{label}} flash flash-{{ label }} alert-dismissible fade show position-absolute" data-bs-dismiss="alert">
 					<div class="container d-flex justify-content-between align-items-center">
 						<span>{{ message }}</span>
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"><i class="fa-solid fa-xmark"></i></button>
 					</div>
 				</div>
 			{% endfor %}
@@ -55,7 +55,7 @@
 		{% include 'base/components/banner.html.twig' %}
 		<main class="container">
 			{% if app.environment.announcement %}
-				<div class="alert alert-{{app.environment.class}} mb-4">{{app.environment.announcement}}</div>
+				<div class="alert alert-{{app.environment.class}} mb-4 mt-4">{{app.environment.announcement}}</div>
 			{% endif %}
 			{% block body %}{% endblock %}
 			<footer class="container py-2 px-0 text-muted d-flex justify-content-between mt-2">
