@@ -39,18 +39,18 @@
 				</strong>
 				<a class="icon-link" href="{{url_for('round.single',{id:round})}}"><i class="fa fa-fw fa-circle"></i> Statbus</a><br>
 				<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round}}/" target="_blank">
-					<i class="fa-solid fa-up-right-from-square"></i>
+					<i class="fa-fw fa-solid fa-up-right-from-square"></i>
 					Scrubby</a><br>
 				<a href="{{url_for("round.logs.redirect",{id:round})}}" class="icon-link">
-					<i class="fa-solid fa-up-right-from-square"></i>
+					<i class="fa-fw fa-solid fa-up-right-from-square"></i>
 					Parsed Logs</a>
 				{% if user.has('ADMIN') %}
 					<hr class="my-2">
 					<a class="icon-link" href="{{url_for('tgdb.tickets.round',{round:round})}}">
-						<i class="fas fa-ticket"></i>
+						<i class="fa-fw fas fa-ticket"></i>
 						Tickets</a><br>
 					<a href="{{url_for("round.logs.redirect",{id:round})}}?admin=true" class="icon-link">
-						<i class="fa-solid fa-up-right-from-square"></i>
+						<i class="fa-fw fa-solid fa-up-right-from-square"></i>
 						Raw Logs</a>
 				{% endif %}
 			</div>
