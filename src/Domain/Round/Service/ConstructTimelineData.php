@@ -34,7 +34,7 @@ class ConstructTimelineData
                 ];
             }
         }
-        if(!empty($data['death'])) {
+        if(!empty($data['deaths'])) {
             foreach($data['deaths'] as $d) {
                 $timeline[] = [
                     'key' => TimelineKeys::DEATH,
