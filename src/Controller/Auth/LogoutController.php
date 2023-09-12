@@ -12,6 +12,7 @@ class LogoutController extends Controller
     {
         $session = $this->container->get(Session::class);
         $session->invalidate();
+        $this->addSuccessMessage("You have been logged out");
         return $this->routeRedirect('home');
     }
 }
