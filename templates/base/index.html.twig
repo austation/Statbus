@@ -26,7 +26,7 @@
 				{{ app.analytics|raw }}</script>
 		{% endif %}
 	</head>
-	<body class="{{app.environment.name}}">
+	<body data-name="{{app.environment.name}}" data-color="{{app.environment.color}}">
 		{% include 'base/components/svgIcons.svg' %}
 		{% for label, messages in flash %}
 			{% for message in messages %}
