@@ -11,6 +11,20 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+
+#### [1.17.4] - 2023-09-11
+
+#### Added
+
+#### Fixed
+- The determination for the latest admin has been improved
+- Playtime graphs weren't showing on player pages
+- Added a cache to the database 
+- Numerous styling and legibility tweaks
+
+---
+
+
 #### [1.17.3] - 2023-09-07
 
 #### Added
