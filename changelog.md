@@ -9,6 +9,17 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Upcoming/Future
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
+
+---
+
+#### [1.17.5] - 2023-09-11
+
+#### Added 
+- Timeline view to rounds! 
+    - Shows major events sourced from the database and log files, in the order in which they occurred
+    - Toggle event types on and off
+- Message on logout
+
 ---
 
 
