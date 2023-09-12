@@ -8,7 +8,8 @@
 		Rounds</li>
 {% endblock %}
 {% block cardHeader %}
-Rounds
+<span>Rounds</span> 
+<span>See Also: <a href="{{url_for('rounds.player')}}">My Rounds</a></span>
 {% endblock %}
 {% block cardBody %}
     {{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
