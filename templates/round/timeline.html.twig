@@ -1,0 +1,46 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/badge.html.twig' import RoundBadge, ServerBadge %}
+{% block scripts %}
+	{{ parent() }}
+	{{webpack_entry_script_tags('timelineViewer')}}
+{% endblock %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<a class="icon-link" href="{{url_for('round.single',{id:round.getId})}}">
+			<i class="fas fa-circle"></i>
+			{{round.getId}}</a>
+	</li>
+	<li class="breadcrumb-item">
+		Timeline
+	</li>
+{% endblock %}
+{% block cardHeader %}
+	<span>
+		Timeline for
+		{{RoundBadge(round.getId)}}
+		on
+		{{ServerBadge(round.getServer)}}
+	</span>
+{% endblock %}
+{% block cardBody %}
+	<div id="typeToggler" class="btn-group mb-3"></div>
+	{% for t in data %}
+		<div class="timeline-entry t-{{t.key.value}}" data-name="{{t.key.getName}}">
+			<div class="card border-{{t.key.getColor}}">
+				<div class="card-body d-flex justify-content-between">
+					{% set diff = round.getStartDatetime.diff(t.timestamp) %}
+					<span>
+						<i class="{{t.key.getIcon}}"></i>
+						{{t.string}}
+						{{t.coords ?: ''}}</span>
+					<code class="time-elapsed">{{diff|date('%R%H:%I:%S')}}</code>
+				</div>
+			</div>
+			{% if not loop.last %}
+				<div class="timeline-line border-start border-2 py-3 text-end"></div>
+			{% endif %}
+		</div>
+	{% endfor %}
+
+{% endblock %}
