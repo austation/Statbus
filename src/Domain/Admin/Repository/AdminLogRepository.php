@@ -91,7 +91,7 @@ class AdminLogRepository extends Repository
         FROM admin_log L
         LEFT JOIN `admin` as A ON L.adminckey = A.ckey
         LEFT JOIN `admin` as T ON L.target = T.ckey
-        WHERE L.operation = 'change rank'
+        WHERE L.operation = 'change admin rank'
         ORDER BY L.datetime DESC
         LIMIT 1"));
         return $this->getResult();
