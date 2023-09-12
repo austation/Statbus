@@ -10,7 +10,7 @@
   </thead>
   <tbody>
     {% for j, p in stat.data %}
-    {% set enum = enum('\\App\\Enum\\Jobs').tryFrom(j) %}
+    {% set enum = enum('\\App\\Domain\\Jobs\\Data\\Jobs').tryFrom(j) %}
     <tr>
       <th style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">
         {{enum.value}}
