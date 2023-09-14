@@ -20,6 +20,8 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
     - Toggle event types on and off
 - Message on logout
 - Visiting a player URL that doesn't correspond to the `ckey` format will redirect you to the `ckey` formatted URL.
+- Ability to hide certain features based on the date a change was made to the codebase.
+    - For example, rounds before Jan 15th 2018 will no longer poll for round_end_data.json
 
 #### Fixed 
 - A major bug with bans by role on the homepage was causing frequent crashes. It has been fixed.

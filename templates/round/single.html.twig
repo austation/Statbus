@@ -31,11 +31,13 @@
 						aboard
 						{{round.getMap}}</td>
 				</tr>
+				{% if round.features.round_end_data %}
 				<tr>
 					<td colspan="7" id="integrity">
 					<i class="fa-solid fa-spinner fa-spin"></i> Loading...
 					</td>
 				</tr>
+				{% endif %}
 			</thead>
 			<tbody class="table-group-divider">
 				<tr>
@@ -120,7 +122,7 @@
 	{% include 'round/components/deaths.html.twig' %}
 	{% include 'round/components/basic_stats.html.twig' %}
 	{% include 'round/components/statlist.html.twig' %}
-
+	{% if round.features.round_end_data %}
 	<script>
 	async function fetchExternalData() {
 		const response = await fetch(`${window.location.href}sb_who?json`);
@@ -133,5 +135,6 @@
 	}
 	fetchExternalData()
 	</script>
+	{% endif %}
 
 {% endblock %}
