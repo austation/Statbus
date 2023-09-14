@@ -13,8 +13,7 @@ Top-10 Roles by Bans*
 <tbody>
     {% for d in data %}
         <tr>
-            {% set enum = enum('\\App\\Domain\\Jobs\\Data\\Jobs').tryFrom(d.role) %}
-            <td class="p-1" style="background: {{enum.getColor}}; color: {{enum.getForeColor}}">{{enum.value ?: d.role}}</td>
+            <td class="p-1" style="background: {{d.role.getColor}}; color: {{d.role.getForeColor}}">{{d.role.value ?: d.role}}</td>
             <td class="p-1">{{d.bans}}</td>
         </tr>
     {% endfor %}

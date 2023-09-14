@@ -20,6 +20,9 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
     - Toggle event types on and off
 - Message on logout
 
+#### Fixed 
+- A major bug with bans by role on the homepage was causing frequent crashes. It has been fixed.
+
 ---
 
 

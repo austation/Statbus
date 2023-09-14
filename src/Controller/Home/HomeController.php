@@ -7,6 +7,7 @@ use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Admin\Repository\AdminRepository;
 use App\Domain\Ban\Repository\BanRepository;
 use App\Domain\Death\Repository\DeathRepository;
+use App\Domain\Jobs\Data\Jobs;
 use App\Domain\Round\Repository\RoundRepository;
 use App\Domain\Stat\Repository\StatRepository;
 use App\Domain\Ticket\Repository\TicketRepository;
@@ -95,6 +96,11 @@ class HomeController extends Controller
                 'disabled' => ($this->getUser() ? false : true)
             ],
             [
+                'name' => 'Statbus Changelog',
+                'icon' => 'fas fa-file-lines',
+                'url' => $this->getUriForRoute('changelog'),
+            ],
+            [
                 'name' => 'BadgeR',
                 'icon' => 'fas fa-id-card',
                 'url' => "https://badger.statbus.space",
@@ -117,7 +123,7 @@ class HomeController extends Controller
         }
 
         //Switch for picking a random !FUN! datapoint
-        // switch(3) {
+        // switch(2) {
         switch(floor(rand(0, 3))) {
             case 0:
                 $fun = [
@@ -127,9 +133,13 @@ class HomeController extends Controller
                 break;
 
             case 1:
+                $data = $this->bans->getMostBannedRoles();
+                foreach($data as &$d) {
+                    $d->role = (Jobs::tryFrom($d->role) ?? $d->role);
+                }
                 $fun = [
                     'template' => 'bansByRole.html.twig',
-                    'data' => $this->bans->getMostBannedRoles()
+                    'data' => $data
                 ];
                 break;
 
@@ -140,9 +150,6 @@ class HomeController extends Controller
                 $tracks = $data[$dj];
                 $track = $tracks[array_rand($tracks)];
                 $track['dj'] = $dj;
-                if(!$dj) {
-                    break;
-                }
                 $stat->setData($track);
                 $fun = [
                     'template' => 'recentMusic.html.twig',
