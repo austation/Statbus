@@ -2,6 +2,7 @@
 
 namespace App\Domain\Round\Data;
 
+use App\Domain\Round\Service\GetRoundFeatures;
 use App\Domain\Server\Data\Server;
 use App\Enum\RoundState;
 use App\Service\ServerInformationService;
@@ -21,6 +22,10 @@ class Round implements JsonSerializable
     private ?string $publicLogs = null;
 
     private ?string $adminLogs = null;
+
+    public array $features = [
+        'round_end_data' => true
+    ];
 
     public function __construct(
         private int $id,
@@ -43,6 +48,14 @@ class Round implements JsonSerializable
         $this->setStartDuration();
         $this->setEndDuration();
         $this->setLogLinks();
+        $this->setFeatures();
+    }
+
+    private function setFeatures(): self
+    {
+        $this->features['round_end_data'] =
+        GetRoundFeatures::supportsRoundEndData($this->getInitDatetime());
+        return $this;
     }
 
     public function getId(): int
@@ -284,14 +297,17 @@ class Round implements JsonSerializable
 
     public function setLogLinks(): self
     {
-        if($this->getServer() && $this->getStartDatetime()) {
-
+        if($this->getServer() && ($this->getStartDatetime() || $this->getInitDatetime())) {
+            $time = $this->getInitDatetime();
+            if($this->getStartDatetime()) {
+                $time = $this->getStartDatetime();
+            }
             $server = $this->getServer();
             $name = strtolower($server->getIdentifier());
             if('bagil' === $name) {
                 $name = 'basil'; //damn you to hell mso
             }
-            $date = explode(':', $this->getStartDatetime()->format('Y:m:d'));
+            $date = explode(':', $time->format('Y:m:d'));
             $path = sprintf(
                 "/%s/data/logs/%s/%s/%s/round-%s",
                 $name,
