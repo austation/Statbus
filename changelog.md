@@ -19,6 +19,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
     - Shows major events sourced from the database and log files, in the order in which they occurred
     - Toggle event types on and off
 - Message on logout
+- Visiting a player URL that doesn't correspond to the `ckey` format will redirect you to the `ckey` formatted URL.
 
 #### Fixed 
 - A major bug with bans by role on the homepage was causing frequent crashes. It has been fixed.

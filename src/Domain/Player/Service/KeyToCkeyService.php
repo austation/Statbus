@@ -12,9 +12,14 @@ class KeyToCkeyService
      * @param string $key
      * @return string
      */
-    public static function getCkey(string $key): string
+    public static function getCkey(string $key): array
     {
-        return strtolower(preg_replace('/[^a-zA-Z0-9@]/', '', $key));
+        $r = 0;
+        $ckey = strtolower(preg_replace('/[^a-zA-Z0-9@]/', '', $key, -1, $r));
+        return [
+            'ckey' => $ckey,
+            'replacements' => $r
+        ];
     }
 
 }

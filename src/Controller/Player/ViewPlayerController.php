@@ -27,7 +27,11 @@ class ViewPlayerController extends Controller
         $ckey = $this->getArg('ckey');
         //TODO: Make this into a service
         //TODO: Redirect to actual ckey url if non-ckey given
-        $ckey = KeyToCkeyService::getCkey($ckey);
+        $ckeyResult = KeyToCkeyService::getCkey($ckey);
+        if(0 !== $ckeyResult['replacements']) {
+            // $this->addSuccessMessage("Redirecting to player ckey");
+            return $this->routeRedirect('player', ['ckey' => $ckeyResult['ckey']]);
+        }
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
             return $this->render('player/popover.html.twig', [
