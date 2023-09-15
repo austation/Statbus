@@ -32,7 +32,7 @@ $options = [
 ];
 $pdo = new PDO($dsn, $user, $pass, $options);
 
-$stmt = $pdo->prepare("INSERT INTO population (`server`, `address`, `port`, `players`, `admins`, `round_id`) VALUES (?,?,?,?,?,?)");
+$stmt = $pdo->prepare("INSERT INTO `population` (`server`, `address`, `port`, `players`, `admins`, `round_id`) VALUES (?,?,?,?,?,?)");
 try {
     $pdo->beginTransaction();
     foreach ($insert as $row) {
