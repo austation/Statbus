@@ -125,10 +125,11 @@ class PlayerRepository extends Repository
     public function ckeySearch(string $term): array
     {
         $term = KeyToCkeyService::getCkey($term);
+        $ckey = $term['ckey'];
         return $this->run(
             "SELECT ckey FROM player WHERE ckey LIKE ?
                   ORDER BY lastseen DESC LIMIT 0, 5",
-            '%' . $this->db->escapeLikeValue($term) . '%'
+            '%' . $this->db->escapeLikeValue($ckey) . '%'
         );
     }
 
