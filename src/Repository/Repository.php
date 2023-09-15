@@ -18,10 +18,6 @@ use PDO;
  */
 class Repository
 {
-    protected Connection $connection;
-
-    protected $db = null;
-
     public ?string $entityClass = null;
 
     public array $timestampedColumns = [
@@ -67,10 +63,11 @@ class Repository
 
     protected $logger;
 
-    public function __construct(Connection $connection, EasyDB $db)
-    {
-        $this->connection = $connection;
-        $this->db = $db;
+    public function __construct(
+        protected Connection $connection,
+        protected EasyDB $db,
+        protected ?EasyDB $alt_db = null
+    ) {
     }
 
     /**
