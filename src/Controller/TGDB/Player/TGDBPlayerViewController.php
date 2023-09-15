@@ -29,7 +29,12 @@ class TGDBPlayerViewController extends Controller
     public function action(): ResponseInterface
     {
         $ckey = $this->getArg('ckey');
-        $ckey = KeyToCkeyService::getCkey($ckey);
+        $ckeyResult = KeyToCkeyService::getCkey($ckey);
+        if(0 !== $ckeyResult['replacements']) {
+            // $this->addSuccessMessage("Redirecting to player ckey");
+            return $this->routeRedirect('tgdb.player', ['ckey' => $ckeyResult['ckey']]);
+        }
+        $ckey = $ckeyResult['ckey'];
         $player = $this->playerRepository->getPlayerByCkey($ckey, true);
         $standing = $this->bannedService->isPlayerBanned($ckey);
         $logs = $this->adminLog->getAdminLogsForCkey($ckey);
