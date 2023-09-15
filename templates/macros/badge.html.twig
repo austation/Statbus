@@ -1,9 +1,6 @@
-{% macro PlayerBadge(badge, popover = true) %}
-	<span class="playerBadge badge {{popover ? 'has-popover'}}" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-rank="{{badge.getTitle}}" data-bs-toggle="tooltip" data-target-ckey="{{badge.getCkey}}">
+{% macro PlayerBadge(badge, popover = true) %}<span class="playerBadge badge {{popover ? 'has-popover'}}" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-rank="{{badge.getTitle}}" data-bs-toggle="tooltip" data-target-ckey="{{badge.getCkey}}">
 		<i class="fas {{badge.geticon}}"></i>
-		{{badge.getckey}}
-	</span>
-{% endmacro %}
+		{{badge.getckey}}</span>{% endmacro %}
 
 {% macro BanBadge(status) %}
 	<span class="banBadge badge text-bg-{{status.getCssClass}}">
@@ -66,10 +63,8 @@
 		</span>
 	{% endif %}
 
-	{% macro JobBadge(badge) %}
-		<span class="jobBadge badge" style="{{badge.style}}">
+	{% macro JobBadge(badge) %}<span class="jobBadge badge" style="{{badge.style}}">
 			<i class="{{badge.icon}}"></i>
-			{{badge.name}}</span>
-	{% endmacro %}
+			{{badge.name}}</span>{% endmacro %}
 
 {% endmacro %}
