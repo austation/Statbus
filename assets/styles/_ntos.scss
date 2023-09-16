@@ -22,7 +22,7 @@
       url("../../templates/assets/statbus-star.svg") center/40%
         no-repeat,
       linear-gradient(to bottom, #252525 0%, #202020 100%), #252525;
-    font-family: var(--bs-font-sans-serif);
+      font-family: 'Atkinson Hyperlegible', sans-serif;
     --bs-body-color: #{darken($light, 20%)};
     --bs-body-bg: #{$dark};
     --bs-font-sans-serif: Verdana, sans-serif;

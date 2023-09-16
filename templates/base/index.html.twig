@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="en" data-bs-theme="auto">
 	<head>
-			<script>
+		<script>
 			// Render blocking JS:
 			if (localStorage.theme) 
 				document.documentElement.setAttribute("data-theme", localStorage.theme);
@@ -13,6 +13,10 @@
 			{% block title %}Statbus
 			{% endblock %}
 		</title>
+
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
 
 		{% block stylesheets %}
 			{{ webpack_entry_link_tags('app') }}
@@ -58,7 +62,7 @@
 				<div class="alert alert-{{app.environment.class}} mb-4 mt-4">{{app.environment.announcement}}</div>
 			{% endif %}
 			{% block body %}{% endblock %}
-			<footer class="container py-2 px-0 text-muted d-flex justify-content-between mt-2">
+			<footer class="container py-2 px-0 text-muted d-flex justify-content-between align-items-center mt-2">
 				{% include 'base/components/footerLinks.html.twig' %}
 			</footer>
 			{% if debug %}
