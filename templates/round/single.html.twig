@@ -76,28 +76,25 @@
 			</tbody>
 			<tfoot class="table-group-divider">
 				<tr>
-					<th>Public Logs</th>
-					<td>
-						<a class="icon-link" href="{{round.getPublicLogs}}" target="_blank">
+					<th>Log Links</th>
+					<td colspan="3">
+						<a class="badge text-bg-primary icon-link" href="{{round.getPublicLogs}}" target="_blank">
 							<i class="fas fa-external-link"></i>
 							Round
-							{{round.getId}}</a>
-					</td>
-					{% if user.has('ADMIN') %}
-						<th>Admin Logs</th>
-						<td>
-							<a class="icon-link" href="{{round.getAdminLogs}}" target="_blank">
-								<i class="fas fa-external-link"></i>
-								Round
-								{{round.getId}}</a>
-						</td>
-					{% endif %}
-					<th>🐝 Scrubby</th>
-					<td colspan="{{user.has('ADMIN') ? 3 : 5}}">
-						<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank">
+							{{round.getId}}
+							at /tg/station</a>
+						{% if user.has('ADMIN') %}
+						<a class="badge text-bg-danger icon-link" href="{{round.getAdminLogs}}" target="_blank">
 							<i class="fas fa-external-link"></i>
 							Round
-							{{round.getId}}</a>
+							{{round.getId}}
+							at /tg/station</a>
+						{% endif %}
+						<a class="badge text-bg-primary icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank">
+							<i class="fas fa-external-link"></i>
+							Round
+							{{round.getId}}
+							at 🐝 Scrubby</a>
 					</td>
 				</tr>
 				<tr>
