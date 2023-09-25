@@ -25,18 +25,21 @@
 	{% if 'In progress' != round.getState.value %}
 		<table class="table table-bordered">
 			<thead>
-				<tr>
-					<td class="fw-bold h5" colspan="7">N.S.S.
-						<em>{{round.getName}}</em>
-						aboard
-						{{round.getMap}}</td>
-				</tr>
+				{% if round.getName %}
+					<tr>
+						<td class="fw-bold h5" colspan="7">N.S.S.
+							<em>{{round.getName}}</em>
+							aboard
+							{{round.getMap}}</td>
+					</tr>
+				{% endif %}
 				{% if round.features.round_end_data %}
-				<tr>
-					<td colspan="7" id="integrity">
-					<i class="fa-solid fa-spinner fa-spin"></i> Loading...
-					</td>
-				</tr>
+					<tr>
+						<td colspan="7" id="integrity">
+							<i class="fa-solid fa-spinner fa-spin"></i>
+							Loading...
+						</td>
+					</tr>
 				{% endif %}
 			</thead>
 			<tbody class="table-group-divider">
