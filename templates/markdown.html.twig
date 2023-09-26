@@ -1,13 +1,12 @@
-{% extends 'base/index.html.twig' %}
-{% block body %}
-	<div class="card">
-        <h3 class="card-header">{{title}}</h3>
-		<div class="card-body">
-			{% apply markdown_to_html %}
+{% extends 'base/page.html.twig' %}
+{% block breadcrumbs %}{% endblock %}
+{% block cardHeader %}
+	{{title}}
+{% endblock %}
+{% block cardBody %}
+	{% apply markdown_to_html %}
 
-			{{content}}
+	{{content}}
 
-			{% endapply %}
-		</div>
-	</div>
+	{% endapply %}
 {% endblock %}
