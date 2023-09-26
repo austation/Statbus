@@ -3,8 +3,10 @@
 {% block breadcrumbs %}
 	{{parent()}}
 	<li class="breadcrumb-item" aria-current="page">
-		<a href="{{url_for('rounds')}}" class="icon-link"><i class="fas fa-circle"></i>
-		Rounds</li></a>
+		<a href="{{url_for('rounds')}}" class="icon-link">
+			<i class="fas fa-circle"></i>
+			Rounds</a>
+	</li>
 	<li class="breadcrumb-item">
 
 		<i class="fas fa-circle"></i>
@@ -77,17 +79,17 @@
 			<tfoot class="table-group-divider">
 				<tr>
 					<th>Log Links</th>
-					<td colspan="3">
+					<td colspan="4">
 						<a class="badge text-bg-primary icon-link" href="{{round.getPublicLogs}}" target="_blank">
 							<i class="fas fa-external-link"></i>
 							Round
-							{{round.getId}}
+							{{round.getId}} Public Logs
 							at /tg/station</a>
 						{% if user.has('ADMIN') %}
 						<a class="badge text-bg-danger icon-link" href="{{round.getAdminLogs}}" target="_blank">
 							<i class="fas fa-external-link"></i>
 							Round
-							{{round.getId}}
+							{{round.getId}} Raw Logs
 							at /tg/station</a>
 						{% endif %}
 						<a class="badge text-bg-primary icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank">
