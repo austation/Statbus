@@ -168,7 +168,7 @@ class Round implements JsonSerializable
 
     public function getResult(): ?string
     {
-        return $this->result;
+        return $this->result ?? 'Server Crash';
     }
 
     public function setResult(?string $result): self
@@ -347,6 +347,14 @@ class Round implements JsonSerializable
     public function getAdminLogs(): ?string
     {
         return $this->adminLogs;
+    }
+
+    public function getStart(): DateTime
+    {
+        if($this->getStartDatetime()) {
+            return $this->getStartDatetime();
+        }
+        return $this->getInitDatetime();
     }
 
     public function jsonSerialize(): mixed
