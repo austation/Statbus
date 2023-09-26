@@ -77,7 +77,7 @@
 
 const setBG = () => {
   const body = document.querySelector('body')
-  if('PROD' != body.dataset.name) {
+  if('production' != body.dataset.name) {
     const svgText = `<svg width='128' height='128' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 62 62"><text x="-4.559" y="83.58" style="font-family:&quot;Arial&quot;,sans-serif;font-weight:700;font-size:18.534px;opacity:.25" transform="rotate(-45 -30.883 39.869)" fill='${body.dataset.color}'>${body.dataset.name}</text></svg>`
     const bg = window.getComputedStyle(body).getPropertyValue('background')
     body.setAttribute('style',`background: url(data:image/svg+xml;base64,${btoa(svgText)}) repeat scroll 0% 0% / auto padding-box border-box, ${bg}`)
