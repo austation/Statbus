@@ -12,7 +12,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
-#### [1.17.5] - 2023-09-11
+#### [1.17.5] - 2023-09-26
 
 #### Added 
 - Timeline view to rounds! 
@@ -25,6 +25,8 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 #### Fixed 
 - A major bug with bans by role on the homepage was causing frequent crashes. It has been fixed.
+- Rounds without a station name won't display said missing name
+- Errors fetching round end data are more graceful
 
 ---
 
