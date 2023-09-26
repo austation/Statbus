@@ -20,7 +20,6 @@ use ParagonIE\EasyDB\Factory;
 use ParagonIE\EasyDB\EasyDBCache;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Psr\Http\Message\ServerRequestFactoryInterface;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
@@ -64,15 +63,10 @@ return [
             (bool)$settings['log_error_details'],
             $logger
         );
-
         return $app;
     },
 
     ResponseFactoryInterface::class => function (ContainerInterface $container) {
-        return $container->get(Psr17Factory::class);
-    },
-
-    ServerRequestFactoryInterface::class => function (ContainerInterface $container) {
         return $container->get(Psr17Factory::class);
     },
 
@@ -82,11 +76,6 @@ return [
         ->get(App::class)
         ->getRouteCollector()
         ->getRouteParser();
-    },
-
-    //Controller
-    Controller::class => function (ContainerInterface $container) {
-        return new Controller($container);
     },
 
     //TwigMiddleware
