@@ -1,10 +1,8 @@
-<section class="page-section">
-<h5 class="border-bottom border-2 border-primary pb-1 d-flex justify-content-between align-items-center section-header">
-{% block header %}
-{% endblock %}
-</h5>
-<article>
-{% block body %}
-{% endblock %}
-</article>
-</section>
+{% set id = random() %}
+<section class="page-section" {% if collapse %} data-bs-toggle="collapse" href="#{{id}}" role="button" aria-expanded="false" aria-controls="{{id}}" title="Click to expand" {% endif %}>
+	<h5 class="border-bottom border-2 border-primary pb-1 d-flex justify-content-between align-items-center section-header"> {% block header %}{% endblock %}
+		</h5>
+		<article id="{{id}}" {% if collapse %}class="collapse"{% endif %}>
+			{% block body %}{% endblock %}
+		</article>
+	</section>
