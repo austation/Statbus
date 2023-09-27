@@ -123,7 +123,7 @@
 	{% if user.has('ADMIN') %}
 		{% include 'round/components/adminLinks.html.twig' %}
 	{% endif %}
-	{% include 'round/components/deaths.html.twig' %}
+	{% include 'round/components/deaths.html.twig' with {'collapse':true} %}
 	{% include 'round/components/basic_stats.html.twig' %}
 	{% include 'round/components/statlist.html.twig' %}
 	{% if round.features.round_end_data %}
