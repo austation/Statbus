@@ -1,5 +1,8 @@
 permissions: write-all
 name: Test Deployments
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 on:
   push:
     branches: [main]
