@@ -12,7 +12,7 @@ class Stat
     private ?int $total = null;
 
     public array $filter = [];
-    public ?array $replace = null;
+    public $replace = null;
 
     private ?string $tweakClass = null;
 
@@ -144,6 +144,9 @@ class Stat
     {
         //Check for existing tweak plans
         $tweaks = $tweaks = $this->getTweaks();
+        if($tweaks) {
+            $this->setLabels($tweaks->getLabels());
+        }
 
         //Sometimes we just need to set the data and move on
         if($data) {
