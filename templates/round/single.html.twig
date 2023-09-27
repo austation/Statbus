@@ -8,7 +8,6 @@
 			Rounds</a>
 	</li>
 	<li class="breadcrumb-item">
-
 		<i class="fas fa-circle"></i>
 		{{round.getId}}
 	</li>
@@ -22,6 +21,7 @@
 {% endblock %}
 {% block cardSubHeader %}
 	{% include 'round/components/roundStateBanner.html.twig' %}
+	{% include 'round/components/war_declaration.html.twig' %}
 {% endblock %}
 {% block cardBody %}
 	<h5 class="fw-bold">N.S.S.

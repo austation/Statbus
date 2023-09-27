@@ -30,10 +30,10 @@ class RoundViewController extends Controller
         } else {
             $data = [
                 'round' => $round,
-                'stats' => $this->statRepository->getStatsForRound($round->getId(), ['antagonists','testmerged_prs','commendation']),
+                'stats' => $this->statRepository->getStatsForRound($round->getId(), ['antagonists','testmerged_prs','commendation','nuclear_challenge_mode']),
                 'statlist' => $this->statRepository->listStatsForRound($round->getId()),
                 'deaths' => $this->deathRepository->getDeathsForRound($round->getId()),
-                
+
             ];
         }
         return $this->render('round/single.html.twig', $data);
