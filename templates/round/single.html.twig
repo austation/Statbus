@@ -2,7 +2,7 @@
 {% from 'macros/badge.html.twig' import RoundBadge, ServerBadge %}
 {% block breadcrumbs %}
 	{{parent()}}
-	<li class="breadcrumb-item" aria-current="page">
+	<li class="breadcrumb-item">
 		<a href="{{url_for('rounds')}}" class="icon-link">
 			<i class="fas fa-circle"></i>
 			Rounds</a>
@@ -24,35 +24,54 @@
 	{% include 'round/components/roundStateBanner.html.twig' %}
 {% endblock %}
 {% block cardBody %}
+	<h5 class="fw-bold">N.S.S.
+		<em>{{round.getName}}</em>
+		aboard
+		{{round.getMap}}</h5>
+	{% if round.features.round_end_data %}
+		<div class="row justify-content-between align-items-center">
+			<span class="fw-bold col-2">Station Integrity</span>
+			<div class="col-10">
+				<div class="progress" role="progressbar" aria-label="Station Integrity" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+					<div class="progress-bar" id="station_integrity_bar" style="width: 0%"></div>
+				</div>
+			</div>
+		</div>
+		<div class="row justify-content-between align-items-center">
+			<span class="fw-bold col-2">Survival Rate</span>
+			<div class="col-10">
+				<div class="progress-stacked">
+					<div class="progress" role="progressbar" aria-label="Survivors" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="survivors_bar" style="width: 0%">
+						<div class="progress-bar bg-success"></div>
+					</div>
+					<div class="progress" role="progressbar" aria-label="Abandoned Crewmembers" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" id="left_behind_bar" style="width: 0%">
+						<div class="progress-bar bg-danger"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="d-flex align-items-center mt-2">
+			<a href="{{url_for('round.timeline',{id:round.getId})}}" class="btn btn-primary me-2">
+				<i class="fa-solid fa-timeline"></i>
+				View Timeline</a>
+			<span id="integrity">
+				<i class="fa-solid fa-spinner fa-spin"></i>
+				Loading...
+			</span>
+		</div>
+	{% endif %}
+	<hr>
 	{% if 'In progress' != round.getState.value %}
 		<table class="table table-bordered">
-			<thead>
-				{% if round.getName %}
-					<tr>
-						<td class="fw-bold h5" colspan="7">N.S.S.
-							<em>{{round.getName}}</em>
-							aboard
-							{{round.getMap}}</td>
-					</tr>
-				{% endif %}
-				{% if round.features.round_end_data %}
-					<tr>
-						<td colspan="7" id="integrity">
-							<i class="fa-solid fa-spinner fa-spin"></i>
-							Loading...
-						</td>
-					</tr>
-				{% endif %}
-			</thead>
-			<tbody class="table-group-divider">
+			<tbody>
 				<tr>
 					<th>Round Initialized</th>
 					{% if round.getStartDuration %}
-						<td>Duration</td>
+						<th>Duration</th>
 					{% endif %}
 					<th>Round Started</th>
 					{% if round.getDuration %}
-						<td>Duration</td>
+						<th>Round Duration</th>
 					{% endif %}
 					<th>Round Ended</th>
 					{% if round.getEndDuration %}
@@ -76,21 +95,23 @@
 					<td>{{round.getShutdownDatetime ? round.getShutdownDatetime|date() : 'Not available'}}</td>
 				</tr>
 			</tbody>
-			<tfoot class="table-group-divider">
+		</table>
+		<table class="table table-bordered">
+			<tbody>
 				<tr>
 					<th>Log Links</th>
 					<td colspan="4">
 						<a class="badge text-bg-primary icon-link" href="{{round.getPublicLogs}}" target="_blank">
 							<i class="fas fa-external-link"></i>
 							Round
-							{{round.getId}} Public Logs
-							at /tg/station</a>
+							{{round.getId}}
+							Public Logs at /tg/station</a>
 						{% if user.has('ADMIN') %}
-						<a class="badge text-bg-danger icon-link" href="{{round.getAdminLogs}}" target="_blank">
-							<i class="fas fa-external-link"></i>
-							Round
-							{{round.getId}} Raw Logs
-							at /tg/station</a>
+							<a class="badge text-bg-danger icon-link" href="{{round.getAdminLogs}}" target="_blank">
+								<i class="fas fa-external-link"></i>
+								Round
+								{{round.getId}}
+								Raw Logs at /tg/station</a>
 						{% endif %}
 						<a class="badge text-bg-primary icon-link" href="https://scrubby.melonmesa.com/round/{{round.getId}}" target="_blank">
 							<i class="fas fa-external-link"></i>
@@ -115,42 +136,18 @@
 							How to Install Gentoo</td>
 					</td>
 				</tr>
-			</tfoot>
+			</tbody>
 		</table>
 	{% else %}
 		<p class="text-center mb-0">« This Round is Currently In Progress »</p>
 	{% endif %}
+
 	{% if user.has('ADMIN') %}
 		{% include 'round/components/adminLinks.html.twig' %}
 	{% endif %}
-	{% include 'round/components/deaths.html.twig' with {'collapse':true} %}
-	{% include 'round/components/basic_stats.html.twig' %}
-	{% include 'round/components/statlist.html.twig' %}
+	{% include 'round/components/deaths.html.twig' with {'collapse':true} %}{% include 'round/components/basic_stats.html.twig' %}{% include 'round/components/statlist.html.twig' %}
 	{% if round.features.round_end_data %}
 		<script>
-			async function fetchExternalData() {
-const targetEl = document.getElementById('integrity')
-const response = await fetch(`${
-window.location.href
-}/sb_who?json`);
-if (500 == response.status) {
-targetEl.innerHTML = `Unable to determine station integrity`
-}
-var data = await response.json();
-data = data.stat.data
-if (! data) {
-targetEl.innerHTML = `Unable to determine station integrity`
-}
-const survivors = Object.keys(data.escapees.humans).length + Object.keys(data.escapees.silicons).length + Object.keys(data.escapees.others).length
-const abandoned = Object.keys(data.abandoned.humans).length + Object.keys(data.abandoned.silicons).length + Object.keys(data.abandoned.others).length
-targetEl.innerHTML = `Station Integrity: ${
-data['additional data']['station integrity']
-}%, ${survivors} crew escaped, ${abandoned} left behind. <a href="${
-window.location.href
-}/sb_who" class="icon-link"><i class="fa-solid fa-users-viewfinder"></i> Roster</a>`
-}
-fetchExternalData()
-		</script>
+			{% include 'round/components/stationIntegrity.js' %}</script>
 	{% endif %}
-
 {% endblock %}

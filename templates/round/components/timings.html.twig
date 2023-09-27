@@ -1,0 +1,46 @@
+{% extends 'base/components/section.html.twig' %}
+{% block header %}
+	Times
+{% endblock %}
+{% block body %}
+	<div>
+		<strong>Initialized At:</strong><br>
+		{{round.getInitDatetime ? round.getInitDatetime|date() : 'Not available'}}
+	</div>
+	<hr>
+	{% if round.getStartDuration %}
+		<div>
+			<strong>Startup Duration:</strong><br>
+			{{round.getStartDuration}}
+		</div>
+	{% endif %}
+	<hr>
+	<div>
+		<strong>Round Started At:</strong><br>
+		{{round.getStartDatetime ? round.getStartDatetime|date() : 'Not available'}}
+	</div>
+    <hr>
+	<div class="h5">
+		<strong>Round Duration:</strong><br>
+		{% if round.getDuration %}
+			{{round.getDuration}}
+		{% endif %}
+	</div>
+    <hr>
+    	<div>
+		<strong>Round Ended At:</strong><br>
+		{{round.getEndDatetime ? round.getEndDatetime|date() : 'Not available'}}
+	</div>
+	<hr>
+	{% if round.getEndDuration %}
+		<div>
+			<strong>Shutdown Duration:</strong><br>
+			{{round.getEndDuration}}
+		</div>
+	{% endif %}
+	<hr>
+	<div>
+		<strong>Shutdown At:</strong><br>
+		{{round.getShutdownDatetime ? round.getShutdownDatetime|date() : 'Not available'}}
+	</div>
+{% endblock %}

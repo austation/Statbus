@@ -6,6 +6,11 @@
 {% endblock %}
 {% block breadcrumbs %}
 	{{parent()}}
+		<li class="breadcrumb-item">
+		<a href="{{url_for('rounds')}}" class="icon-link">
+			<i class="fas fa-circle"></i>
+			Rounds</a>
+	</li>
 	<li class="breadcrumb-item">
 		<a class="icon-link" href="{{url_for('round.single',{id:round.getId})}}">
 			<i class="fas fa-circle"></i>
