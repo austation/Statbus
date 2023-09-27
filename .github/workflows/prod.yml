@@ -1,5 +1,8 @@
 permissions: write-all
 name: Production Deployments
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: true
 on:
   release:
     types: [published]
