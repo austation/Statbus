@@ -1,3 +1,4 @@
+import "@fontsource/atkinson-hyperlegible";
 import "./styles/app.scss";
 import * as bootstrap from "bootstrap";
 import Alpine from "alpinejs";

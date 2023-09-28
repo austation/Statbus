@@ -27,6 +27,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "@fontsource/atkinson-hyperlegible": "^5.0.12",
         "@fullhuman/postcss-purgecss": "^5.0.0",
         "@popperjs/core": "^2.11.8",
         "@tarekraafat/autocomplete.js": "^10.2.7",
