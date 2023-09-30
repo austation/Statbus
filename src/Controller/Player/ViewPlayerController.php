@@ -6,6 +6,7 @@ use App\Controller\Controller;
 use App\Domain\Achievement\Repository\AchievementRepository;
 use App\Domain\Admin\Repository\AdminLogRepository;
 use App\Domain\Player\Repository\PlayerRepository;
+use App\Domain\Player\Service\IsPlayerBannedService;
 use App\Domain\Player\Service\KeyToCkeyService;
 use App\Enum\PermissionsFlags;
 use Psr\Http\Message\ResponseInterface;
@@ -18,6 +19,9 @@ class ViewPlayerController extends Controller
 
     #[Inject]
     private AchievementRepository $achievementRepository;
+
+    #[Inject]
+    private IsPlayerBannedService $bannedService;
 
     #[Inject]
     private AdminLogRepository $adminLog;
@@ -33,9 +37,14 @@ class ViewPlayerController extends Controller
             return $this->routeRedirect('player', ['ckey' => $ckeyResult['ckey']]);
         }
         $player = $this->playerRepository->getPlayerByCkey($ckey);
+        $standing = false;
+        if($this->getUser()->has('ADMIN')) {
+            $standing = $this->bannedService->isPlayerBanned($ckey);
+        }
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
             return $this->render('player/popover.html.twig', [
                 'player' => $player,
+                'standing' => $standing
             ]);
         }
         $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
@@ -44,7 +53,6 @@ class ViewPlayerController extends Controller
         return $this->render('player/single.html.twig', [
             'player' => $player,
             'playtime' => $playTime,
-
             'perms' => PermissionsFlags::getArray(),
             'achievements' => $achievements,
             'logs' => $logs

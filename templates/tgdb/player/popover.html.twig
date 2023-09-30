@@ -37,6 +37,7 @@
 			<a class="btn btn-primary" href="{{url_for('tgdb.player',{ckey:player.getCkey})}}">
 				<i class="fas fa-user"></i>
 			</a>
+			{% if user.has('ADMIN') %}
 			<a class="btn btn-primary" href="{{url_for('tgdb.bans.player',{ckey:player.getCkey})}}">
 				<i class="fas fa-gavel"></i>
 			</a>
@@ -46,6 +47,7 @@
 			<a class="btn btn-primary" href="{{url_for('tgdb.ticket.player',{ckey: player.getCkey})}}">
 				<i class="fas fa-ticket"></i>
 			</a>
+			{% endif %}
 		</div>
 		<hr class="my-0">
 		<a class="btn btn-primary tgdb-bg color-white btn-sm" href="https://tgstation13.org/tgdb/playerdetails.php?ckey={{player.getCkey}}" target="_blank">

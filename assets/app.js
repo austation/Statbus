@@ -1,8 +1,10 @@
-import "@fontsource/atkinson-hyperlegible";
+import '@fontsource/atkinson-hyperlegible/400.css';
+import '@fontsource/atkinson-hyperlegible/700.css';
 import "./styles/app.scss";
 import * as bootstrap from "bootstrap";
 import Alpine from "alpinejs";
 import "./js/themeSwitcher.js";
+import "./js/popovers.js";
 
 const autoComplete = require("@tarekraafat/autocomplete.js");
 
