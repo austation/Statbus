@@ -1,11 +1,11 @@
-{% extends 'base/index.html.twig' %}
-{% block body %}
-	<div class="card">
+{% extends 'base/page.html.twig' %}
+{% block cardHeader %}
 		<h1 class="card-header text-bg-danger">
 			ERROR
 			{{error.getCode}}
 		</h1>
-		<div class="card-body">
+		{% endblock %}
+	{% block cardBody %}
 			{% include [
 				'errors/exceptions/' ~ class ~ '.html.twig',
 				'errors/' ~ error.getCode ~ '.html.twig', 
@@ -27,6 +27,4 @@
 					{% endfor %}
 				</ul>
 			{% endif %}
-		</div>
-	</div>
 {% endblock %}
