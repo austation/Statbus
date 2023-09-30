@@ -24,10 +24,12 @@
 	{% include 'round/components/war_declaration.html.twig' %}
 {% endblock %}
 {% block cardBody %}
+	{% if round.getName %}
 	<h5 class="fw-bold">N.S.S.
 		<em>{{round.getName}}</em>
 		aboard
 		{{round.getMap}}</h5>
+	{% endif %}
 	{% if round.features.round_end_data %}
 		<div class="row justify-content-between align-items-center">
 			<span class="fw-bold col-2">Station Integrity</span>
