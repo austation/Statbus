@@ -11,8 +11,8 @@ use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Exception;
 use Fig\Http\Message\StatusCodeInterface;
-use GuzzleHttp\Exception\ClientException;
-use Nyholm\Psr7\Stream;
+use Monolog\Handler\StreamHandler;
+use Monolog\Logger;
 use Psr\Container\ContainerInterface;
 use Slim\Psr7\Response;
 use Slim\Views\Twig;
@@ -27,14 +27,15 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
 
     private $user;
 
+    private $app;
+
     public function __construct(
         private ContainerInterface $containerInterface
     ) {
         $this->settings = $containerInterface->get('settings')['error'];
-        $loggerFactory = $containerInterface->get(LoggerFactory::class);
-        $this->logger = $loggerFactory
-            ->addFileHandler('error.log')
-            ->createLogger();
+        $logger = $log = new Logger('stdout');
+        $log->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
+        $this->logger = $logger;
         $this->user = $containerInterface->get('User');
     }
 
@@ -61,6 +62,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
                 $error['url'] = $url;
                 $error['ip'] = $_SERVER['REMOTE_ADDR'];
                 $error['user'] = $this->user ? $this->user->getCkey() : null;
+                $error['environment'] = $this->app['name'];
                 $this->logger->error($exception->getMessage(), $error);
             }
             return $twig->render(
@@ -70,7 +72,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
                     'error' => $exception,
                     'class' => str_replace("\\", "/", get_class($exception)),
                     'display_error_details' => $this->settings['display_error_details'],
-                    
+
                 ],
             );
         }
