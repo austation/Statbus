@@ -38,7 +38,8 @@ class ViewPlayerController extends Controller
         }
         $player = $this->playerRepository->getPlayerByCkey($ckey);
         $standing = false;
-        if($this->getUser()->has('ADMIN')) {
+        $user = $this->getUser();
+        if($user && $user->has('ADMIN')) {
             $standing = $this->bannedService->isPlayerBanned($ckey);
         }
         if(isset($_GET['format']) && 'popover' === $_GET['format']) {
