@@ -184,9 +184,9 @@ return [
         $settings = $container->get('settings')['error'];
         $app = $container->get(App::class);
         $formatter = new JsonFormatter();
-        $stream = new StreamHandler('php://stdout', Logger::DEBUG);
+        $stream = new StreamHandler('php://stderr', Logger::DEBUG);
         $stream->setFormatter($formatter);
-        $logger = $log = new Logger('stdout');
+        $logger = $log = new Logger('stderr');
         $log->pushHandler($stream);
 
 
