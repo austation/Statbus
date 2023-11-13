@@ -62,6 +62,39 @@
 			</span>
 		</div>
 	{% endif %}
+
+	{% if round.getThreat %}
+	<hr>
+	<table class="table table-bordered">
+		<tbody>
+			<tr>
+				<th>Forced Threat Level</th>
+				<td>{{round.getThreat.forced_threat_level}}</td>
+			</tr>
+			<tr>				<th>Threat Level</th>
+				<td>{{round.getThreat.threat_level}}</td>
+				</tr>
+			<tr>
+				<th>Maximum Threat</th>
+				<td>{{round.getThreat.max_threat}}</td>
+			</tr>
+			<tr>
+				<th>Player Count</th>
+				<td>{{round.getThreat.player_count}}</td>
+			</tr>
+			<tr>
+				<th>Roundstart Budget</th>
+				<td>{{round.getThreat.round_start_budget}}</td>
+			</tr>
+			{% for k, v in round.getThreat.parameters %}
+			<tr>
+				<th>{{k}}</th>
+				<td>{{v}}</th>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	{% endif %}
 	<hr>
 	{% if 'In progress' != round.getState.value %}
 		<table class="table table-bordered">

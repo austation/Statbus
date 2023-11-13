@@ -42,13 +42,15 @@ class Round implements JsonSerializable
         private ?string $shuttle = null,
         private ?string $map = null,
         private ?string $name = null,
-        private ?Server $server = null
+        private $threat = null,
+        private ?Server $server = null,
     ) {
         $this->setDuration();
         $this->setStartDuration();
         $this->setEndDuration();
         $this->setLogLinks();
         $this->setFeatures();
+        $this->setThreat();
     }
 
     private function setFeatures(): self
@@ -355,6 +357,20 @@ class Round implements JsonSerializable
             return $this->getStartDatetime();
         }
         return $this->getInitDatetime();
+    }
+
+    public function setThreat(): self
+    {
+        if($this->threat) {
+            $data = array_values(json_decode($this->threat, true)['data']);
+            $this->threat = array_shift($data);
+        }
+        return $this;
+    }
+
+    public function getThreat(): array|null
+    {
+        return $this->threat;
     }
 
     public function jsonSerialize(): mixed
