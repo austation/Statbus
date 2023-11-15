@@ -15,7 +15,7 @@ class ServerInformationService
     public const PUBLIC_LOGS = self::BASE_URL."/parsed-logs";
     public const ADMIN_LOGS = self::BASE_URL."/raw-logs";
 
-    public static function getServerInfo(): array
+    public static function getServerInfo(): ?array
     {
         $stack = HandlerStack::create();
         $stack->push(new CacheMiddleware(), 'cache');
@@ -33,7 +33,9 @@ class ServerInformationService
         } catch (Exception $e) {
             $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
         }
-
+        if(!$data) {
+            $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
+        }
         return $data;
     }
 
