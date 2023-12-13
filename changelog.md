@@ -9,6 +9,12 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 ### Upcoming/Future
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
+---
+
+#### [1.17.6] - 2023-12-13
+
+##### Added
+- Player playtime on notes
 
 ---
 
