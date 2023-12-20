@@ -130,4 +130,9 @@ class PlayerBadge
     {
         return sprintf("background:%s; color: %s;", $this->getBackColor(), $this->getForeColor());
     }
+
+    public function __toString()
+    {
+        return $this->getCkey();
+    }
 }
