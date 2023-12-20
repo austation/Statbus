@@ -11,6 +11,15 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.18.0] - 2023-12-20
+
+##### Added
+- The query for showing tickets by ckey has been updated to now include ANY ticket a given ckey was involved in, even if they didn't start it or finish it.
+    - This mirrors the functionality available on mothbus (<3 mothbus)
+- The list of ckeys involved in a given ticket is now displayed in the ticket sidebar
+
+---
+
 #### [1.17.6] - 2023-12-13
 
 ##### Added

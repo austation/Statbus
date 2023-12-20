@@ -24,7 +24,7 @@ class TicketRepository extends Repository
       'r.rank as r_rank',
       's.rank as s_rank',
       '(SELECT `action` FROM ticket WHERE id = c.last_id LIMIT 1) as `status`',
-      ' c.replies as `replies`',
+      'c.replies as `replies`',
       't.urgent',
     ];
 
@@ -94,13 +94,50 @@ class TicketRepository extends Repository
 
     public function getTicketsByCkey(string $ckey, int $page = 1, int $per_page = 60): self
     {
-        $cols = implode(",\n", $this->columns);
-        $joins = implode("\n", $this->joins);
-        $where = implode("\n AND ", [...$this->where, '(t.recipient = ? OR t.sender = ?)']);
-        $pagesQuery = sprintf("SELECT count(t.id) FROM ticket t WHERE %s", $where);
-        $query = sprintf("SELECT %s FROM ticket t %s \nWHERE %s
-        ORDER BY t.timestamp DESC LIMIT ?, ?", $cols, $joins, $where);
-        $this->setPages((int) ceil($this->cell($pagesQuery, $ckey, $ckey) / $per_page));
+        $pagesQuery = "SELECT
+        ticket.id as results
+        FROM
+        ticket
+        LEFT JOIN `admin` AS r ON r.ckey = ticket.recipient
+        LEFT JOIN `admin` AS s ON s.ckey = ticket.sender
+        LEFT JOIN (SELECT round_id, ticket, COUNT(id) as `replies`, max(id) as `last_id` FROM ticket GROUP BY round_id, ticket) as c on (c.round_id = ticket.round_id and c.ticket = ticket.ticket)
+        INNER JOIN ticket AS first_tickets ON first_tickets.round_id = ticket.round_id
+            AND first_tickets.ticket = ticket.ticket
+            AND first_tickets.action = 'Ticket Opened'
+            AND ticket.round_id != 0
+		WHERE ticket.recipient = ? OR ticket.sender = ?
+            GROUP BY ticket.round_id, ticket.ticket;";
+        $query = "SELECT
+        first_tickets.id,
+        first_tickets.server_ip as `serverIp`,
+        first_tickets.server_port as `port`,
+        first_tickets.round_id as `round`,
+        first_tickets.ticket,
+        first_tickets.action,
+        first_tickets.message,
+        first_tickets.timestamp,
+        first_tickets.recipient as r_ckey,
+        first_tickets.sender as s_ckey,
+        r.rank as `r_rank`,
+        s.rank as `s_rank`,
+        (SELECT `action` FROM ticket WHERE id = c.last_id LIMIT 1) as `status`,
+        c.replies as `replies`,
+        first_tickets.urgent
+    FROM
+        ticket
+        LEFT JOIN (SELECT round_id, ticket, COUNT(id) as `replies`, max(id) as `last_id` FROM ticket GROUP BY round_id, ticket) as c on (c.round_id = ticket.round_id and c.ticket = ticket.ticket)
+        INNER JOIN ticket AS first_tickets ON first_tickets.round_id = ticket.round_id
+            AND first_tickets.ticket = ticket.ticket
+            AND first_tickets.action = 'Ticket Opened'
+            AND ticket.round_id != 0
+        LEFT JOIN `admin` AS r ON r.ckey = first_tickets.recipient
+        LEFT JOIN `admin` AS s ON s.ckey = first_tickets.sender
+		WHERE ticket.recipient = ? OR ticket.sender = ?
+            GROUP BY ticket.round_id , ticket.ticket
+            ORDER BY id DESC
+            LIMIT ?, ?;";
+        $this->setPages(count($this->db->column($pagesQuery, [$ckey, $ckey])) / $per_page);
+        // $this->setPages((int) ceil(array_sum($this->db->column($pagesQuery, $ckey, $ckey) / $per_page)));
         $this->setResults(
             $this->run(
                 $query,

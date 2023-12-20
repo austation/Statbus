@@ -1,4 +1,6 @@
-<div class="card">
+{% from 'macros/badge.html.twig' import PlayerBadge %}
+
+<div class="card mb-2">
 	<div class="card-header fw-bold">
 		<small>Ticket Status</small>
 		{% if ticket|last.getAction.isResolved %}
@@ -18,5 +20,15 @@
 		{% if ticket[0].isUrgent %}
 			<p class="mb-0">This ticket was marked as urgent by the player</p>
 		{% endif %}
+	</div>
+</div>
+<div class="card mb-2">
+	<div class="card-header fw-bold">
+		<small>Who Was Involved In This Ticket</small>
+	</div>
+	<div class="card-body">
+		{% for b in badges %}
+			{{PlayerBadge(b)}}
+		{% endfor %}
 	</div>
 </div>

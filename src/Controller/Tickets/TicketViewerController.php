@@ -31,13 +31,18 @@ class TicketViewerController extends Controller
                 'error' => new StatbusNotYourTicketException("This ticket does not belong to you", 403),
                 'class' => 'App/Exception/StatbusNotYourTicketException',
                 'code' => 403,
-                
+
                 'link' => $link
             ]);
         }
+        $badges = [];
+        foreach($ticket as $t) {
+            $badges[] = $t->getSenderBadge();
+            $badges[] = $t->getRecipientBadge();
+        }
         return $this->render('tickets/single.html.twig', [
             'ticket' => $ticket,
-            
+            'badges' => array_filter(array_unique($badges))
         ]);
     }
 
