@@ -2,10 +2,6 @@
 	<i class="{{round.getState.icon|raw}}"></i>
 	{{round.getState.value}}
 	{% if 'In progress' != round.getState.value %}
-		-
-		{{round.getMode|capitalize}}
-		ended with
-		{{round.getResult}}
 		{% if round.getDuration %}
 			in
 			{{round.getDuration}}
