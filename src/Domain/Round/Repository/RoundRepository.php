@@ -28,13 +28,11 @@ class RoundRepository extends Repository
         r.shuttle_name,
         r.map_name,
         r.station_name,
-        dt.json as dt
+        null as dt
         FROM round r
-        LEFT JOIN feedback dt ON dt.round_id = r.id AND dt.key_name = 'dynamic_threat'
         WHERE r.id = ?";
 
-        $data = $this->actualRow($query, [$id]);
-        $this->setResult($data);
+        $this->setResult($this->actualRow($query, [$id]));
         $round = $this->getResult();
         $servers = ServerInformationService::getServerInfo();
         $currentRounds = ServerInformationService::getCurrentRounds($servers);

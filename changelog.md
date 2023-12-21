@@ -17,6 +17,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 - The query for showing tickets by ckey has been updated to now include ANY ticket a given ckey was involved in, even if they didn't start it or finish it.
     - This mirrors the functionality available on mothbus (<3 mothbus)
 - The list of ckeys involved in a given ticket is now displayed in the ticket sidebar
+- Dynamic threat information now shows the advisory level that corresponds to the threat
 
 ---
 

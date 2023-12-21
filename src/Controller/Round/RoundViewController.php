@@ -31,10 +31,11 @@ class RoundViewController extends Controller
             $data = [
                 'round' => $round,
                 'stats' => $this->statRepository->getStatsForRound($round->getId(), [
-                    'antagonists','
-                    testmerged_prs',
+                    'antagonists',
+                    'testmerged_prs',
                     'commendation',
                     'nuclear_challenge_mode',
+                    'dynamic_threat'
                 ]),
                 'statlist' => $this->statRepository->listStatsForRound($round->getId()),
                 'deaths' => $this->deathRepository->getDeathsForRound($round->getId()),

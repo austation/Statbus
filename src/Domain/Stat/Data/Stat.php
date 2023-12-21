@@ -143,16 +143,16 @@ class Stat
     public function setData(mixed $data = false): self
     {
         //Check for existing tweak plans
-        $tweaks = $tweaks = $this->getTweaks();
+        $tweaks = $this->getTweaks();
         if($tweaks) {
             $this->setLabels($tweaks->getLabels());
         }
 
         //Sometimes we just need to set the data and move on
-        if($data) {
-            $this->data = $data;
-            return $this;
-        }
+        // if($data) {
+        //     $this->data = $data;
+        //     return $this;
+        // }
 
         //Or we just want to ship the JSON directly out
         if(!$this->decodeJson) {

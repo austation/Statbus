@@ -63,30 +63,34 @@
 		</div>
 	{% endif %}
 
-	{% if round.getThreat %}
+	{% if stats.dynamic_threat %}
 	<hr>
 	<table class="table table-bordered">
 		<tbody>
 			<tr>
+				<th>Advisory Level</th>
+				<td>{{stats.dynamic_threat.data.name}}</td>
+			</tr>
+			<tr>
 				<th>Forced Threat Level</th>
-				<td>{{round.getThreat.forced_threat_level}}</td>
+				<td>{{stats.dynamic_threat.data.forced_threat_level}}</td>
 			</tr>
 			<tr>				<th>Threat Level</th>
-				<td>{{round.getThreat.threat_level}}</td>
+				<td>{{stats.dynamic_threat.data.threat_level}}</td>
 				</tr>
 			<tr>
 				<th>Maximum Threat</th>
-				<td>{{round.getThreat.max_threat}}</td>
+				<td>{{stats.dynamic_threat.data.max_threat}}</td>
 			</tr>
 			<tr>
 				<th>Player Count</th>
-				<td>{{round.getThreat.player_count}}</td>
+				<td>{{stats.dynamic_threat.data.player_count}}</td>
 			</tr>
 			<tr>
 				<th>Roundstart Budget</th>
-				<td>{{round.getThreat.round_start_budget}}</td>
+				<td>{{stats.dynamic_threat.data.round_start_budget}}</td>
 			</tr>
-			{% for k, v in round.getThreat.parameters %}
+			{% for k, v in stats.dynamic_threat.data.parameters %}
 			<tr>
 				<th>{{k}}</th>
 				<td>{{v}}</th>
