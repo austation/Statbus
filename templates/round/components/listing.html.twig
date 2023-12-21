@@ -15,7 +15,7 @@
 		</thead>
 		<tbody>
 			{% for r in rounds %}
-				<tr class="table-{{r.getState.cssClass}}">
+				<tr class="table-{{r.getState.cssClass}}" data-href="{{full_url_for('round.single',{'id':r.getId})}}">
 					<td>{{RoundBadge(r.getId)}}</td>
 					<td>{{ServerBadge(r.getServer)}}</td>
 					<td>
@@ -38,3 +38,11 @@
 		</tbody>
 	</table>
 </div>
+<script>
+const rows = document.querySelectorAll("[data-href]")
+rows.forEach((e) => {
+	e.addEventListener('click',() => {
+		window.location = e.dataset.href
+	})
+})
+</script>

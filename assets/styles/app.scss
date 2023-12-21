@@ -88,5 +88,8 @@ $enable-cssgrid: true;
     top: 30%;
     left: 20%;
     pointer-events: none;
+}
 
+tr[data-href] {
+    cursor: pointer;
 }
