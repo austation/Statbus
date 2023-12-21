@@ -4,6 +4,7 @@ namespace App\Domain\Round\Data;
 
 use App\Domain\Round\Service\GetRoundFeatures;
 use App\Domain\Server\Data\Server;
+use App\Domain\Stat\Data\Tweaks\dynamic_threat;
 use App\Enum\RoundState;
 use App\Service\ServerInformationService;
 use DateTime;
@@ -363,7 +364,8 @@ class Round implements JsonSerializable
     {
         if($this->threat) {
             $data = array_values(json_decode($this->threat, true)['data']);
-            $this->threat = array_shift($data);
+            $this->threat = dynamic_threat::tweakData($data);
+            // $this->threat = array_shift($data);
         }
         return $this;
     }

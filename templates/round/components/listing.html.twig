@@ -1,6 +1,6 @@
 {% from 'macros/badge.html.twig' import ServerBadge, RoundBadge %}
 <div class="table-responsive">
-	<table class="table table-bordered">
+	<table class="table table-bordered align-middle">
 		<thead>
 			<tr>
 				<th>ID</th>
@@ -18,7 +18,7 @@
 				<tr class="table-{{r.getState.cssClass}}">
 					<td>{{RoundBadge(r.getId)}}</td>
 					<td>{{ServerBadge(r.getServer)}}</td>
-					<td title="{{r.getState.text}}">
+					<td>
 						<i class="{{r.getState.icon}}" title="{{r.getMode|title ?: 'N/A'}}"></i>
 						<span>{{r.getState.value|title}}</span>
 					</td>
@@ -28,7 +28,7 @@
 					<td>{{r.getEndDatetime ? r.getEndDatetime|date() : 'N/A'}}</td>
 					<td>
 						{% if r.getThreat %}
-							<span title="Threat level">{{r.getThreat.threat_level}}</span><span title="Roundstart budget">({{r.getThreat.round_start_budget}})</span>
+							<span class="badge d-block" style="{{r.getThreat.name.getStyle}}" data-bs-toggle="tooltip" title="Threat Level: {{r.getThreat.threat_level}} • Roundstart Budget: {{r.getThreat.round_start_budget}}">{{r.getThreat.name.value}}</span>
 						{% else %}
 							N/A
 						{% endif %}

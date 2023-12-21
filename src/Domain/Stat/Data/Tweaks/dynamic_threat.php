@@ -8,7 +8,8 @@ class dynamic_threat implements Tweaks {
 
     public static function tweakData(array $data, int $version = 1): array 
     {
-        $data = $data[1];
+        array_reverse($data);
+        $data = array_pop($data);
         switch(true){ 
             case ((int) $data['threat_level'] == 0):
                 $data['name'] = ThreatLevel::WHITE_DWARF;
