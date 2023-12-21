@@ -72,3 +72,21 @@ $enable-cssgrid: true;
     vertical-align: -0.125em;
     fill: currentcolor;
 }
+
+.threat-stamp {
+    border: 10px solid;
+    border-radius: 10px;
+    font-size: 5rem;
+    text-align: center;
+    font-weight: bold;
+    text-transform: uppercase;
+    width: 50%;
+    opacity: 0.5;
+    position: absolute;
+    z-index: 1;
+    transform: rotate(-45deg);
+    top: 30%;
+    left: 20%;
+    pointer-events: none;
+
+}

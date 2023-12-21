@@ -65,17 +65,20 @@
 
 	{% if stats.dynamic_threat %}
 	<hr>
-	<table class="table table-bordered">
+	<div class="position-relative">
+		<div class="threat-stamp" style="border-color: {{stats.dynamic_threat.data.name.getBackColor}}; color: {{stats.dynamic_threat.data.name.getBackColor}};">{{stats.dynamic_threat.data.name.value}}</div>
+	<table class="table table-bordered position-relative">
 		<tbody>
-			<tr>
+			{# <tr>
 				<th>Advisory Level</th>
-				<td>{{stats.dynamic_threat.data.name}}</td>
-			</tr>
+				<td style="{{stats.dynamic_threat.data.name.getStyle}}" class="fw-bold text-center">{{stats.dynamic_threat.data.name.value}}</td>
+			</tr> #}
 			<tr>
 				<th>Forced Threat Level</th>
 				<td>{{stats.dynamic_threat.data.forced_threat_level}}</td>
 			</tr>
-			<tr>				<th>Threat Level</th>
+			<tr>				
+				<th>Threat Level</th>
 				<td>{{stats.dynamic_threat.data.threat_level}}</td>
 				</tr>
 			<tr>
@@ -98,6 +101,7 @@
 			{% endfor %}
 		</tbody>
 	</table>
+	</div>
 	{% endif %}
 	<hr>
 	{% if 'In progress' != round.getState.value %}
