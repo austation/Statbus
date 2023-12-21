@@ -28,7 +28,7 @@
 					<td>{{r.getEndDatetime ? r.getEndDatetime|date() : 'N/A'}}</td>
 					<td>
 						{% if r.getThreat %}
-							<span class="badge d-block" style="{{r.getThreat.name.getStyle}}" data-bs-toggle="tooltip" title="Threat Level: {{r.getThreat.threat_level}} • Roundstart Budget: {{r.getThreat.round_start_budget}}">{{r.getThreat.name.value}}</span>
+							<span class="badge d-block" style="{{r.getThreat.name.getStyle}}" data-bs-toggle="tooltip" title="Threat Level: {{r.getThreat.threat_level}} • Roundstart Budget: {{r.getThreat.round_start_budget}}"><i class="{{r.getThreat.name.getIcon}}"></i> {{r.getThreat.name.value}}</span>
 						{% else %}
 							N/A
 						{% endif %}

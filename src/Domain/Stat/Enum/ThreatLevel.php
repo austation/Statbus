@@ -30,6 +30,15 @@ enum ThreatLevel: string {
         };
     }
 
+    public function getIcon(): string {
+        return match($this){
+            ThreatLevel::WHITE_DWARF => 'fas fa-peace',
+            ThreatLevel::GREEN_STAR, ThreatLevel::YELLOW_STAR, ThreatLevel::ORANGE_STAR, ThreatLevel::RED_STAR => 'fas fa-sun',
+            ThreatLevel::BLACK_ORBIT => 'fas fa-satellite',
+            ThreatLevel::MIDNIGHT_SUN => 'fas fa-sun'
+        };
+    }
+
     public function getStyle(): string {
         return sprintf("color: %s; background-color: %s", $this->getForeColor(), $this->getBackColor());
     }
