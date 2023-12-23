@@ -10,7 +10,10 @@
 {% endif %}
 {% endblock %}
 {% block cardHeader %}
+<span>
 	Library {% if not term %}(~{{results}} books){% endif %}
+</span>
+<a href="{{url_for('library.dupes')}}">Duplicate Book Listing</a>
 {% endblock %}
 {% block cardBody %}
 {% if term %}
