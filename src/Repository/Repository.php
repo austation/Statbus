@@ -287,7 +287,7 @@ class Repository
         return [];
     }
 
-    public function buildQuery(string $table, array $columns, bool|array $joins = false, array $where, bool|array $order = [], string $limit = '0, 100'): string
+    public function buildQuery(string $table, array $columns, bool|array $joins = false, array $where, bool|array $order = [], string $limit = '0, 100', ?array $groupBy = null): string
     {
         $columns = implode(",\n", $columns);
         if($joins) {
@@ -304,6 +304,10 @@ class Repository
         if($order) {
             $order = implode("\n AND ", $order);
         }
+        $group = null;
+        if($groupBy){
+            $group = implode(", ", $groupBy);
+        }
         $query = sprintf(
             "SELECT %s FROM %s %s \n WHERE %s
         %s %s %s %s",
@@ -311,8 +315,8 @@ class Repository
             $table,
             $joins,
             $where,
-            $order ? 'ORDER BY ' : null,
-            $order ?: null,
+            $group ? "GROUP BY $group" : null,
+            $order ? "ORDER BY $order" : null,
             $limit ? 'LIMIT' : null,
             $limit ?: null
         );
