@@ -53,15 +53,16 @@ class Book
         $environment->addExtension(new CommonMarkCoreExtension());
         $environment->addExtension(new GithubFlavoredMarkdownExtension());
         $converter = new MarkdownConverter($environment);
-        $content = $converter->convert($content);
+        
 
         $config = \HTMLPurifier_Config::createDefault();
         $config->set('AutoFormat.Linkify', true);
-        $config->set('HTML.Allowed', 'br, hr, a[href], font[color], b, h1, h2, h3, h4, h5, em, i, blockquote, ul, ol, li, B, BR');
+        $config->set('HTML.Allowed', 'br, hr, a[href], font[color], b, h1, h2, h3, h4, h5, em, i, blockquote, ul, ol, li, B, BR, U, HR');
         $config->set('HTML.TargetBlank', true);
-        $content = nl2br($content, false);
 
-        $this->content = HTMLSanitizerService::sanitizeStringWithConfig($config, $content);
+        $content = HTMLSanitizerService::sanitizeStringWithConfig($config, $content);
+        $content = $converter->convert($content);
+        $this->content = nl2br($content, false);
         return $this;
     }
 
