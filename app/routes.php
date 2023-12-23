@@ -97,6 +97,7 @@ return function (App $app) {
     $app->group("/library", function (RouteCollectorProxy $app) {
         $app->map(['GET','POST'], "[/page/{page:[0-9]+}]", \App\Controller\Library\LibraryIndexController::class)->setName("library");
         $app->map(['GET','POST'], "/{book:[0-9]+}", \App\Controller\Library\LibraryBookController::class)->setName("library.book");
+        $app->get("/dupes", \App\Controller\Library\LibraryDuplicateController::class)->setName("library.dupes");
     })->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
         $request = $request->withAttribute('user', true);
         $response = $handler->handle($request);

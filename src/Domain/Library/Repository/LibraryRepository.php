@@ -119,4 +119,25 @@ class LibraryRepository extends Repository
         return true;
     }
 
+    public function getDuplicateBooks(): array {
+        $query = $this->buildQuery(
+            'library l',
+            [
+                'count(DISTINCT l.id) AS count', 
+                'group_concat(l.id) as ids', 
+                'l.title'
+            ],
+            false,
+            [
+                'l.content != ""',
+                '(l.deleted IS NULL OR l.deleted = 0)'
+            ],
+            ['count DESC'],
+            '0, 100',
+            ['l.content']
+        );
+        $this->setResults($this->run($query), true);
+        return $this->getResults();
+    }
+
 }

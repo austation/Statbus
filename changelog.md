@@ -18,6 +18,7 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
     - This mirrors the functionality available on mothbus (<3 mothbus)
 - The list of ckeys involved in a given ticket is now displayed in the ticket sidebar
 - Dynamic threat information now shows the advisory level that corresponds to the threat
+- A duplicate book finder for the library
 
 ---
 

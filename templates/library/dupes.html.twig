@@ -1,0 +1,32 @@
+{% extends 'base/page.html.twig' %}
+{% from 'macros/pagination.html.twig' import pagination %}
+{% block breadcrumbs %}
+{{parent()}}
+    <li class="breadcrumb-item"><a href="{{url_for('library')}}?clear">Library</a></li>
+	<li class="breadcrumb-item active" aria-current="page">Duplicate Book Listing</li>
+{% endblock %}
+{% block cardHeader %}
+	Library Duplicates Shelf
+{% endblock %}
+{% block cardBody %}
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Count</th>
+                <th>IDs</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for b in books %}
+            <tr>
+                <td>{{b.title}}</td>
+                <td>{{b.count}}</td>
+                <td>{% for i in b.ids %}
+                <a href="{{url_for('library.book',{'book':i})}}">{{i}}</a>
+                {% endfor %}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+        </table>
+{% endblock %}
