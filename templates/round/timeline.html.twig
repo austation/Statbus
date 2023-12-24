@@ -32,16 +32,10 @@
 	<div id="typeToggler" class="btn-group mb-3"></div>
 	{% for t in data %}
 		<div class="timeline-entry t-{{t.key.value}}" data-name="{{t.key.getName}}">
-			<div class="card border-{{t.key.getColor}}">
-				<div class="card-body d-flex justify-content-between">
-					{% set diff = round.getStartDatetime.diff(t.timestamp) %}
-					<span>
-						<i class="{{t.key.getIcon}}"></i>
-						{{t.string}}
-						{{t.coords ?: ''}}</span>
-					<code class="time-elapsed">{{diff|date('%R%H:%I:%S')}}</code>
-				</div>
-			</div>
+	{% include [
+        'round/components/timeline/' ~ t.key.value ~ '.html.twig', 
+        'round/components/timeline/generic.html.twig'
+        ] with {'t': t} %}
 			{% if not loop.last %}
 				<div class="timeline-line border-start border-2 py-3 text-end"></div>
 			{% endif %}

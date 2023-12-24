@@ -1,0 +1,10 @@
+<div class="card border-{{t.key.getColor}}">
+	<div class="card-body d-flex justify-content-between">
+		{% set diff = round.getStartDatetime.diff(t.timestamp) %}
+		<span>
+			<i class="{{t.key.getIcon}}"></i>
+			{{t.string}}
+			{{t.coords ?: ''}}</span>
+		<code class="time-elapsed">{{diff|date('%R%H:%I:%S')}}</code>
+	</div>
+</div>

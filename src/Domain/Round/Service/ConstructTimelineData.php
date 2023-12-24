@@ -2,6 +2,8 @@
 
 namespace App\Domain\Round\Service;
 
+use App\Domain\Job\Data\JobBadge;
+use App\Domain\Jobs\Data\Jobs;
 use App\Domain\Round\Data\Round;
 use App\Domain\Round\Data\TimelineKeys;
 use DateTime;
@@ -80,10 +82,17 @@ class ConstructTimelineData
         $manifest = self::getManifestData($round);
         array_shift($manifest);
         foreach ($manifest as $t) {
+            $data = explode(' \ ', $t['msg']);
+            $data['byond_key'] = $data[0];
+            $data['character'] = $data[1];
+            $data['job'] = new JobBadge(Jobs::tryFrom($data[2]));
+            $data['antagonist'] = $data[3] == 'NONE' ? false : new JobBadge(Jobs::tryFrom($data[3]));
+            $data['latejoin'] = $data[4] == 'LATEJOIN' ? true : false;
             $timeline[] = [
                 'key' => TimelineKeys::MANIFEST,
                 'timestamp' => new DateTime($t['ts']),
-                'string' => $t['msg']
+                'string' => $t['msg'],
+                'data' => $data
             ];
         }
 

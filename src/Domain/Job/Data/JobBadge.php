@@ -6,7 +6,7 @@ use App\Domain\Jobs\Data\Jobs;
 
 class JobBadge
 {
-    public string $name = "A Job!";
+    public ?string $name = "A Job!";
     public string $backColor = "#CCC";
     public string $foreColor = "#FFF";
     public ?string $style = null;
