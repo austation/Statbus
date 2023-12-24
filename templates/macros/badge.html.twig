@@ -1,6 +1,14 @@
-{% macro PlayerBadge(badge, popover = true) %}<span class="playerBadge badge" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-rank="{{badge.getTitle}}" data-url="{{url_for('player',{'ckey':badge.GetCkey})}}?format=popover">
-		<i class="fas {{badge.geticon}}"></i>
-		{{badge.getckey}}</span>{% endmacro %}
+{% macro PlayerBadge(badge, popover = true) %}
+	{% if popover %}
+		<span class="playerBadge badge" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};" data-rank="{{badge.getTitle}}" data-url="{{url_for('player',{'ckey':badge.GetCkey})}}?format=popover">
+			<i class="fas {{badge.geticon}}"></i>
+			{{badge.getckey}}</span>
+	{% else %}
+		<span class="playerBadge badge" style="background:{{badge.getBackColor}}; color:{{badge.getForecolor}};">
+			<i class="fas {{badge.geticon}}"></i>
+			{{badge.getckey}}</span>
+	{% endif %}
+{% endmacro %}
 
 {% macro BanBadge(status) %}
 	<span class="banBadge badge text-bg-{{status.getCssClass}}">
@@ -34,7 +42,9 @@
 					<i class="fa fa-fw fa-circle"></i>
 					{{round}}
 				</strong>
-				<a class="icon-link" href="{{url_for('round.single',{id:round})}}"><i class="fa fa-fw fa-circle"></i> Statbus</a><br>
+				<a class="icon-link" href="{{url_for('round.single',{id:round})}}">
+					<i class="fa fa-fw fa-circle"></i>
+					Statbus</a><br>
 				<a class="icon-link" href="https://scrubby.melonmesa.com/round/{{round}}/" target="_blank">
 					<i class="fa-fw fa-solid fa-up-right-from-square"></i>
 					Scrubby</a><br>
@@ -63,8 +73,10 @@
 		</span>
 	{% endif %}
 
-	{% macro JobBadge(badge) %}<span class="jobBadge badge" style="{{badge.style}}">
+	{% macro JobBadge(badge) %}
+		<span class="jobBadge badge" style="{{badge.style}}">
 			<i class="{{badge.icon}}"></i>
-			{{badge.name}}</span>{% endmacro %}
+			{{badge.name}}</span>
+	{% endmacro %}
 
 {% endmacro %}
