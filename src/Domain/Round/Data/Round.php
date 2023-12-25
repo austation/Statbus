@@ -43,7 +43,7 @@ class Round implements JsonSerializable
         private ?string $shuttle = null,
         private ?string $map = null,
         private ?string $name = null,
-        private $threat = null,
+        private mixed $threat = null,
         private ?Server $server = null,
     ) {
         $this->setDuration();
