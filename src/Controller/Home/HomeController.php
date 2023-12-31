@@ -112,6 +112,13 @@ class HomeController extends Controller
                 'url' => "https://renderbus.statbus.space",
                 'disabled' => false
             ],
+            [
+                'name' => 'Superset (Graphs)',
+                'icon' => 'fas fa-chart-line',
+                'url' => "https://superset.moth.fans/superset/",
+                'disabled' => false
+            ],
+            
         ];
         if($user) {
             $apps[] = [
