@@ -115,7 +115,7 @@ class HomeController extends Controller
             [
                 'name' => 'Superset (Graphs)',
                 'icon' => 'fas fa-chart-line',
-                'url' => "https://superset.moth.fans/superset/",
+                'url' => "https://superset.moth.fans/dashboard/list/",
                 'disabled' => false
             ],
             
