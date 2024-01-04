@@ -2,15 +2,15 @@
 {% from 'macros/pagination.html.twig' import pagination %}
 <div class="list-group list-group-flush">
 	<div class="list-group-item">
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+		{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 	</div>
 	{% for n in notes %}
 		<a href="{{url_for(link ?: 'user.note',{id: n.getId})}}" class="list-group-item list-group-item-action">
-		{% if n.getExpiration and n.getExpiration < date() %}
-		<div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0px; left: 0px; right: 0px; bottom:0px;background: rgba(0,0,0,.75); z-index: 1000">
-			<span class="btn btn-secondary">Expired Note</span>
-		</div>
-		{% endif %}
+			{% if n.getExpiration and n.getExpiration < date() %}
+				<div class="position-absolute d-flex justify-content-center align-items-center" style="top: 0px; left: 0px; right: 0px; bottom:0px;background: rgba(0,0,0,.75); z-index: 1000">
+					<span class="btn btn-secondary">Expired Note</span>
+				</div>
+			{% endif %}
 			<div class="d-flex w-100">
 				<span class="badge vertical-label text-bg-{{n.getSeverity.getCssClass}}">{{n.getSeverity.getShortText}}</span>
 				<div class="flex-grow-1 ms-4">
@@ -18,17 +18,32 @@
 						<span class="fw-bold">
 							<i class="{{n.getType.getIcon}}" title="{{n.getType.value|title}}"></i>
 							{% if n.isSecret %}
-							<span class="badge text-bg-danger">SECRET</span>
+								<span class="badge text-bg-danger">SECRET</span>
 							{% endif %}
 							{{n.getType.value|title}}
 							for
 							{{PlayerBadge(n.getTargetBadge)}}
 							created by
 							{{PlayerBadge(n.getAdminBadge)}}</span>
-						<span>{% if n.edits %}<i class="fa-solid fa-pencil" title="This note has edits. Click to view."></i>{% endif %} {{n.getTimestamp|date}}</span>
+						<span>
+							{% if n.edits %}
+								<i class="fa-solid fa-pencil" title="This note has edits. Click to view."></i>
+							{% endif %}
+							{{n.getTimestamp|date}}</span>
 					</div>
 					<p>{{n.text}}</p>
-					<small class="entry-metadata">ID: {{n.id}} {% if not n.getExpiration %} - <span class="text-danger">No Expiration Date</span>{% endif %}</small>
+					<small class="entry-metadata">ID:
+						{{n.id}}
+						{% if not n.getExpiration %}
+							-
+							<span class="text-danger">No Expiration Date</span>
+						{% endif %}
+						{% if n.getPlaytime %}
+							- Player's playtime when note was issued:
+								{{n.getPlaytime}}
+								minutes
+						{% endif %}
+					</small>
 				</div>
 			</div>
 		</a>
@@ -37,7 +52,7 @@
 			<p class="text-center mb-0">« No Notes or Messages »</p>
 		</div>
 	{% endfor %}
-		<div class="list-group-item">
-	{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
+	<div class="list-group-item">
+		{{pagination(pagination.pages, pagination.currentPage, pagination.url)}}
 	</div>
 </div>
