@@ -2,7 +2,6 @@
 
 namespace App\Domain\Admin\Service;
 
-use App\Controller\Controller;
 use App\Domain\Admin\Repository\AdminRepository;
 use Psr\Container\ContainerInterface;
 use DI\Attribute\Inject;
@@ -33,7 +32,7 @@ class SetFeedbackLinkService
         if(1 === preg_match('/'.$this->regex.'/', $url)) {
             return true;
         }
-        return "Your URL did not pass inspection";
+        return false;
     }
 
 }

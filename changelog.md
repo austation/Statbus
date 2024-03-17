@@ -11,6 +11,13 @@ Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 
 ---
 
+#### [1.18.1] - 2024-03-17
+
+##### Fixed
+- Admin feedback URLs will now check for valid feedback URLs instead of just accepting anything
+
+---
+
 #### [1.18.0] - 2023-12-20
 
 ##### Added
