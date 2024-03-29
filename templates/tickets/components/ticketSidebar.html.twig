@@ -14,11 +14,11 @@
 		{% endif %}
 	</div>
 	<div class="card-body">
-		<p>{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
+		<p class="mb-0">{% set difference = ticket|first.getTimestamp.diff(ticket|last.getTimestamp) %}
 			Time Elapsed:
 			{{difference|date('%H:%I:%S')}}</p>
 		{% if ticket[0].isUrgent %}
-			<p class="mb-0">This ticket was marked as urgent by the player</p>
+			<p class="mb-0 text-danger">This ticket was marked as urgent by the player</p>
 		{% endif %}
 	</div>
 </div>
