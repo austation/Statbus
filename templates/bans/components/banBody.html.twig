@@ -1,42 +1,63 @@
 {% from 'macros/badge.html.twig' import PlayerBadge, BanBadge, ServerBadge, RoundBadge %}
-    <p> This ban was placed by {{PlayerBadge(ban.getAdminBadge)}} on {{ServerBadge(ban.getServer)}} during {{RoundBadge(ban.round)}} with the following reason: </p>
-	<div class="card mb-3"><div class="card-body">{{ban.reason}}</div></div>
-	{% if 'Lifted' == ban.getStatus.value %}
-		<p>
-			<i class="fa-solid fa-user-check text-success"></i>
-			Unbanned by
-			{{PlayerBadge(ban.unbannerBadge)}}
-			<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
-		</p>
-	{% else %}
+<p>
+	This ban was placed by
+	{{PlayerBadge(ban.getAdminBadge)}}
+	on
+	{{ServerBadge(ban.getServer)}}
+	during
+	{{RoundBadge(ban.round)}}
+	with the following reason:
+</p>
+<div class="card mb-3">
+	<div class="card-body lead">{{ban.reason|markdown_to_html}}</div>
+</div>
+{% if 'Lifted' == ban.getStatus.value %}
+	<p>
+		<i class="fa-solid fa-user-check text-success"></i>
+		Unbanned by
+		{{PlayerBadge(ban.unbannerBadge)}}
+		<time>{{ban.unbanned_datetime|date('Y-m-d H:i:s')}}</time>
+	</p>
+{% else %}
 	<table class="table table-bordered">
 		<tbody>
 			<tr>
 				<th>Ban Placed</th>
-				<td><code>{{ban.bantime|date()}}</code></td>
+				<td>
+					<code>{{ban.bantime|date()}}</code>
+				</td>
 			</tr>
 			<tr>
 				<th>Ban Expires</th>
-				<td><code>{{ban.expiration ? ban.expiration|date() : 'Never'}}</code></td>
+				<td>
+					<code>{{ban.expiration ? ban.expiration|date() : 'Never'}}</code>
+				</td>
 			</tr>
 			{% if ban.expiration %}
-			<tr>
-				<th>Duration</th>
-				{% set diff = ban.bantime.diff(ban.expiration) %}
-				<td><code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code></td>
+				<tr>
+					<th>Duration</th>
+					{% set diff = ban.bantime.diff(ban.expiration) %}
+					<td>
+						<code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code>
+					</td>
 				</tr>
 				{% if ban.expiration > date() %}
-				<tr>
-				<th>Time Remaining</th>
-				{% set diff = date().diff(ban.expiration) %}
-				<td><code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code></td>
-				</tr>
+					<tr>
+						<th>Time Remaining</th>
+						{% set diff = date().diff(ban.expiration) %}
+						<td>
+							<code>{{diff|date('%y years, %d days, %h hours, %i minutes')}}</code>
+						</td>
+					</tr>
 				{% endif %}
-				{% else %}
-				<tr><th>Duration</th>
-				<td><code>No Expiration</code></td>
+			{% else %}
+				<tr>
+					<th>Duration</th>
+					<td>
+						<code>No Expiration</code>
+					</td>
 
-			</tr>
+				</tr>
 			{% endif %}
 			<tr>
 				<th>Status</th>
@@ -44,6 +65,6 @@
 			</tr>
 		</tbody>
 	</table>
-		{% include 'bans/components/appeal.html.twig' %}
-	{% endif %}
-	{% include 'bans/components/advised.html.twig' %}
+	{% include 'bans/components/appeal.html.twig' %}
+{% endif %}
+{% include 'bans/components/advised.html.twig' %}
