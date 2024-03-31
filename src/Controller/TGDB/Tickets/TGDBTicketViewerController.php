@@ -8,6 +8,7 @@ use App\Enum\TicketActions;
 use DateInterval;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
+use Exception;
 
 class TGDBTicketViewerController extends Controller
 {
@@ -29,7 +30,11 @@ class TGDBTicketViewerController extends Controller
             }
             if($index > 0){
                 $duration = ($t->getTimestamp()->getTimestamp() - $ticket[$index-1]->getTimestamp()->getTimestamp()) / 60;
-                $t->wpm = round(str_word_count($t->getMessage())/$duration, 2);
+                try{
+                    $t->wpm = round(str_word_count($t->getMessage())/$duration, 2);
+                } catch (Exception $e){
+                    $t->wpm = null;
+                }
             }
         }
 
