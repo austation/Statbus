@@ -8,7 +8,11 @@
 			{{PlayerBadge(t.recipientBadge)}}</span>
             <span>{{t.getTimestamp|date}}</span>
 		</div>
-		<div class="card-body">{{t.getMessage|raw}}</div>
+		<div class="card-body">{{t.getMessage|raw}}
+			{% if t.wpm %}
+			<span class="d-block mt-3" style="font-size: .6rem;">This message was typed at approximately {{t.wpm}} wpm</span>
+			{% endif %}
+		</div>
 	</div>
 {% else %}
 	<div class="card border border-{{t.getAction.getCssClass}}">
@@ -17,10 +21,14 @@
 			{{t.getAction.value}}
 			{{t.getAction.getVerb}}
 			{{PlayerBadge(t.getSenderBadge)}}</span>
-            <span>{{t.getTimestamp|date}}</span></div>
+            <span>{{t.getTimestamp|date}}</span>
+		</div>
 		<div class="card-body">{{t.getMessage|raw}}
-					{% if loop.first and triggeredBan %}
+			{% if loop.first and triggeredBan %}
 				<p class="fw-bold text-danger mt-2 mb-0">USER WAS BANNED FOR THIS AHELP</p>
+			{% endif %}
+			{% if t.wpm %}
+			<span class="d-block mt-3" style="font-size: .6rem;">This message was typed at approximately {{t.wpm}} wpm</span>
 			{% endif %}
 		</div>
 	</div>
