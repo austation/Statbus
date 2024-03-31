@@ -5,10 +5,9 @@ namespace App\Controller\TGDB\Tickets;
 use App\Controller\Controller;
 use App\Domain\Ticket\Repository\TicketRepository;
 use App\Enum\TicketActions;
-use DateInterval;
 use Psr\Http\Message\ResponseInterface;
 use DI\Attribute\Inject;
-use Exception;
+use DivisionByZeroError;
 
 class TGDBTicketViewerController extends Controller
 {
@@ -32,7 +31,7 @@ class TGDBTicketViewerController extends Controller
                 $duration = ($t->getTimestamp()->getTimestamp() - $ticket[$index-1]->getTimestamp()->getTimestamp()) / 60;
                 try{
                     $t->wpm = round(str_word_count($t->getMessage())/$duration, 2);
-                } catch (Exception $e){
+                } catch (DivisionByZeroError $e){
                     $t->wpm = null;
                 }
             }
