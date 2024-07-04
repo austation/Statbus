@@ -1,12 +1,12 @@
 //Bootstrap customizations
 $custom-colors: (
-  "perma": #e03997
+  "perma": #e03997,
 );
 $theme-colors: map-merge($theme-colors, $custom-colors);
 
 //All our images are 32x32 pngs so we can pixelate everything
-img{
-    image-rendering: pixelated;
+img {
+  image-rendering: pixelated;
 }
 
 //Logo sizing + color
@@ -58,8 +58,7 @@ img{
 
 //Makes flush list groups actually flush
 .list-group-flush {
-  margin: 
-    0 calc(var(--bs-card-spacer-x) * -1);
+  margin: 0 calc(var(--bs-card-spacer-x) * -1);
 }
 
 //Tightens up spacing on flush list groups immediately inside a card-body
@@ -79,9 +78,9 @@ img{
 }
 
 //Spacing on the section template
-.page-section{
+.page-section {
   margin-bottom: 2rem;
-  &:last-child{
+  &:last-child {
     margin-bottom: 0;
   }
 }
@@ -117,16 +116,40 @@ img{
 }
 
 @keyframes flash {
-  0% {transform: translateY(-100%);}
-  70% { transform:translateY(0%); }
-  80% { transform:translateY(-15%); }
-  85% { transform:translateY(0%); }
-  90% { transform:translateY(-7%); }
-  95% { transform:translateY(0%); }
-  99% { transform:translateY(-3%); }
-  100% { transform:translateY(0); }
+  0% {
+    transform: translateY(-100%);
+  }
+  70% {
+    transform: translateY(0%);
+  }
+  80% {
+    transform: translateY(-15%);
+  }
+  85% {
+    transform: translateY(0%);
+  }
+  90% {
+    transform: translateY(-7%);
+  }
+  95% {
+    transform: translateY(0%);
+  }
+  99% {
+    transform: translateY(-3%);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
 
 .tippy-content {
-  background: #222;
+  padding: 0 !important;
 }
+
+.role-policy:target {
+  background: var(--bs-warning-bg-subtle);
+}
+
+// .tippy-box {
+//   padding: 10px;
+// }
