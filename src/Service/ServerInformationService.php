@@ -12,8 +12,8 @@ use Symfony\Component\Yaml\Yaml;
 class ServerInformationService
 {
     public const BASE_URL = 'https://tgstation13.org';
-    public const PUBLIC_LOGS = self::BASE_URL."/parsed-logs";
-    public const ADMIN_LOGS = self::BASE_URL."/raw-logs";
+    public const PUBLIC_LOGS = self::BASE_URL . "/parsed-logs";
+    public const ADMIN_LOGS = self::BASE_URL . "/raw-logs";
 
     public static function getServerInfo(): ?array
     {
@@ -27,27 +27,30 @@ class ServerInformationService
         try {
             $response = $client->get('/serverinfo.json');
             $data = json_decode($response->getBody(), true);
-            if(!$data) {
-                $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
+            if (!$data) {
+                $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
             }
         } catch (Exception $e) {
-            $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
+            $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
         }
-        if(!$data) {
-            $data = Yaml::parseFile(__DIR__.'/../../assets/servers.json');
+        if (!$data) {
+            $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
+        }
+        if (isset($data['refreshtime'])) {
+            unset($data['refreshtime']);
         }
         return $data;
     }
 
     public static function getServerFromPort(int $port, ?array $data = null): ?Server
     {
-        if(!$data) {
+        if (!$data) {
             $data = self::getServerInfo();
         }
-        foreach($data as $server) {
-            if(isset($server['serverdata'])) {
-                if($port === $server['serverdata']['port']) {
-                    if(isset($server['identifier'])) {
+        foreach ($data as $server) {
+            if (isset($server['serverdata'])) {
+                if ($port === $server['serverdata']['port']) {
+                    if (isset($server['identifier'])) {
                         $server['serverdata']['identifier'] = $server['identifier'];
                     } else {
                         $server['serverdata']['identifier'] = explode(' ', $server['serverdata']['servername'])[0];
@@ -61,13 +64,13 @@ class ServerInformationService
 
     public static function getServerFromName(string $name, ?array $data = null): ?Server
     {
-        if(!$data) {
+        if (!$data) {
             $data = self::getServerInfo();
         }
-        foreach($data as $server) {
-            if(isset($server['identifier'])) {
-                if($name === $server['identifier']) {
-                    if(isset($server['identifier'])) {
+        foreach ($data as $server) {
+            if (isset($server['identifier'])) {
+                if ($name === $server['identifier']) {
+                    if (isset($server['identifier'])) {
                         $server['serverdata']['identifier'] = $server['identifier'];
                     } else {
                         $server['serverdata']['identifier'] = explode(' ', $server['serverdata']['servername'])[0];
@@ -81,18 +84,17 @@ class ServerInformationService
 
     public static function getCurrentRounds(?array $data = null): array
     {
-        if(!$data) {
+        if (!$data) {
             $data = self::getServerInfo();
         }
         $rounds = [];
         foreach ($data as $s) {
-            if(isset($s['version']) && $s['version'] === "/tg/Station 13") {
-                if(isset($s['round_id'])) {
+            if (isset($s['version']) && $s['version'] === "/tg/Station 13") {
+                if (isset($s['round_id'])) {
                     $rounds[] = (int) $s['round_id'];
                 }
             }
         }
         return $rounds;
     }
-
 }

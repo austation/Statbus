@@ -9,6 +9,8 @@ class Server
     public ?int $port;
     public ?string $identifier;
     public ?string $gameLink;
+    public ?string $public_logs;
+    public ?string $raw_logs;
 
     public function getName(): ?string
     {
@@ -69,14 +71,40 @@ class Server
         return $this;
     }
 
+    public function getRawLogs(): ?string
+    {
+        return $this->raw_logs;
+    }
+
+    public function setRawLogs(?string $raw_logs): self
+    {
+        $this->raw_logs = str_replace('.download', '.org', $raw_logs);
+
+        return $this;
+    }
+
+    public function getPublicLogs(): ?string
+    {
+        return $this->public_logs;
+    }
+
+    public function setPublicLogs(?string $public_logs): self
+    {
+        $this->public_logs = str_replace('.download', '.org', $public_logs);
+
+        return $this;
+    }
+
     public static function fromArray(array $data): self
     {
         $server = new self();
         $server->setName($data['servername']);
         $server->setPort($data['port']);
-        $server->setIdentifier($data['identifier']);
+        $server->setIdentifier($data['identifier'] ?? $data['servername']);
         $server->setAddress($data['address']);
         $server->setGameServerAddress();
+        $server->setPublicLogs($data['public_logs_url']);
+        $server->setRawLogs($data['raw_logs_url']);
         return $server;
     }
 }

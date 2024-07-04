@@ -1,0 +1,36 @@
+{% extends 'base/page.html.twig' %}
+{% block breadcrumbs %}
+	{{parent()}}
+	<li class="breadcrumb-item">
+		<i class="fa-brands fa-readme"></i>
+		Policy Viewer</li>
+{% endblock %}
+{% block cardHeader %}
+	Policy Dot JSON Viewer
+{% endblock %}
+{% block cardSubHeader %}{% endblock %}
+{% block cardBody %}
+	{% for role, policyLine in policy %}
+		<div id="{{role}}">
+			<h4>
+				<a href="#{{role}}">{{role}}</a>
+			</h4>
+			<p>
+				{{policyLine|raw}}</p>
+		</div>
+	{% else %}
+
+		<div class="grid gap-3">
+			{% for s in servers %}
+				{% if s.version == '/tg/Station 13' %}
+					<a href="{{url_for('policy',{'server':s.identifier|lower})}}" class="btn btn-light d-flex justify-content-between align-items-center g-col-12 g-col-md-4 g-col-lg-3">
+						<span class="h1 m-0 me-2">
+							<img src="/img/server_icons/{{s.identifier|lower}}.png" widht="64" height="64"/>
+						</span>
+						<span class="h6 m-0 fw-bold text-end">{{s.identifier}}</span>
+					</a>
+				{% endif %}
+			{% endfor %}
+		</div>
+	{% endfor %}
+{% endblock %}

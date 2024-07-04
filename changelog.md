@@ -8,6 +8,20 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 
 ### Upcoming/Future
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
+---
+
+#### [1.19.0] - 2024-07-04
+
+##### Added
+- A policy file json viewer
+
+---
+
+#### [1.18.2] - 2024-03-31
+
+##### Added
+- Tickets initiated by a player that result in them getting banned now have a USER WAS BANNED FOR THIS AHELP badge
+- A rudimentary words-per-minute count on ticket replies
 
 ---
 

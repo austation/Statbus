@@ -84,6 +84,7 @@ return function (App $app) {
     $app->group("/info", function (RouteCollectorProxy $app) {
         $app->get("/admins", \App\Controller\Info\AdminRosterController::class)->setName("admins");
         $app->get("/adminlogs[/page/{page:[0-9]+}]", \App\Controller\Info\AdminLogController::class)->setName("adminlogs");
+        $app->get("/policy[/{server:[a-z]+}]", \App\Controller\Info\PolicyViewerController::class)->setName("policy");
     });
 
 
