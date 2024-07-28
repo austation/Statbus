@@ -67,29 +67,50 @@ $enable-cssgrid: true;
 @import "~@fortawesome/fontawesome-free/css/v5-font-face.css";
 
 .bi {
-    width: 1em;
-    height: 1em;
-    vertical-align: -0.125em;
-    fill: currentcolor;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.125em;
+  fill: currentcolor;
 }
 
 .threat-stamp {
-    border: 10px solid;
-    border-radius: 10px;
-    font-size: 5rem;
-    text-align: center;
-    font-weight: bold;
-    text-transform: uppercase;
-    width: 50%;
-    opacity: 0.5;
-    position: absolute;
-    z-index: 1;
-    transform: rotate(-45deg);
-    top: 30%;
-    left: 20%;
-    pointer-events: none;
+  border: 10px solid;
+  border-radius: 10px;
+  font-size: 5rem;
+  text-align: center;
+  font-weight: bold;
+  text-transform: uppercase;
+  width: 50%;
+  opacity: 0.5;
+  position: absolute;
+  z-index: 1;
+  transform: rotate(-45deg);
+  top: 30%;
+  left: 20%;
+  pointer-events: none;
 }
 
 tr[data-href] {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+#activate {
+  position: fixed;
+  bottom: 108px;
+  right: 137px;
+  font-family: Helvetica, sans-serif;
+  color: rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+}
+#activate span {
+  display: block;
+}
+#activate .l1 {
+  font-size: 24px;
+  position: absolute;
+  top: -35px;
+  left: 1px;
+}
+#activate .l2 {
+  font-size: 13px;
 }
