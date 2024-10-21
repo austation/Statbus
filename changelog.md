@@ -10,6 +10,11 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 ---
 
+#### [1.19.3] - 2024-07-04
+
+##### Fixed
+- A security breach. [Details here](https://tgstation13.org/phpBB/viewtopic.php?f=45&t=34399&p=754366#p754366).
+
 #### [1.19.0] - 2024-07-04
 
 ##### Added

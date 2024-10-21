@@ -151,6 +151,9 @@ class Ticket
 
     public function setMessage(?string $message): self
     {
+        if (str_contains($message, 'has created a note')) {
+            $message = "[The contents of this message are unavailable]";
+        }
         $this->message = nl2br($message);
 
         return $this;
