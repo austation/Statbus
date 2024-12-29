@@ -14,17 +14,17 @@
       "foreColor": "#FFF",
       "icon": "fa-spider"
     },
-    "AdminObserver": {
+    "Admin Observer": {
       "backColor": "#3498db",
       "foreColor": "#FFF",
       "icon": "fa-binoculars"
     },
-    "TrialAdmin": {
+    "Trial Admin": {
       "backColor": "#d05995",
       "foreColor": "#FFF",
       "icon": "fa-gavel"
     },
-    "GameAdmin": {
+    "Game Admin": {
       "backColor": "#9b59b6",
       "foreColor": "#FFF",
       "icon": "fa-asterisk"
@@ -34,22 +34,22 @@
       "foreColor": "#FFF",
       "icon": "fa-coffee"
     },
-    "AdminTrainer": {
+    "Admin Trainer": {
       "backColor": "#9570c0",
       "foreColor": "#FFF",
       "icon": "fa-asterisk"
     },
-    "GameMaster": {
+    "Game Master": {
       "backColor": "#d9b733",
       "foreColor": "#000",
       "icon": "fa-dungeon"
     },
-    "HeadAdmin": {
+    "Head Admin": {
       "backColor": "#ffa500",
       "foreColor": "#000",
       "icon": "fa-star"
     },
-    "HeadCoder": {
+    "Head Coder": {
       "backColor": "#31b626",
       "foreColor": "#FFF",
       "icon": "fa-star"
@@ -59,7 +59,7 @@
       "foreColor": "#FFF",
       "icon": "fa-server"
     },
-    "RememberedForever": {
+    "Remembered Forever": {
       "backColor": "#000",
       "foreColor": "#FFF",
       "icon": "fa-infinity"
@@ -74,9 +74,14 @@
       "foreColor": "#FFF",
       "icon": "fa-paintbrush"
     },
-    "AdminCandidate": {
+    "Admin Candidate": {
       "backColor": "#3498db",
       "foreColor": "#FFF",
       "icon": "fa-baby"
+    },
+    "SysOp": {
+      "backColor": "#a32ed9",
+      "foreColor": "#FFF",
+      "icon": "fa-gears"
     }
   }
