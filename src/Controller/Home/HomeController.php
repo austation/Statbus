@@ -118,7 +118,7 @@ class HomeController extends Controller
                 'url' => "https://superset.moth.fans/dashboard/list/",
                 'disabled' => false
             ],
-            
+
         ];
         if($user) {
             $apps[] = [
@@ -185,7 +185,7 @@ class HomeController extends Controller
             'narrow' => true,
             'apps' => $apps,
             'rounds' => $this->rounds->getRecentRounds(),
-            'server' => pick('basil', 'sybil', 'manuel', 'terry'),
+            'server' => pick('austation'),
             'fun' => $fun
         ]);
     }

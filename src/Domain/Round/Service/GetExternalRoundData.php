@@ -49,7 +49,7 @@ class GetExternalRoundData
     public static function getPolyLine(): string
     {
 
-        $server = pick('basil', 'sybil', 'manuel', 'terry');
+        $server = pick('austation');
         try {
             $poly = $client->request('GET', self::PUBLIC_LOGS.'/'.$server.'/data/npc_saves/Poly.json');
             $poly = json_decode((string) $poly->getBody(), true);

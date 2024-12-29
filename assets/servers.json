@@ -1,85 +1,14 @@
 {
-    "bagil": {
-        "version": "\/tg\/Station 13",
+    "austation": {
+        "version": "AuStation",
         "serverdata": {
-            "address": "bagil.tgstation13.org",
+            "address": "game.austation.net",
             "port": 2337,
-            "servername": "Basil [US-West]",
-            "dbname": "Bagil",
-            "commsname": "Bagil",
-            "public_logs_url": "https:\/\/tgstation13.download\/parsed-logs\/basil\/",
-            "raw_logs_url": "https:\/\/tgstation13.org\/raw-logs\/basil\/"
-        }
-    },
-    "sybil": {
-        "version": "\/tg\/Station 13",
-        "serverdata": {
-            "address": "sybil.tgstation13.org",
-            "port": 1337,
-            "servername": "Sigil [US-West]",
-            "dbname": "Sybil",
-            "commsname": "Sybil",
-            "public_logs_url": "https:\/\/tgstation13.download\/parsed-logs\/sybil\/",
-            "raw_logs_url": "https:\/\/tgstation13.org\/raw-logs\/sybil\/",
-            "popcap": "\u221e"
-        }
-    },
-    "sybil2": {
-        "version": "\/tg\/Station 13",
-        "serverdata": {
-            "address": "manuel.tgstation13.org",
-            "port": 1447,
-            "servername": "Manuel [Moar RP\/US-West]",
-            "dbname": "Manuel",
-            "commsname": "Manuel",
-            "public_logs_url": "https:\/\/tgstation13.download\/parsed-logs\/manuel\/",
-            "raw_logs_url": "https:\/\/tgstation13.org\/raw-logs\/manuel\/"
-        }
-    },
-    "eventhall": {
-        "serverdata": {
-            "address": "events.tgstation13.org",
-            "port": 4337,
-            "servername": "Event Hall [EU]",
-            "dbname": "Events-EU",
-            "commsname": "Event+Hall+EU",
-            "public_logs_url": "https:\/\/tgstation13.download\/parsed-logs\/event-hall\/",
-            "raw_logs_url": "https:\/\/tgstation13.org\/raw-logs\/event-hall\/",
-            "errortext": "No events currently \nplanned"
-        }
-    },
-    "eventhallus": {
-        "serverdata": {
-            "address": "bagil.tgstation13.org",
-            "port": 4447,
-            "servername": "Wall Hall [US-West]",
-            "dbname": "Events-US",
-            "commsname": "Event+Hall+US",
-            "public_logs_url": "https:\/\/tgstation13.download\/parsed-logs\/event-hall-us\/",
-            "raw_logs_url": "https:\/\/tgstation13.org\/raw-logs\/event-hall-us\/",
-            "errortext": "THE WALLS ARE CLOSING IN..."
-        }
-    },
-    "terry": {
-        "version": "\/tg\/Station 13",
-        "serverdata": {
-            "address": "terry.tgstation13.org",
-            "port": 3336,
-            "servername": "Terry [EU]",
-            "dbname": "Terry",
-            "commsname": "Terry",
-            "publiclogsurl": "https:\/\/tgstation13.download\/parsed-logs\/terry\/",
-            "rawlogsurl": "https:\/\/tgstation13.org\/raw-logs\/terry\/",
-        }
-    },
-    "campbell": {
-        "version": "\/tg\/Station 13",
-        "serverdata": {
-            "address": "campbell.tgstation13.org",
-            "port": 6337,
-            "servername": "Campbell [Moar RP\/EU]",
-            "dbname": "Campbell",
-            "commsname": "Campbell"
+            "servername": "AuStation",
+            "dbname": "austation",
+            "commsname": "austation",
+            "public_logs_url": "",
+            "raw_logs_url": ""
         }
     }
 }

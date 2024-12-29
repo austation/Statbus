@@ -11,31 +11,17 @@ use Symfony\Component\Yaml\Yaml;
 
 class ServerInformationService
 {
-    public const BASE_URL = 'https://tgstation13.org';
+    // unsure why this isn't in config
+    public const BASE_URL = 'https://logs.austation.net';
     public const PUBLIC_LOGS = self::BASE_URL . "/parsed-logs";
     public const ADMIN_LOGS = self::BASE_URL . "/raw-logs";
 
     public static function getServerInfo(): ?array
     {
-        $stack = HandlerStack::create();
-        $stack->push(new CacheMiddleware(), 'cache');
-        $client = new Client([
-            'base_uri' => 'https://tgstation13.org/',
-            'timeout'  => 2.0,
-            'handler' => $stack
-        ]);
-        try {
-            $response = $client->get('/serverinfo.json');
-            $data = json_decode($response->getBody(), true);
-            if (!$data) {
-                $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
-            }
-        } catch (Exception $e) {
-            $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
-        }
-        if (!$data) {
-            $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
-        }
+        // TODO: interface wth AuAPI to get current round ID detail and server info
+
+        $data = Yaml::parseFile(__DIR__ . '/../../assets/servers.json');
+
         if (isset($data['refreshtime'])) {
             unset($data['refreshtime']);
         }
@@ -89,10 +75,8 @@ class ServerInformationService
         }
         $rounds = [];
         foreach ($data as $s) {
-            if (isset($s['version']) && $s['version'] === "/tg/Station 13") {
-                if (isset($s['round_id'])) {
-                    $rounds[] = (int) $s['round_id'];
-                }
+            if (isset($s['round_id'])) {
+                $rounds[] = (int) $s['round_id'];
             }
         }
         return $rounds;

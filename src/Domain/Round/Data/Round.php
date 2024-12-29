@@ -307,9 +307,6 @@ class Round implements JsonSerializable
             }
             $server = $this->getServer();
             $name = strtolower($server->getIdentifier());
-            if('bagil' === $name) {
-                $name = 'basil'; //damn you to hell mso
-            }
             $date = explode(':', $time->format('Y:m:d'));
             $path = sprintf(
                 "/%s/data/logs/%s/%s/%s/round-%s",
