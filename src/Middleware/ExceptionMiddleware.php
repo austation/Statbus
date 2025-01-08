@@ -36,7 +36,7 @@ class ExceptionMiddleware extends Controller implements MiddlewareInterface
         $logger = $log = new Logger('stdout');
         $log->pushHandler(new StreamHandler('php://stdout', Logger::DEBUG));
         $this->logger = $logger;
-        $this->user = $containerInterface->get('User');
+        $this->user = $this->getUser();
     }
 
     public function action(): ResponseInterface

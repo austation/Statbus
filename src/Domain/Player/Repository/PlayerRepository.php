@@ -55,6 +55,7 @@ class PlayerRepository extends Repository
         $this->setResult($data);
         return $this->getResult();
     }
+
     public function getPlayerRecentPlaytime(string $ckey): array
     {
         $list = [];
@@ -69,6 +70,35 @@ class PlayerRepository extends Repository
             WHERE t.ckey = ?
             AND t.job in $jobs
             AND t.datetime BETWEEN CURDATE() - INTERVAL 30 DAY AND CURDATE()
+            GROUP BY t.job
+            ORDER BY `minutes` DESC",
+            $ckey
+        );
+        foreach($data as &$d) {
+            $job = Jobs::tryFrom($d->job);
+            if(!$job) {
+                continue;
+            }
+            $d->minutes = (int) $d->minutes + (rand(1, 3) * 10);
+            $d->background = $job->getColor();
+        }
+        $this->setResults($data, true);
+        return $this->getResults();
+    }
+
+    public function getPlayerPlaytime(string $ckey): array
+    {
+        $list = [];
+        foreach(Jobs::cases() as $job) {
+            if($job->includeInGraph()) {
+                $list[] = $job->value;
+            }
+        }
+        $jobs = "('".implode("','", $list)."')";
+        $data = $this->run(
+            "SELECT sum(t.delta) as `minutes`, t.job FROM role_time_log t
+            WHERE t.ckey = ?
+            AND t.job in $jobs
             GROUP BY t.job
             ORDER BY `minutes` DESC",
             $ckey

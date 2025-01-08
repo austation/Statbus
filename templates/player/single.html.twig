@@ -18,7 +18,7 @@
 			{{PlayerBadge(player.getPlayerBadge)}}
 		</h3>
 		<div class="card-body">
-			<dic class="row">
+			<div class="row">
 				<div class="col-md-9">
 					{% include 'player/components/chronodata.html.twig' %}
 
@@ -39,18 +39,18 @@
 							Roles played, last 30 days
 						</div>
 						<div class="card-body">
-							{% if  playtime %}
+						{% if  playtime %}
 								<div class="chart-container" style="position: relative;">
 									<canvas id="playtime"></canvas>
 								</div>
 							<script>{% include 'player/components/playtimeGraph.js' %}</script>
 							{% else %}
 								<p class="text-center mb-0">« Not Seen Recently »</p>
-							{% endif %}
+							{% endif %}	
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-{% endblock %}
+{% endblock %}fucusitutaxozucupeco

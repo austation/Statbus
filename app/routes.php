@@ -10,6 +10,9 @@ use Slim\Interfaces\RouteParserInterface;
 use Slim\Routing\RouteContext;
 
 return function (App $app) {
+    $settings = $app->getContainer()->get('settings');
+    $app->add(new RKA\Middleware\IpAddress(checkProxyHeaders: $settings['check_proxy_headers'], trustedProxies: [], headersToInspect: $settings['proxy_headers']));
+
     $app->get("/", \App\Controller\Home\HomeController::class)->setName("home");
     $app->get("/ping", function (Request $request, Response $response) {
         $response->getBody()->write(json_encode("pong"));
@@ -25,8 +28,8 @@ return function (App $app) {
 
     $app->post("/search", \App\Controller\Home\GlobalSearchController::class)->setName('search');
 
-    $settings = $app->getContainer()->get('settings')['app'];
-    $app->redirect('/discord', $settings['discord'], 301)->setName('discord');
+    $appSettings = $settings['app'];
+    $app->redirect('/discord', $appSettings['discord'], 301)->setName('discord');
 
     // $app->get("/r/{round:[0-9]+}", function (Request $request, Response $response, $args) {
     //     $app = $this->get(App::class);

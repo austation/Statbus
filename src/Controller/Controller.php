@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Domain\User\Service\AuthenticateUser;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -26,7 +27,8 @@ abstract class Controller
     protected $session;
 
     public function __construct(
-        protected ContainerInterface $container
+        protected ContainerInterface $container,
+        protected AuthenticateUser $auth
     ) {
         $this->user = $this->container->get('User');
         $this->session = $this->container->get(Session::class);
@@ -246,6 +248,12 @@ abstract class Controller
         return $this->user;
     }
 
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+        return $this;
+    }
+
     /**
      * Verify that the current logged in user has the permission required
      * by the request attribute. Throws an exception if this check fails, or
@@ -256,6 +264,13 @@ abstract class Controller
     private function permissionCheck(): void
     {
         $user = $this->getUser();
+        // If user not stored, attempt to retrieve user based on IP address, if enabled and authenticate automatically
+        if(!$user && $this->container->get('settings')['ip_auth']) {
+            $user = $this->auth->authenticateUserFromIp($this->getRequest()->getAttribute('ip_address'));
+            if($user) {
+                $this->setUser($user);
+            }
+        }
         $activeUser = $this->getRequest()->getAttribute('user');
         if($activeUser) {
             if(!$user) {
