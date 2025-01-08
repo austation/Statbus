@@ -30,7 +30,6 @@ abstract class Controller
         protected ContainerInterface $container,
         protected AuthenticateUser $auth
     ) {
-        $this->user = $this->container->get('User');
         $this->session = $this->container->get(Session::class);
     }
 
@@ -145,6 +144,7 @@ abstract class Controller
         $this->setQuery();
         $this->setArgs($args);
         $this->setRoute();
+        $this->setUser($request->getAttribute('user'));
         $this->permissionCheck();
         $this->method = $this->request->getMethod();
         return $this->action();
@@ -264,14 +264,7 @@ abstract class Controller
     private function permissionCheck(): void
     {
         $user = $this->getUser();
-        // If user not stored, attempt to retrieve user based on IP address, if enabled and authenticate automatically
-        if(!$user && $this->container->get('settings')['ip_auth']) {
-            $user = $this->auth->authenticateUserFromIp($this->getRequest()->getAttribute('ip_address'));
-            if($user) {
-                $this->setUser($user);
-            }
-        }
-        $activeUser = $this->getRequest()->getAttribute('user');
+        $activeUser = $this->getRequest()->getAttribute('authenticated');
         if($activeUser) {
             if(!$user) {
                 throw new StatbusUnauthorizedException("You must be logged in to access this", 403);

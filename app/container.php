@@ -23,6 +23,7 @@ use ParagonIE\EasyDB\Factory;
 use ParagonIE\EasyDB\EasyDBCache;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
+use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
@@ -162,18 +163,6 @@ return [
         } catch (Exception $e) {
             die("The /tg/station database is not available. This should be a temporary error.");
         }
-    },
-
-    User::class => function (ContainerInterface $containerInterface) {
-        $userRepository = new UserRepository($containerInterface->get(Connection::class), $containerInterface->get(EasyDB::class));
-        $session = $containerInterface->get(Session::class);
-        $ckey = $session->get('ckey');
-        if(!$ckey) {
-            return null;
-        }
-        $user = $userRepository->getUserByCkey($ckey);
-        $user->setSource($session->get('authSource'));
-        return $user;
     },
 
     LoggerFactory::class => function (ContainerInterface $container) {
