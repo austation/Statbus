@@ -100,7 +100,6 @@ return [
         $twig->getEnvironment()->addGlobal("debug", $config["debug"]);
         $twig->getEnvironment()->addGlobal("app", $config["app"]);
         $twig->getEnvironment()->addGlobal("flash", $session->getFlashBag()->all());
-        $twig->getEnvironment()->addGlobal("user", $container->get(User::class));
 
         $twig->addExtension(new \Twig\Extension\DebugExtension());
         $twig->addExtension(new WebpackAssetLoader($options));

@@ -11,6 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Slim\Views\Twig;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
@@ -22,6 +23,8 @@ class UserMiddleware implements MiddlewareInterface
     private UserRepository $userRepository;
 
     private Session $session;
+    
+    private Twig $twig;
 
     public function __construct(
         private ContainerInterface $containerInterface,
@@ -29,6 +32,7 @@ class UserMiddleware implements MiddlewareInterface
     ) {
         $this->userRepository = new UserRepository($containerInterface->get(Connection::class), $containerInterface->get(EasyDB::class));
         $this->session = $containerInterface->get(Session::class);
+        $this->twig = $containerInterface->get(Twig::class);
     }
 
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
@@ -45,6 +49,8 @@ class UserMiddleware implements MiddlewareInterface
                 $user = $this->auth->authenticateUserFromIp($request->getAttribute('ip_address'));
             }
         }
+
+        $this->twig->getEnvironment()->addGlobal('user', $user);
 
         return $handler->handle($request->withAttribute('user', $user));
     }
