@@ -12,7 +12,6 @@ function pick($list)
 
 use DI\Bridge\Slim\Bridge;
 use DI\ContainerBuilder;
-use Slim\App;
 
 require_once(__DIR__."/encoding.php");
 require_once(__DIR__."/../vendor/autoload.php");

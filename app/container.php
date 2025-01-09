@@ -23,7 +23,6 @@ use ParagonIE\EasyDB\Factory;
 use ParagonIE\EasyDB\EasyDBCache;
 use Psr\Container\ContainerInterface;
 use Psr\Http\Message\ResponseFactoryInterface;
-use Slim\App;
 use Slim\Factory\AppFactory;
 use Slim\Interfaces\RouteParserInterface;
 use Slim\Middleware\ErrorMiddleware;
