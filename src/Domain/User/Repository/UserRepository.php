@@ -23,7 +23,7 @@ class UserRepository extends Repository
         return User::fromArray($user);
     }
 
-    public function getUserByLastIp(string $ip): User|null
+    public function getUserByLastIp(string $ip): ?User
     {
         $res = $this->connection
         ->execute("SELECT
