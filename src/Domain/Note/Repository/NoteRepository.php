@@ -26,11 +26,10 @@ class NoteRepository extends Repository
         'n.lasteditor',
         'n.edits',
         'n.deleted',
-        'n.deleted_ckey',
         't.rank as t_rank',
         'a.rank as a_rank',
         'e.rank as e_rank',
-        'n.server'
+        'n.server_name'
     ];
 
     private array $joins = [

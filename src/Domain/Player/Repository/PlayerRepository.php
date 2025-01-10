@@ -130,6 +130,9 @@ class PlayerRepository extends Repository
 
     public function getKnownAltsForCkey(string $ckey): array
     {
+        /* 
+         * This just returns empty for the time being, as austation doesn't currently have an alts table
+         * 
         $this->setResults($this->run("SELECT k.id,
         k.ckey1,
         k.ckey2,
@@ -150,6 +153,8 @@ class PlayerRepository extends Repository
             $ckeys[] = $r;
         }
         return $ckeys;
+        */
+        return [];
     }
 
     public function ckeySearch(string $term): array

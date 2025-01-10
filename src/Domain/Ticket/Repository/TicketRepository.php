@@ -25,7 +25,6 @@ class TicketRepository extends Repository
       's.rank as s_rank',
       '(SELECT `action` FROM ticket WHERE id = c.last_id LIMIT 1) as `status`',
       'c.replies as `replies`',
-      't.urgent',
     ];
 
     private array $joins = [
