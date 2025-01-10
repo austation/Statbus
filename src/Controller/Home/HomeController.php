@@ -100,24 +100,6 @@ class HomeController extends Controller
                 'icon' => 'fas fa-file-lines',
                 'url' => $this->getUriForRoute('changelog'),
             ],
-            [
-                'name' => 'BadgeR',
-                'icon' => 'fas fa-id-card',
-                'url' => "https://badger.statbus.space",
-                'disabled' => false
-            ],
-            [
-                'name' => 'Renderbus',
-                'icon' => 'fas fa-location-dot',
-                'url' => "https://renderbus.statbus.space",
-                'disabled' => false
-            ],
-            [
-                'name' => 'Superset (Graphs)',
-                'icon' => 'fas fa-chart-line',
-                'url' => "https://superset.moth.fans/dashboard/list/",
-                'disabled' => false
-            ],
 
         ];
         if($user) {
