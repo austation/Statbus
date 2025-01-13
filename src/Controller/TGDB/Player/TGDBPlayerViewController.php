@@ -44,7 +44,7 @@ class TGDBPlayerViewController extends Controller
                 'standing' => $standing,
             ]);
         } else {
-            $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
+            $playTime = $this->playerRepository->getPlayerPlaytime($ckey);
         }
         return $this->render('tgdb/player/single.html.twig', [
             'player' => $player,

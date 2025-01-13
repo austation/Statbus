@@ -48,7 +48,7 @@ class ViewPlayerController extends Controller
                 'standing' => $standing
             ]);
         }
-        $playTime = $this->playerRepository->getPlayerRecentPlaytime($ckey);
+        $playTime = $this->playerRepository->getPlayerPlaytime($ckey);
         $achievements = $this->achievementRepository->getAchievementsForCkey($ckey);
         $logs = $this->adminLog->getAdminLogsForCkey($ckey);
         return $this->render('player/single.html.twig', [

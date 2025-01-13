@@ -22,6 +22,10 @@
 				<div class="col-md-9">
 					{% include 'player/components/chronodata.html.twig' %}
 
+					{% if playtime %}
+						{% include 'player/components/playtimeData.html.twig' %}
+					{% endif %}
+
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
 					{% endif %}
@@ -34,21 +38,6 @@
 				</div>
 				<div class="col-md-3">
 					{% include 'player/components/sidebarLinks.html.twig' %}
-					<div class="card">
-						<div class="card-header fw-bold">
-							Roles played, last 30 days
-						</div>
-						<div class="card-body">
-						{% if  playtime %}
-								<div class="chart-container" style="position: relative;">
-									<canvas id="playtime"></canvas>
-								</div>
-							<script>{% include 'player/components/playtimeGraph.js' %}</script>
-							{% else %}
-								<p class="text-center mb-0">« Not Seen Recently »</p>
-							{% endif %}
-						</div>
-					</div>
 				</div>
 			</div>
 		</div>
