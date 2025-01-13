@@ -60,9 +60,7 @@ class PlayerRepository extends Repository
     {
         $list = [];
         foreach(Jobs::cases() as $job) {
-            if($job->includeInGraph()) {
-                $list[] = $job->value;
-            }
+            $list[] = $job->value;
         }
         $jobs = "('".implode("','", $list)."')";
         $data = $this->run(
@@ -90,9 +88,7 @@ class PlayerRepository extends Repository
     {
         $list = [];
         foreach(Jobs::cases() as $job) {
-            if($job->includeInGraph()) {
-                $list[] = $job->value;
-            }
+            $list[] = $job->value;
         }
         $jobs = "('".implode("','", $list)."')";
         $data = $this->run(

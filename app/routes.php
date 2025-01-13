@@ -69,7 +69,7 @@ return function (App $app) {
     $app->group("/rounds", function (RouteCollectorProxy $app) {
         $app->get("[/page/{page:[0-9]+}]", \App\Controller\Round\RoundIndexController::class)->setName("rounds");
         $app->get("/myrounds[/page/{page:[0-9]+}]", \App\Controller\Round\RoundsForPlayerController::class)->setName("rounds.player")->add(function (ServerRequestInterface $request, RequestHandlerInterface $handler) {
-            $request = $request->withAttribute('user', true);
+            $request = $request->withAttribute('authenticated', true);
             $response = $handler->handle($request);
             return $response;
         });

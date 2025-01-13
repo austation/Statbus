@@ -120,8 +120,7 @@ class TicketRepository extends Repository
         r.rank as `r_rank`,
         s.rank as `s_rank`,
         (SELECT `action` FROM ticket WHERE id = c.last_id LIMIT 1) as `status`,
-        c.replies as `replies`,
-        first_tickets.urgent
+        c.replies as `replies`
     FROM
         ticket
         LEFT JOIN (SELECT round_id, ticket, COUNT(id) as `replies`, max(id) as `last_id` FROM ticket GROUP BY round_id, ticket) as c on (c.round_id = ticket.round_id and c.ticket = ticket.ticket)

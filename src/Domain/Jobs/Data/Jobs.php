@@ -185,15 +185,6 @@ enum Jobs: string
         };
     }
 
-    public function includeInGraph(): bool
-    {
-        return match($this) {
-            default => true,
-            Jobs::LIVING, Jobs::ADMIN, Jobs::GHOST,Jobs::ABDUCTOR, Jobs::XENOMORPH, Jobs::BLOB, Jobs::BLOOD_BROTHER, Jobs::CHANGELING, Jobs::CULTIST, Jobs::INTERNAL_AFFAIRS_AGENT, Jobs::MALF, Jobs::MONKEY, Jobs::SPACE_NINJA, Jobs::OPERATIVE, Jobs::SYNDICATE_MUTINEER, Jobs::REVOLUTIONARY, Jobs::REVENANT, Jobs::HEAD_REVOLUTIONARY, Jobs::SYNDICATE, Jobs::TRAITOR, Jobs::WIZARD, Jobs::HIVEMIND_HOST, Jobs::HERETIC, Jobs::NIGHTMARE,
-            Jobs::NUCLEAR_OPERATIVE => false
-        };
-    }
-
     public function getBadge(): JobBadge
     {
         return new JobBadge($this);
