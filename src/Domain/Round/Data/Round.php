@@ -51,7 +51,7 @@ class Round implements JsonSerializable
         $this->setEndDuration();
         $this->setLogLinks();
         $this->setFeatures();
-        $this->setThreat();
+        //$this->setThreat();
     }
 
     private function setFeatures(): self
@@ -357,6 +357,7 @@ class Round implements JsonSerializable
         return $this->getInitDatetime();
     }
 
+    /*
     public function setThreat(): self
     {
         if($this->threat) {
@@ -371,6 +372,7 @@ class Round implements JsonSerializable
     {
         return $this->threat;
     }
+    */
 
     public function jsonSerialize(): mixed
     {

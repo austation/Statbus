@@ -27,10 +27,8 @@ class RoundRepository extends Repository
         r.end_state,
         r.shuttle_name,
         r.map_name,
-        r.station_name,
-        dt.json as dt
+        r.station_name
         FROM round r
-        LEFT JOIN feedback dt ON dt.round_id = r.id AND dt.key_name = 'dynamic_threat'
         WHERE r.id = ?";
 
         $this->setResult($this->actualRow($query, [$id]));
@@ -63,10 +61,8 @@ class RoundRepository extends Repository
         r.end_state,
         r.shuttle_name,
         r.map_name,
-        r.station_name,
-        dt.json as dt
+        r.station_name
         FROM round r
-        LEFT JOIN feedback dt ON dt.round_id = r.id AND dt.key_name = 'dynamic_threat'
         WHERE r.id NOT IN $currentRounds
         ORDER BY r.id DESC
         LIMIT 0, 12";
@@ -94,10 +90,8 @@ class RoundRepository extends Repository
         r.end_state,
         r.shuttle_name,
         r.map_name,
-        r.station_name,
-        dt.json as dt
+        r.station_name
         FROM round r
-        LEFT JOIN feedback dt ON dt.round_id = r.id AND dt.key_name = 'dynamic_threat'
         WHERE r.id NOT IN $currentRounds
         ORDER BY r.id DESC
         LIMIT ?,?";
@@ -129,11 +123,9 @@ class RoundRepository extends Repository
         r.end_state,
         r.shuttle_name,
         r.map_name,
-        r.station_name,
-        dt.json as dt
+        r.station_name
         FROM connection_log c
         LEFT JOIN round r ON c.round_id = r.id
-        LEFT JOIN feedback dt ON dt.round_id = r.id AND dt.key_name = 'dynamic_threat'
         WHERE c.ckey = ?
         AND r.id NOT IN $currentRounds
         ORDER BY r.id DESC
