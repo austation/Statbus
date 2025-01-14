@@ -81,6 +81,11 @@ const getOrCreateLegendList = (chart, id) => {
     data: formatData({{playtime|json_encode()|raw}}, "Minutes"),
     options: {
       scales: {
+        xAxes: [{
+          ticks: {
+            autoSkip: false
+          }
+        }],
         y: {
           type: 'logarithmic',
         }
