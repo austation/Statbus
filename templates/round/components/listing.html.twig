@@ -15,7 +15,7 @@
 		</thead>
 		<tbody>
 			{% for r in rounds %}
-				<tr class="table-{{r.getState.cssClass}}" data-href="{{full_url_for('round.single',{'id':r.getId})}}">
+				<tr class="table-{{r.getState.cssClass}}" data-href="{{url_for('round.single',{'id':r.getId})}}">
 					<td>{{RoundBadge(r.getId)}}</td>
 					<td>{{ServerBadge(r.getServer)}}</td>
 					<td>
