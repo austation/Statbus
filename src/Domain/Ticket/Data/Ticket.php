@@ -28,7 +28,6 @@ class Ticket
         public ?string $s_rank,
         public $status,
         public ?int $replies,
-        public ?bool $urgent = false,
         public ?Server $server = null
     ) {
         $this->setBadges();
