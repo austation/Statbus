@@ -4,9 +4,5 @@
 	{% if user.has('ADMIN') %}
 		<li><a href="{{link}}">View this ticket on TGDB</a></li>
 	{% endif %}
-	<li>Log in via
-		<a href="{{url_for('auth.discord')}}">Discord</a>
-		or the
-		<a href="{{url_for('auth.forum')}}">TGStation Forum</a>
-	</li>
+	<li>Authenticate with Statbus by logging into the AuStation BYOND server.</li>
 </ul>
