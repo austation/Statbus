@@ -81,14 +81,14 @@ const getOrCreateLegendList = (chart, id) => {
     data: formatData({{playtime|json_encode()|raw}}, "Minutes"),
     options: {
       scales: {
-        x: {
+        y: {
           type: 'logarithmic',
         }
       },
-      indexAxis: 'y',
+      indexAxis: 'x',
       parsing: {
-        xAxisKey: "job",
-        yAxisKey: "minutes",
+        xAxisKey: "minutes",
+        yAxisKey: "job",
         key: "job",
       },
       plugins: {
@@ -100,9 +100,10 @@ const getOrCreateLegendList = (chart, id) => {
     // plugins: [htmlLegendPlugin],
   };
   const chart = new Chart(ctx, options)
-  const height = chart.getSortedVisibleDatasetMetas()[0].data.length * 30 + 100
-  const width = chart.canvas.parentNode.offsetWidth
-  chart.canvas.parentNode.style.height = `${height}px`;
+  //const height = chart.getSortedVisibleDatasetMetas()[0].data.length * 30 + 100
+  const height = '50vh';
+  const width = chart.canvas.parentNode.offsetWidth;
+  chart.canvas.parentNode.style.height = `${height}`;
   chart.canvas.parentNode.style.width = `${chart.canvas.parentNode.style.width}px`;
   chart.render()
   
