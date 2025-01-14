@@ -10,6 +10,15 @@ and this project loosely adheres to [Semantic Versioning](https://semver.org/spe
 Check out the [Statbus Design Document](https://hackmd.io/@nfreader/SJRqy-rU3)
 ---
 
+#### [1.20.0-austation] - 2025-01-14
+
+##### Added
+- IP Authentication
+- Full playtime stats on player pages
+
+##### Removed
+- /tg/station specific features
+
 #### [1.19.3] - 2024-07-04
 
 ##### Fixed
