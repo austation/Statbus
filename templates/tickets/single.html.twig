@@ -23,11 +23,7 @@
 	{{ServerBadge(ticket[0].getServer)}}
 </span>
 <span>{{ticket[0].getTimestamp|date}}</span>{% endblock %}{% block cardSubHeader %}
-{% if ticket[0].isUrgent %}
-	<div class="text-bg-danger px-3 py-1">
-		This ticket was marked as URGENT!
-	</div>
-{% endif %}{% endblock %}{% block cardBody %}
+{% endblock %}{% block cardBody %}
 <div class="row">
 	<div class="col-lg-8">
 		{% for t in ticket %}

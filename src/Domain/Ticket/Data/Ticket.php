@@ -267,9 +267,4 @@ class Ticket
         return $this->bwoink;
     }
 
-    public function isUrgent(): bool
-    {
-        return $this->urgent;
-    }
-
 }

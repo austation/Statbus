@@ -26,11 +26,6 @@
 	<span>{{ticket[0].getTimestamp|date}}</span>
 {% endblock %}
 {% block cardSubHeader %}
-{% if ticket[0].isUrgent %}
-<div class="text-bg-danger px-3 py-1">
-		This ticket was marked as URGENT!
-	</div>
-{% endif %}
 {% endblock %}
 {% block cardBody %}
 	<div class="row">
