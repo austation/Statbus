@@ -22,15 +22,15 @@
 				<div class="col-md-9">
 					{% include 'player/components/chronodata.html.twig' %}
 
-					{% if playtime %}
-						{% include 'player/components/playtimeData.html.twig' %}
-					{% endif %}
-
 					{% if player.getFlags %}
 						{% include 'player/components/permissionsTable.html.twig' %}
 					{% endif %}
 
 					{% include 'player/components/achievementsListing.html.twig' %}
+
+					{% if playtime %}
+						{% include 'player/components/playtimeData.html.twig' %}
+					{% endif %}
 
 					{% if logs %}
 						{% include 'player/components/adminLogList.html.twig' with {'logs':logs} only %}
