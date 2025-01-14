@@ -37,6 +37,7 @@ return function (App $app) {
     // });
 
     //Authentication Controllers
+    /* disable oauth functions on austation
     $app->group("/auth", function (RouteCollectorProxy $app) {
         //Via Discord
         $app->get("/discord", \App\Controller\Auth\StartDiscordAuthenticationController::class)->setName("auth.discord");
@@ -46,6 +47,7 @@ return function (App $app) {
         $app->get("/tgforum", \App\Controller\Auth\StartForumAuthenticationController::class)->setName("auth.forum");
         $app->get("/tgforum/success", \App\Controller\Auth\FinishForumAuthenticationController::class)->setName("auth.forum.check");
     });
+    */
 
     //Bans
     $app->group("/bans", function (RouteCollectorProxy $app) {
